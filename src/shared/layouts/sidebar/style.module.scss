@@ -1,0 +1,10 @@
+.sidebar {
+  box-shadow: 3px 0px 6px #00000026;
+  height: 100vh;
+  @apply overflow-y-scroll;
+}
+.activeLink {
+  .lineHr {
+    display: block;
+  }
+}

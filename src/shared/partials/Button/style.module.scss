@@ -1,0 +1,159 @@
+:global .btn {
+  @apply relative capitalize font-normal text-base transition-all duration-500 ease-in-out inline-block;
+  box-shadow: 0px 3px 6px #00000029;
+  .ripple-box {
+    @apply absolute inset-0 overflow-hidden;
+  }
+  .ripple-element {
+    position: absolute;
+    border-radius: 50%;
+    background-color: rgba($color: gray, $alpha: 0.2);
+    animation: ripple 1s;
+    opacity: 0;
+    transition: opacity,transform 0ms cubic-bezier(0,0,.2,1);
+  }
+
+
+  // Variants
+  &.text {
+    @apply p-0 #{!important};
+    min-width: 0 !important;
+    min-height: 0 !important;
+    box-shadow: none;
+    &:disabled {
+      @apply relative cursor-not-allowed text-gray1;
+    }
+  }
+
+  &.contained {
+    &:disabled {
+      @apply relative cursor-not-allowed opacity-50 text-white;
+    }
+  }
+
+  &.outline {
+    &:disabled {
+      @apply relative cursor-not-allowed text-gray1 border-gray1;
+    }
+  }
+
+  .loading {
+    @apply absolute flex left-1/2 top-1/2 transform -translate-x-1/2 -translate-y-1/2;
+    .lds-ripple div {
+      border-color: currentColor;
+    }
+  }
+
+  // Color: primary
+  &.btn-primary {
+    @apply text-primary;
+
+    &-contained {
+      @apply bg-primary text-white;
+
+      &:hover {
+        @apply opacity-95;
+      }
+    }
+
+    &-outline {
+      @apply text-primary;
+    }
+  }
+
+  // Color: secondary
+  &.btn-secondary {
+    @apply text-secondary;
+
+    &-contained {
+      @apply bg-secondary text-white;
+
+      &:hover {
+        @apply opacity-95;
+      }
+    }
+
+    &-outline {
+      @apply text-secondary;
+    }
+  }
+
+  &.btn-secondary2 {
+    @apply text-green1;
+
+    &-contained {
+      @apply bg-green1 text-white;
+
+      &:hover {
+        @apply opacity-95;
+      }
+    }
+
+    &-outline {
+      @apply text-green1;
+    }
+  }
+
+  // Color: basic
+  &.btn-basic {
+    @apply text-white;
+
+    &-contained {
+      @apply bg-primary text-black;
+
+      &:hover {
+        @apply opacity-95;
+      }
+    }
+
+    &-outline {
+      @apply border border-gray1;
+    }
+  }
+
+  &.btn-danger {
+    @apply text-danger;
+
+    &-contained {
+      @apply bg-danger text-white;
+    }
+
+    &-outline {
+      @apply text-danger border border-danger;
+    }
+  }
+
+  &.btn-success {
+    @apply text-success;
+    
+    &-contained {
+      @apply bg-success text-white;
+
+      &:hover {
+        @apply opacity-95;
+      }
+    }
+
+    &-outline {
+      @apply text-success;
+    }
+  }
+
+  // Size (default: md)
+  &.btn-lg {
+    @apply py-5 px-14;
+    min-height: 3.75rem;
+    min-width: 12rem;
+  }
+  &.btn-md {
+    @apply py-2 px-5;
+    min-height: 1.75rem;
+    min-width: 6.75rem;
+  }
+
+  &.btn-sm {
+    min-height: 1.25rem;
+    min-width: 6.25rem;
+    font-size: 0.75rem;
+  }
+}
