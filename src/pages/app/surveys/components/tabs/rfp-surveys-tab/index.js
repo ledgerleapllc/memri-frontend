@@ -1,10 +1,9 @@
 import React, { Component } from "react";
 import { connect } from "react-redux";
 import { withRouter } from "react-router-dom";
-import { Fade } from "react-reveal";
-import "./style.scss";
 import ActiveRFPSurveysTable from "../../tables/active-rfp-surveys";
 import CompletedRFPSurveysTable from "../../tables/completed-rfp-surveys";
+import { Card, CardHeader, CardBody } from '@shared/partials';
 
 const mapStateToProps = (state) => {
   return {
@@ -13,29 +12,29 @@ const mapStateToProps = (state) => {
 };
 
 class RFPSurveysTab extends Component {
-  constructor(props) {
-    super(props);
-  }
-
   render() {
     return (
-      <div className="h-100 rfp-survey-page">
-        <Fade distance={"20px"} bottom duration={300} delay={600}>
-          <section className="active-rfp-surveys-section app-infinite-box mb-4">
-            <div className="app-infinite-search-wrap">
-              <label>Active Surveys</label>
-            </div>
-            <ActiveRFPSurveysTable />
-          </section>
-        </Fade>
-        <Fade distance={"20px"} bottom duration={300} delay={600}>
-          <section className="completed-rfp-surveys-section app-infinite-box mb-4">
-            <div className="app-infinite-search-wrap">
-              <label>Completed Surveys</label>
-            </div>
-            <CompletedRFPSurveysTable />
-          </section>
-        </Fade>
+      <div className="h-full flex flex-col">
+        <div className="h-1/2 pb-4">
+          <Card className="h-full">
+            <CardHeader>
+              <h3>Active Surveys</h3>
+            </CardHeader>
+            <CardBody>
+              <ActiveRFPSurveysTable />
+            </CardBody>
+          </Card>
+        </div>
+        <div className="h-1/2">
+          <Card className="h-full">
+            <CardHeader>
+              <h3>Completed Surveys</h3>
+            </CardHeader>
+            <CardBody>
+              <CompletedRFPSurveysTable />
+            </CardBody>
+          </Card>
+        </div>
       </div>
     );
   }

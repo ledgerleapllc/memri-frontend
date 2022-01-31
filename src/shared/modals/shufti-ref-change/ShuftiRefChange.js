@@ -2,6 +2,7 @@ import React, { Component } from "react";
 import { connect } from "react-redux";
 import { withRouter } from "react-router-dom";
 import { FormInputComponent } from "../../components";
+import { Button } from '@shared/partials';
 
 import {
   hideCanvas,
@@ -74,16 +75,20 @@ class ShuftiRefChange extends Component {
           required={true}
         />
         <div className="actions">
-          <button
-            className="btn btn-primary"
+          <Button
+            size="sm" 
             onClick={this.doUpdateShufti}
             disabled={!this.state.shuftiRef}
           >
             Add/Update
-          </button>
-          <a onClick={this.hideModal} style={{ cursor: "pointer" }}>
+          </Button>
+          <Button 
+            variant="text" 
+            size="sm" 
+            onClick={this.hideModal}
+          >
             Cancel and Go back
-          </a>
+          </Button>
         </div>
       </div>
     );

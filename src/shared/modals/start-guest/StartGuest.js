@@ -9,6 +9,7 @@ import {
 } from "@redux/actions";
 import Helper from "@utils/Helper";
 import { startGuest } from "@utils/Thunk";
+import { Button } from '@shared/partials';
 
 import "./start-guest.scss";
 
@@ -61,12 +62,12 @@ class StartGuest extends Component {
         <p className="mt-2 mb-5">{`Guests are welcome to explore the portal. As a guest, you can view discussions, completed votes, and proposals in the portal. If you would like to engage further, you will need to register an account. As a guest you must agree to the terms and conditions to proceed.`}</p>
 
         <div id="start-guest-modal__buttons">
-          <a className="btn btn-primary" onClick={this.clickEnter}>
+          <Button size="sm" color="primary" onClick={this.clickEnter}>
             Enter Portal
-          </a>
-          <a className="btn btn-danger" onClick={this.hideModal}>
+          </Button>
+          <Button size="sm" color="danger" onClick={this.hideModal}>
             Cancel
-          </a>
+          </Button>
         </div>
       </div>
     );

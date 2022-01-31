@@ -1,3 +1,4 @@
+/* eslint-disable import/no-anonymous-default-export */
 import { SAVE_DRAFT_BEFORE_LOGOUT, SET_EDIT_PROPOSAL_DATA } from "../actions";
 
 const initialState = {

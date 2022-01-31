@@ -36,15 +36,18 @@ import {
   checkMentor,
 } from "@utils/Thunk";
 
-import "./single-proposal-detail.scss";
+import "./style.module.scss";
 import { FormSelectComponent } from "@shared/components";
 import {
   Card,
   CardHeader,
   CardBody,
-  CardPreview,
+  CardBodyPreview,
+  Button,
+  CardBodyExpand,
+  Tag,
   CardContext,
-} from "@shared/components/card";
+} from "@shared/partials";
 
 const proposalParams = (proposal) => {
   return {
@@ -152,11 +155,19 @@ class SingleProposalDetail extends Component {
     };
   }
 
+  componentDidMount() {
+    document.body.classList.add('scroll-window');
+  }
+
   componentDidUpdate(prevProps) {
     if (this.props.editMode && this.props.editMode !== prevProps.editMode) {
       this.toggleEditMode();
       this.props.dispatch(toggleEditMode(false));
     }
+  }
+
+  componentWillUnmount() {
+    document.body.classList.remove('scroll-window');
   }
 
   toggle = (e) => {
@@ -561,9 +572,9 @@ class SingleProposalDetail extends Component {
 
     relations.forEach((relation, index) => {
       items.push(
-        <div className="app-spd-relation-item" key={`relation_${index}`}>
-          <Icon.CheckSquare color="#9B64E6" />
-          <label className="font-weight-700">{RELATIONSHIPS[relation]}</label>
+        <div className="flex gap-4" key={`relation_${index}`}>
+          <Icon.CheckSquare className="text-primary" />
+          <label className="flex-1">{RELATIONSHIPS[relation]}</label>
         </div>
       );
     });
@@ -861,6 +872,7 @@ class SingleProposalDetail extends Component {
             href={Helper.joinURL(process.env.REACT_APP_BACKEND_URL, file.url)}
             target="_blank"
             rel="noreferrer"
+            className="text-primary"
           >
             {file.name}
           </a>
@@ -913,7 +925,7 @@ class SingleProposalDetail extends Component {
             <Icon.Info size={16} />
           </div>
           <div className="app-simple-section__body">
-            <label className="font-weight-700 d-block">KYC Status:</label>
+            <label className="font-bold d-block">KYC Status:</label>
             <p>
               {user.shuftipro && user.shuftipro.status == "approved"
                 ? "Pass"
@@ -921,7 +933,7 @@ class SingleProposalDetail extends Component {
                 ? "Fail"
                 : "Need to Submit"}
             </p>
-            <label className="font-weight-700 d-block">
+            <label className="font-bold d-block">
               Final Grant Agreement:
             </label>
             <p>
@@ -940,13 +952,13 @@ class SingleProposalDetail extends Component {
               ) : null}
             </p>
             {proposal.form_submitted ? (
-              <a
+              <Button variant="text" size="sm"
                 className="dynamic-color"
                 style={{ cursor: "pointer" }}
                 onClick={this.clickViewForm}
               >
                 <u>View Payment Form</u>
-              </a>
+              </Button>
             ) : null}
           </div>
         </div>
@@ -962,10 +974,10 @@ class SingleProposalDetail extends Component {
       grants.forEach((grant, index) => {
         const percent = +grant.grant / +proposal.total_grant;
         items.push(
-          <div className="app-spd-grant-item" key={`grant_${index}`}>
-            <Icon.CheckSquare color="#9B64E6" />
+          <div className="flex gap-4 mb-4" key={`grant_${index}`}>
+            <Icon.CheckSquare color="#FB5824" />
             <div>
-              <label className="font-weight-700">
+              <label className="font-bold">
                 {GRANTTYPES[grant.type]}
               </label>
               <span>
@@ -979,11 +991,8 @@ class SingleProposalDetail extends Component {
                   Helper.formatPriceNumber(grant.grant)}
               </span>
               <span>{grant.type_other || ""}</span>
-              <p
-                className="font-size-14"
-                style={{ marginTop: "10px", marginBottom: "10px" }}
-              >
-                Percentage kept by OP: {grant.percentage || 0}%
+              <p>
+                Percentage kept by OP: <span className="pl-2">{grant.percentage || 0}%</span>
               </p>
             </div>
           </div>
@@ -1015,9 +1024,9 @@ class SingleProposalDetail extends Component {
               onClick={() => this.toggle(index)}
             >
               {checked ? (
-                <Icon.CheckSquare color="#9B64E6" />
+                <Icon.CheckSquare color="#FB5824" />
               ) : (
-                <Icon.Square color="#9B64E6" />
+                <Icon.Square color="#FB5824" />
               )}
             </div>
             <div className="c-checkbox-itemContent">
@@ -1054,9 +1063,9 @@ class SingleProposalDetail extends Component {
               style={{ marginTop: "12px" }}
             >
               {checked ? (
-                <Icon.CheckSquare color="#9B64E6" />
+                <Icon.CheckSquare color="#FB5824" />
               ) : (
-                <Icon.Square color="#9B64E6" />
+                <Icon.Square color="#FB5824" />
               )}
             </div>
             <div className="c-checkbox-itemContent">
@@ -1102,26 +1111,36 @@ class SingleProposalDetail extends Component {
     if (citations && citations.length) {
       citations.forEach((citation, index) => {
         items.push(
-          <div key={`citation_${index}`}>
-            <label className="d-block mt-5 mb-5" style={{ color: "#9B64E6" }}>
+          <div className="flex flex-col gap-2" key={`citation_${index}`}>
+            <label className="text-primary">
               Citation #{index + 1}:
             </label>
-            <label className="font-weight-700 d-block">{`Cited Proposal Number`}</label>
-            <p>{citation.rep_proposal_id}</p>
-            <label className="font-weight-700 d-block">{`Cited Proposal Title`}</label>
-            <p>{citation.rep_proposal.title}</p>
-            <label className="font-weight-700 d-block">{`Cited Proposal OP`}</label>
-            <p>{citation.rep_proposal.user.profile.forum_name}</p>
-            <label className="font-weight-700 d-block">{`Explain how this work is foundational to your work`}</label>
-            <p>{citation.explanation}</p>
-            <label className="font-weight-700 d-block">{`% of the rep gained from this proposal do you wish to give to the OP of the prior work`}</label>
-            <p>{citation.percentage}</p>
+            <div>
+              <label className="font-bold d-block">{`Cited Proposal Number`}</label>
+              <p>{citation.rep_proposal_id}</p>
+            </div>
+            <div>
+              <label className="font-bold d-block">{`Cited Proposal Title`}</label>
+              <p>{citation.rep_proposal.title}</p>
+            </div>
+            <div>
+              <label className="font-bold d-block">{`Cited Proposal OP`}</label>
+              <p>{citation.rep_proposal.user?.profile.forum_name}</p>
+            </div>
+            <div> 
+              <label className="font-bold d-block">{`Explain how this work is foundational to your work`}</label>
+              <p>{citation.explanation}</p>
+            </div>
+            <div>
+              <label className="font-bold d-block">{`% of the rep gained from this proposal do you wish to give to the OP of the prior work`}</label>
+              <p>{citation.percentage}</p>
+            </div>
           </div>
         );
       });
     }
     return (
-      <>
+      <div className="pt-4">
         {this.renderLabelEdition("Citations", "citations", {
           citations: JSON.parse(
             JSON.stringify(
@@ -1132,7 +1151,7 @@ class SingleProposalDetail extends Component {
             )
           ),
         })}
-        {this.state.editionField !== "citations" && <>{items}</>}
+        {this.state.editionField !== "citations" && <div className="flex flex-col gap-4">{items}</div>}
         {this.state.editionField === "citations" && (
           <ProposalCitationView
             showAction={true}
@@ -1144,7 +1163,7 @@ class SingleProposalDetail extends Component {
             }}
           />
         )}
-      </>
+      </div>
     );
   }
 
@@ -1155,45 +1174,57 @@ class SingleProposalDetail extends Component {
     if (milestones) {
       milestones.forEach((milestone, index) => {
         items.push(
-          <div key={`milestone_${index}`}>
-            <label className="d-block mt-5 mb-5" style={{ color: "#9B64E6" }}>
+          <div className="flex flex-col gap-2" key={`milestone_${index}`}>
+            <label className="text-primary">
               Milestone #{index + 1}:
             </label>
-            <label className="font-weight-700 d-block">
-              Title of Milestone (10 word limit)
-            </label>
-            <p>{milestone.title}</p>
-            <label className="font-weight-700 d-block">
-              Details of what will be delivered in milestone
-            </label>
-            <p className="text-pre-wrap">{milestone.details}</p>
-            <label className="font-weight-700 d-block">
-              {`Acceptance criteria: Please enter the specific details on what
-                the deliverable must do to prove this milestone is complete.`}
-            </label>
-            <p className="text-pre-wrap">{milestone.criteria}</p>
+            <div>
+              <label className="font-bold">
+                Title of Milestone (10 word limit)
+              </label>
+              <p>{milestone.title}</p>
+            </div>
+            <div>
+              <label className="font-bold">
+                Details of what will be delivered in milestone
+              </label>
+              <p className="text-pre-wrap">{milestone.details}</p>
+            </div>
+            <div>
+              <label className="font-bold">
+                {`Acceptance criteria: Please enter the specific details on what
+                  the deliverable must do to prove this milestone is complete.`}
+              </label>
+              <p className="text-pre-wrap">{milestone.criteria}</p>
+            </div>
             {/* {milestone.kpi && (
               <>
-                <label className="font-weight-700 d-block">
+                <label className="font-bold d-block">
                   {`Please detail the KPIs (Key Performance Indicators) for each milestone and your project overall. Please provide as many details as possible. Any KPIs should measure your delivery's performance.`}
                 </label>
                 <p>{milestone.kpi}</p>
               </>
             )} */}
-            <label className="font-weight-700 d-block">
-              Grant portion requested for this milestone
-            </label>
-            <p>{Helper.formatPriceNumber(milestone.grant.toString())}</p>
-            <label className="font-weight-700 d-block">Deadline</label>
-            <p>
-              {milestone.deadline
-                ? moment(milestone.deadline).format("M/D/YYYY")
-                : ""}
-            </p>
-            <label className="font-weight-700 d-block">
-              Level of Difficulty
-            </label>
-            <p>{milestone.level_difficulty}</p>
+            <div>
+              <label className="font-bold">
+                Grant portion requested for this milestone
+              </label>
+              <p>{Helper.formatPriceNumber(milestone.grant.toString())}</p>
+            </div>
+            <div>
+              <label className="font-bold">Deadline</label>
+              <p>
+                {milestone.deadline
+                  ? moment(milestone.deadline).format("M/D/YYYY")
+                  : ""}
+              </p>
+            </div>
+            <div>
+              <label className="font-bold">
+                Level of Difficulty
+              </label>
+              <p>{milestone.level_difficulty}</p>
+            </div>
           </div>
         );
       });
@@ -1209,16 +1240,20 @@ class SingleProposalDetail extends Component {
     if (members) {
       members.forEach((member, index) => {
         items.push(
-          <div key={`member_${index}`}>
-            <label className="d-block mt-5 mb-5" style={{ color: "#9B64E6" }}>
+          <div className="flex flex-col gap-2" key={`member_${index}`}>
+            <label className="text-primary">
               Team Member #{index + 1}:
             </label>
-            <label className="font-weight-700 d-block">Full Name</label>
-            <p>{member.full_name}</p>
-            <label className="font-weight-700 d-block">
-              Education/Experience
-            </label>
-            <p className="text-pre-wrap">{member.bio}</p>
+            <div>
+              <label className="font-bold d-block">Full Name</label>
+              <p className="m-0">{member.full_name}</p>
+            </div>
+            <div>
+              <label className="font-bold d-block">
+                Education/Experience
+              </label>
+              <p className="text-pre-wrap">{member.bio}</p>
+            </div>
           </div>
         );
       });
@@ -1322,26 +1357,26 @@ class SingleProposalDetail extends Component {
                 )}
                 target="_blank"
                 rel="noreferrer"
-                className="pdf-link mb-2"
+                className="pdf-link mb-2 underline"
               >
                 View as PDF
               </a>
             )}
         </li>
         <li>
-          <label>Proposal Number:</label>
-          <span>{proposal.id}</span>
+          <label className="pr-3">Proposal Number:</label>
+          <span className="font-bold">{proposal.id}</span>
         </li>
         <li>
-          <label>Proposal Type:</label>
-          <span className="text-capitalize">
+          <label className="pr-3">Proposal Type:</label>
+          <span className="capitalize font-bold">
             {PROPOSAL_TYPES[proposal.type]}
           </span>
         </li>
         <li>
-          <label>OP:</label>
+          <label className="pr-3">OP:</label>
           <Link to={`/app/user/${proposal?.user?.id}`}>
-            <span>
+            <span className="font-bold">
               {proposal.user && proposal.user.profile
                 ? proposal.user.profile.forum_name
                 : ""}
@@ -1350,27 +1385,27 @@ class SingleProposalDetail extends Component {
         </li>
         {proposal.sponsor && proposal.sponsor.id ? (
           <li>
-            <label>Sponsor:</label>
-            <span>{proposal.sponsor.profile.forum_name}</span>
+            <label className="pr-3">Sponsor:</label>
+            <span className="font-bold">{proposal.sponsor.profile.forum_name}</span>
           </li>
         ) : null}
         <li>
-          <label>Rep Staked:</label>
-          <span>{proposal.rep ? proposal.rep : ""}</span>
+          <label className="pr-3">Rep Staked:</label>
+          <span className="font-bold">{proposal.rep ? proposal.rep : ""}</span>
         </li>
         <li>
-          <label>Proposal Status:</label>
-          <span>{this.renderStatus()}</span>
+          <label className="pr-3">Proposal Status:</label>
+          <span className="font-bold">{this.renderStatus()}</span>
         </li>
         {surveyWon && (
           <>
             <li>
-              <label>Survey won:</label>
-              <span>{surveyWon ? `S${surveyWon?.survey_id}` : "-"}</span>
+              <label className="pr-3">Survey won:</label>
+              <span className="font-bold">{surveyWon ? `S${surveyWon?.survey_id}` : "-"}</span>
             </li>
             <li>
-              <label>Survey rank:</label>
-              <span>
+              <label className="pr-3">Survey rank:</label>
+              <span className="font-bold">
                 {surveyWon
                   ? `${surveyWon?.rank}/${surveyWon?.survey?.number_response}`
                   : "-"}
@@ -1381,12 +1416,12 @@ class SingleProposalDetail extends Component {
         {surveyLose && (
           <>
             <li>
-              <label>Survey Lost:</label>
-              <span>{surveyLose ? `S${surveyLose?.survey_id}` : "-"}</span>
+              <label className="pr-3">Survey Lost:</label>
+              <span className="font-bold">{surveyLose ? `S${surveyLose?.survey_id}` : "-"}</span>
             </li>
             <li>
-              <label>Downvote rank:</label>
-              <span>
+              <label className="pr-3">Downvote rank:</label>
+              <span className="font-bold">
                 {surveyLose
                   ? `${surveyLose?.rank}/${surveyLose?.survey?.number_response}`
                   : "-"}
@@ -1396,14 +1431,14 @@ class SingleProposalDetail extends Component {
         )}
         {proposal.type === "grant" && (
           <li>
-            <label>Advance payment requested:</label>
-            <span>{proposal.proposal_request_from ? "Yes" : "No"}</span>
+            <label className="pr-3">Advance payment requested:</label>
+            <span className="font-bold">{proposal.proposal_request_from ? "Yes" : "No"}</span>
           </li>
         )}
         {proposal.proposal_request_from && (
           <>
             <li>
-              <label>Advance amount requested:</label>
+              <label className="pr-3">Advance amount requested:</label>
               <span>
                 {Helper.formatPriceNumber(
                   proposal?.proposal_request_from?.total_grant || 0,
@@ -1412,7 +1447,7 @@ class SingleProposalDetail extends Component {
               </span>
             </li>
             <li>
-              <label>Advance amount request link:</label>
+              <label className="pr-3">Advance amount request link:</label>
               <span>
                 <Link
                   to={`/app/proposal/${proposal.proposal_request_from?.id}`}
@@ -1422,11 +1457,11 @@ class SingleProposalDetail extends Component {
               </span>
             </li>
             <li>
-              <label>Advance status:</label>
+              <label className="pr-3">Advance status:</label>
               <span>{this.renderStatus(proposal.proposal_request_from)}</span>
             </li>
             <li>
-              <label>Advance amount owed:</label>
+              <label className="pr-3">Advance amount owed:</label>
               <span>
                 {Helper.formatPriceNumber(this.calcOwed(proposal) || 0, "€")}
               </span>
@@ -1445,22 +1480,21 @@ class SingleProposalDetail extends Component {
       const tags = proposal.tags.split(",");
       for (let i in tags) {
         items.push(
-          <li
-            className="btn btn-primary extra-small btn-fluid-small btn-round"
+          <Tag
             key={`key${i}`}
-          >
-            {tags[i]}
-          </li>
+            tag={tags[i]}
+            active={true}
+          />
         );
       }
     }
 
-    return <ul>{items}</ul>;
+    return <ul className="flex gap-2">{items}</ul>;
   }
 
   renderLabelEdition = (title, field, initialValue, showInfoIcon = false) => {
     return (
-      <label className="font-weight-700 d-block">
+      <label className="font-bold block flex">
         <span className="pr-20">{title}</span>
         {showInfoIcon && (
           <span className="pr-20">
@@ -1468,12 +1502,12 @@ class SingleProposalDetail extends Component {
           </span>
         )}
         {this.state.editionMode && (
-          <Icon.Edit
-            onClick={() => this.editField(field, initialValue)}
-            style={{ cursor: "pointer" }}
-            size={20}
-            color="#7137ce"
-          />
+          <div className="w-4 flex pt-1">
+            <Icon.Edit
+              className="text-primary cursor-pointer !w-4 h-4"
+              onClick={() => this.editField(field, initialValue)}
+            />
+          </div>
         )}
       </label>
     );
@@ -1556,16 +1590,15 @@ class SingleProposalDetail extends Component {
     return (
       <Fragment>
         <div>
-          <Card isAutoExpand={isAutoExpand} extraAction={this.toggle}>
+          <Card expand isAutoExpand={isAutoExpand} extraAction={this.toggle}>
             <CardHeader>
               <>
                 {!expanded && (
                   <div
-                    className="app-simple-section__titleInner w-100"
-                    style={{ display: "flex", justifyContent: "space-between" }}
+                    className="w-full flex justify-between"
                   >
-                    <div>
-                      <label>Current Proposal Details</label>
+                    <div className="flex gap-2">
+                      <h3 className="font-bold">Current Proposal Details</h3>
                       <Icon.Info size={16} />
                     </div>
                     <CardContext.Consumer>
@@ -1576,36 +1609,32 @@ class SingleProposalDetail extends Component {
                               !proposal.votes.length &&
                               this.props.authUser.id === proposal.user.id &&
                               this.props.allowEdit && (
-                                <div className="d-flex flex-column align-items-center  mr-30">
-                                  <button
-                                    className="btn btn-primary btn-fluid small"
+                                <div className="flex flex-col items-center mr-8">
+                                  <Button
                                     onClick={this.toggleEditMode}
                                   >
                                     Edit Proposal
-                                  </button>
-                                  <a
-                                    className="pt-2 font-weight-500 text-underline "
-                                    style={{
-                                      color: "inherit",
-                                      cursor: "pointer",
-                                    }}
+                                  </Button>
+                                  <Button
+                                    className="underline"
+                                    variant="text"
                                     onClick={(e) => this.clickWithdraw(e)}
                                   >
                                     Withdraw Proposal
-                                  </a>
+                                  </Button>
                                 </div>
                               )}
                             {proposal.status === "approved" &&
                               !proposal.votes.length &&
                               !!this.props.authUser.is_admin &&
                               this.props.allowEdit && (
-                                <div className="d-flex flex-column align-items-center  mr-30">
-                                  <button
-                                    className="btn btn-primary btn-fluid small"
+                                <div className="flex flex-col items-center mr-8">
+                                  <Button
                                     onClick={this.openAdminTools}
+                                    size="md"
                                   >
                                     Admin Tools
-                                  </button>
+                                  </Button>
                                 </div>
                               )}
                           </>
@@ -1616,34 +1645,33 @@ class SingleProposalDetail extends Component {
                 )}
                 {!!expanded && (
                   <div
-                    className="app-simple-section__titleInner"
-                    style={{ display: "flex", justifyContent: "space-between" }}
+                    className="flex-1 flex justify-between pr-8"
                   >
-                    <div>
-                      <label>General Project Details</label>
+                    <div className="flex gap-2">
+                      <h3 className="font-bold">General Project Details</h3>
                       <Icon.Info size={16} />
                     </div>
                     {proposal.status === "approved" &&
                       !proposal.votes.length &&
                       this.props.authUser.id === proposal.user.id &&
                       this.props.allowEdit && (
-                        <div className="d-flex flex-column align-items-center  mr-30">
-                          <button
-                            className="btn btn-primary btn-fluid small"
+                        <div className="flex flex-col items-center mr-30">
+                          <Button
+                            size="md"
                             onClick={this.toggleEditMode}
                             disabled={!this.state.allowSave}
                           >
                             {!this.state.editionMode
                               ? "Edit Proposal"
                               : "Save Changes"}
-                          </button>
-                          <a
-                            className="pt-2 font-weight-500 text-underline"
-                            style={{ color: "inherit", cursor: "pointer" }}
+                          </Button>
+                          <Button
+                            variant="text"
+                            className="underline"
                             onClick={(e) => this.clickWithdraw(e)}
                           >
                             Withdraw Proposal
-                          </a>
+                          </Button>
                         </div>
                       )}
                     {proposal.status === "approved" &&
@@ -1660,12 +1688,12 @@ class SingleProposalDetail extends Component {
                               Save Changes
                             </button>
                           ) : (
-                            <button
-                              className="btn btn-primary btn-fluid small"
+                            <Button
+                              size="md"
                               onClick={this.openAdminTools}
                             >
                               Admin Tools
-                            </button>
+                            </Button>
                           )}
                         </div>
                       )}
@@ -1673,157 +1701,44 @@ class SingleProposalDetail extends Component {
                 )}
               </>
             </CardHeader>
-            <CardPreview>
-              <div className="app-simple-section__title with-children">
-                {this.renderCoreInfo()}
-              </div>
-              {!expanded && (
-                <div className="app-simple-section__body">
-                  <label className="font-weight-700 d-block">
-                    Title of proposed Project (limit 10 words)
-                  </label>
-                  <p>{proposal.title}</p>
-                  {["grant", "simple"].includes(proposal.type) && (
-                    <>
-                      <label className="font-weight-700 d-block">
-                        {`Describe your project in detail. Please include what it does
-                        and what problem it solves`}
-                      </label>
-                      <p className="text-pre-wrap">
-                        {proposal.short_description}
-                        {this.checkProposalChange("short_description")}
-                      </p>
-                    </>
-                  )}
-                  {["advance-payment"].includes(proposal.type) && (
-                    <>
-                      <label className="font-weight-700 d-block">
-                        {`Select the proposal you are requesting a payment advance for`}
-                      </label>
-                      <p className="text-pre-wrap">
-                        <Link
-                          to={`/app/proposal/${proposal.proposal_request_payment?.id}`}
-                        >
-                          #{proposal.proposal_request_payment?.id}
-                        </Link>
-                      </p>
-                      <label className="font-weight-700 d-block">
-                        {`The portion of this proposal you are requesting as an advance`}
-                      </label>
-                      <p className="text-pre-wrap">
-                        {Helper.formatPriceNumber(
-                          proposal.total_grant || 0,
-                          "€"
-                        )}
-                      </p>
-                      <label className="font-weight-700 d-block">
-                        {`Why are you requesting this amount as an advance`}
-                      </label>
-                      <p className="text-pre-wrap">
-                        {proposal.amount_advance_detail}
-                      </p>
-                    </>
-                  )}
-                  {["admin-grant"].includes(proposal.type) && (
-                    <>
-                      <label className="font-weight-700 d-block">
-                        {`Euro amount requested`}
-                      </label>
-                      <p className="text-pre-wrap">
-                        {Helper.formatPriceNumber(
-                          proposal.total_grant || "",
-                          "€"
-                        )}
-                      </p>
-                      <label className="font-weight-700 d-block">
-                        {`Enter what is being delivered for the DxD/ETA`}
-                      </label>
-                      <p className="text-pre-wrap">
-                        {proposal.things_delivered}
-                      </p>
-                      <label className="font-weight-700 d-block">
-                        {`When will this be delivered`}
-                      </label>
-                      <p className="text-pre-wrap">
-                        {format(new Date(proposal.delivered_at), "dd/MM/yyyy")}
-                      </p>
-                      <label className="font-weight-700 d-block">
-                        {`Other notes`}
-                      </label>
-                      <p className="text-pre-wrap">{proposal.extra_notes}</p>
-                    </>
-                  )}
-                  {proposal.type == "grant" ? (
-                    <Fragment>
-                      <label className="font-weight-700 d-block">
-                        Please enter the total amount you are requesting as a
-                        grant:
-                      </label>
-                      <p>
-                        {Helper.formatPriceNumber(proposal.total_grant)}
-                        {this.checkProposalChange("total_grant")}
-                      </p>
-                    </Fragment>
-                  ) : null}
-                  <label className="font-weight-700 d-block">
-                    Uploaded Files
-                  </label>
-                  <ul id="app-spd-fileList" className="mt-3 mb-4">
-                    {this.renderFiles()}
-                  </ul>
-                </div>
-              )}
-            </CardPreview>
             <CardBody>
-              <>
-                <div className="app-simple-section__title with-children">
+              <CardBodyPreview>
+                <div className="border-b border-gray1 pb-4">
                   {this.renderCoreInfo()}
                 </div>
                 {!expanded && (
-                  <div className="app-simple-section__body">
-                    <label className="font-weight-700 d-block">
-                      Title of proposed Project (limit 10 words)
-                    </label>
-                    <p>{proposal.title}</p>
-                    <label className="font-weight-700 d-block">
-                      Describe your project in detail. Please include what it
-                      does and what problem it solves
-                    </label>
-                    <p className="text-pre-wrap">
-                      {proposal.short_description}
-                      {this.checkProposalChange("short_description")}
-                    </p>
-                    {proposal.type == "grant" ? (
-                      <Fragment>
-                        <label className="font-weight-700 d-block">
-                          Please enter the total amount you are requesting as a
-                          grant:
+                  <div className="pt-4 flex flex-col gap-4">
+                    <div>
+                      <label className="font-bold d-block">
+                        Title of proposed Project (limit 10 words)
+                      </label>
+                      <p>{proposal.title}</p>
+                    </div>
+                    {["grant", "simple"].includes(proposal.type) && (
+                      <div>
+                        <label className="font-bold d-block">
+                          {`Describe your project in detail. Please include what it does
+                          and what problem it solves`}
                         </label>
-                        <p>
-                          {Helper.formatPriceNumber(proposal.total_grant)}
-                          {this.checkProposalChange("total_grant")}
+                        <p className="text-pre-wrap">
+                          {proposal.short_description}
+                          {this.checkProposalChange("short_description")}
                         </p>
-                      </Fragment>
-                    ) : null}
-                    <label className="font-weight-700 d-block">
-                      Uploaded Files
-                    </label>
-                    <ul id="app-spd-fileList" className="mt-3 mb-4">
-                      {this.renderFiles()}
-                    </ul>
-                  </div>
-                )}
-                {!!expanded && (
-                  <div className="app-simple-section__body">
+                      </div>
+                    )}
                     {["advance-payment"].includes(proposal.type) && (
-                      <>
-                        <label className="font-weight-700 d-block">
+                      <div>
+                        <label className="font-bold d-block">
                           {`Select the proposal you are requesting a payment advance for`}
                         </label>
                         <p className="text-pre-wrap">
-                          #{proposal.proposal_request_payment?.id}
+                          <Link
+                            to={`/app/proposal/${proposal.proposal_request_payment?.id}`}
+                          >
+                            #{proposal.proposal_request_payment?.id}
+                          </Link>
                         </p>
-                        <label className="font-weight-700 d-block">
+                        <label className="font-bold d-block">
                           {`The portion of this proposal you are requesting as an advance`}
                         </label>
                         <p className="text-pre-wrap">
@@ -1832,138 +1747,226 @@ class SingleProposalDetail extends Component {
                             "€"
                           )}
                         </p>
-                        <label className="font-weight-700 d-block">
+                        <label className="font-bold d-block">
                           {`Why are you requesting this amount as an advance`}
                         </label>
                         <p className="text-pre-wrap">
                           {proposal.amount_advance_detail}
                         </p>
-                        <label className="font-weight-700 d-block">
+                      </div>
+                    )}
+                    {["admin-grant"].includes(proposal.type) && (
+                      <div>
+                        <label className="font-bold d-block">
+                          {`Euro amount requested`}
+                        </label>
+                        <p className="text-pre-wrap">
+                          {Helper.formatPriceNumber(
+                            proposal.total_grant || "",
+                            "€"
+                          )}
+                        </p>
+                        <label className="font-bold d-block">
+                          {`Enter what is being delivered for the DxD/ETA`}
+                        </label>
+                        <p className="text-pre-wrap">
+                          {proposal.things_delivered}
+                        </p>
+                        <label className="font-bold d-block">
+                          {`When will this be delivered`}
+                        </label>
+                        <p className="text-pre-wrap">
+                          {format(new Date(proposal.delivered_at), "dd/MM/yyyy")}
+                        </p>
+                        <label className="font-bold d-block">
+                          {`Other notes`}
+                        </label>
+                        <p className="text-pre-wrap">{proposal.extra_notes}</p>
+                      </div>
+                    )}
+                    {proposal.type == "grant" ? (
+                      <div>
+                        <label className="font-bold d-block">
+                          Please enter the total amount you are requesting as a
+                          grant:
+                        </label>
+                        <p>
+                          {Helper.formatPriceNumber(proposal.total_grant)}
+                          {this.checkProposalChange("total_grant")}
+                        </p>
+                      </div>
+                    ) : null}
+                    <div>
+                      <label className="font-bold d-block">
+                        Uploaded Files
+                      </label>
+                      <ul id="app-spd-fileList" className="mt-3 mb-4">
+                        {this.renderFiles()}
+                      </ul>
+                    </div>
+                  </div>
+                )}
+              </CardBodyPreview>
+              <CardBodyExpand>
+                <div className="flex flex-col gap-4 mt-4">
+                  {["advance-payment"].includes(proposal.type) && (
+                    <>
+                      <div>
+                        <label className="font-bold d-block">
+                          {`Select the proposal you are requesting a payment advance for`}
+                        </label>
+                        <p className="text-pre-wrap">
+                          #{proposal.proposal_request_payment?.id}
+                        </p>
+                      </div>
+                      <div>
+                        <label className="font-bold d-block">
+                          {`The portion of this proposal you are requesting as an advance`}
+                        </label>
+                        <p className="text-pre-wrap">
+                          {Helper.formatPriceNumber(
+                            proposal.total_grant || 0,
+                            "€"
+                          )}
+                        </p>
+                      </div>
+                      <div>
+                        <label className="font-bold d-block">
+                          {`Why are you requesting this amount as an advance`}
+                        </label>
+                        <p className="text-pre-wrap">
+                          {proposal.amount_advance_detail}
+                        </p>
+                      </div>
+                      <div>
+                        <label className="font-bold d-block">
+                          Uploaded Files
+                        </label>
+                        <ul id="app-spd-fileList" className="mt-3 mb-4">
+                          {this.renderFiles()}
+                        </ul>
+                      </div>
+                    </>
+                  )}
+                  {["admin-grant"].includes(proposal.type) && (
+                    <>
+                      <>
+                        <label className="font-bold d-block">
+                          Title of proposed Project (limit 10 words)
+                        </label>
+                        <p className="text-pre-wrap">{proposal.title}</p>
+                      </>
+                      <>
+                        {this.renderLabelEdition(
+                          "Euro amount requested",
+                          "total_grant",
+                          proposal.total_grant
+                        )}
+                        {this.state.editionField !== "total_grant" && (
+                          <p className="text-pre-wrap">
+                            {proposal.total_grant}
+                            {this.checkProposalChange("total_grant")}
+                          </p>
+                        )}
+                        {this.state.editionField === "total_grant" && (
+                          <div className="c-form-row">
+                            <input
+                              value={this.state.editionValue}
+                              onChange={(e) => this.inputField(e)}
+                              type="number"
+                              required
+                            />
+                          </div>
+                        )}
+                      </>
+                      <>
+                        {this.renderLabelEdition(
+                          "Enter what is being delivered for the DxD/ETA",
+                          "things_delivered",
+                          proposal.things_delivered
+                        )}
+                        {this.state.editionField !== "things_delivered" && (
+                          <p className="text-pre-wrap">
+                            {proposal.things_delivered}
+                            {this.checkProposalChange("things_delivered")}
+                          </p>
+                        )}
+                        {this.state.editionField === "things_delivered" && (
+                          <div className="c-form-row">
+                            <textarea
+                              value={this.state.editionValue}
+                              onChange={(e) => this.inputField(e)}
+                              required
+                            ></textarea>
+                          </div>
+                        )}
+                      </>
+                      <>
+                        <label className="font-bold d-block">
+                          {`When will this be delivered`}
+                        </label>
+                        <p className="text-pre-wrap">
+                          {format(
+                            new Date(proposal.delivered_at),
+                            "dd/MM/yyyy"
+                          )}
+                        </p>
+                      </>
+                      <>
+                        {this.renderLabelEdition(
+                          "Other notes",
+                          "extra_notes",
+                          proposal.extra_notes
+                        )}
+                        {this.state.editionField !== "extra_notes" && (
+                          <p className="text-pre-wrap">
+                            {proposal.extra_notes}
+                            {this.checkProposalChange("extra_notes")}
+                          </p>
+                        )}
+                        {this.state.editionField === "extra_notes" && (
+                          <div className="c-form-row">
+                            <textarea
+                              value={this.state.editionValue}
+                              onChange={(e) => this.inputField(e)}
+                              required
+                            ></textarea>
+                          </div>
+                        )}
+                      </>
+                      <>
+                        <label className="font-bold d-block">
                           Uploaded Files
                         </label>
                         <ul id="app-spd-fileList" className="mt-3 mb-4">
                           {this.renderFiles()}
                         </ul>
                       </>
-                    )}
-                    {["admin-grant"].includes(proposal.type) && (
-                      <>
-                        <>
-                          <label className="font-weight-700 d-block">
-                            Title of proposed Project (limit 10 words)
-                          </label>
-                          <p className="text-pre-wrap">{proposal.title}</p>
-                        </>
-                        <>
-                          {this.renderLabelEdition(
-                            "Euro amount requested",
-                            "total_grant",
-                            proposal.total_grant
-                          )}
-                          {this.state.editionField !== "total_grant" && (
-                            <p className="text-pre-wrap">
-                              {proposal.total_grant}
-                              {this.checkProposalChange("total_grant")}
-                            </p>
-                          )}
-                          {this.state.editionField === "total_grant" && (
-                            <div className="c-form-row">
-                              <input
-                                value={this.state.editionValue}
-                                onChange={(e) => this.inputField(e)}
-                                type="number"
-                                required
-                              />
-                            </div>
-                          )}
-                        </>
-                        <>
-                          {this.renderLabelEdition(
-                            "Enter what is being delivered for the DxD/ETA",
-                            "things_delivered",
-                            proposal.things_delivered
-                          )}
-                          {this.state.editionField !== "things_delivered" && (
-                            <p className="text-pre-wrap">
-                              {proposal.things_delivered}
-                              {this.checkProposalChange("things_delivered")}
-                            </p>
-                          )}
-                          {this.state.editionField === "things_delivered" && (
-                            <div className="c-form-row">
-                              <textarea
-                                value={this.state.editionValue}
-                                onChange={(e) => this.inputField(e)}
-                                required
-                              ></textarea>
-                            </div>
-                          )}
-                        </>
-                        <>
-                          <label className="font-weight-700 d-block">
-                            {`When will this be delivered`}
-                          </label>
-                          <p className="text-pre-wrap">
-                            {format(
-                              new Date(proposal.delivered_at),
-                              "dd/MM/yyyy"
-                            )}
-                          </p>
-                        </>
-                        <>
-                          {this.renderLabelEdition(
-                            "Other notes",
-                            "extra_notes",
-                            proposal.extra_notes
-                          )}
-                          {this.state.editionField !== "extra_notes" && (
-                            <p className="text-pre-wrap">
-                              {proposal.extra_notes}
-                              {this.checkProposalChange("extra_notes")}
-                            </p>
-                          )}
-                          {this.state.editionField === "extra_notes" && (
-                            <div className="c-form-row">
-                              <textarea
-                                value={this.state.editionValue}
-                                onChange={(e) => this.inputField(e)}
-                                required
-                              ></textarea>
-                            </div>
-                          )}
-                        </>
-                        <>
-                          <label className="font-weight-700 d-block">
-                            Uploaded Files
-                          </label>
-                          <ul id="app-spd-fileList" className="mt-3 mb-4">
-                            {this.renderFiles()}
-                          </ul>
-                        </>
-                      </>
-                    )}
-                    {["grant", "simple"].includes(proposal.type) && (
-                      <>
-                        <>
-                          {this.renderLabelEdition(
-                            "Title of proposed Project (limit 10 words)",
-                            "title",
-                            proposal.title
-                          )}
-                          {this.state.editionField !== "title" && (
-                            <p>{proposal.title}</p>
-                          )}
-                          {this.state.editionField === "title" && (
-                            <div className="c-form-row">
-                              <input
-                                value={this.state.editionValue}
-                                onChange={(e) => this.inputField(e)}
-                                type="text"
-                                required
-                              />
-                            </div>
-                          )}
-                        </>
+                    </>
+                  )}
+                  {["grant", "simple"].includes(proposal.type) && (
+                    <>
+                      <div>
+                        {this.renderLabelEdition(
+                          "Title of proposed Project (limit 10 words)",
+                          "title",
+                          proposal.title
+                        )}
+                        {this.state.editionField !== "title" && (
+                          <p>{proposal.title}</p>
+                        )}
+                        {this.state.editionField === "title" && (
+                          <div className="c-form-row">
+                            <input
+                              value={this.state.editionValue}
+                              onChange={(e) => this.inputField(e)}
+                              type="text"
+                              required
+                            />
+                          </div>
+                        )}
+                      </div>
+                      <div>
                         {this.renderLabelEdition(
                           "Describe your project in detail. Please include what it does and what problem it solves",
                           "short_description",
@@ -1984,592 +1987,600 @@ class SingleProposalDetail extends Component {
                             ></textarea>
                           </div>
                         )}
-                      </>
-                    )}
-                    {proposal.type === "simple" && (
-                      <>
-                        <label className="font-weight-700 d-block">
-                          Uploaded Files
-                        </label>
-                        <ul id="app-spd-fileList" className="mt-3 mb-4">
-                          {this.renderFiles()}
-                        </ul>
-                      </>
-                    )}
-                    {proposal.type === "grant" && (
-                      <>
-                        <>
-                          {this.renderLabelEdition(
-                            "Explanation as to how your proposed project would benefit the DEVxDAO ecosystem AND/OR support transparent and open source scientific research and/ or development if applicable.",
-                            "explanation_benefit",
-                            proposal.explanation_benefit
-                          )}
-                          {this.state.editionField !==
-                            "explanation_benefit" && (
-                            <p className="text-pre-wrap">
-                              {proposal.explanation_benefit}
-                            </p>
-                          )}
-                          {this.state.editionField ===
-                            "explanation_benefit" && (
-                            <div className="c-form-row">
-                              <textarea
-                                value={this.state.editionValue}
-                                onChange={(e) => this.inputField(e)}
-                                required
-                              ></textarea>
-                            </div>
-                          )}
-                        </>
-                        {/* <>
-                          {this.renderLabelEdition(
-                            "Explanation as to how your proposed Project will achieve ETA's mission of transparent and open source scientific research and/ or development if applicable.",
-                            "explanation_goal",
-                            proposal.explanation_goal
-                          )}
-                          {this.state.editionField !== "explanation_goal" && (
-                            <p>{proposal.explanation_goal}</p>
-                          )}
-                          {this.state.editionField === "explanation_goal" && (
-                            <div className="c-form-row">
-                              <textarea
-                                value={this.state.editionValue}
-                                onChange={(e) => this.inputField(e)}
-                                required
-                              ></textarea>
-                            </div>
-                          )}
-                        </> */}
-                        <>
-                          {this.renderLabelEdition(
-                            "Under which open source license(s) will you publish any research and development associated with your proposed Project? All research papers or the like should be Creative Commons.",
-                            "license",
-                            {
-                              license: proposal.license,
-                              license_other: proposal.license_other,
-                            }
-                          )}
-                          {this.state.editionField !== "license" && (
-                            <p>{this.renderLicense()}</p>
-                          )}
-                          {this.state.editionField === "license" && (
-                            <div className="c-form-row">
-                              {this.renderLicenseDropdown()}
-                            </div>
-                          )}
-                        </>
-                        <>
-                          {this.renderLabelEdition(
-                            "Your resume (Linkedin) or Git (For developers)",
-                            "resume",
-                            proposal.resume
-                          )}
-                          {this.state.editionField !== "resume" && (
-                            <p>{proposal.resume}</p>
-                          )}
-                          {this.state.editionField === "resume" && (
-                            <div className="c-form-row">
-                              <input
-                                value={this.state.editionValue}
-                                onChange={(e) => this.inputField(e)}
-                                type="text"
-                                required
-                              />
-                            </div>
-                          )}
-                        </>
-                        <>
-                          {this.renderLabelEdition(
-                            "Notes or reference about the project, such as similar projects or web pages about APIs to be integrated with your build",
-                            "extra_notes",
-                            proposal.extra_notes
-                          )}
-                          {this.state.editionField !== "extra_notes" && (
-                            <p className="text-pre-wrap">
-                              {proposal.extra_notes}
-                            </p>
-                          )}
-                          {this.state.editionField === "extra_notes" && (
-                            <div className="c-form-row">
-                              <textarea
-                                value={this.state.editionValue}
-                                onChange={(e) => this.inputField(e)}
-                                required
-                              ></textarea>
-                            </div>
-                          )}
-                        </>
-                      </>
-                    )}
-                  </div>
-                )}
-              </>
-            </CardBody>
-          </Card>
-        </div>
-        {!!expanded && proposal.type === "grant" && (
-          <>
-            <div className="app-simple-section">
-              <div className="app-simple-section__title">
-                {this.renderLabelEdition(
-                  "Team Details",
-                  "members",
-                  {
-                    members: proposal.member_required
-                      ? JSON.parse(JSON.stringify(proposal.members))
-                      : [
-                          {
-                            full_name: "",
-                            bio: "",
-                            address: "",
-                            city: "",
-                            zip: "",
-                            country: "",
-                          },
-                        ],
-                    memberChecked: true,
-                    memberRequired: !!proposal.member_required,
-                  },
-                  true
-                )}
-              </div>
-              <div className="app-simple-section__body">
-                {this.state.editionField !== "members" && (
-                  <>
-                    {!!proposal.member_required && <>{this.renderMembers()}</>}
-                    {!proposal.member_required && (
-                      <p>I am working on this project alone.</p>
-                    )}
-                  </>
-                )}
-                {this.state.editionField === "members" && (
-                  <>
-                    <div className="c-checkbox-item">
-                      <div
-                        className="c-checkbox-itemSymbol"
-                        onClick={() => {
-                          this.inputField({
-                            ...this.state.editionValue,
-                            memberRequired: false,
-                          });
-                        }}
-                      >
-                        {!this.state.editionValue.memberRequired ? (
-                          <Icon.CheckSquare color="#9B64E6" />
-                        ) : (
-                          <Icon.Square color="#9B64E6" />
-                        )}
-                      </div>
-                      <label
-                        className="font-size-14"
-                        onClick={() => {
-                          this.inputField({
-                            ...this.state.editionValue,
-                            memberRequired: false,
-                          });
-                        }}
-                      >
-                        {"I am working on this project alone."}
-                      </label>
-                    </div>
-                    <div className="c-checkbox-item">
-                      <div
-                        className="c-checkbox-itemSymbol"
-                        onClick={() => {
-                          this.inputField({
-                            ...this.state.editionValue,
-                            memberRequired: true,
-                          });
-                        }}
-                      >
-                        {this.state.editionValue.memberRequired ? (
-                          <Icon.CheckSquare color="#9B64E6" />
-                        ) : (
-                          <Icon.Square color="#9B64E6" />
-                        )}
-                      </div>
-                      <label
-                        className="font-size-14"
-                        onClick={() => {
-                          this.inputField({
-                            ...this.state.editionValue,
-                            memberRequired: true,
-                          });
-                        }}
-                      >
-                        {
-                          "I have a team of at least one of person (you will need to provide information for team members)."
-                        }
-                      </label>
-                    </div>
-                    {this.state.editionValue.memberRequired && (
-                      <ProposalTeamView
-                        allowDeleteItem
-                        members={this.state.editionValue.members}
-                        onUpdate={(members) => {
-                          this.inputField({
-                            members,
-                            memberRequired: true,
-                            memberChecked: this.state.editionValue
-                              .memberChecked,
-                          });
-                        }}
-                        memberChecked={this.state.editionValue.memberChecked}
-                        onUpdateChecked={(memberChecked) => {
-                          this.inputField({
-                            members: this.state.editionValue.members,
-                            memberRequired: true,
-                            memberChecked,
-                          });
-                        }}
-                      />
-                    )}
-                  </>
-                )}
-              </div>
-            </div>
-
-            <div className="app-simple-section">
-              <div className="app-simple-section__title">
-                <label>Grant Details</label>
-                <Icon.Info size={16} />
-              </div>
-              <div className="app-simple-section__body">
-                <label className="font-weight-700 d-block">
-                  Please enter the total amount you are requesting as a grant:
-                </label>
-                <p>
-                  {/* {Helper.formatPriceNumber(proposal.total_grant.toString())} */}
-                  {this.state.editionField === "milestones" &&
-                    Helper.formatPriceNumber(
-                      this.state.editionValue.total_grant
-                    )}
-                  {this.state.editionField !== "milestones" &&
-                    Helper.formatPriceNumber(proposal.total_grant)}
-                  {this.checkProposalChange("total_grant")}
-                </p>
-                <>
-                  {this.renderLabelEdition(
-                    "Will payments for this work be made to a entity such as your company or organization instead of to you personally?",
-                    "is_company_or_organization",
-                    {
-                      is_company_or_organization:
-                        proposal.is_company_or_organization,
-                      name_entity: proposal.name_entity,
-                      entity_country: proposal.entity_country,
-                    }
-                  )}
-                  {this.state.editionField !== "is_company_or_organization" && (
-                    <p>
-                      {proposal.is_company_or_organization
-                        ? `Yes (${proposal.name_entity} - ${proposal.entity_country})`
-                        : "No"}
-                    </p>
-                  )}
-                  {this.state.editionField === "is_company_or_organization" && (
-                    <>
-                      <div className="c-form-row">
-                        <div className="c-simple-checkbox-item-group">
-                          <div className="c-simple-checkbox-item">
-                            <div
-                              className="c-simple-checkbox-itemSymbol"
-                              onClick={() =>
-                                this.inputField({
-                                  ...this.state.editionValue,
-                                  is_company_or_organization: 0,
-                                  name_entity: "",
-                                  entity_country: "",
-                                })
-                              }
-                            >
-                              {this.state.editionValue
-                                .is_company_or_organization ? (
-                                <Icon.Square color="#9B64E6" />
-                              ) : (
-                                <Icon.CheckSquare color="#9B64E6" />
-                              )}
-                            </div>
-                            <label
-                              onClick={() =>
-                                this.inputField({
-                                  ...this.state.editionValue,
-                                  is_company_or_organization: 0,
-                                  name_entity: "",
-                                  entity_country: "",
-                                })
-                              }
-                            >{`No`}</label>
-                          </div>
-                          <div className="c-simple-checkbox-item">
-                            <div
-                              className="c-simple-checkbox-itemSymbol"
-                              onClick={() =>
-                                this.inputField({
-                                  ...this.state.editionValue,
-                                  is_company_or_organization: 1,
-                                  name_entity: proposal.name_entity,
-                                  entity_country: proposal.entity_country,
-                                })
-                              }
-                            >
-                              {this.state.editionValue
-                                .is_company_or_organization ? (
-                                <Icon.CheckSquare color="#9B64E6" />
-                              ) : (
-                                <Icon.Square color="#9B64E6" />
-                              )}
-                            </div>
-                            <label
-                              onClick={() =>
-                                this.inputField({
-                                  ...this.state.editionValue,
-                                  is_company_or_organization: 1,
-                                  name_entity: proposal.name_entity,
-                                  entity_country: proposal.entity_country,
-                                })
-                              }
-                            >{`Yes`}</label>
-                          </div>
-                        </div>
-                      </div>
-                      <div className="c-form-row">
-                        {!!this.state.editionValue
-                          .is_company_or_organization && (
-                          <div className="row mt-3">
-                            <div className="col-md-6">
-                              <div className="c-form-row">
-                                <label>What is the name of the entity?</label>
-                                <input
-                                  value={this.state.editionValue.name_entity}
-                                  type="text"
-                                  placeholder="Enter name of entity"
-                                  onChange={(e) =>
-                                    this.inputField({
-                                      ...this.state.editionValue,
-                                      name_entity: e.target.value,
-                                    })
-                                  }
-                                  required
-                                />
-                              </div>
-                            </div>
-                            <div className="col-md-6">
-                              <div className="c-form-row c-select">
-                                <label>
-                                  Please select the entity country of
-                                  registration.
-                                </label>
-                                <FormSelectComponent
-                                  required
-                                  placeholder="Please select a country"
-                                  options={COUNTRYLIST}
-                                  value={this.state.editionValue.entity_country}
-                                  onChange={(e) =>
-                                    this.inputField({
-                                      ...this.state.editionValue,
-                                      entity_country: e.target.value,
-                                    })
-                                  }
-                                />
-                              </div>
-                            </div>
-                          </div>
-                        )}
                       </div>
                     </>
                   )}
-                </>
-                <>
-                  {this.renderLabelEdition(
-                    "Please select all planned uses for your grant funds. Select all that apply and enter the estimated portion of grant funds allocated for each. All totals must equal the upper amount",
-                    "grants",
-                    {
-                      grants: proposal.grants.reduce((sum, x) => {
-                        sum[`grant_${x.type}`] = {
-                          checked: true,
-                          grant: x.grant,
-                          percentage: x.percentage,
-                          type: x.type,
-                        };
-                        if (x.type_other)
-                          sum[`grant_${x.type}`].type_other = x.type_other;
-                        return sum;
-                      }, {}),
-                      total_grant: proposal.total_grant,
-                    }
+                  {proposal.type === "simple" && (
+                    <div>
+                      <label className="font-bold d-block">
+                        Uploaded Files
+                      </label>
+                      <ul id="app-spd-fileList" className="mt-3 mb-4">
+                        {this.renderFiles()}
+                      </ul>
+                    </div>
                   )}
-                  {this.state.editionField !== "grants" && (
-                    <p>{this.renderGrants()}</p>
-                  )}
-                  {this.state.editionField === "grants" && (
-                    <ProposalGrantView
-                      hideLabel
-                      total_grant={proposal.total_grant}
-                      grants={this.state.editionValue?.grants}
-                      onUpdate={(grants) => {
-                        this.inputField({
-                          total_grant: proposal.total_grant,
-                          grants: { ...grants },
-                        });
-                      }}
-                    />
-                  )}
-                </>
-                <div className="pt-4">
-                  {this.renderLabelEdition(
-                    "Did a Voting Associate of the DEVxDAO assist you during the grant application process as a mentor?",
-                    "have_mentor",
-                    {
-                      have_mentor: proposal.have_mentor,
-                      name_mentor: proposal.name_mentor,
-                      total_hours_mentor: proposal.total_hours_mentor,
-                      check_mentor: true,
-                    }
-                  )}
-                  {this.state.editionField !== "have_mentor" && (
-                    <p>
-                      {proposal.have_mentor
-                        ? `Yes (${proposal.name_mentor} - ${proposal.total_hours_mentor})`
-                        : "No"}
-                    </p>
-                  )}
-                  {this.state.editionField === "have_mentor" && (
+                  {proposal.type === "grant" && (
                     <>
-                      <div className="c-form-row">
-                        <div className="c-simple-checkbox-item-group">
-                          <div className="c-simple-checkbox-item">
-                            <div
-                              className="c-simple-checkbox-itemSymbol"
-                              onClick={() =>
-                                this.inputField({
-                                  ...this.state.editionValue,
-                                  have_mentor: 0,
-                                  name_mentor: "",
-                                  total_hours_mentor: "",
-                                })
-                              }
-                            >
-                              {this.state.editionValue.have_mentor ? (
-                                <Icon.Square color="#9B64E6" />
-                              ) : (
-                                <Icon.CheckSquare color="#9B64E6" />
-                              )}
-                            </div>
-                            <label
-                              onClick={() =>
-                                this.inputField({
-                                  ...this.state.editionValue,
-                                  have_mentor: 0,
-                                  name_mentor: "",
-                                  total_hours_mentor: "",
-                                })
-                              }
-                            >{`No`}</label>
+                      <div>
+                        {this.renderLabelEdition(
+                          "Explanation as to how your proposed project would benefit the DEVxDAO ecosystem AND/OR support transparent and open source scientific research and/ or development if applicable.",
+                          "explanation_benefit",
+                          proposal.explanation_benefit
+                        )}
+                        {this.state.editionField !==
+                          "explanation_benefit" && (
+                          <p className="text-pre-wrap">
+                            {proposal.explanation_benefit}
+                          </p>
+                        )}
+                        {this.state.editionField ===
+                          "explanation_benefit" && (
+                          <div className="c-form-row">
+                            <textarea
+                              value={this.state.editionValue}
+                              onChange={(e) => this.inputField(e)}
+                              required
+                            ></textarea>
                           </div>
-                          <div className="c-simple-checkbox-item">
-                            <div
-                              className="c-simple-checkbox-itemSymbol"
-                              onClick={() =>
-                                this.inputField({
-                                  ...this.state.editionValue,
-                                  have_mentor: 1,
-                                  name_mentor: proposal.name_mentor,
-                                  total_hours_mentor:
-                                    proposal.total_hours_mentor,
-                                })
-                              }
-                            >
-                              {this.state.editionValue.have_mentor ? (
-                                <Icon.CheckSquare color="#9B64E6" />
-                              ) : (
-                                <Icon.Square color="#9B64E6" />
-                              )}
-                            </div>
-                            <label
-                              onClick={() =>
-                                this.inputField({
-                                  ...this.state.editionValue,
-                                  have_mentor: 1,
-                                  name_mentor: proposal.name_mentor,
-                                  total_hours_mentor:
-                                    proposal.total_hours_mentor,
-                                })
-                              }
-                            >{`Yes`}</label>
-                          </div>
-                        </div>
+                        )}
                       </div>
-                      <div className="c-form-row">
-                        {!!this.state.editionValue.have_mentor && (
-                          <div className="row mt-3">
-                            <div className="col-md-6">
-                              <div className="c-form-row">
-                                <label>
-                                  Please enter the email or handle of the member
-                                  <span className="pl-1">
-                                    {this.state.editionValue.check_mentor && (
-                                      <Icon.CheckCircle color="#33C333" />
-                                    )}
-                                    {!this.state.editionValue.check_mentor && (
-                                      <Icon.XCircle color="#EA5454" />
-                                    )}
-                                  </span>
-                                </label>
-                                <div className="d-flex">
-                                  <input
-                                    value={this.state.editionValue.name_mentor}
-                                    type="text"
-                                    onChange={(e) =>
-                                      this.inputField({
-                                        ...this.state.editionValue,
-                                        name_mentor: e.target.value,
-                                      })
-                                    }
-                                    required
-                                  />
-                                  <button
-                                    style={{ height: "auto", padding: 0 }}
-                                    type="button"
-                                    className="btn-submit btn btn-primary ml-2"
-                                    onClick={this.checkMentorProposal}
-                                  >
-                                    Submit
-                                  </button>
-                                </div>
-                              </div>
-                            </div>
-                            <div className="col-md-6">
-                              <div className="c-form-row c-select">
-                                <label>
-                                  How many hours did the mentor help you
-                                  (approximately)?
-                                </label>
-                                <input
-                                  value={
-                                    this.state.editionValue.total_hours_mentor
-                                  }
-                                  type="number"
-                                  onChange={(e) =>
-                                    this.inputField({
-                                      ...this.state.editionValue,
-                                      total_hours_mentor: e.target.value,
-                                    })
-                                  }
-                                  required
-                                />
-                              </div>
-                            </div>
+                      {/* <>
+                        {this.renderLabelEdition(
+                          "Explanation as to how your proposed Project will achieve ETA's mission of transparent and open source scientific research and/ or development if applicable.",
+                          "explanation_goal",
+                          proposal.explanation_goal
+                        )}
+                        {this.state.editionField !== "explanation_goal" && (
+                          <p>{proposal.explanation_goal}</p>
+                        )}
+                        {this.state.editionField === "explanation_goal" && (
+                          <div className="c-form-row">
+                            <textarea
+                              value={this.state.editionValue}
+                              onChange={(e) => this.inputField(e)}
+                              required
+                            ></textarea>
+                          </div>
+                        )}
+                      </> */}
+                      <div>
+                        {this.renderLabelEdition(
+                          "Under which open source license(s) will you publish any research and development associated with your proposed Project? All research papers or the like should be Creative Commons.",
+                          "license",
+                          {
+                            license: proposal.license,
+                            license_other: proposal.license_other,
+                          }
+                        )}
+                        {this.state.editionField !== "license" && (
+                          <p>{this.renderLicense()}</p>
+                        )}
+                        {this.state.editionField === "license" && (
+                          <div className="c-form-row">
+                            {this.renderLicenseDropdown()}
+                          </div>
+                        )}
+                      </div>
+                      <div>
+                        {this.renderLabelEdition(
+                          "Your resume (Linkedin) or Git (For developers)",
+                          "resume",
+                          proposal.resume
+                        )}
+                        {this.state.editionField !== "resume" && (
+                          <p>{proposal.resume}</p>
+                        )}
+                        {this.state.editionField === "resume" && (
+                          <div className="c-form-row">
+                            <input
+                              value={this.state.editionValue}
+                              onChange={(e) => this.inputField(e)}
+                              type="text"
+                              required
+                            />
+                          </div>
+                        )}
+                      </div>
+                      <div>
+                        {this.renderLabelEdition(
+                          "Notes or reference about the project, such as similar projects or web pages about APIs to be integrated with your build",
+                          "extra_notes",
+                          proposal.extra_notes
+                        )}
+                        {this.state.editionField !== "extra_notes" && (
+                          <p className="text-pre-wrap">
+                            {proposal.extra_notes}
+                          </p>
+                        )}
+                        {this.state.editionField === "extra_notes" && (
+                          <div className="c-form-row">
+                            <textarea
+                              value={this.state.editionValue}
+                              onChange={(e) => this.inputField(e)}
+                              required
+                            ></textarea>
                           </div>
                         )}
                       </div>
                     </>
                   )}
                 </div>
-              </div>
-            </div>
-
-            <div className="app-simple-section">
-              <div className="app-simple-section__title">
+              </CardBodyExpand>
+            </CardBody>
+          </Card>
+        </div>
+        {!!expanded && proposal.type === "grant" && (
+          <>
+            <Card className="mt-4">
+              <CardBody>
+                <div className="app-simple-section">
+                  <div className="app-simple-section__title">
+                    {this.renderLabelEdition(
+                      "Team Details",
+                      "members",
+                      {
+                        members: proposal.member_required
+                          ? JSON.parse(JSON.stringify(proposal.members))
+                          : [
+                              {
+                                full_name: "",
+                                bio: "",
+                                address: "",
+                                city: "",
+                                zip: "",
+                                country: "",
+                              },
+                            ],
+                        memberChecked: true,
+                        memberRequired: !!proposal.member_required,
+                      },
+                      true
+                    )}
+                  </div>
+                  <div className="app-simple-section__body">
+                    {this.state.editionField !== "members" && (
+                      <>
+                        {!!proposal.member_required && (
+                          <div className="flex flex-col gap-4">{this.renderMembers()}</div>
+                        )}
+                        {!proposal.member_required && (
+                          <p>I am working on this project alone.</p>
+                        )}
+                      </>
+                    )}
+                    {this.state.editionField === "members" && (
+                      <>
+                        <div className="flex gap-4">
+                          <div
+                            className="c-checkbox-itemSymbol"
+                            onClick={() => {
+                              this.inputField({
+                                ...this.state.editionValue,
+                                memberRequired: false,
+                              });
+                            }}
+                          >
+                            {!this.state.editionValue.memberRequired ? (
+                              <Icon.CheckSquare color="#FB5824" />
+                            ) : (
+                              <Icon.Square color="#FB5824" />
+                            )}
+                          </div>
+                          <label
+                            className="font-size-14"
+                            onClick={() => {
+                              this.inputField({
+                                ...this.state.editionValue,
+                                memberRequired: false,
+                              });
+                            }}
+                          >
+                            {"I am working on this project alone."}
+                          </label>
+                        </div>
+                        <div className="flex gap-4">
+                          <div
+                            className="c-checkbox-itemSymbol"
+                            onClick={() => {
+                              this.inputField({
+                                ...this.state.editionValue,
+                                memberRequired: true,
+                              });
+                            }}
+                          >
+                            {this.state.editionValue.memberRequired ? (
+                              <Icon.CheckSquare color="#FB5824" />
+                            ) : (
+                              <Icon.Square color="#FB5824" />
+                            )}
+                          </div>
+                          <label
+                            className="font-size-14"
+                            onClick={() => {
+                              this.inputField({
+                                ...this.state.editionValue,
+                                memberRequired: true,
+                              });
+                            }}
+                          >
+                            {
+                              "I have a team of at least one of person (you will need to provide information for team members)."
+                            }
+                          </label>
+                        </div>
+                        {this.state.editionValue.memberRequired && (
+                          <ProposalTeamView
+                            allowDeleteItem
+                            members={this.state.editionValue.members}
+                            onUpdate={(members) => {
+                              this.inputField({
+                                members,
+                                memberRequired: true,
+                                memberChecked: this.state.editionValue
+                                  .memberChecked,
+                              });
+                            }}
+                            memberChecked={this.state.editionValue.memberChecked}
+                            onUpdateChecked={(memberChecked) => {
+                              this.inputField({
+                                members: this.state.editionValue.members,
+                                memberRequired: true,
+                                memberChecked,
+                              });
+                            }}
+                          />
+                        )}
+                      </>
+                    )}
+                  </div>
+                </div>
+              </CardBody>
+            </Card>
+            <Card className="mt-4">
+              <CardHeader>
+                <label className="font-bold pr-20">Grant Details</label>
+                <Icon.Info size={16} />            
+              </CardHeader>
+              <CardBody>
+                <div className="flex flex-col gap-4">
+                  <div>
+                    <label className="font-bold d-block">
+                      Please enter the total amount you are requesting as a grant:
+                    </label>
+                    <p>
+                      {/* {Helper.formatPriceNumber(proposal.total_grant.toString())} */}
+                      {this.state.editionField === "milestones" &&
+                        Helper.formatPriceNumber(
+                          this.state.editionValue.total_grant
+                        )}
+                      {this.state.editionField !== "milestones" &&
+                        Helper.formatPriceNumber(proposal.total_grant)}
+                      {this.checkProposalChange("total_grant")}
+                    </p>
+                  </div>
+                  <div>
+                    {this.renderLabelEdition(
+                      "Will payments for this work be made to a entity such as your company or organization instead of to you personally?",
+                      "is_company_or_organization",
+                      {
+                        is_company_or_organization:
+                          proposal.is_company_or_organization,
+                        name_entity: proposal.name_entity,
+                        entity_country: proposal.entity_country,
+                      }
+                    )}
+                    {this.state.editionField !== "is_company_or_organization" && (
+                      <p>
+                        {proposal.is_company_or_organization
+                          ? `Yes (${proposal.name_entity} - ${proposal.entity_country})`
+                          : "No"}
+                      </p>
+                    )}
+                    {this.state.editionField === "is_company_or_organization" && (
+                      <>
+                        <div className="c-form-row ">
+                          <div className="c-simple-checkbox-item-group flex gap-8">
+                            <div className="c-simple-checkbox-item">
+                              <div
+                                className="c-simple-checkbox-itemSymbol"
+                                onClick={() =>
+                                  this.inputField({
+                                    ...this.state.editionValue,
+                                    is_company_or_organization: 0,
+                                    name_entity: "",
+                                    entity_country: "",
+                                  })
+                                }
+                              >
+                                {this.state.editionValue
+                                  .is_company_or_organization ? (
+                                  <Icon.Square color="#FB5824" />
+                                ) : (
+                                  <Icon.CheckSquare color="#FB5824" />
+                                )}
+                              </div>
+                              <label
+                                onClick={() =>
+                                  this.inputField({
+                                    ...this.state.editionValue,
+                                    is_company_or_organization: 0,
+                                    name_entity: "",
+                                    entity_country: "",
+                                  })
+                                }
+                              >{`No`}</label>
+                            </div>
+                            <div className="c-simple-checkbox-item">
+                              <div
+                                className="c-simple-checkbox-itemSymbol"
+                                onClick={() =>
+                                  this.inputField({
+                                    ...this.state.editionValue,
+                                    is_company_or_organization: 1,
+                                    name_entity: proposal.name_entity,
+                                    entity_country: proposal.entity_country,
+                                  })
+                                }
+                              >
+                                {this.state.editionValue
+                                  .is_company_or_organization ? (
+                                  <Icon.CheckSquare color="#FB5824" />
+                                ) : (
+                                  <Icon.Square color="#FB5824" />
+                                )}
+                              </div>
+                              <label
+                                onClick={() =>
+                                  this.inputField({
+                                    ...this.state.editionValue,
+                                    is_company_or_organization: 1,
+                                    name_entity: proposal.name_entity,
+                                    entity_country: proposal.entity_country,
+                                  })
+                                }
+                              >{`Yes`}</label>
+                            </div>
+                          </div>
+                        </div>
+                        <div className="c-form-row">
+                          {!!this.state.editionValue
+                            .is_company_or_organization && (
+                            <div className="row mt-3">
+                              <div className="col-md-6">
+                                <div className="c-form-row">
+                                  <label>What is the name of the entity?</label>
+                                  <input
+                                    value={this.state.editionValue.name_entity}
+                                    type="text"
+                                    placeholder="Enter name of entity"
+                                    onChange={(e) =>
+                                      this.inputField({
+                                        ...this.state.editionValue,
+                                        name_entity: e.target.value,
+                                      })
+                                    }
+                                    required
+                                  />
+                                </div>
+                              </div>
+                              <div className="col-md-6">
+                                <div className="c-form-row c-select">
+                                  <label>
+                                    Please select the entity country of
+                                    registration.
+                                  </label>
+                                  <FormSelectComponent
+                                    required
+                                    placeholder="Please select a country"
+                                    options={COUNTRYLIST}
+                                    value={this.state.editionValue.entity_country}
+                                    onChange={(e) =>
+                                      this.inputField({
+                                        ...this.state.editionValue,
+                                        entity_country: e.target.value,
+                                      })
+                                    }
+                                  />
+                                </div>
+                              </div>
+                            </div>
+                          )}
+                        </div>
+                      </>
+                    )}
+                  </div>
+                  <div>
+                    {this.renderLabelEdition(
+                      "Please select all planned uses for your grant funds. Select all that apply and enter the estimated portion of grant funds allocated for each. All totals must equal the upper amount",
+                      "grants",
+                      {
+                        grants: proposal.grants.reduce((sum, x) => {
+                          sum[`grant_${x.type}`] = {
+                            checked: true,
+                            grant: x.grant,
+                            percentage: x.percentage,
+                            type: x.type,
+                          };
+                          if (x.type_other)
+                            sum[`grant_${x.type}`].type_other = x.type_other;
+                          return sum;
+                        }, {}),
+                        total_grant: proposal.total_grant,
+                      }
+                    )}
+                    {this.state.editionField !== "grants" && (
+                      <div className="pt-2">{this.renderGrants()}</div>
+                    )}
+                    {this.state.editionField === "grants" && (
+                      <ProposalGrantView
+                        hideLabel
+                        total_grant={proposal.total_grant}
+                        grants={this.state.editionValue?.grants}
+                        onUpdate={(grants) => {
+                          this.inputField({
+                            total_grant: proposal.total_grant,
+                            grants: { ...grants },
+                          });
+                        }}
+                      />
+                    )}
+                  </div>
+                  <div className="pt-4">
+                    {this.renderLabelEdition(
+                      "Did a Voting Associate of the DEVxDAO assist you during the grant application process as a mentor?",
+                      "have_mentor",
+                      {
+                        have_mentor: proposal.have_mentor,
+                        name_mentor: proposal.name_mentor,
+                        total_hours_mentor: proposal.total_hours_mentor,
+                        check_mentor: true,
+                      }
+                    )}
+                    {this.state.editionField !== "have_mentor" && (
+                      <p>
+                        {proposal.have_mentor
+                          ? `Yes (${proposal.name_mentor} - ${proposal.total_hours_mentor})`
+                          : "No"}
+                      </p>
+                    )}
+                    {this.state.editionField === "have_mentor" && (
+                      <>
+                        <div className="c-form-row">
+                          <div className="c-simple-checkbox-item-group">
+                            <div className="c-simple-checkbox-item">
+                              <div
+                                className="c-simple-checkbox-itemSymbol"
+                                onClick={() =>
+                                  this.inputField({
+                                    ...this.state.editionValue,
+                                    have_mentor: 0,
+                                    name_mentor: "",
+                                    total_hours_mentor: "",
+                                  })
+                                }
+                              >
+                                {this.state.editionValue.have_mentor ? (
+                                  <Icon.Square color="#FB5824" />
+                                ) : (
+                                  <Icon.CheckSquare color="#FB5824" />
+                                )}
+                              </div>
+                              <label
+                                onClick={() =>
+                                  this.inputField({
+                                    ...this.state.editionValue,
+                                    have_mentor: 0,
+                                    name_mentor: "",
+                                    total_hours_mentor: "",
+                                  })
+                                }
+                              >{`No`}</label>
+                            </div>
+                            <div className="c-simple-checkbox-item">
+                              <div
+                                className="c-simple-checkbox-itemSymbol"
+                                onClick={() =>
+                                  this.inputField({
+                                    ...this.state.editionValue,
+                                    have_mentor: 1,
+                                    name_mentor: proposal.name_mentor,
+                                    total_hours_mentor:
+                                      proposal.total_hours_mentor,
+                                  })
+                                }
+                              >
+                                {this.state.editionValue.have_mentor ? (
+                                  <Icon.CheckSquare color="#FB5824" />
+                                ) : (
+                                  <Icon.Square color="#FB5824" />
+                                )}
+                              </div>
+                              <label
+                                onClick={() =>
+                                  this.inputField({
+                                    ...this.state.editionValue,
+                                    have_mentor: 1,
+                                    name_mentor: proposal.name_mentor,
+                                    total_hours_mentor:
+                                      proposal.total_hours_mentor,
+                                  })
+                                }
+                              >{`Yes`}</label>
+                            </div>
+                          </div>
+                        </div>
+                        <div className="c-form-row">
+                          {!!this.state.editionValue.have_mentor && (
+                            <div className="row mt-3">
+                              <div className="col-md-6">
+                                <div className="c-form-row">
+                                  <label>
+                                    Please enter the email or handle of the member
+                                    <span className="pl-1">
+                                      {this.state.editionValue.check_mentor && (
+                                        <Icon.CheckCircle color="#33C333" />
+                                      )}
+                                      {!this.state.editionValue.check_mentor && (
+                                        <Icon.XCircle color="#EA5454" />
+                                      )}
+                                    </span>
+                                  </label>
+                                  <div className="d-flex">
+                                    <input
+                                      value={this.state.editionValue.name_mentor}
+                                      type="text"
+                                      onChange={(e) =>
+                                        this.inputField({
+                                          ...this.state.editionValue,
+                                          name_mentor: e.target.value,
+                                        })
+                                      }
+                                      required
+                                    />
+                                    <button
+                                      style={{ height: "auto", padding: 0 }}
+                                      type="button"
+                                      className="btn-submit btn btn-primary ml-2"
+                                      onClick={this.checkMentorProposal}
+                                    >
+                                      Submit
+                                    </button>
+                                  </div>
+                                </div>
+                              </div>
+                              <div className="col-md-6">
+                                <div className="c-form-row c-select">
+                                  <label>
+                                    How many hours did the mentor help you
+                                    (approximately)?
+                                  </label>
+                                  <input
+                                    value={
+                                      this.state.editionValue.total_hours_mentor
+                                    }
+                                    type="number"
+                                    onChange={(e) =>
+                                      this.inputField({
+                                        ...this.state.editionValue,
+                                        total_hours_mentor: e.target.value,
+                                      })
+                                    }
+                                    required
+                                  />
+                                </div>
+                              </div>
+                            </div>
+                          )}
+                        </div>
+                      </>
+                    )}
+                  </div>
+                </div>
+              </CardBody>
+            </Card>
+            <Card className="mt-4">
+              <CardHeader>
                 {this.renderLabelEdition(
                   "Milestone Details",
                   "milestones",
@@ -2579,86 +2590,104 @@ class SingleProposalDetail extends Component {
                   },
                   true
                 )}
-              </div>
-              <div className="app-simple-section__body">
-                {this.state.editionField !== "milestones" && (
-                  <>
-                    <label className="font-weight-700 d-block">
-                      {`Projects are typically divided into milestones. Please propose the milestones in which the total project will be delivered:`}
+              </CardHeader>
+              <CardBody>
+                <div className="app-simple-section__body">
+                  {this.state.editionField !== "milestones" && (
+                    <>
+                      <label className="font-bold d-block">
+                        {`Projects are typically divided into milestones. Please propose the milestones in which the total project will be delivered:`}
+                      </label>
+                      <div className="pt-4 flex flex-col gap-4">
+                        {this.renderMilestones()}
+                      </div>
+                    </>
+                  )}
+                  {this.state.editionField === "milestones" && (
+                    <ProposalMilestoneView
+                      showAction
+                      total_grant={this.state.editionValue.total_grant}
+                      milestones={this.state.editionValue.milestones}
+                      onUpdate={(milestones) => {
+                        const sumGrant = milestones.reduce(
+                          (sum, x) => sum + +x.grant,
+                          0
+                        );
+                        this.inputField({
+                          milestones,
+                          total_grant: sumGrant,
+                        });
+                      }}
+                    />
+                  )}
+                </div>
+              </CardBody>
+            </Card>              
+            <Card className="mt-4">
+              <CardHeader>
+                <div className="flex">
+                  <label className="font-bold pr-4">Relationships and previous work</label>
+                  <Icon.Info size={16} />
+                </div>
+              </CardHeader>
+              <CardBody>
+                <div className="flex flex-col gap-4">
+                  <div>
+                    <label className="font-bold d-block">
+                      Please outline your relationship with ETA and Contributors of
+                      ETA:
                     </label>
-                    {this.renderMilestones()}
-                  </>
-                )}
-                {this.state.editionField === "milestones" && (
-                  <ProposalMilestoneView
-                    showAction
-                    total_grant={this.state.editionValue.total_grant}
-                    milestones={this.state.editionValue.milestones}
-                    onUpdate={(milestones) => {
-                      const sumGrant = milestones.reduce(
-                        (sum, x) => sum + +x.grant,
-                        0
-                      );
-                      this.inputField({
-                        milestones,
-                        total_grant: sumGrant,
-                      });
-                    }}
-                  />
-                )}
-              </div>
-            </div>
-
-            <div className="app-simple-section">
-              <div className="app-simple-section__title">
-                <label>Relationships and previous work</label>
-                <Icon.Info size={16} />
-              </div>
-              <div className="app-simple-section__body">
-                <label className="font-weight-700 d-block">
-                  Please outline your relationship with ETA and Contributors of
-                  ETA:
-                </label>
-                {this.renderRelations()}
-                <label className="font-weight-700 d-block mt-5">
-                  Have you ever received a Grant under this program before?
-                </label>
-                <p>{proposal.received_grant_before ? "Yes" : "No"}</p>
-                <label className="font-weight-700 d-block">
-                  {`If the answer to the previous question is YES, have you entirely fulfilled your contractual obligations?`}
-                </label>
-                <p>{proposal.has_fulfilled ? "Yes" : "No"}</p>
-                <label className="font-weight-700 d-block">
-                  {`Are you aware that you or another person received a Grant under this Program for a Project which is foundational to your proposed Project.`}
-                </label>
-                <p>{proposal.received_grant ? "Yes" : "No"}</p>
-                <label className="font-weight-700 d-block">
-                  {`If the answer to the prior question is yes, please cite any previous work performed under this Program, which is foundational to your proposed Project`}
-                </label>
-                <p>{proposal.foundational_work}</p>
-                {this.renderCitations()}
-              </div>
-            </div>
-
+                    <div className="flex flex-col gap-2 pt-4">
+                      {this.renderRelations()}
+                    </div>
+                  </div>
+                  <div>
+                    <label className="font-bold d-block mt-5">
+                      Have you ever received a Grant under this program before?
+                    </label>
+                    <p>{proposal.received_grant_before ? "Yes" : "No"}</p>
+                  </div>
+                  <div>
+                    <label className="font-bold d-block">
+                      {`If the answer to the previous question is YES, have you entirely fulfilled your contractual obligations?`}
+                    </label>
+                    <p>{proposal.has_fulfilled ? "Yes" : "No"}</p>
+                  </div>
+                  <div>
+                    <label className="font-bold d-block">
+                      {`Are you aware that you or another person received a Grant under this Program for a Project which is foundational to your proposed Project.`}
+                    </label>
+                    <p>{proposal.received_grant ? "Yes" : "No"}</p>
+                  </div>
+                  <div>
+                    <label className="font-bold d-block">
+                      {`If the answer to the prior question is yes, please cite any previous work performed under this Program, which is foundational to your proposed Project`}
+                    </label>
+                    <p>{proposal.foundational_work}</p>
+                    {this.renderCitations()}
+                  </div>    
+                </div>    
+              </CardBody>
+            </Card>
             {proposal.include_membership ? (
               <div className="app-simple-section">
                 <div className="app-simple-section__title">
                   <label>Membership Proposal</label>
                 </div>
                 <div className="app-simple-section__body">
-                  <label className="font-weight-700 d-block">
+                  <label className="font-bold d-block">
                     Why do you want to become a Voting Associate?
                   </label>
                   <p>{proposal.member_reason || ""}</p>
-                  <label className="font-weight-700 d-block">
+                  <label className="font-bold d-block">
                     As a Voting Associate, what will you bring to the {BRAND}?
                   </label>
                   <p>{proposal.member_benefit || ""}</p>
-                  <label className="font-weight-700 d-block">
+                  <label className="font-bold d-block">
                     {`Please enter your LinkedIn if you have one (Optional):`}
                   </label>
                   <p>{proposal.linkedin || ""}</p>
-                  <label className="font-weight-700 d-block">
+                  <label className="font-bold d-block">
                     {`Please enter your github/lab link if you are a developer (Optional):`}
                   </label>
                   <p>{proposal.github || ""}</p>
@@ -2667,59 +2696,60 @@ class SingleProposalDetail extends Component {
             ) : null}
 
             {this.renderOnboardingSection()}
-
-            <div className="app-simple-section" id="c-proposal-tags">
-              <div className="app-simple-section__title">
-                <label>Tags</label>
-              </div>
-              <div className="app-simple-section__body">
+            <Card className="mt-4">
+              <CardHeader>
+                <h3 className="font-bold">Tags</h3>
+              </CardHeader>
+              <CardBody>
                 {this.renderTags()}
-              </div>
-            </div>
+              </CardBody>
+            </Card>
 
-            <div className="app-simple-section">
-              <div className="app-simple-section__title">
+            <Card className="mt-4">
+              <CardHeader>
                 {this.renderLabelEdition(
                   "Uploaded Files",
                   "files",
                   { files: [...proposal.files] },
                   true
                 )}
-              </div>
-              <div className="app-simple-section__body">
-                {this.state.editionField !== "files" && (
-                  <ul id="app-spd-fileList" className="mb-4">
-                    {this.renderFiles()}
-                  </ul>
-                )}
-                {this.state.editionField === "files" && (
-                  <div className="c-form-row mt-5">
-                    <label>
-                      {`Drag and drop a file into this box to upload pitch deck, project architecture, charts, etc.`}
-                      <br />
-                      {`( Only PDF files will be accepted )`}
-                    </label>
-                    <Dropzone
-                      accept="application/pdf"
-                      onDrop={(files) => this.appendFiles(files)}
-                    >
-                      {({ getRootProps, getInputProps }) => (
-                        <section id="c-dropzone">
-                          <div {...getRootProps()}>
-                            <input {...getInputProps()} />
-                            <p className="color-primary">
-                              <Icon.Upload color="#9B64E6" />
-                              <span className="pl-2">Add Files</span>
-                            </p>
-                          </div>
-                        </section>
-                      )}
-                    </Dropzone>
-                    {this.renderRawFiles()}
-                  </div>
-                )}
-              </div>
-            </div>
+              </CardHeader>
+              <CardBody>
+                <div className="app-simple-section__body">
+                  {this.state.editionField !== "files" && (
+                    <ul id="app-spd-fileList" className="mb-4">
+                      {this.renderFiles()}
+                    </ul>
+                  )}
+                  {this.state.editionField === "files" && (
+                    <div className="c-form-row mt-5">
+                      <label>
+                        {`Drag and drop a file into this box to upload pitch deck, project architecture, charts, etc.`}
+                        <br />
+                        {`( Only PDF files will be accepted )`}
+                      </label>
+                      <Dropzone
+                        accept="application/pdf"
+                        onDrop={(files) => this.appendFiles(files)}
+                      >
+                        {({ getRootProps, getInputProps }) => (
+                          <section id="c-dropzone">
+                            <div {...getRootProps()}>
+                              <input {...getInputProps()} />
+                              <p className="color-primary">
+                                <Icon.Upload color="#FB5824" />
+                                <span className="pl-2">Add Files</span>
+                              </p>
+                            </div>
+                          </section>
+                        )}
+                      </Dropzone>
+                      {this.renderRawFiles()}
+                    </div>
+                  )}
+                </div>
+              </CardBody>
+            </Card> 
           </>
         )}
       </Fragment>

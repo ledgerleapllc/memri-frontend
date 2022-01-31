@@ -12,6 +12,7 @@ import {
   startFormalMilestoneVotingUser,
   startFormalVotingShared,
 } from "@utils/Thunk";
+import { Button } from '@shared/partials';
 
 const mapStateToProps = (state) => {
   return {
@@ -157,13 +158,12 @@ class InformalDone extends Component {
         ) {
           return (
             <div className="app-simple-section mb-3 align-items-center">
-              <a
+              <Button color="primary" size="sm"
                 style={{ width: "250px", marginRight: "30px" }}
-                className="btn btn-primary btn-fluid less-small"
                 onClick={() => this.startFormalMilestoneVote(vote)}
               >
                 Start Formal Milestone Vote
-              </a>
+              </Button>
               <div
                 style={{ padding: 0 }}
                 className="font-size-14 font-weight-700"
@@ -175,12 +175,12 @@ class InformalDone extends Component {
         }
       } else if (authUser.id == proposal.user_id && proposal.type == "simple") {
         return (
-          <a
-            className="btn btn-primary btn-fluid less-small mb-3"
+          <Button color="primary" size="sm"
+            className="mb-3"
             onClick={this.startFormal}
           >
             Start Formal Voting Process
-          </a>
+          </Button>
         );
       }
     }
@@ -196,12 +196,11 @@ class InformalDone extends Component {
           <div className="app-simple-section mb-3">
             <div style={{ padding: 0 }}>
               <label className="font-size-14">{`This vote did not reach quorum. Not enough Voting Associates voted. Another vote is needed.`}</label>
-              <a
-                className="btn btn-primary small mt-2"
+              <Button color="primary" size="sm"
                 onClick={this.clickRevote}
               >
                 Revote
-              </a>
+              </Button>
             </div>
           </div>
         );

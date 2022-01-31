@@ -8,6 +8,7 @@ import {
 } from "@redux/actions";
 import { getMe, sendKycKangaroo, dismissStartKyc } from "@utils/Thunk";
 import "./style.scss";
+import { Button } from '@shared/partials';
 
 const mapStateToProps = (state) => {
   return {
@@ -93,16 +94,18 @@ class StartKYC extends Component {
           {`We highly recommend starting this process right away because KYC can take a few days to complete and you will not be able to request a grant until it is submitted.`}
         </p>
         <div id="start-kyc-modal__buttons" className="pt-2">
-          <button className="btn btn-primary" onClick={this.sendLink}>
+          <Button size="sm" onClick={this.sendLink}>
             Send me a link to start the KYC/AML process
-          </button>
-          <a
-            className="color-primary text-underline"
+          </Button>
+          <Button
+            size="sm"
+            variant="text"
+            className="underline"
             onClick={() => this.skip()}
             style={{ cursor: "pointer" }}
           >
             Skip for now (not recommended)
-          </a>
+          </Button>
         </div>
       </div>
     );

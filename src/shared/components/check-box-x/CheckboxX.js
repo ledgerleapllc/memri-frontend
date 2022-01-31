@@ -24,11 +24,11 @@ export default function CheckboxX({
 
   const renderCheck = () => {
     if (val === 1) {
-      return <Icon.CheckSquare color="#9B64E6" />;
+      return <Icon.CheckSquare color="#FB5824" />;
     } else if (val === 0) {
       return <Icon.X color="#e85558" />;
     } else {
-      return <Icon.Square color="#9B64E6" />;
+      return <Icon.Square color="#FB5824" />;
     }
   };
 

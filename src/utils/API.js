@@ -1,8 +1,7 @@
 /* eslint-disable no-undef */
-/* global require */
 import Helper from "./Helper";
 
-const axios = require("axios");
+import axios from "axios";
 
 const sendRequest = (
   url,

@@ -12,6 +12,7 @@ import { SwitchButton } from './SwitchButton';
 import { Radio } from './Radio';
 import { DatePicker } from './DatePicker';
 import { AutoComplete } from './AutoComplete';
+import { Tag } from './Tag';
 
 export {
   Button,
@@ -21,6 +22,7 @@ export {
   Dialog, useDialog,
   Tab,
   BreadCrumb,
+  Tag,
   Select,
   Checkbox,
   CheckboxX,

@@ -5,6 +5,7 @@ import DatePicker from "react-date-picker/dist/entry.nostyle";
 import { FormInputComponent, FormSelectComponent } from "@shared/components";
 import { COUNTRYLIST } from "@utils/Constant";
 import { showAlert, showCanvas, hideCanvas } from "@redux/actions";
+import { Button } from '@shared/partials';
 import {
   forceApproveKYC,
   forceDenyKYC,
@@ -268,12 +269,12 @@ class Info extends Component {
           </div>
 
           <div id="verify-info-wrap__buttons">
-            <button type="submit" className="btn btn-primary">
+            <Button size="md" type="submit">
               Next
-            </button>
-            <a className="btn btn-danger" onClick={this.clickCancel}>
+            </Button>
+            <Button color="danger" size="md" onClick={this.clickCancel}>
               Cancel
-            </a>
+            </Button>
           </div>
 
           {/*

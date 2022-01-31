@@ -12,10 +12,6 @@ const mapStateToProps = (state) => {
 };
 
 class Grants extends Component {
-  constructor(props) {
-    super(props);
-  }
-
   render() {
     const { authUser } = this.props;
     if (!authUser || !authUser.id) return null;

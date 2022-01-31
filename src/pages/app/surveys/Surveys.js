@@ -1,19 +1,46 @@
 import React, { Component } from "react";
 import { connect } from "react-redux";
-import { withRouter } from "react-router-dom";
-import { Fade } from "react-reveal";
-import "./surveys.scss";
+import { withRouter, Redirect } from "react-router-dom";
+import { Tab } from '@shared/partials';
 import ActiveSurveyTab from "./components/tabs/active-survey-tab";
+import CompletedSurveyTab from "./components/tabs/completed-survey-tab";
 import WinnersTab from "./components/tabs/winners-tab";
 import DownvotedTab from "./components/tabs/downvoted-tab";
 import RFPSurveysTab from "./components/tabs/rfp-surveys-tab";
-import CompletedSurveyTab from "./components/tabs/completed-survey-tab";
 
 const mapStateToProps = (state) => {
   return {
     authUser: state.global.authUser,
   };
 };
+
+const tabsData = [
+  {
+    content: () => <ActiveSurveyTab />,
+    id: 'active',
+    title: 'Active',
+  },
+  {
+    content: () => <CompletedSurveyTab />,
+    id: 'completed',
+    title: 'Completed',
+  },
+  {
+    content: () => <WinnersTab />,
+    id: 'winners',
+    title: 'Winners',
+  },
+  {
+    content: () => <DownvotedTab />,
+    id: 'downvoted',
+    title: 'Downvoted',
+  },
+  {
+    content: () => <RFPSurveysTab />,
+    id: 'rfp-surveys',
+    title: 'RFP Surveys',
+  },
+];
 
 class Surveys extends Component {
   constructor(props) {
@@ -24,52 +51,12 @@ class Surveys extends Component {
   }
 
   render() {
-    const { tab } = this.state;
     const { authUser } = this.props;
     if (!authUser || !authUser.id) return null;
+    if (!authUser.is_admin) return <Redirect to="/" />;
 
     return (
-      <div id="app-survey-page">
-        <Fade distance={"20px"} bottom duration={400} delay={600}>
-          <ul id="app-discussions-pageHeader">
-            <li
-              className={tab == "active" ? "active" : ""}
-              onClick={() => this.setState({ tab: "active" })}
-            >
-              Active
-            </li>
-            <li
-              className={tab == "completed" ? "active" : ""}
-              onClick={() => this.setState({ tab: "completed" })}
-            >
-              Completed
-            </li>
-            <li
-              className={tab == "winners" ? "active" : ""}
-              onClick={() => this.setState({ tab: "winners" })}
-            >
-              Winners
-            </li>
-            <li
-              className={tab == "downvoted" ? "active" : ""}
-              onClick={() => this.setState({ tab: "downvoted" })}
-            >
-              Downvoted
-            </li>
-            <li
-              className={tab == "rfp-surveys" ? "active" : ""}
-              onClick={() => this.setState({ tab: "rfp-surveys" })}
-            >
-              RFP Surveys
-            </li>
-          </ul>
-        </Fade>
-        {tab === "active" && <ActiveSurveyTab />}
-        {tab === "completed" && <CompletedSurveyTab />}
-        {tab === "winners" && <WinnersTab />}
-        {tab === "downvoted" && <DownvotedTab />}
-        {tab === "rfp-surveys" && <RFPSurveysTab />}
-      </div>
+      <Tab tabs={tabsData} />
     );
   }
 }

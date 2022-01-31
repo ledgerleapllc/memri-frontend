@@ -40,10 +40,6 @@ const mapStateToProps = () => {
 };
 
 class GrantLogsTable extends Component {
-  constructor(props) {
-    super(props);
-  }
-
   renderResult() {
     const data = this.props.grantLogs;
     const items = [];

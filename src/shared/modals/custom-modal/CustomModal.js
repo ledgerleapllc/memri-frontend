@@ -2,6 +2,7 @@ import React, { Component, Fragment } from "react";
 import { connect } from "react-redux";
 import * as Icon from "react-feather";
 import Dropzone from "react-dropzone";
+import { Button } from '@shared/partials';
 import {
   removeActiveModal,
   setCustomModalData,
@@ -580,12 +581,12 @@ class CustomModal extends Component {
             />
           </div>
           <div id="custom-global-modal__buttons">
-            <button type="submit" className="btn btn-success">
+            <Button color="success" size="md" type="submit">
               Submit
-            </button>
-            <a className="btn btn-primary" onClick={() => this.hideModal()}>
+            </Button>
+            <Button size="md" onClick={() => this.hideModal()}>
               Cancel
-            </a>
+            </Button>
           </div>
         </form>
       </Fragment>
@@ -626,9 +627,9 @@ class CustomModal extends Component {
             <button type="submit" className="btn btn-success">
               Submit
             </button>
-            <a className="btn btn-primary" onClick={() => this.hideModal()}>
+            <Button size="md" onClick={() => this.hideModal()}>
               Cancel
-            </a>
+            </Button>
           </div>
         </form>
       </Fragment>
@@ -657,12 +658,12 @@ class CustomModal extends Component {
           </div>
 
           <div id="custom-global-modal__buttons">
-            <button type="submit" className="btn btn-success">
+            <Button color="success" size="md" type="submit">
               Submit
-            </button>
-            <a className="btn btn-primary" onClick={() => this.hideModal()}>
+            </Button>
+            <Button size="md" onClick={() => this.hideModal()}>
               Cancel
-            </a>
+            </Button>
           </div>
         </form>
       </Fragment>
@@ -696,12 +697,12 @@ class CustomModal extends Component {
           </div>
 
           <div id="custom-global-modal__buttons">
-            <button type="submit" className="btn btn-success">
+            <Button color="success" size="md" type="submit">
               Submit
-            </button>
-            <a className="btn btn-primary" onClick={() => this.hideModal()}>
+            </Button>
+            <Button size="md" onClick={() => this.hideModal()}>
               Cancel
-            </a>
+            </Button>
           </div>
         </form>
       </Fragment>
@@ -730,12 +731,12 @@ class CustomModal extends Component {
             />
           </div>
           <div id="custom-global-modal__buttons">
-            <button type="submit" className="btn btn-success">
-              Add
-            </button>
-            <a className="btn btn-primary" onClick={() => this.hideModal()}>
+            <Button color="success" size="md" type="submit">
+              Submit
+            </Button>
+            <Button size="md" onClick={() => this.hideModal()}>
               Cancel
-            </a>
+            </Button>
           </div>
         </form>
       </Fragment>
@@ -773,12 +774,12 @@ class CustomModal extends Component {
             />
           </div>
           <div id="custom-global-modal__buttons">
-            <button type="submit" className="btn btn-success">
+            <Button color="success" size="md" type="submit">
               Submit
-            </button>
-            <a className="btn btn-primary" onClick={() => this.hideModal()}>
+            </Button>
+            <Button size="md" onClick={() => this.hideModal()}>
               Cancel
-            </a>
+            </Button>
           </div>
         </form>
       </Fragment>
@@ -834,15 +835,15 @@ class CustomModal extends Component {
           >{`I understand the above and have reviewed the informal vote before making my decision.`}</label>
         </div>
         <div id="custom-global-modal__buttons">
-          <a
-            className="btn btn-success"
+          <Button 
+            color="success" size="md"
             onClick={() => this.confirmVote(modalData)}
           >
             Confirm
-          </a>
-          <a className="btn btn-primary" onClick={() => this.hideModal()}>
+          </Button>
+          <Button size="md" onClick={() => this.hideModal()}>
             Cancel
-          </a>
+          </Button>
         </div>
       </Fragment>
     );
@@ -873,15 +874,12 @@ class CustomModal extends Component {
         <h2 className="text-center">{modalData.title}</h2>
         <p className="text-center">{`Withdrawing a proposal is irreversible and will update the status to "withdrawn" preventing it from moving forward.`}</p>
         <div id="custom-global-modal__buttons">
-          <a
-            className="btn btn-success"
-            onClick={() => this.clickConfirmWithdraw(modalData)}
-          >
+          <Button color="success" size="md" onClick={() => this.clickConfirmWithdraw(modalData)}>
             Confirm Withdraw
-          </a>
-          <a className="btn btn-danger" onClick={() => this.hideModal()}>
+          </Button>
+          <Button size="md" onClick={() => this.hideModal()}>
             Cancel
-          </a>
+          </Button>
         </div>
       </Fragment>
     );
@@ -896,17 +894,17 @@ class CustomModal extends Component {
           id="custom-global-modal__buttons"
           className="custom-confirm-discussion-withdraw d-flex flex-column"
         >
-          <a
-            className="btn btn-success"
+          <Button 
+            color="success" size="md"
             onClick={() =>
               this.clickConfirmWithdraw(modalData, "/app/discussions")
             }
           >
             Yes, please delete my proposal
-          </a>
-          <a className="btn btn-danger" onClick={() => this.hideModal()}>
+          </Button>
+          <Button size="md" color="danger" onClick={() => this.hideModal()}>
             No please leave my proposal active
-          </a>
+          </Button>
         </div>
       </Fragment>
     );
@@ -931,15 +929,15 @@ class CustomModal extends Component {
           <b>{quorum_rate}%</b> of the Voting Associates to vote.
         </p>
         <div id="custom-global-modal__buttons">
-          <a
-            className="btn btn-success"
+          <Button 
+            color="success" size="md"
             onClick={() => this.clickRevote(modalData)}
           >
             Start Again
-          </a>
-          <a className="btn btn-danger" onClick={() => this.hideModal()}>
+          </Button>
+          <Button size="md" color="danger" onClick={() => this.hideModal()}>
             Cancel
-          </a>
+          </Button>
         </div>
       </Fragment>
     );
@@ -951,18 +949,18 @@ class CustomModal extends Component {
       <Fragment>
         <h3>{modalData.title}</h3>
         <div id="custom-global-modal__buttons">
-          <a
-            className="btn btn-success"
+          <Button 
+            color="success" size="md"
             onClick={() => this.clickAllowAccess(modalData)}
           >
             Allow Access
-          </a>
-          <a
-            className="btn btn-danger"
+          </Button>
+          <Button 
+            size="md" color="danger"
             onClick={() => this.clickDenyAccess(modalData)}
           >
             Deny Access
-          </a>
+          </Button>
         </div>
       </Fragment>
     );
@@ -985,7 +983,7 @@ class CustomModal extends Component {
             <section id="c-dropzone">
               <div {...getRootProps()}>
                 <input {...getInputProps()} />
-                <Icon.Upload color="#9B64E6" />
+                <Icon.Upload color="#FB5824" />
                 <p className="color-primary">Add File</p>
               </div>
             </section>
@@ -993,15 +991,18 @@ class CustomModal extends Component {
         </Dropzone>
         {this.renderFile()}
         <div id="custom-global-modal__buttons">
-          <a
-            className="btn btn-success"
+          <Button 
+            color="success" size="md"
             onClick={() => this.clickActivate(modalData)}
           >
             Activate
-          </a>
-          <a className="btn btn-danger" onClick={() => this.hideModal()}>
+          </Button>
+          <Button 
+            size="md" color="danger"
+            onClick={() => this.hideModal()}
+          >
             Cancel
-          </a>
+          </Button>
         </div>
       </Fragment>
     );
@@ -1015,9 +1016,12 @@ class CustomModal extends Component {
         <p>{`You did not vote during the informal phase of this proposal.`}</p>
         <p className="mt-3">{`You must vote in the informal stage to be allowed to vote in the formal vote.`}</p>
         <div className="text-center mt-5">
-          <a className="btn btn-danger" onClick={() => this.hideModal()}>
+          <Button 
+            size="sm" color="danger"
+            onClick={() => this.hideModal()}
+          >
             Close
-          </a>
+          </Button>
         </div>
       </Fragment>
     );
@@ -1030,9 +1034,12 @@ class CustomModal extends Component {
         <h2>{modalData.title}</h2>
         <p>{`Please submit and complete your first grant to become a voting associate.`}</p>
         <div className="text-center mt-5">
-          <a className="btn btn-danger" onClick={() => this.hideModal()}>
+          <Button 
+            size="sm" color="danger"
+            onClick={() => this.hideModal()}
+          >
             Close
-          </a>
+          </Button>
         </div>
       </Fragment>
     );
@@ -1106,9 +1113,9 @@ class CustomModal extends Component {
           />
         </div>
         <div className="text-center mt-5">
-          <a className="btn btn-success" onClick={this.doCheckMasterPassword}>
+          <Button color="success" onClick={this.doCheckMasterPassword}>
             Submit
-          </a>
+          </Button>
         </div>
       </>
     );
@@ -1121,18 +1128,19 @@ class CustomModal extends Component {
         <h2 className="text-center">{modalData.title}</h2>
         <p className="text-center">{`Warning, you cannot make changes to a grant once submitted. Please be sure you have an appropriate amount of detail in all sections for your grant. Please be advised that insufficient details in your grant application may result in automatic dismissal of your grant from DxD consideration`}</p>
         <div id="custom-global-modal__buttons">
-          <a className="btn btn-danger" onClick={() => this.hideModal()}>
+          <Button size="sm" color="danger" onClick={() => this.hideModal()}>
             Go back
-          </a>
-          <a
-            className="btn btn-success"
+          </Button>
+          <Button 
+            size="sm"
+            color="success"
             onClick={() => {
               this.hideModal();
               modalData.onConfirm();
             }}
           >
             Submit
-          </a>
+          </Button>
         </div>
       </Fragment>
     );

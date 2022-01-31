@@ -9,6 +9,7 @@ import {
   setPreRegisterTableStatus,
 } from "@redux/actions";
 import { approvePreRegister, denyPreRegister } from "@utils/Thunk";
+import { Button } from '@shared/partials';
 
 import "./pre-register-action.scss";
 
@@ -64,12 +65,12 @@ class PreRegisterAction extends Component {
   renderButtons() {
     return (
       <div id="pre-register-action-modal__buttons">
-        <a className="btn btn-success" onClick={this.clickInvite}>
+        <Button size="sm" color="success" onClick={this.clickInvite}>
           Invite to Portal
-        </a>
-        <a className="btn btn-danger" onClick={this.clickDeny}>
+        </Button>
+        <Button size="sm" color="danger" onClick={this.clickDeny}>
           Deny Access
-        </a>
+        </Button>
       </div>
     );
   }

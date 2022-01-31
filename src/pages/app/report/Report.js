@@ -9,9 +9,9 @@ import {
   getReportTotalRep,
 } from "@utils/Thunk";
 import OnboardingStats from "./components/onboarding-stats";
-import ReputationStats from "./components/reputation-stats";
-import "./style.scss";
 import { FROM_YEAR } from "@utils/Constant";
+import { Card, CardHeader, CardBody, Button } from '@shared/partials';
+
 const mapStateToProps = (state) => {
   return {
     authUser: state.global.authUser,
@@ -39,6 +39,11 @@ class Report extends Component {
     this.fetchReportOnboarding();
     this.fetchReportReputation();
     this.fetchReportTotalRep();
+    document.body.classList.add('scroll-window');
+  }
+
+  componentWillUnmount() {
+    document.body.classList.remove('scroll-window');
   }
 
   fetchReportOnboarding = () => {
@@ -144,19 +149,18 @@ class Report extends Component {
     if (!authUser.is_admin) return <Redirect to="/" />;
 
     return (
-      <div id="report-page">
-        <div className="mb-3 d-flex justify-content-end">
-          <button
-            className="btn btn-primary btn-download"
+      <div id="report-page" className="pb-8 flex flex-col gap-4">
+        <div className="flex justify-end">
+          <Button
             onClick={() => this.download()}
           >
             Export Report
-          </button>
+          </Button>
         </div>
-        <section className="flex flex-column app-infinite-box mb-4">
-          <div className="app-infinite-search-wrap">
-            <b>Onboarding Stats</b>
-            <div className="d-flex">
+        <Card>
+          <CardHeader>
+            <div className="flex justify-between w-full">
+              <h3 className="font-bold">Onboarding Stats</h3>
               <select
                 value={this.state.yearOnboarding}
                 className="mr-3"
@@ -171,21 +175,24 @@ class Report extends Component {
                 )}
               </select>
             </div>
-          </div>
-          <div style={{ height: "300px" }}>
-            <LineChart
-              name="Voting Associates Onboard by Month"
-              xAxis={this.state.reportOnboarding?.xAxis}
-              data={this.state.reportOnboarding?.data}
-            />
-          </div>
-          <div className="my-5">
-            <OnboardingStats data={this.state.reportOnboarding?.rawData} />
-          </div>
-          <div className="custom-border" />
-          <div className="app-infinite-search-wrap">
-            <b>Total reputation by User</b>
-            <div className="d-flex">
+          </CardHeader>
+          <CardBody>
+            <div className="h-128">
+              <LineChart
+                name="Voting Associates Onboard by Month"
+                xAxis={this.state.reportOnboarding?.xAxis}
+                data={this.state.reportOnboarding?.data}
+              />
+            </div>
+            <div className="my-5">
+              {this.state.reportOnboarding?.rawData && <OnboardingStats data={this.state.reportOnboarding?.rawData} />}
+            </div>
+          </CardBody>
+        </Card>
+        <Card>
+          <CardHeader>
+            <div className="flex justify-between w-full">
+              <h3 className="font-bold">Total reputation by User</h3>
               <select
                 value={this.state.yearReputation}
                 className="mr-3"
@@ -200,22 +207,22 @@ class Report extends Component {
                 )}
               </select>
             </div>
-          </div>
-          <div style={{ height: "500px" }}>
-            <LineChart
-              name=""
-              xAxis={this.state.reportReputation?.xAxis}
-              data={this.state.reportReputation?.data}
-              strokeWidth={1}
-            />
-          </div>
-          <div className="my-5">
-            <ReputationStats data={this.state.reportReputation?.rawData} />
-          </div>
-          <div className="custom-border" />
-          <div className="app-infinite-search-wrap">
-            <b>Relative Voting Weights</b>
-            <div className="d-flex">
+          </CardHeader>
+          <CardBody>
+            <div className="h-128">
+              <LineChart
+                name=""
+                xAxis={this.state.reportReputation?.xAxis}
+                data={this.state.reportReputation?.data}
+                strokeWidth={1}
+              />
+            </div>
+          </CardBody>
+        </Card>
+        <Card>
+          <CardHeader>
+            <div className="flex justify-between w-full">
+              <h3 className="font-bold">Relative Voting Weights</h3>
               <select
                 value={this.state.yearTotalRep}
                 className="mr-3"
@@ -230,14 +237,16 @@ class Report extends Component {
                 )}
               </select>
             </div>
-          </div>
-          <div style={{ height: "700px" }}>
-            <PieChart
-              name="Relative Voting Weights (Reputation)"
-              data={this.state.reportTotalRep?.data}
-            />
-          </div>
-        </section>
+          </CardHeader>
+          <CardBody>
+            <div className="h-128">
+              <PieChart
+                name="Relative Voting Weights (Reputation)"
+                data={this.state.reportTotalRep?.data}
+              />
+            </div>
+          </CardBody>
+        </Card>
       </div>
     );
   }

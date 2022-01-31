@@ -10,6 +10,7 @@ import {
   showCanvas,
 } from "@redux/actions";
 import { Checkbox, FormInputComponent } from "../../components";
+import { Button } from '@shared/partials';
 import { submitMilestone } from "@utils/Thunk";
 
 import "./milestone-vote.scss";
@@ -306,16 +307,19 @@ class MilestoneVote extends Component {
           </div>
 
           <div id="milestone-vote-modal__buttons">
-            <button
+            <Button
               type="submit"
-              className="btn btn-success"
+              color="success"
+              size="sm"
               disabled={this.isDisabledSubmit()}
             >
               Submit
-            </button>
-            <a className="btn btn-primary" onClick={this.hideModal}>
+            </Button>
+            <Button 
+              size="sm"
+              variant="text" className="underline" onClick={this.hideModal}>
               Cancel
-            </a>
+            </Button>
           </div>
         </form>
         {submittingMilestones?.length && (

@@ -7,15 +7,15 @@
   }
 
   .app-proposal-changes-item {
+    @apply border-b border-primary;
     display: flex;
     align-items: center;
     justify-content: space-between;
-    border-bottom: 1px solid rgba(114, 46, 209, 0.5);
     padding: 1rem 10px;
     cursor: pointer;
 
     &:hover {
-      background: #3F196E;
+      @apply bg-gray3;
     }
 
     * {

@@ -1,18 +1,30 @@
 import classNames from 'classnames';
 import './style.scss';
-import { cloneElement, useContext, useState } from 'react';
-import { ReactComponent as IconPlus } from '@assets/icons/ic-plus.svg';
-import { ReactComponent as IconMinus } from '@assets/icons/ic-minus.svg';
+import { cloneElement, useContext, useState, useEffect } from 'react';
+// import { ReactComponent as IconPlus } from '@assets/icons/ic-plus.svg';
+// import { ReactComponent as IconMinus } from '@assets/icons/ic-minus.svg';
 import { createContext } from 'react';
+import * as Icon from "react-feather";
 
 const CardContext = createContext({
   setIsExpand: () => {},
   isExpand: false
 });
 
-const Card = ({ children, className, expand, expandClass }) => {
-  const [isExpand, setIsExpand] = useState();
+const Card = ({ extraAction, isAutoExpand, children, className, expand, expandClass }) => {
+  const [isExpand, setStateIsExpand] = useState();
+
+  useEffect(() => {
+    if (isAutoExpand) {
+      setIsExpand(isAutoExpand);
+    }
+  }, []);
   
+  const setIsExpand = (value) => {
+    setStateIsExpand(value);
+    if (extraAction) extraAction();
+  };
+
   const renderChildren = () => {
     if (Array.isArray(children)) {
       return (
@@ -59,16 +71,16 @@ Card.Header = ({ children, expand }) => {
           className="ml-auto flex-center rounded bg-primary h-7 w-7 text-white"
           onClick={() => setIsExpand(!isExpand)}
         >
-          {isExpand ? <IconMinus /> : <IconPlus />}
+          {isExpand ? <Icon.Minus /> : <Icon.Plus />}
         </button>
       )}
     </div>
   );
 }
 
-Card.Body = ({ className, children, scrollable }) => {
+Card.Body = ({ id, className, children, scrollable }) => {
   return (
-    <div className={classNames(scrollable ? 'transition duration-75 overflow-y-scroll padding-tracker' : '', 'card-body flex-1 min-h-0', className)}>
+    <div {...{id}} className={classNames(scrollable ? 'transition duration-75 overflow-y-scroll padding-tracker' : '', 'card-body flex-1 min-h-0', className)}>
       {children}
     </div>
   );

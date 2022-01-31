@@ -1,3 +1,4 @@
+/* eslint-disable no-lone-blocks */
 import React, { useEffect, createContext, useState, Suspense } from 'react';
 import { Routes } from "./routes";
 // import { useSelector, useDispatch } from "react-redux";
@@ -6,6 +7,7 @@ import { Routes } from "./routes";
 import ReactLoading from 'react-loading';
 // import { DialogProvider } from './shared/partials/dialog/Provider';
 import { BrowserRouter } from 'react-router-dom';
+import { GlobalLayout } from "@shared/layouts";
 // import { SnackBarProvider, useDialog } from '@shared/partials';
 export const AppContext = createContext({});
 
@@ -59,6 +61,7 @@ function App() {
             {/* <Main> */}
               <AppContext.Provider value={{ loading, setLoading }}>
                 {loading && <AppLoading />}
+                <GlobalLayout />
                 <Routes />
               </AppContext.Provider>
             {/* </Main> */}

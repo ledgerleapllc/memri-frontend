@@ -6,6 +6,7 @@ import { removeActiveModal } from "@redux/actions";
 import "./draft-proposals.scss";
 import { withRouter } from "react-router-dom";
 import DraftProposalsTable from "./components/DraftProposalsTable";
+import { Button } from '@shared/partials';
 
 const mapStateToProps = (state) => {
   return {
@@ -41,12 +42,12 @@ class DraftProposals extends Component {
         </h5>
         <DraftProposalsTable />
         <div className="mt-4" id="draft-proposals-modal__buttons">
-          <a className="btn btn-primary-outline" onClick={this.hideModal}>
+          <Button size="sm" color="primary" variant="outline" onClick={this.hideModal}>
             Cancel
-          </a>
-          <a className="btn btn-primary" onClick={this.newGrant}>
+          </Button>
+          <Button size="sm" color="primary" onClick={this.newGrant}>
             Start a new grant instead
-          </a>
+          </Button>
         </div>
       </div>
     );

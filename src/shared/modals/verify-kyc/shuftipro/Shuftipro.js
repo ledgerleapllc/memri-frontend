@@ -10,9 +10,6 @@ const mapStateToProps = (state) => {
 };
 
 class Shuftipro extends Component {
-  constructor(props) {
-    super(props);
-  }
 
   render() {
     return <div id="shuftipro-wrap"></div>;

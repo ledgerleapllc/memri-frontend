@@ -11,7 +11,7 @@ import { ReactComponent as HomeIcon } from '@assets/icons/ic-home.svg';
 import { ReactComponent as GrantIcon } from '@assets/icons/ic-grant.svg';
 import { ReactComponent as DocIcon } from '@assets/icons/ic-alldoc.svg';
 import { ReactComponent as DirectoryIcon } from '@assets/icons/ic-directory.svg';
-import { ReactComponent as MilestoneIcon } from '@assets/icons/ic-milestone.svg';
+// import { ReactComponent as MilestoneIcon } from '@assets/icons/ic-milestone.svg';
 import { ReactComponent as SurveyIcon } from '@assets/icons/ic-survey.svg';
 import { ReactComponent as GlobalIcon } from '@assets/icons/ic-global.svg';
 import { ReactComponent as EmailerIcon } from '@assets/icons/ic-emailer.svg';
@@ -126,14 +126,14 @@ export const useSidebar = () => {
             to: '/app/grants',
           }
         },
-        {
-          key: 'milestones',
-          icon: MilestoneIcon,
-          label: 'Milestones',
-          action: {
-            to: '/app/milestones',
-          }
-        },
+        // {
+        //   key: 'milestones',
+        //   icon: MilestoneIcon,
+        //   label: 'Milestones',
+        //   action: {
+        //     to: '/app/milestones',
+        //   }
+        // },
         {
           key: 'surveys',
           icon: SurveyIcon,

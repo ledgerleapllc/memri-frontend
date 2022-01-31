@@ -1,51 +1,34 @@
-import React, { Component } from "react";
-import { Redirect, withRouter } from "react-router-dom";
-import { connect } from "react-redux";
-import "./admin-team.scss";
+import React from "react";
+import { useDispatch } from "react-redux";
 import TeamTable from "./components/TeamTable";
-import { Fade } from "react-reveal";
 import { setActiveModal } from "@redux/actions";
+import { Card, CardHeader, CardBody, Button } from '@shared/partials';
 
-const mapStateToProps = (state) => {
-  return {
-    authUser: state.global.authUser,
+const AdminTeam = () => {
+  const dispatch = useDispatch();
+
+  const openAddAdminDialog = () => {
+    dispatch(setActiveModal("add-admin-box"));
   };
-};
-
-class AdminTeam extends Component {
-  constructor(props) {
-    super(props);
-  }
-
-  openAddAdminDialog = () => {
-    this.props.dispatch(setActiveModal("add-admin-box"));
-  };
-
-  render() {
-    const { authUser } = this.props;
-    if (!authUser || !authUser.id) return null;
-
-    if (!authUser.is_admin) return <Redirect to="/" />;
-
-    return (
-      <div id="team-page">
-        <Fade distance={"20px"} bottom duration={300} delay={600}>
-          <section className="app-infinite-box mb-4">
-            <div className="app-infinite-search-wrap">
-              <label>Teams</label>
-              <button
-                className="my-1 btn btn-primary btn-download small ml-2"
-                onClick={this.openAddAdminDialog}
-              >
-                + New Admin
-              </button>
-            </div>
-            <TeamTable />
-          </section>
-        </Fade>
-      </div>
-    );
-  }
+  
+  return (
+    <Card className="mt-4 h-full flex-1 min-h-0">
+      <CardHeader>
+        <div className="w-full flex justify-between">
+          <h3 className="font-bold text-lg">Teams</h3>
+          <Button
+            size="md"
+            onClick={openAddAdminDialog}
+          >
+            + New Admin
+          </Button>
+        </div>
+      </CardHeader>
+      <CardBody className="overflow-x-scroll">
+        <TeamTable />
+      </CardBody>
+    </Card>
+  )
 }
 
-export default connect(mapStateToProps)(withRouter(AdminTeam));
+export default AdminTeam;

@@ -9,6 +9,7 @@ import {
   setPreRegisterTableStatus,
 } from "@redux/actions";
 import { getPreRegisterUsersByAdmin } from "@utils/Thunk";
+import { Button } from '@shared/partials';
 
 import "./pre-register-users.scss";
 
@@ -223,12 +224,11 @@ class PreRegisterUsers extends Component {
   renderAction(item) {
     if (item.status == "pending") {
       return (
-        <a
-          className="btn btn-primary extra-small btn-fluid-small"
+        <Button size="sm"
           onClick={() => this.clickAction(item)}
         >
           Approve / Deny
-        </a>
+        </Button>
       );
     } else if (item.status == "completed")
       return <label className="font-size-14">Completed</label>;
@@ -292,12 +292,11 @@ class PreRegisterUsers extends Component {
           <form action="" method="POST" id="app-pr-users-page__csvForm">
             <input type="hidden" name="action" value="" />
           </form>
-          <a
-            className="btn btn-success btn-fluid less-small"
+          <Button size="sm" color="success"
             onClick={this.clickExport}
           >
             Export Pre-Registration
-          </a>
+          </Button>
         </div>
 
         <section id="app-pr-users-section" className="app-infinite-box">

@@ -4,9 +4,11 @@
 import React, { Component, Fragment, forwardRef } from "react";
 import { connect } from "react-redux";
 import { withRouter } from "react-router-dom";
+import { Button } from '@shared/partials';
 import moment from "moment";
 import * as Icon from "react-feather";
 import Dropzone from "react-dropzone";
+import { Card, CardBody, Tag } from '@shared/partials';
 import { Fade } from "react-reveal";
 import {
   BRAND,
@@ -1629,1107 +1631,1255 @@ class ProposalFinalForm extends Component {
     // else if (purpose == "Other" && !purposeOther) submitDisabled = true;
 
     return (
-      <div id="proposal-final-form" className="proposal-final-form">
-        <form className="main-box">
-          <div id="c-status-general"></div>
-          <Fade distance={"20px"} bottom duration={100} delay={500}>
-            <div className="app-page-header" style={{ marginTop: "40px" }}>
-              <label>General Project Details</label>
-              <Icon.Info size={16} />
+      <div id="proposal-final-form" className="proposal-final-form flex">
+        <div className="!w-4/5 h-full pr-4">
+          <Card className="h-full">
+            <CardBody className="overflow-scroll padding-tracker">
+              <form className="main-box">
+                <div id="c-status-general"></div>
+                <Fade distance={"20px"} bottom duration={100} delay={500}>
+                  <div className="app-page-header" style={{ marginTop: "40px" }}>
+                    <label>General Project Details</label>
+                    <Icon.Info size={16} />
 
-              {sectionError.general ? (
-                <Icon.XCircle color="#EA5454" className="app-page-headerIcon" />
-              ) : (
-                <Icon.CheckCircle
-                  color="#33C333"
-                  className="app-page-headerIcon"
-                />
-              )}
-            </div>
-          </Fade>
-          <Fade distance={"20px"} bottom duration={100} delay={500}>
-            <div className="c-form-row">
-              <label>Title of Proposed Project (limit 10 words)</label>
-              <input
-                value={title}
-                type="text"
-                onChange={(e) => this.inputField(e, "title")}
-                required
-              />
-            </div>
-          </Fade>
-          <Fade distance={"20px"} bottom duration={100} delay={500}>
-            <div className="c-form-row">
-              <label>
-                Describe your project in detail. Please include what it does and
-                what problem it solves. (limit 1500 words)
-              </label>
-              <textarea
-                value={short_description}
-                onChange={(e) => this.inputField(e, "short_description")}
-                required
-              ></textarea>
-            </div>
-          </Fade>
-          <Fade distance={"20px"} bottom duration={100} delay={500}>
-            <div className="c-form-row">
-              <label>
-                {`Explanation as to how your proposed project would benefit the DEVxDAO ecosystem AND/OR support transparent and open source scientific research and/ or development if applicable.`}
-              </label>
-              <textarea
-                value={explanation_benefit}
-                onChange={(e) => this.inputField(e, "explanation_benefit")}
-                required
-              ></textarea>
-            </div>
-          </Fade>
-          {/* <Fade distance={"20px"} bottom duration={300} delay={600}>
-            <div className="c-form-row">
-              <label>
-                {`Explanation as to how your proposed Project will achieve DEVxDAO's mission of transparent and open source scientific research and/ or development if applicable.`}
-              </label>
-              <textarea
-                value={explanation_goal}
-                onChange={(e) => this.inputField(e, "explanation_goal")}
-                required
-              ></textarea>
-            </div>
-          </Fade> */}
-          <Fade distance={"20px"} bottom duration={100} delay={600}>
-            <div className="c-form-row">
-              <label>{`Under which open source license(s) will you publish any research and development associated with your proposed Project? All research papers or the like should be Creative Commons.`}</label>
-              <div className="row">
-                <div className="col-md-4">{this.renderLicenseDropdown()}</div>
-                {+license === 5 ? (
-                  <div className="col-md-4">
-                    <input
-                      value={license_other}
-                      type="text"
-                      placeholder="Enter License"
-                      onChange={(e) => this.inputField(e, "license_other")}
-                    />
-                  </div>
-                ) : null}
-              </div>
-            </div>
-          </Fade>
-          <Fade distance={"20px"} bottom duration={100} delay={600}>
-            <div className="c-form-row">
-              <label>{`Please link your resume (Linkedin) or Git (For developers)`}</label>
-              <div className="row">
-                <div className="col-md-4">
-                  <input
-                    value={resume}
-                    type="text"
-                    onChange={(e) => this.inputField(e, "resume")}
-                    required
-                  />
-                </div>
-              </div>
-            </div>
-          </Fade>
-          <Fade distance={"20px"} bottom duration={100} delay={600}>
-            <div className="c-form-row">
-              <label>{`Please add any notes or reference about the project, such as similar projects or web pages about APIs to be integrated with your build`}</label>
-              <textarea
-                value={extra_notes}
-                onChange={(e) => this.inputField(e, "extra_notes")}
-              ></textarea>
-            </div>
-          </Fade>
-          <div id="c-status-team"></div>
-          <Fade distance={"20px"} bottom duration={100} delay={600}>
-            <div className="app-page-headerModern">
-              <div className="app-page-headerModern__inner">
-                <label>Team Details</label>
-                <Icon.Info size={16} />
-                {sectionError.team ? (
-                  <Icon.XCircle
-                    color="#EA5454"
-                    className="app-page-headerIcon"
-                  />
-                ) : (
-                  <Icon.CheckCircle
-                    color="#33C333"
-                    className="app-page-headerIcon"
-                  />
-                )}
-              </div>
-              <div className="c-checkbox-item">
-                <div
-                  className="c-checkbox-itemSymbol"
-                  onClick={this.uncheckMember}
-                >
-                  {!memberRequired ? (
-                    <Icon.CheckSquare color="#9B64E6" />
-                  ) : (
-                    <Icon.Square color="#9B64E6" />
-                  )}
-                </div>
-                <label className="font-size-14" onClick={this.uncheckMember}>
-                  {"I am working on this project alone."}
-                </label>
-              </div>
-              <div className="c-checkbox-item">
-                <div
-                  className="c-checkbox-itemSymbol"
-                  onClick={this.checkMember}
-                >
-                  {memberRequired ? (
-                    <Icon.CheckSquare color="#9B64E6" />
-                  ) : (
-                    <Icon.Square color="#9B64E6" />
-                  )}
-                </div>
-                <label className="font-size-14" onClick={this.checkMember}>
-                  {
-                    "I have a team of at least one of person (you will need to provide information for team members)."
-                  }
-                </label>
-              </div>
-            </div>
-          </Fade>
-          {memberRequired ? (
-            <ProposalTeamView
-              members={members}
-              memberChecked={memberChecked}
-              onUpdate={(members) => {
-                this.setState({ members }, () => {
-                  this.checkSectionError();
-                });
-              }}
-              onUpdateChecked={(memberChecked) => {
-                this.setState({ memberChecked }, () => {
-                  this.checkSectionError();
-                });
-              }}
-            />
-          ) : null}
-          <div id="c-status-grant"></div>
-          <Fade distance={"20px"} bottom duration={100} delay={600}>
-            <div className="app-page-header">
-              <label>Grant Details</label>
-              <Icon.Info size={16} />
-              {sectionError.grant ? (
-                <Icon.XCircle color="#EA5454" className="app-page-headerIcon" />
-              ) : (
-                <Icon.CheckCircle
-                  color="#33C333"
-                  className="app-page-headerIcon"
-                />
-              )}
-            </div>
-          </Fade>
-
-          <Fade distance={"20px"} bottom duration={100} delay={600}>
-            <div className="c-form-row">
-              <div className="row">
-                <div className="col-md-8">
-                  <label>
-                    Please enter the total amount you are requesting as a grant:
-                  </label>
-                  <input
-                    type="text"
-                    value={
-                      total_grant ? Helper.formatPriceNumber(total_grant) : ""
-                    }
-                    placeholder="Total in Euros"
-                    onChange={(e) => this.inputEuroField(e, "total_grant")}
-                    required
-                  />
-                </div>
-              </div>
-            </div>
-          </Fade>
-          <Fade distance={"20px"} bottom duration={100} delay={600}>
-            <div className="c-form-row mt-5">
-              <label>{`Will payments for this work be made to a entity such as your company or organization instead of to you personally?`}</label>
-              <div className="c-simple-checkbox-item-group">
-                <div className="c-simple-checkbox-item">
-                  <div
-                    className="c-simple-checkbox-itemSymbol"
-                    onClick={() => {
-                      this.setState({ is_company_or_organization: 0 }, () => {
-                        this.checkSectionError();
-                      });
-                    }}
-                  >
-                    {is_company_or_organization ? (
-                      <Icon.Square color="#9B64E6" />
+                    {sectionError.general ? (
+                      <Icon.XCircle color="#EA5454" className="app-page-headerIcon" />
                     ) : (
-                      <Icon.CheckSquare color="#9B64E6" />
-                    )}
-                  </div>
-                  <label
-                    onClick={() => {
-                      this.setState({ is_company_or_organization: 0 }, () => {
-                        this.checkSectionError();
-                      });
-                    }}
-                  >{`No`}</label>
-                </div>
-                <div className="c-simple-checkbox-item">
-                  <div
-                    className="c-simple-checkbox-itemSymbol"
-                    onClick={() => {
-                      this.setState({ is_company_or_organization: 1 }, () => {
-                        this.checkSectionError();
-                      });
-                    }}
-                  >
-                    {is_company_or_organization ? (
-                      <Icon.CheckSquare color="#9B64E6" />
-                    ) : (
-                      <Icon.Square color="#9B64E6" />
-                    )}
-                  </div>
-                  <label
-                    onClick={() => {
-                      this.setState({ is_company_or_organization: 1 }, () => {
-                        this.checkSectionError();
-                      });
-                    }}
-                  >{`Yes`}</label>
-                </div>
-              </div>
-            </div>
-          </Fade>
-          {!!is_company_or_organization && (
-            <Fade distance={"20px"} bottom duration={100} delay={600}>
-              <div className="row mt-5">
-                <div className="col-md-6">
-                  <div className="c-form-row">
-                    <label>What is the name of the entity?</label>
-                    <input
-                      value={name_entity}
-                      type="text"
-                      placeholder="Enter name of entity"
-                      onChange={(e) => this.inputField(e, "name_entity")}
-                      required
-                    />
-                  </div>
-                </div>
-                <div className="col-md-6">
-                  <div className="c-form-row c-select">
-                    <label>
-                      Please select the entity country of registration.
-                    </label>
-                    <FormSelectComponent
-                      required
-                      placeholder="Please select a country"
-                      options={COUNTRYLIST}
-                      value={entity_country}
-                      onChange={(e) => this.inputField(e, "entity_country")}
-                    />
-                  </div>
-                </div>
-              </div>
-            </Fade>
-          )}
-          <Fade distance={"20px"} bottom duration={100} delay={600}>
-            <ProposalGrantView
-              total_grant={total_grant}
-              grants={grants}
-              onUpdate={(grants) => {
-                this.setState({ grants }, () => {
-                  this.checkSectionError();
-                });
-              }}
-            />
-          </Fade>
-          <Fade distance={"20px"} bottom duration={100} delay={600}>
-            <div className="c-form-row mt-5">
-              <label>{`Did a Voting Associate of the DEVxDAO assist you during the grant application process as a mentor?`}</label>
-              <div className="c-simple-checkbox-item-group">
-                <div className="c-simple-checkbox-item">
-                  <div
-                    className="c-simple-checkbox-itemSymbol"
-                    onClick={() => {
-                      this.setState({ have_mentor: 0 }, () => {
-                        this.checkSectionError();
-                      });
-                    }}
-                  >
-                    {have_mentor ? (
-                      <Icon.Square color="#9B64E6" />
-                    ) : (
-                      <Icon.CheckSquare color="#9B64E6" />
-                    )}
-                  </div>
-                  <label
-                    onClick={() => {
-                      this.setState({ have_mentor: 0 }, () => {
-                        this.checkSectionError();
-                      });
-                    }}
-                  >{`No`}</label>
-                </div>
-                <div className="c-simple-checkbox-item">
-                  <div
-                    className="c-simple-checkbox-itemSymbol"
-                    onClick={() => {
-                      this.setState({ have_mentor: 1 }, () => {
-                        this.checkSectionError();
-                      });
-                    }}
-                  >
-                    {have_mentor ? (
-                      <Icon.CheckSquare color="#9B64E6" />
-                    ) : (
-                      <Icon.Square color="#9B64E6" />
-                    )}
-                  </div>
-                  <label
-                    onClick={() => {
-                      this.setState({ have_mentor: 1 }, () => {
-                        this.checkSectionError();
-                      });
-                    }}
-                  >{`Yes`}</label>
-                </div>
-              </div>
-            </div>
-          </Fade>
-          {!!have_mentor && (
-            <Fade distance={"20px"} bottom duration={100} delay={600}>
-              <div className="row mt-5">
-                <div className="col-md-6">
-                  <div className="c-form-row">
-                    <label>
-                      Please enter the email or handle of the member
-                      <span className="pl-1">
-                        {check_mentor && <Icon.CheckCircle color="#33C333" />}
-                        {!check_mentor && <Icon.XCircle color="#EA5454" />}
-                      </span>
-                    </label>
-                    <div className="d-flex">
-                      <input
-                        value={name_mentor}
-                        type="text"
-                        onChange={(e) => this.inputField(e, "name_mentor")}
-                        required
+                      <Icon.CheckCircle
+                        color="#33C333"
+                        className="app-page-headerIcon"
                       />
-                      <button
-                        type="button"
-                        className="btn-submit btn btn-primary ml-2"
-                        onClick={this.checkMentorProposal}
+                    )}
+                  </div>
+                </Fade>
+                <Fade distance={"20px"} bottom duration={100} delay={500}>
+                  <div className="c-form-row">
+                    <label>Title of Proposed Project (limit 10 words)</label>
+                    <input
+                      value={title}
+                      type="text"
+                      onChange={(e) => this.inputField(e, "title")}
+                      required
+                    />
+                  </div>
+                </Fade>
+                <Fade distance={"20px"} bottom duration={100} delay={500}>
+                  <div className="c-form-row">
+                    <label>
+                      Describe your project in detail. Please include what it does and
+                      what problem it solves. (limit 1500 words)
+                    </label>
+                    <textarea
+                      value={short_description}
+                      onChange={(e) => this.inputField(e, "short_description")}
+                      required
+                    ></textarea>
+                  </div>
+                </Fade>
+                <Fade distance={"20px"} bottom duration={100} delay={500}>
+                  <div className="c-form-row">
+                    <label>
+                      {`Explanation as to how your proposed project would benefit the DEVxDAO ecosystem AND/OR support transparent and open source scientific research and/ or development if applicable.`}
+                    </label>
+                    <textarea
+                      value={explanation_benefit}
+                      onChange={(e) => this.inputField(e, "explanation_benefit")}
+                      required
+                    ></textarea>
+                  </div>
+                </Fade>
+                {/* <Fade distance={"20px"} bottom duration={300} delay={600}>
+                  <div className="c-form-row">
+                    <label>
+                      {`Explanation as to how your proposed Project will achieve DEVxDAO's mission of transparent and open source scientific research and/ or development if applicable.`}
+                    </label>
+                    <textarea
+                      value={explanation_goal}
+                      onChange={(e) => this.inputField(e, "explanation_goal")}
+                      required
+                    ></textarea>
+                  </div>
+                </Fade> */}
+                <Fade distance={"20px"} bottom duration={100} delay={600}>
+                  <div className="c-form-row">
+                    <label>{`Under which open source license(s) will you publish any research and development associated with your proposed Project? All research papers or the like should be Creative Commons.`}</label>
+                    <div className="row">
+                      <div className="col-md-4">{this.renderLicenseDropdown()}</div>
+                      {+license === 5 ? (
+                        <div className="col-md-4">
+                          <input
+                            value={license_other}
+                            type="text"
+                            placeholder="Enter License"
+                            onChange={(e) => this.inputField(e, "license_other")}
+                          />
+                        </div>
+                      ) : null}
+                    </div>
+                  </div>
+                </Fade>
+                <Fade distance={"20px"} bottom duration={100} delay={600}>
+                  <div className="c-form-row">
+                    <label>{`Please link your resume (Linkedin) or Git (For developers)`}</label>
+                    <div className="row">
+                      <div className="col-md-4">
+                        <input
+                          value={resume}
+                          type="text"
+                          onChange={(e) => this.inputField(e, "resume")}
+                          required
+                        />
+                      </div>
+                    </div>
+                  </div>
+                </Fade>
+                <Fade distance={"20px"} bottom duration={100} delay={600}>
+                  <div className="c-form-row">
+                    <label>{`Please add any notes or reference about the project, such as similar projects or web pages about APIs to be integrated with your build`}</label>
+                    <textarea
+                      value={extra_notes}
+                      onChange={(e) => this.inputField(e, "extra_notes")}
+                    ></textarea>
+                  </div>
+                </Fade>
+                <div id="c-status-team"></div>
+                <Fade distance={"20px"} bottom duration={100} delay={600}>
+                  <div className="app-page-headerModern">
+                    <div className="app-page-headerModern__inner">
+                      <label>Team Details</label>
+                      <Icon.Info size={16} />
+                      {sectionError.team ? (
+                        <Icon.XCircle
+                          color="#EA5454"
+                          className="app-page-headerIcon"
+                        />
+                      ) : (
+                        <Icon.CheckCircle
+                          color="#33C333"
+                          className="app-page-headerIcon"
+                        />
+                      )}
+                    </div>
+                    <div className="c-checkbox-item">
+                      <div
+                        className="c-checkbox-itemSymbol"
+                        onClick={this.uncheckMember}
                       >
-                        Submit
-                      </button>
+                        {!memberRequired ? (
+                          <Icon.CheckSquare color="#FB5824" />
+                        ) : (
+                          <Icon.Square color="#FB5824" />
+                        )}
+                      </div>
+                      <label className="font-size-14" onClick={this.uncheckMember}>
+                        {"I am working on this project alone."}
+                      </label>
+                    </div>
+                    <div className="c-checkbox-item">
+                      <div
+                        className="c-checkbox-itemSymbol"
+                        onClick={this.checkMember}
+                      >
+                        {memberRequired ? (
+                          <Icon.CheckSquare color="#FB5824" />
+                        ) : (
+                          <Icon.Square color="#FB5824" />
+                        )}
+                      </div>
+                      <label className="font-size-14" onClick={this.checkMember}>
+                        {
+                          "I have a team of at least one of person (you will need to provide information for team members)."
+                        }
+                      </label>
+                    </div>
+                  </div>
+                </Fade>
+                {memberRequired ? (
+                  <ProposalTeamView
+                    members={members}
+                    memberChecked={memberChecked}
+                    onUpdate={(members) => {
+                      this.setState({ members }, () => {
+                        this.checkSectionError();
+                      });
+                    }}
+                    onUpdateChecked={(memberChecked) => {
+                      this.setState({ memberChecked }, () => {
+                        this.checkSectionError();
+                      });
+                    }}
+                  />
+                ) : null}
+                <div id="c-status-grant"></div>
+                <Fade distance={"20px"} bottom duration={100} delay={600}>
+                  <div className="app-page-header">
+                    <label>Grant Details</label>
+                    <Icon.Info size={16} />
+                    {sectionError.grant ? (
+                      <Icon.XCircle color="#EA5454" className="app-page-headerIcon" />
+                    ) : (
+                      <Icon.CheckCircle
+                        color="#33C333"
+                        className="app-page-headerIcon"
+                      />
+                    )}
+                  </div>
+                </Fade>
+
+                <Fade distance={"20px"} bottom duration={100} delay={600}>
+                  <div className="c-form-row">
+                    <div className="row">
+                      <div className="col-md-8">
+                        <label>
+                          Please enter the total amount you are requesting as a grant:
+                        </label>
+                        <input
+                          type="text"
+                          value={
+                            total_grant ? Helper.formatPriceNumber(total_grant) : ""
+                          }
+                          placeholder="Total in Euros"
+                          onChange={(e) => this.inputEuroField(e, "total_grant")}
+                          required
+                        />
+                      </div>
+                    </div>
+                  </div>
+                </Fade>
+                <Fade distance={"20px"} bottom duration={100} delay={600}>
+                  <div className="c-form-row mt-5">
+                    <label>{`Will payments for this work be made to a entity such as your company or organization instead of to you personally?`}</label>
+                    <div className="flex gap-8">
+                      <div className="c-simple-checkbox-item">
+                        <div
+                          className="c-simple-checkbox-itemSymbol"
+                          onClick={() => {
+                            this.setState({ is_company_or_organization: 0 }, () => {
+                              this.checkSectionError();
+                            });
+                          }}
+                        >
+                          {is_company_or_organization ? (
+                            <Icon.Square color="#FB5824" />
+                          ) : (
+                            <Icon.CheckSquare color="#FB5824" />
+                          )}
+                        </div>
+                        <label
+                          onClick={() => {
+                            this.setState({ is_company_or_organization: 0 }, () => {
+                              this.checkSectionError();
+                            });
+                          }}
+                        >{`No`}</label>
+                      </div>
+                      <div className="c-simple-checkbox-item">
+                        <div
+                          className="c-simple-checkbox-itemSymbol"
+                          onClick={() => {
+                            this.setState({ is_company_or_organization: 1 }, () => {
+                              this.checkSectionError();
+                            });
+                          }}
+                        >
+                          {is_company_or_organization ? (
+                            <Icon.CheckSquare color="#FB5824" />
+                          ) : (
+                            <Icon.Square color="#FB5824" />
+                          )}
+                        </div>
+                        <label
+                          onClick={() => {
+                            this.setState({ is_company_or_organization: 1 }, () => {
+                              this.checkSectionError();
+                            });
+                          }}
+                        >{`Yes`}</label>
+                      </div>
+                    </div>
+                  </div>
+                </Fade>
+                {!!is_company_or_organization && (
+                  <Fade distance={"20px"} bottom duration={100} delay={600}>
+                    <div className="row mt-5">
+                      <div className="col-md-6">
+                        <div className="c-form-row">
+                          <label>What is the name of the entity?</label>
+                          <input
+                            value={name_entity}
+                            type="text"
+                            placeholder="Enter name of entity"
+                            onChange={(e) => this.inputField(e, "name_entity")}
+                            required
+                          />
+                        </div>
+                      </div>
+                      <div className="col-md-6">
+                        <div className="c-form-row c-select">
+                          <label>
+                            Please select the entity country of registration.
+                          </label>
+                          <FormSelectComponent
+                            required
+                            placeholder="Please select a country"
+                            options={COUNTRYLIST}
+                            value={entity_country}
+                            onChange={(e) => this.inputField(e, "entity_country")}
+                          />
+                        </div>
+                      </div>
+                    </div>
+                  </Fade>
+                )}
+                <Fade distance={"20px"} bottom duration={100} delay={600}>
+                  <ProposalGrantView
+                    total_grant={total_grant}
+                    grants={grants}
+                    onUpdate={(grants) => {
+                      this.setState({ grants }, () => {
+                        this.checkSectionError();
+                      });
+                    }}
+                  />
+                </Fade>
+                <Fade distance={"20px"} bottom duration={100} delay={600}>
+                  <div className="c-form-row mt-5">
+                    <label>{`Did a Voting Associate of the DEVxDAO assist you during the grant application process as a mentor?`}</label>
+                    <div className="c-simple-checkbox-item-group">
+                      <div className="c-simple-checkbox-item">
+                        <div
+                          className="c-simple-checkbox-itemSymbol"
+                          onClick={() => {
+                            this.setState({ have_mentor: 0 }, () => {
+                              this.checkSectionError();
+                            });
+                          }}
+                        >
+                          {have_mentor ? (
+                            <Icon.Square color="#FB5824" />
+                          ) : (
+                            <Icon.CheckSquare color="#FB5824" />
+                          )}
+                        </div>
+                        <label
+                          onClick={() => {
+                            this.setState({ have_mentor: 0 }, () => {
+                              this.checkSectionError();
+                            });
+                          }}
+                        >{`No`}</label>
+                      </div>
+                      <div className="c-simple-checkbox-item">
+                        <div
+                          className="c-simple-checkbox-itemSymbol"
+                          onClick={() => {
+                            this.setState({ have_mentor: 1 }, () => {
+                              this.checkSectionError();
+                            });
+                          }}
+                        >
+                          {have_mentor ? (
+                            <Icon.CheckSquare color="#FB5824" />
+                          ) : (
+                            <Icon.Square color="#FB5824" />
+                          )}
+                        </div>
+                        <label
+                          onClick={() => {
+                            this.setState({ have_mentor: 1 }, () => {
+                              this.checkSectionError();
+                            });
+                          }}
+                        >{`Yes`}</label>
+                      </div>
+                    </div>
+                  </div>
+                </Fade>
+                {!!have_mentor && (
+                  <Fade distance={"20px"} bottom duration={100} delay={600}>
+                    <div className="row mt-5">
+                      <div className="col-md-6">
+                        <div className="c-form-row">
+                          <label>
+                            Please enter the email or handle of the member
+                            <span className="pl-1">
+                              {check_mentor && <Icon.CheckCircle color="#33C333" />}
+                              {!check_mentor && <Icon.XCircle color="#EA5454" />}
+                            </span>
+                          </label>
+                          <div className="d-flex">
+                            <input
+                              value={name_mentor}
+                              type="text"
+                              onChange={(e) => this.inputField(e, "name_mentor")}
+                              required
+                            />
+                            <button
+                              type="button"
+                              className="btn-submit btn btn-primary ml-2"
+                              onClick={this.checkMentorProposal}
+                            >
+                              Submit
+                            </button>
+                          </div>
+                        </div>
+                      </div>
+                      <div className="col-md-6">
+                        <div className="c-form-row">
+                          <label>
+                            How many hours did the mentor help you (approximately)?
+                          </label>
+                          <input
+                            value={total_hours_mentor}
+                            type="number"
+                            onChange={(e) => this.inputField(e, "total_hours_mentor")}
+                            required
+                          />
+                        </div>
+                      </div>
+                    </div>
+                  </Fade>
+                )}
+                <div id="c-status-milestone"></div>
+                <Fade distance={"20px"} bottom duration={100} delay={600}>
+                  <div className="app-page-header">
+                    <label>Milestone Details</label>
+                    <Icon.Info size={16} />
+
+                    {sectionError.milestone ? (
+                      <Icon.XCircle color="#EA5454" className="app-page-headerIcon" />
+                    ) : (
+                      <Icon.CheckCircle
+                        color="#33C333"
+                        className="app-page-headerIcon"
+                      />
+                    )}
+                  </div>
+                </Fade>
+                <div>
+                  <ProposalMilestoneView
+                    showAction
+                    total_grant={total_grant}
+                    milestones={milestones}
+                    onUpdate={(milestones) => {
+                      this.setState({ milestones }, () => {
+                        this.checkSectionError();
+                      });
+                    }}
+                  />
+                </div>
+                <div id="c-status-relationship"></div>
+                <div className="app-page-header">
+                  <label>Relationships and previous work</label>
+                  <Icon.Info size={16} />
+
+                  {sectionError.relationship ? (
+                    <Icon.XCircle color="#EA5454" className="app-page-headerIcon" />
+                  ) : (
+                    <Icon.CheckCircle
+                      color="#33C333"
+                      className="app-page-headerIcon"
+                    />
+                  )}
+                </div>
+                <ProposalRelationView
+                  relationship={relationship}
+                  onUpdate={(relationship) => {
+                    this.setState({ relationship }, () => {
+                      this.checkSectionError();
+                    });
+                  }}
+                />
+
+                <div className="c-form-row mt-5">
+                  <label>
+                    Have you ever received a Grant under this program before?
+                  </label>
+                  <div className="c-simple-checkbox-item-group">
+                    <div className="c-simple-checkbox-item">
+                      <div
+                        className="c-simple-checkbox-itemSymbol"
+                        onClick={() => {
+                          this.setState({ received_grant_before: 0 }, () => {
+                            this.checkSectionError();
+                          });
+                        }}
+                      >
+                        {received_grant_before ? (
+                          <Icon.Square color="#FB5824" />
+                        ) : (
+                          <Icon.CheckSquare color="#FB5824" />
+                        )}
+                      </div>
+                      <label
+                        onClick={() => {
+                          this.setState({ received_grant_before: 0 }, () => {
+                            this.checkSectionError();
+                          });
+                        }}
+                      >{`No`}</label>
+                    </div>
+                    <div className="c-simple-checkbox-item">
+                      <div
+                        className="c-simple-checkbox-itemSymbol"
+                        onClick={() => {
+                          this.setState({ received_grant_before: 1 }, () => {
+                            this.checkSectionError();
+                          });
+                        }}
+                      >
+                        {received_grant_before ? (
+                          <Icon.CheckSquare color="#FB5824" />
+                        ) : (
+                          <Icon.Square color="#FB5824" />
+                        )}
+                      </div>
+                      <label
+                        onClick={() => {
+                          this.setState({ received_grant_before: 1 }, () => {
+                            this.checkSectionError();
+                          });
+                        }}
+                      >{`Yes`}</label>
+                      <input
+                        value={grant_id}
+                        type="text"
+                        placeholder="Enter Proposal Number"
+                        onChange={(e) => this.inputField(e, "grant_id")}
+                      />
                     </div>
                   </div>
                 </div>
-                <div className="col-md-6">
-                  <div className="c-form-row">
-                    <label>
-                      How many hours did the mentor help you (approximately)?
-                    </label>
-                    <input
-                      value={total_hours_mentor}
-                      type="number"
-                      onChange={(e) => this.inputField(e, "total_hours_mentor")}
-                      required
-                    />
+                <div className="c-form-row">
+                  <label>
+                    If the answer to the previous question is YES, have you entirely
+                    fulfilled your contractual obligations?
+                  </label>
+                  <div className="c-simple-checkbox-item-group">
+                    <div className="c-simple-checkbox-item">
+                      <div
+                        className="c-simple-checkbox-itemSymbol"
+                        onClick={() => this.setState({ has_fulfilled: 0 })}
+                      >
+                        {has_fulfilled ? (
+                          <Icon.Square color="#FB5824" />
+                        ) : (
+                          <Icon.CheckSquare color="#FB5824" />
+                        )}
+                      </div>
+                      <label
+                        onClick={() => this.setState({ has_fulfilled: 0 })}
+                      >{`No`}</label>
+                    </div>
+                    <div className="c-simple-checkbox-item">
+                      <div
+                        className="c-simple-checkbox-itemSymbol"
+                        onClick={() => this.setState({ has_fulfilled: 1 })}
+                      >
+                        {has_fulfilled ? (
+                          <Icon.CheckSquare color="#FB5824" />
+                        ) : (
+                          <Icon.Square color="#FB5824" />
+                        )}
+                      </div>
+                      <label
+                        onClick={() => this.setState({ has_fulfilled: 1 })}
+                      >{`Yes`}</label>
+                    </div>
                   </div>
                 </div>
-              </div>
-            </Fade>
-          )}
-          <div id="c-status-milestone"></div>
-          <Fade distance={"20px"} bottom duration={100} delay={600}>
-            <div className="app-page-header">
-              <label>Milestone Details</label>
-              <Icon.Info size={16} />
-
-              {sectionError.milestone ? (
-                <Icon.XCircle color="#EA5454" className="app-page-headerIcon" />
-              ) : (
-                <Icon.CheckCircle
-                  color="#33C333"
-                  className="app-page-headerIcon"
-                />
-              )}
-            </div>
-          </Fade>
-          <div>
-            <ProposalMilestoneView
-              showAction
-              total_grant={total_grant}
-              milestones={milestones}
-              onUpdate={(milestones) => {
-                this.setState({ milestones }, () => {
-                  this.checkSectionError();
-                });
-              }}
-            />
-          </div>
-          <div id="c-status-relationship"></div>
-          <div className="app-page-header">
-            <label>Relationships and previous work</label>
-            <Icon.Info size={16} />
-
-            {sectionError.relationship ? (
-              <Icon.XCircle color="#EA5454" className="app-page-headerIcon" />
-            ) : (
-              <Icon.CheckCircle
-                color="#33C333"
-                className="app-page-headerIcon"
-              />
-            )}
-          </div>
-          <ProposalRelationView
-            relationship={relationship}
-            onUpdate={(relationship) => {
-              this.setState({ relationship }, () => {
-                this.checkSectionError();
-              });
-            }}
-          />
-
-          <div className="c-form-row mt-5">
-            <label>
-              Have you ever received a Grant under this program before?
-            </label>
-            <div className="c-simple-checkbox-item-group">
-              <div className="c-simple-checkbox-item">
-                <div
-                  className="c-simple-checkbox-itemSymbol"
-                  onClick={() => {
-                    this.setState({ received_grant_before: 0 }, () => {
-                      this.checkSectionError();
-                    });
-                  }}
-                >
-                  {received_grant_before ? (
-                    <Icon.Square color="#9B64E6" />
-                  ) : (
-                    <Icon.CheckSquare color="#9B64E6" />
-                  )}
-                </div>
-                <label
-                  onClick={() => {
-                    this.setState({ received_grant_before: 0 }, () => {
-                      this.checkSectionError();
-                    });
-                  }}
-                >{`No`}</label>
-              </div>
-              <div className="c-simple-checkbox-item">
-                <div
-                  className="c-simple-checkbox-itemSymbol"
-                  onClick={() => {
-                    this.setState({ received_grant_before: 1 }, () => {
-                      this.checkSectionError();
-                    });
-                  }}
-                >
-                  {received_grant_before ? (
-                    <Icon.CheckSquare color="#9B64E6" />
-                  ) : (
-                    <Icon.Square color="#9B64E6" />
-                  )}
-                </div>
-                <label
-                  onClick={() => {
-                    this.setState({ received_grant_before: 1 }, () => {
-                      this.checkSectionError();
-                    });
-                  }}
-                >{`Yes`}</label>
-                <input
-                  value={grant_id}
-                  type="text"
-                  placeholder="Enter Proposal Number"
-                  onChange={(e) => this.inputField(e, "grant_id")}
-                />
-              </div>
-            </div>
-          </div>
-          <div className="c-form-row">
-            <label>
-              If the answer to the previous question is YES, have you entirely
-              fulfilled your contractual obligations?
-            </label>
-            <div className="c-simple-checkbox-item-group">
-              <div className="c-simple-checkbox-item">
-                <div
-                  className="c-simple-checkbox-itemSymbol"
-                  onClick={() => this.setState({ has_fulfilled: 0 })}
-                >
-                  {has_fulfilled ? (
-                    <Icon.Square color="#9B64E6" />
-                  ) : (
-                    <Icon.CheckSquare color="#9B64E6" />
-                  )}
-                </div>
-                <label
-                  onClick={() => this.setState({ has_fulfilled: 0 })}
-                >{`No`}</label>
-              </div>
-              <div className="c-simple-checkbox-item">
-                <div
-                  className="c-simple-checkbox-itemSymbol"
-                  onClick={() => this.setState({ has_fulfilled: 1 })}
-                >
-                  {has_fulfilled ? (
-                    <Icon.CheckSquare color="#9B64E6" />
-                  ) : (
-                    <Icon.Square color="#9B64E6" />
-                  )}
-                </div>
-                <label
-                  onClick={() => this.setState({ has_fulfilled: 1 })}
-                >{`Yes`}</label>
-              </div>
-            </div>
-          </div>
-          <Fade distance={"20px"} bottom duration={100} delay={600}>
-            <ProposalCitationView
-              showAction={true}
-              citations={citations}
-              onUpdate={(citations) => {
-                this.setState({ citations }, () => {
-                  this.checkSectionError();
-                });
-              }}
-            />
-          </Fade>
-          {/* <div className="c-form-row mt-5">
-            <label>{`Are you aware that you or another person received a Grant under this Program for a Project which is foundational to your proposed Project.`}</label>
-            <div className="c-simple-checkbox-item-group">
-              <div className="c-simple-checkbox-item">
-                <div
-                  className="c-simple-checkbox-itemSymbol"
-                  onClick={() => {
-                    this.setState({ received_grant: 0 }, () => {
-                      this.checkSectionError();
-                    });
-                  }}
-                >
-                  {received_grant ? (
-                    <Icon.Square color="#9B64E6" />
-                  ) : (
-                    <Icon.CheckSquare color="#9B64E6" />
-                  )}
-                </div>
-                <label
-                  onClick={() => {
-                    this.setState({ received_grant: 0 }, () => {
-                      this.checkSectionError();
-                    });
-                  }}
-                >{`No`}</label>
-              </div>
-              <div className="c-simple-checkbox-item">
-                <div
-                  className="c-simple-checkbox-itemSymbol"
-                  onClick={() => {
-                    this.setState({ received_grant: 1 }, () => {
-                      this.checkSectionError();
-                    });
-                  }}
-                >
-                  {received_grant ? (
-                    <Icon.CheckSquare color="#9B64E6" />
-                  ) : (
-                    <Icon.Square color="#9B64E6" />
-                  )}
-                </div>
-                <label
-                  onClick={() => {
-                    this.setState({ received_grant: 1 }, () => {
-                      this.checkSectionError();
-                    });
-                  }}
-                >{`Yes`}</label>
-              </div>
-            </div>
-          </div> */}
-          {/* <div className="c-form-row mt-5">
-            <label>{`If the answer to the prior question is yes, please cite any previous work performed under this Program, which is foundational to your proposed Project`}</label>
-            <textarea
-              value={foundational_work}
-              onChange={(e) => this.inputField(e, "foundational_work")}
-            ></textarea>
-          </div> */}
-          <div className="c-form-row mt-5">
-            <label>
-              {`Drag and drop a file into this box to upload pitch deck, project architecture, charts, etc.`}
-              <br />
-              {`( Only PDF files will be accepted )`}
-            </label>
-            <Dropzone
-              accept="application/pdf"
-              onDrop={(files) => this.appendFiles(files)}
-            >
-              {({ getRootProps, getInputProps }) => (
-                <section id="c-dropzone">
-                  <div {...getRootProps()}>
-                    <input {...getInputProps()} />
-                    <Icon.Upload color="#9B64E6" />
-                    <p className="color-primary">Add Files</p>
+                <Fade distance={"20px"} bottom duration={100} delay={600}>
+                  <ProposalCitationView
+                    showAction={true}
+                    citations={citations}
+                    onUpdate={(citations) => {
+                      this.setState({ citations }, () => {
+                        this.checkSectionError();
+                      });
+                    }}
+                  />
+                </Fade>
+                {/* <div className="c-form-row mt-5">
+                  <label>{`Are you aware that you or another person received a Grant under this Program for a Project which is foundational to your proposed Project.`}</label>
+                  <div className="c-simple-checkbox-item-group">
+                    <div className="c-simple-checkbox-item">
+                      <div
+                        className="c-simple-checkbox-itemSymbol"
+                        onClick={() => {
+                          this.setState({ received_grant: 0 }, () => {
+                            this.checkSectionError();
+                          });
+                        }}
+                      >
+                        {received_grant ? (
+                          <Icon.Square color="#FB5824" />
+                        ) : (
+                          <Icon.CheckSquare color="#FB5824" />
+                        )}
+                      </div>
+                      <label
+                        onClick={() => {
+                          this.setState({ received_grant: 0 }, () => {
+                            this.checkSectionError();
+                          });
+                        }}
+                      >{`No`}</label>
+                    </div>
+                    <div className="c-simple-checkbox-item">
+                      <div
+                        className="c-simple-checkbox-itemSymbol"
+                        onClick={() => {
+                          this.setState({ received_grant: 1 }, () => {
+                            this.checkSectionError();
+                          });
+                        }}
+                      >
+                        {received_grant ? (
+                          <Icon.CheckSquare color="#FB5824" />
+                        ) : (
+                          <Icon.Square color="#FB5824" />
+                        )}
+                      </div>
+                      <label
+                        onClick={() => {
+                          this.setState({ received_grant: 1 }, () => {
+                            this.checkSectionError();
+                          });
+                        }}
+                      >{`Yes`}</label>
+                    </div>
                   </div>
-                </section>
-              )}
-            </Dropzone>
-            {this.renderFiles()}
-          </div>
+                </div> */}
+                {/* <div className="c-form-row mt-5">
+                  <label>{`If the answer to the prior question is yes, please cite any previous work performed under this Program, which is foundational to your proposed Project`}</label>
+                  <textarea
+                    value={foundational_work}
+                    onChange={(e) => this.inputField(e, "foundational_work")}
+                  ></textarea>
+                </div> */}
+                <div className="c-form-row mt-5">
+                  <label>
+                    {`Drag and drop a file into this box to upload pitch deck, project architecture, charts, etc.`}
+                    <br />
+                    {`( Only PDF files will be accepted )`}
+                  </label>
+                  <Dropzone
+                    accept="application/pdf"
+                    onDrop={(files) => this.appendFiles(files)}
+                  >
+                    {({ getRootProps, getInputProps }) => (
+                      <section id="c-dropzone">
+                        <div {...getRootProps()}>
+                          <input {...getInputProps()} />
+                          <Icon.Upload color="#FB5824" />
+                          <p className="color-primary">Add Files</p>
+                        </div>
+                      </section>
+                    )}
+                  </Dropzone>
+                  {this.renderFiles()}
+                </div>
 
-          <div id="c-proposal-tags" className="c-form-row mt-5">
-            <label>Add tags your project:</label>
-            <ul>
-              {TAGS.map((tag, index) => {
-                return (
-                  <li key={`tag_${index}`}>
-                    <a
-                      onClick={() => this.clickTag(tag)}
-                      className={
-                        tags.includes(tag)
-                          ? "btn btn-round btn-primary extra-small btn-fluid-small"
-                          : "btn btn-round btn-primary-outline extra-small btn-fluid-small"
-                      }
+                <div id="c-proposal-tags" className="c-form-row mt-5">
+                  <label>Add tags your project:</label>
+                  <ul>
+                    {TAGS.map((tag, index) => {
+                      return (
+                        <li key={`tag_${index}`}>
+                          <Tag
+                            onClick={() => this.clickTag(tag)}
+                            active={tags.includes(tag)}
+                            tag={tag}
+                          />
+                        </li>
+                      );
+                    })}
+                  </ul>
+                </div>
+
+                <div id="c-additional-check-wrap">
+                  <div className="c-simple-checkbox-item-group mt-4">
+                    <div className="c-simple-checkbox-item">
+                      <Checkbox
+                        value={checked1}
+                        text="I hereby declare that all results, work product, etc. associated with these grant deliverable(s) will be made available under an open-source license. I acknowledge that I am legally responsible to ensure that all parts of this project are open-source."
+                        onChange={(val) => this.toggleCheckboxByKey("checked1", val)}
+                      />
+                    </div>
+                    {/* c-simple-checkbox-item end */}
+                    <div className="c-simple-checkbox-item">
+                      <Checkbox
+                        value={checked2}
+                        text="I hereby declare that this grant will benefit decentralization and open-source projects generally, pursuant to the mission statement of the ETA, which is to support open source and transparent scientific research of emerging technologies for community building by way of submitting grants to developers and scientists in Switzerland and abroad."
+                        onChange={(val) => this.toggleCheckboxByKey("checked2", val)}
+                      />
+                    </div>
+                    {/* c-simple-checkbox-item end */}
+                    <div className="c-simple-checkbox-item">
+                      <Checkbox
+                        value={checked3}
+                        text="I hereby declare that this proposed project increases the level of decentralization of various blockchain layer 1 platforms; will produce high-quality open source and transparent scientific research and/or developments that further the decentralization of platforms and organizations; delivers research and development initiatives that are globally applicable; and/or delivers reference implementations of the research and development."
+                        onChange={(val) => this.toggleCheckboxByKey("checked3", val)}
+                      />
+                    </div>
+                    {/* c-simple-checkbox-item end */}
+                    <div className="c-simple-checkbox-item">
+                      <Checkbox
+                        value={checked4}
+                        text="I hereby declare that my proposed project is in line with international transparency standards; my team has sufficient qualifications, experience and capacity to actually finish the proposed project."
+                        onChange={(val) => this.toggleCheckboxByKey("checked4", val)}
+                      />
+                    </div>
+                    {/* c-simple-checkbox-item end */}
+                    <div className="c-simple-checkbox-item">
+                      <Checkbox
+                        value={checked5}
+                        text="I hereby declare that I have not built tools and do not intend to build tools to attack a blockchain network."
+                        onChange={(val) => this.toggleCheckboxByKey("checked5", val)}
+                      />
+                    </div>
+                    {/* c-simple-checkbox-item end */}
+                    <div className="c-simple-checkbox-item">
+                      <Checkbox
+                        value={checked6}
+                        text="I hereby declare that I do not intend to use the Developer Grants for illegal market manipulation."
+                        onChange={(val) => this.toggleCheckboxByKey("checked6", val)}
+                      />
+                    </div>
+                    {/* c-simple-checkbox-item end */}
+                    <div className="c-simple-checkbox-item">
+                      <Checkbox
+                        value={checked7}
+                        text="I hereby declare that I have not previously failed to fulfill my contractual obligations under an earlier grant agreement between myself and the ETA and/or the DEVxDAO."
+                        onChange={(val) => this.toggleCheckboxByKey("checked7", val)}
+                      />
+                    </div>
+                    <div className="c-simple-checkbox-item">
+                      <Checkbox
+                        value={checkedDeveloper1}
+                        text="I hereby declare that my proposed project will not violate intellectual property rights of any of the DEVxDAO Grant Program Sponsor(s)."
+                        onChange={(val) =>
+                          this.toggleCheckboxByKey("checkedDeveloper1", val)
+                        }
+                      />
+                    </div>
+                    <div className="c-simple-checkbox-item">
+                      <Checkbox
+                        value={checkedDeveloper2}
+                        text="I hereby declare that my proposed project will not be used to the detriment of these DEVxDAO Grant Program Sponsor(s)."
+                        onChange={(val) =>
+                          this.toggleCheckboxByKey("checkedDeveloper2", val)
+                        }
+                      />
+                    </div>
+                    <div className="c-simple-checkbox-item">
+                      <Checkbox
+                        value={checkedDeveloper3}
+                        text="I hereby declare that I do not intend to use the Developer Grants to seriously harm any these DEVxDAO Grant Program Sponsor(s) and/or the blockchain network (it being understood that legitimate forms of technical or other competition do not constitute such harm)."
+                        onChange={(val) =>
+                          this.toggleCheckboxByKey("checkedDeveloper3", val)
+                        }
+                      />
+                    </div>
+                    <div className="c-simple-checkbox-item">
+                      <Checkbox
+                        value={agree1}
+                        text="I hereby declare that my team complies with the Modern Slavery Act."
+                        onChange={(val) => this.toggleCheckboxByKey("agree1", val)}
+                      />
+                    </div>
+                    <div className="c-simple-checkbox-item">
+                      <Checkbox
+                        value={agree2}
+                        text="I hereby declare that I have not committed and do not plan to commit fraud, corruption, money laundering, or be involved in a criminal organization."
+                        onChange={(val) => this.toggleCheckboxByKey("agree2", val)}
+                      />
+                    </div>
+                    <div className="c-simple-checkbox-item">
+                      <Checkbox
+                        value={agree3}
+                        text="I agree that while submitting the final milestone for my project, I will add my project code and/or a summary README file to the Casper and DEVxDAO GitHub repositories (for all development projects) and announce my project completion on at least 1 of my social media channels and mention Casper and the DEVxDAO in my post."
+                        onChange={(val) => this.toggleCheckboxByKey("agree3", val)}
+                      />
+                      {/* <div
+                        className="c-simple-checkbox-itemSymbol"
+                        onClick={() => this.toggleCheckByKey("agree3")}
+                      >
+                        {!agree3 ? (
+                          <Icon.Square color="#FB5824" />
+                        ) : (
+                          <Icon.CheckSquare color="#FB5824" />
+                        )}
+                      </div>
+                      <label
+                        onClick={() => this.toggleCheckByKey("agree3")}
+                        className="d-block"
+                      >{`I agree that while submitting the final milestone for my project, I will add my project code and/or a summary README file to the Casper and DEVxDAO GitHub repositories (for all development projects) and announce my project completion on at least 1 of my social media channels and mention Casper and the DEVxDAO in my post.`}</label> */}
+                    </div>
+                    <div className="c-simple-checkbox-item">
+                      <Checkbox
+                        value={checked0}
+                        text="I understand that I may be denied grant approval and/or any payments without further justification if I am a citizen or resident of any country/region for which the U.S. Dept. of the Treasury's Office of Foreign Assets Control (OFAC) administers a sanctions program or that is on the Swiss State Secretariat for Economic Affairs (SECO) Sanctions List."
+                        onChange={(val) => this.toggleCheckboxByKey("checked0", val)}
+                      />
+                    </div>
+                    {/* c-simple-checkbox-item end */}
+                  </div>
+                  {/* c-simple-checkbox-item-group */}
+                  {/* <div className="c-form-row mt-5">
+                    <label>{`Is the encryption of your proposed project based on international standards? If yes, specify.`}</label>
+                    <div
+                      className="c-simple-checkbox-item-group"
+                      style={{ display: "flex", marginTop: "1rem" }}
                     >
-                      {tag}
-                    </a>
-                  </li>
-                );
-              })}
-            </ul>
-          </div>
+                      <div
+                        className="c-simple-checkbox-item"
+                        style={{ marginRight: "2rem" }}
+                      >
+                        <div
+                          className="c-simple-checkbox-itemSymbol"
+                          onClick={() => {
+                            this.setState({ yesNo1: 0 });
+                          }}
+                        >
+                          {yesNo1 ? (
+                            <Icon.Square color="#FB5824" />
+                          ) : (
+                            <Icon.CheckSquare color="#FB5824" />
+                          )}
+                        </div>
+                        <label
+                          onClick={() => {
+                            this.setState({ yesNo1: 0 });
+                          }}
+                        >{`No`}</label>
+                      </div>
+                      <div className="c-simple-checkbox-item">
+                        <div
+                          className="c-simple-checkbox-itemSymbol"
+                          onClick={() => {
+                            this.setState({ yesNo1: 1 }, () => {
+                              this.checkSectionError();
+                            });
+                          }}
+                        >
+                          {yesNo1 ? (
+                            <Icon.CheckSquare color="#FB5824" />
+                          ) : (
+                            <Icon.Square color="#FB5824" />
+                          )}
+                        </div>
+                        <label
+                          onClick={() => {
+                            this.setState({ yesNo1: 1 });
+                          }}
+                        >{`Yes`}</label>
+                      </div>
+                    </div>
+                    {yesNo1 ? (
+                      <Fragment>
+                        <textarea
+                          value={yesNo1Exp}
+                          onChange={(e) => this.inputField(e, "yesNo1Exp")}
+                          required
+                        ></textarea>
+                        {!yesNo1Exp || !yesNo1Exp.trim() ? (
+                          <p className="mt-3 font-size-14 color-danger">{`You selected Yes, your must enter further details in the box`}</p>
+                        ) : null}
+                      </Fragment>
+                    ) : null}
+                  </div> */}
+                  {/* c-form-row */}
+                  {/* <div className="c-form-row mt-5">
+                    <label>{`Is the encryption of your proposed project based on an open-source system? If yes, specify.`}</label>
+                    <div
+                      className="c-simple-checkbox-item-group"
+                      style={{ display: "flex", marginTop: "1rem" }}
+                    >
+                      <div
+                        className="c-simple-checkbox-item"
+                        style={{ marginRight: "2rem" }}
+                      >
+                        <div
+                          className="c-simple-checkbox-itemSymbol"
+                          onClick={() => {
+                            this.setState({ yesNo2: 0 });
+                          }}
+                        >
+                          {yesNo2 ? (
+                            <Icon.Square color="#FB5824" />
+                          ) : (
+                            <Icon.CheckSquare color="#FB5824" />
+                          )}
+                        </div>
+                        <label
+                          onClick={() => {
+                            this.setState({ yesNo2: 0 });
+                          }}
+                        >{`No`}</label>
+                      </div>
+                      <div className="c-simple-checkbox-item">
+                        <div
+                          className="c-simple-checkbox-itemSymbol"
+                          onClick={() => {
+                            this.setState({ yesNo2: 1 }, () => {
+                              this.checkSectionError();
+                            });
+                          }}
+                        >
+                          {yesNo2 ? (
+                            <Icon.CheckSquare color="#FB5824" />
+                          ) : (
+                            <Icon.Square color="#FB5824" />
+                          )}
+                        </div>
+                        <label
+                          onClick={() => {
+                            this.setState({ yesNo2: 1 });
+                          }}
+                        >{`Yes`}</label>
+                      </div>
+                    </div>
+                    {yesNo2 ? (
+                      <Fragment>
+                        <textarea
+                          value={yesNo2Exp}
+                          onChange={(e) => this.inputField(e, "yesNo2Exp")}
+                          required
+                        ></textarea>
+                        {!yesNo2Exp || !yesNo2Exp.trim() ? (
+                          <p className="mt-3 font-size-14 color-danger">{`You selected Yes, your must enter further details in the box`}</p>
+                        ) : null}
+                      </Fragment>
+                    ) : null}
+                  </div> */}
+                  {/* c-form-row */}
+                  {/* <div className="c-form-row mt-5">
+                    <label>{`I affirm that my team complies with the Modern Slavery Act. If no, explain.`}</label>
+                    <div
+                      className="c-simple-checkbox-item-group"
+                      style={{ display: "flex", marginTop: "1rem" }}
+                    >
+                      <div
+                        className="c-simple-checkbox-item"
+                        style={{ marginRight: "2rem" }}
+                      >
+                        <div
+                          className="c-simple-checkbox-itemSymbol"
+                          onClick={() => {
+                            this.setState({ yesNo3: 0 });
+                          }}
+                        >
+                          {yesNo3 ? (
+                            <Icon.Square color="#FB5824" />
+                          ) : (
+                            <Icon.CheckSquare color="#FB5824" />
+                          )}
+                        </div>
+                        <label
+                          onClick={() => {
+                            this.setState({ yesNo3: 0 });
+                          }}
+                        >{`No`}</label>
+                      </div>
+                      <div className="c-simple-checkbox-item">
+                        <div
+                          className="c-simple-checkbox-itemSymbol"
+                          onClick={() => {
+                            this.setState({ yesNo3: 1 }, () => {
+                              this.checkSectionError();
+                            });
+                          }}
+                        >
+                          {yesNo3 ? (
+                            <Icon.CheckSquare color="#FB5824" />
+                          ) : (
+                            <Icon.Square color="#FB5824" />
+                          )}
+                        </div>
+                        <label
+                          onClick={() => {
+                            this.setState({ yesNo3: 1 });
+                          }}
+                        >{`Yes`}</label>
+                      </div>
+                    </div>
+                    {!yesNo3 ? (
+                      <Fragment>
+                        <textarea
+                          value={yesNo3Exp}
+                          onChange={(e) => this.inputField(e, "yesNo3Exp")}
+                          required
+                        ></textarea>
+                        {!yesNo3Exp || !yesNo3Exp.trim() ? (
+                          <p className="mt-3 font-size-14 color-danger">{`You selected No, your must enter further details in the box`}</p>
+                        ) : null}
+                      </Fragment>
+                    ) : null}
+                  </div> */}
+                  {/* c-form-row */}
+                  {/* <div className="c-form-row mt-5">
+                    <label>{`Have you committed (or do you plan to commit) fraud, corruption, or are you involved (or plan on getting involved) in a criminal organization or money laundering? If yes, explain.`}</label>
+                    <div
+                      className="c-simple-checkbox-item-group"
+                      style={{ display: "flex", marginTop: "1rem" }}
+                    >
+                      <div
+                        className="c-simple-checkbox-item"
+                        style={{ marginRight: "2rem" }}
+                      >
+                        <div
+                          className="c-simple-checkbox-itemSymbol"
+                          onClick={() => {
+                            this.setState({ yesNo4: 0 });
+                          }}
+                        >
+                          {yesNo4 ? (
+                            <Icon.Square color="#FB5824" />
+                          ) : (
+                            <Icon.CheckSquare color="#FB5824" />
+                          )}
+                        </div>
+                        <label
+                          onClick={() => {
+                            this.setState({ yesNo4: 0 });
+                          }}
+                        >{`No`}</label>
+                      </div>
+                      <div className="c-simple-checkbox-item">
+                        <div
+                          className="c-simple-checkbox-itemSymbol"
+                          onClick={() => {
+                            this.setState({ yesNo4: 1 }, () => {
+                              this.checkSectionError();
+                            });
+                          }}
+                        >
+                          {yesNo4 ? (
+                            <Icon.CheckSquare color="#FB5824" />
+                          ) : (
+                            <Icon.Square color="#FB5824" />
+                          )}
+                        </div>
+                        <label
+                          onClick={() => {
+                            this.setState({ yesNo4: 1 });
+                          }}
+                        >{`Yes`}</label>
+                      </div>
+                    </div>
+                    {yesNo4 ? (
+                      <Fragment>
+                        <textarea
+                          value={yesNo4Exp}
+                          onChange={(e) => this.inputField(e, "yesNo4Exp")}
+                          required
+                        ></textarea>
+                        {!yesNo4Exp || !yesNo4Exp.trim() ? (
+                          <p className="mt-3 font-size-14 color-danger">{`You selected Yes, your must enter further details in the box`}</p>
+                        ) : null}
+                      </Fragment>
+                    ) : null}
+                  </div> */}
+                  {/* c-form-row */}
+                  {/* <div className="c-form-row mt-5">
+                    <label>{`This project will be predominantly be represented in what jurisdiction?`}</label>
+                    <textarea
+                      value={formField1}
+                      onChange={(e) => this.inputField(e, "formField1")}
+                      required
+                    ></textarea>
+                  </div> */}
+                  {/* c-form-row */}
+                  {/* <div className="c-form-row mt-5">
+                    <label>{`What is the proposed layer 1 solution for this project?`}</label>
+                    <textarea
+                      value={formField2}
+                      onChange={(e) => this.inputField(e, "formField2")}
+                      required
+                    ></textarea>
+                  </div> */}
+                  {/* c-form-row */}
+                  {/* <div className="c-form-row mt-5">
+                    <label>{`The purpose of this project is:`}</label>
+                    <div className="row">
+                      <div className="col-md-4">
+                        <select
+                          value={purpose}
+                          onChange={(e) => this.inputField(e, "purpose")}
+                          required
+                        >
+                          <option value="">Select Purpose</option>
+                          <option value="Social">Social</option>
+                          <option value="Finance">Finance</option>
+                          <option value="Governance">Governance</option>
+                          <option value="Legal">Legal</option>
+                          <option value="Other">Other</option>
+                        </select>
+                      </div>
+                      {purpose == "Other" ? (
+                        <div className="col-md-4">
+                          <input
+                            type="text"
+                            value={purposeOther}
+                            onChange={(e) => this.inputField(e, "purposeOther")}
+                            placeholder="Input Other"
+                          />
+                        </div>
+                      ) : null}
+                    </div>
+                  </div> */}
+                  <div id="c-submit-status" className="mobile-submit-status">
+                    <ul>
+                      <li>
+                        {sectionError.general ? (
+                          <Icon.XCircle color="#EA5454" />
+                        ) : (
+                          <Icon.CheckCircle color="#33C333" />
+                        )}
+                        <Scroll.Link
+                          to="c-status-general"
+                          spy={false}
+                          smooth={true}
+                          offset={-70}
+                          duration={500}
+                          containerId="app-content-body"
+                        >
+                          <label>General Project Details</label>
+                        </Scroll.Link>
+                      </li>
+                      <li>
+                        {sectionError.team ? (
+                          <Icon.XCircle color="#EA5454" />
+                        ) : (
+                          <Icon.CheckCircle color="#33C333" />
+                        )}
+                        <Scroll.Link
+                          to="c-status-team"
+                          spy={false}
+                          smooth={true}
+                          offset={-70}
+                          duration={500}
+                          containerId="app-content-body"
+                        >
+                          <label>Team Details</label>
+                        </Scroll.Link>
+                      </li>
+                      <li>
+                        {sectionError.grant ? (
+                          <Icon.XCircle color="#EA5454" />
+                        ) : (
+                          <Icon.CheckCircle color="#33C333" />
+                        )}
+                        <Scroll.Link
+                          to="c-status-grant"
+                          spy={false}
+                          smooth={true}
+                          offset={-70}
+                          duration={500}
+                          containerId="app-content-body"
+                        >
+                          <label>Grant Details</label>
+                        </Scroll.Link>
+                      </li>
+                      <li>
+                        {sectionError.milestone ? (
+                          <Icon.XCircle color="#EA5454" />
+                        ) : (
+                          <Icon.CheckCircle color="#33C333" />
+                        )}
+                        <Scroll.Link
+                          to="c-status-milestone"
+                          spy={false}
+                          smooth={true}
+                          offset={-70}
+                          duration={500}
+                          containerId="app-content-body"
+                        >
+                          <label>Milestone Details</label>
+                        </Scroll.Link>
+                      </li>
+                      <li>
+                        {sectionError.relationship ? (
+                          <Icon.XCircle color="#EA5454" />
+                        ) : (
+                          <Icon.CheckCircle color="#33C333" />
+                        )}
+                        <Scroll.Link
+                          to="c-status-relationship"
+                          spy={false}
+                          smooth={true}
+                          offset={-70}
+                          duration={500}
+                          containerId="app-content-body"
+                        >
+                          <label>Relationships and previous work</label>
+                        </Scroll.Link>
+                      </li>
+                      <li>
+                        {sectionError.compliance ? (
+                          <Icon.XCircle color="#EA5454" />
+                        ) : (
+                          <Icon.CheckCircle color="#33C333" />
+                        )}
+                        <Scroll.Link
+                          to="c-status-relationship"
+                          spy={false}
+                          smooth={true}
+                          offset={-70}
+                          duration={500}
+                          containerId="app-content-body"
+                        >
+                          <label>Compliance Checkboxes</label>
+                        </Scroll.Link>
+                      </li>
+                    </ul>
+                  </div>
+                </div>
 
-          <div id="c-additional-check-wrap">
-            <div className="c-simple-checkbox-item-group mt-4">
-              <div className="c-simple-checkbox-item">
-                <Checkbox
-                  value={checked1}
-                  text="I hereby declare that all results, work product, etc. associated with these grant deliverable(s) will be made available under an open-source license. I acknowledge that I am legally responsible to ensure that all parts of this project are open-source."
-                  onChange={(val) => this.toggleCheckboxByKey("checked1", val)}
-                />
-              </div>
-              {/* c-simple-checkbox-item end */}
-              <div className="c-simple-checkbox-item">
-                <Checkbox
-                  value={checked2}
-                  text="I hereby declare that this grant will benefit decentralization and open-source projects generally, pursuant to the mission statement of the ETA, which is to support open source and transparent scientific research of emerging technologies for community building by way of submitting grants to developers and scientists in Switzerland and abroad."
-                  onChange={(val) => this.toggleCheckboxByKey("checked2", val)}
-                />
-              </div>
-              {/* c-simple-checkbox-item end */}
-              <div className="c-simple-checkbox-item">
-                <Checkbox
-                  value={checked3}
-                  text="I hereby declare that this proposed project increases the level of decentralization of various blockchain layer 1 platforms; will produce high-quality open source and transparent scientific research and/or developments that further the decentralization of platforms and organizations; delivers research and development initiatives that are globally applicable; and/or delivers reference implementations of the research and development."
-                  onChange={(val) => this.toggleCheckboxByKey("checked3", val)}
-                />
-              </div>
-              {/* c-simple-checkbox-item end */}
-              <div className="c-simple-checkbox-item">
-                <Checkbox
-                  value={checked4}
-                  text="I hereby declare that my proposed project is in line with international transparency standards; my team has sufficient qualifications, experience and capacity to actually finish the proposed project."
-                  onChange={(val) => this.toggleCheckboxByKey("checked4", val)}
-                />
-              </div>
-              {/* c-simple-checkbox-item end */}
-              <div className="c-simple-checkbox-item">
-                <Checkbox
-                  value={checked5}
-                  text="I hereby declare that I have not built tools and do not intend to build tools to attack a blockchain network."
-                  onChange={(val) => this.toggleCheckboxByKey("checked5", val)}
-                />
-              </div>
-              {/* c-simple-checkbox-item end */}
-              <div className="c-simple-checkbox-item">
-                <Checkbox
-                  value={checked6}
-                  text="I hereby declare that I do not intend to use the Developer Grants for illegal market manipulation."
-                  onChange={(val) => this.toggleCheckboxByKey("checked6", val)}
-                />
-              </div>
-              {/* c-simple-checkbox-item end */}
-              <div className="c-simple-checkbox-item">
-                <Checkbox
-                  value={checked7}
-                  text="I hereby declare that I have not previously failed to fulfill my contractual obligations under an earlier grant agreement between myself and the ETA and/or the DEVxDAO."
-                  onChange={(val) => this.toggleCheckboxByKey("checked7", val)}
-                />
-              </div>
-              <div className="c-simple-checkbox-item">
-                <Checkbox
-                  value={checkedDeveloper1}
-                  text="I hereby declare that my proposed project will not violate intellectual property rights of any of the DEVxDAO Grant Program Sponsor(s)."
-                  onChange={(val) =>
-                    this.toggleCheckboxByKey("checkedDeveloper1", val)
-                  }
-                />
-              </div>
-              <div className="c-simple-checkbox-item">
-                <Checkbox
-                  value={checkedDeveloper2}
-                  text="I hereby declare that my proposed project will not be used to the detriment of these DEVxDAO Grant Program Sponsor(s)."
-                  onChange={(val) =>
-                    this.toggleCheckboxByKey("checkedDeveloper2", val)
-                  }
-                />
-              </div>
-              <div className="c-simple-checkbox-item">
-                <Checkbox
-                  value={checkedDeveloper3}
-                  text="I hereby declare that I do not intend to use the Developer Grants to seriously harm any these DEVxDAO Grant Program Sponsor(s) and/or the blockchain network (it being understood that legitimate forms of technical or other competition do not constitute such harm)."
-                  onChange={(val) =>
-                    this.toggleCheckboxByKey("checkedDeveloper3", val)
-                  }
-                />
-              </div>
-              <div className="c-simple-checkbox-item">
-                <Checkbox
-                  value={agree1}
-                  text="I hereby declare that my team complies with the Modern Slavery Act."
-                  onChange={(val) => this.toggleCheckboxByKey("agree1", val)}
-                />
-              </div>
-              <div className="c-simple-checkbox-item">
-                <Checkbox
-                  value={agree2}
-                  text="I hereby declare that I have not committed and do not plan to commit fraud, corruption, money laundering, or be involved in a criminal organization."
-                  onChange={(val) => this.toggleCheckboxByKey("agree2", val)}
-                />
-              </div>
-              <div className="c-simple-checkbox-item">
-                <Checkbox
-                  value={agree3}
-                  text="I agree that while submitting the final milestone for my project, I will add my project code and/or a summary README file to the Casper and DEVxDAO GitHub repositories (for all development projects) and announce my project completion on at least 1 of my social media channels and mention Casper and the DEVxDAO in my post."
-                  onChange={(val) => this.toggleCheckboxByKey("agree3", val)}
-                />
-                {/* <div
-                  className="c-simple-checkbox-itemSymbol"
-                  onClick={() => this.toggleCheckByKey("agree3")}
-                >
-                  {!agree3 ? (
-                    <Icon.Square color="#9B64E6" />
-                  ) : (
-                    <Icon.CheckSquare color="#9B64E6" />
-                  )}
-                </div>
-                <label
-                  onClick={() => this.toggleCheckByKey("agree3")}
-                  className="d-block"
-                >{`I agree that while submitting the final milestone for my project, I will add my project code and/or a summary README file to the Casper and DEVxDAO GitHub repositories (for all development projects) and announce my project completion on at least 1 of my social media channels and mention Casper and the DEVxDAO in my post.`}</label> */}
-              </div>
-              <div className="c-simple-checkbox-item">
-                <Checkbox
-                  value={checked0}
-                  text="I understand that I may be denied grant approval and/or any payments without further justification if I am a citizen or resident of any country/region for which the U.S. Dept. of the Treasury's Office of Foreign Assets Control (OFAC) administers a sanctions program or that is on the Swiss State Secretariat for Economic Affairs (SECO) Sanctions List."
-                  onChange={(val) => this.toggleCheckboxByKey("checked0", val)}
-                />
-              </div>
-              {/* c-simple-checkbox-item end */}
-            </div>
-            {/* c-simple-checkbox-item-group */}
-            {/* <div className="c-form-row mt-5">
-              <label>{`Is the encryption of your proposed project based on international standards? If yes, specify.`}</label>
-              <div
-                className="c-simple-checkbox-item-group"
-                style={{ display: "flex", marginTop: "1rem" }}
-              >
-                <div
-                  className="c-simple-checkbox-item"
-                  style={{ marginRight: "2rem" }}
-                >
-                  <div
-                    className="c-simple-checkbox-itemSymbol"
-                    onClick={() => {
-                      this.setState({ yesNo1: 0 });
-                    }}
-                  >
-                    {yesNo1 ? (
-                      <Icon.Square color="#9B64E6" />
-                    ) : (
-                      <Icon.CheckSquare color="#9B64E6" />
+                <div id="c-button-wrap" className="flex gap-2">
+                  <div className="position-relative">
+                    <Button
+                      color="primary"
+                      variant="outline"
+                      type="button"
+                      onClick={() => this.saveDraft(false)}
+                    >
+                      Save and finish later
+                    </Button>
+                    {this.state.isSaved && (
+                      <p className="save-successful">save successful!</p>
                     )}
                   </div>
-                  <label
+                  <Button
+                    color="primary"
+                    disabled={submitDisabled}
+                    type="button"
                     onClick={() => {
-                      this.setState({ yesNo1: 0 });
-                    }}
-                  >{`No`}</label>
-                </div>
-                <div className="c-simple-checkbox-item">
-                  <div
-                    className="c-simple-checkbox-itemSymbol"
-                    onClick={() => {
-                      this.setState({ yesNo1: 1 }, () => {
-                        this.checkSectionError();
-                      });
-                    }}
-                  >
-                    {yesNo1 ? (
-                      <Icon.CheckSquare color="#9B64E6" />
-                    ) : (
-                      <Icon.Square color="#9B64E6" />
-                    )}
-                  </div>
-                  <label
-                    onClick={() => {
-                      this.setState({ yesNo1: 1 });
-                    }}
-                  >{`Yes`}</label>
-                </div>
-              </div>
-              {yesNo1 ? (
-                <Fragment>
-                  <textarea
-                    value={yesNo1Exp}
-                    onChange={(e) => this.inputField(e, "yesNo1Exp")}
-                    required
-                  ></textarea>
-                  {!yesNo1Exp || !yesNo1Exp.trim() ? (
-                    <p className="mt-3 font-size-14 color-danger">{`You selected Yes, your must enter further details in the box`}</p>
-                  ) : null}
-                </Fragment>
-              ) : null}
-            </div> */}
-            {/* c-form-row */}
-            {/* <div className="c-form-row mt-5">
-              <label>{`Is the encryption of your proposed project based on an open-source system? If yes, specify.`}</label>
-              <div
-                className="c-simple-checkbox-item-group"
-                style={{ display: "flex", marginTop: "1rem" }}
-              >
-                <div
-                  className="c-simple-checkbox-item"
-                  style={{ marginRight: "2rem" }}
-                >
-                  <div
-                    className="c-simple-checkbox-itemSymbol"
-                    onClick={() => {
-                      this.setState({ yesNo2: 0 });
+                      this.props.dispatch(
+                        setCustomModalData({
+                          "confirm-submit-proposal": {
+                            render: true,
+                            title: "Are you sure you want to submit this proposal?",
+                            onConfirm: () => {
+                              this.submit();
+                            },
+                          },
+                        })
+                      );
+                      this.props.dispatch(setActiveModal("custom-global-modal"));
                     }}
                   >
-                    {yesNo2 ? (
-                      <Icon.Square color="#9B64E6" />
-                    ) : (
-                      <Icon.CheckSquare color="#9B64E6" />
-                    )}
-                  </div>
-                  <label
-                    onClick={() => {
-                      this.setState({ yesNo2: 0 });
-                    }}
-                  >{`No`}</label>
+                    Submit Grant Proposal
+                  </Button>
                 </div>
-                <div className="c-simple-checkbox-item">
-                  <div
-                    className="c-simple-checkbox-itemSymbol"
-                    onClick={() => {
-                      this.setState({ yesNo2: 1 }, () => {
-                        this.checkSectionError();
-                      });
-                    }}
-                  >
-                    {yesNo2 ? (
-                      <Icon.CheckSquare color="#9B64E6" />
-                    ) : (
-                      <Icon.Square color="#9B64E6" />
-                    )}
-                  </div>
-                  <label
-                    onClick={() => {
-                      this.setState({ yesNo2: 1 });
-                    }}
-                  >{`Yes`}</label>
-                </div>
-              </div>
-              {yesNo2 ? (
-                <Fragment>
-                  <textarea
-                    value={yesNo2Exp}
-                    onChange={(e) => this.inputField(e, "yesNo2Exp")}
-                    required
-                  ></textarea>
-                  {!yesNo2Exp || !yesNo2Exp.trim() ? (
-                    <p className="mt-3 font-size-14 color-danger">{`You selected Yes, your must enter further details in the box`}</p>
-                  ) : null}
-                </Fragment>
-              ) : null}
-            </div> */}
-            {/* c-form-row */}
-            {/* <div className="c-form-row mt-5">
-              <label>{`I affirm that my team complies with the Modern Slavery Act. If no, explain.`}</label>
-              <div
-                className="c-simple-checkbox-item-group"
-                style={{ display: "flex", marginTop: "1rem" }}
-              >
-                <div
-                  className="c-simple-checkbox-item"
-                  style={{ marginRight: "2rem" }}
-                >
-                  <div
-                    className="c-simple-checkbox-itemSymbol"
-                    onClick={() => {
-                      this.setState({ yesNo3: 0 });
-                    }}
-                  >
-                    {yesNo3 ? (
-                      <Icon.Square color="#9B64E6" />
-                    ) : (
-                      <Icon.CheckSquare color="#9B64E6" />
-                    )}
-                  </div>
-                  <label
-                    onClick={() => {
-                      this.setState({ yesNo3: 0 });
-                    }}
-                  >{`No`}</label>
-                </div>
-                <div className="c-simple-checkbox-item">
-                  <div
-                    className="c-simple-checkbox-itemSymbol"
-                    onClick={() => {
-                      this.setState({ yesNo3: 1 }, () => {
-                        this.checkSectionError();
-                      });
-                    }}
-                  >
-                    {yesNo3 ? (
-                      <Icon.CheckSquare color="#9B64E6" />
-                    ) : (
-                      <Icon.Square color="#9B64E6" />
-                    )}
-                  </div>
-                  <label
-                    onClick={() => {
-                      this.setState({ yesNo3: 1 });
-                    }}
-                  >{`Yes`}</label>
-                </div>
-              </div>
-              {!yesNo3 ? (
-                <Fragment>
-                  <textarea
-                    value={yesNo3Exp}
-                    onChange={(e) => this.inputField(e, "yesNo3Exp")}
-                    required
-                  ></textarea>
-                  {!yesNo3Exp || !yesNo3Exp.trim() ? (
-                    <p className="mt-3 font-size-14 color-danger">{`You selected No, your must enter further details in the box`}</p>
-                  ) : null}
-                </Fragment>
-              ) : null}
-            </div> */}
-            {/* c-form-row */}
-            {/* <div className="c-form-row mt-5">
-              <label>{`Have you committed (or do you plan to commit) fraud, corruption, or are you involved (or plan on getting involved) in a criminal organization or money laundering? If yes, explain.`}</label>
-              <div
-                className="c-simple-checkbox-item-group"
-                style={{ display: "flex", marginTop: "1rem" }}
-              >
-                <div
-                  className="c-simple-checkbox-item"
-                  style={{ marginRight: "2rem" }}
-                >
-                  <div
-                    className="c-simple-checkbox-itemSymbol"
-                    onClick={() => {
-                      this.setState({ yesNo4: 0 });
-                    }}
-                  >
-                    {yesNo4 ? (
-                      <Icon.Square color="#9B64E6" />
-                    ) : (
-                      <Icon.CheckSquare color="#9B64E6" />
-                    )}
-                  </div>
-                  <label
-                    onClick={() => {
-                      this.setState({ yesNo4: 0 });
-                    }}
-                  >{`No`}</label>
-                </div>
-                <div className="c-simple-checkbox-item">
-                  <div
-                    className="c-simple-checkbox-itemSymbol"
-                    onClick={() => {
-                      this.setState({ yesNo4: 1 }, () => {
-                        this.checkSectionError();
-                      });
-                    }}
-                  >
-                    {yesNo4 ? (
-                      <Icon.CheckSquare color="#9B64E6" />
-                    ) : (
-                      <Icon.Square color="#9B64E6" />
-                    )}
-                  </div>
-                  <label
-                    onClick={() => {
-                      this.setState({ yesNo4: 1 });
-                    }}
-                  >{`Yes`}</label>
-                </div>
-              </div>
-              {yesNo4 ? (
-                <Fragment>
-                  <textarea
-                    value={yesNo4Exp}
-                    onChange={(e) => this.inputField(e, "yesNo4Exp")}
-                    required
-                  ></textarea>
-                  {!yesNo4Exp || !yesNo4Exp.trim() ? (
-                    <p className="mt-3 font-size-14 color-danger">{`You selected Yes, your must enter further details in the box`}</p>
-                  ) : null}
-                </Fragment>
-              ) : null}
-            </div> */}
-            {/* c-form-row */}
-            {/* <div className="c-form-row mt-5">
-              <label>{`This project will be predominantly be represented in what jurisdiction?`}</label>
-              <textarea
-                value={formField1}
-                onChange={(e) => this.inputField(e, "formField1")}
-                required
-              ></textarea>
-            </div> */}
-            {/* c-form-row */}
-            {/* <div className="c-form-row mt-5">
-              <label>{`What is the proposed layer 1 solution for this project?`}</label>
-              <textarea
-                value={formField2}
-                onChange={(e) => this.inputField(e, "formField2")}
-                required
-              ></textarea>
-            </div> */}
-            {/* c-form-row */}
-            {/* <div className="c-form-row mt-5">
-              <label>{`The purpose of this project is:`}</label>
-              <div className="row">
-                <div className="col-md-4">
-                  <select
-                    value={purpose}
-                    onChange={(e) => this.inputField(e, "purpose")}
-                    required
-                  >
-                    <option value="">Select Purpose</option>
-                    <option value="Social">Social</option>
-                    <option value="Finance">Finance</option>
-                    <option value="Governance">Governance</option>
-                    <option value="Legal">Legal</option>
-                    <option value="Other">Other</option>
-                  </select>
-                </div>
-                {purpose == "Other" ? (
-                  <div className="col-md-4">
-                    <input
-                      type="text"
-                      value={purposeOther}
-                      onChange={(e) => this.inputField(e, "purposeOther")}
-                      placeholder="Input Other"
-                    />
-                  </div>
-                ) : null}
-              </div>
-            </div> */}
-            <div id="c-submit-status" className="mobile-submit-status">
+              </form>
+            </CardBody>
+          </Card>
+        </div>
+        <Card className="!w-1/5 !h-fit !px-4">
+          <CardBody>
+            <div id="c-submit-status" className="pc-submit-status">
               <ul>
                 <li>
                   {sectionError.general ? (
@@ -2743,7 +2893,7 @@ class ProposalFinalForm extends Component {
                     smooth={true}
                     offset={-70}
                     duration={500}
-                    containerId="app-content-body"
+                    containerId="proposal-final-form"
                   >
                     <label>General Project Details</label>
                   </Scroll.Link>
@@ -2760,7 +2910,7 @@ class ProposalFinalForm extends Component {
                     smooth={true}
                     offset={-70}
                     duration={500}
-                    containerId="app-content-body"
+                    containerId="proposal-final-form"
                   >
                     <label>Team Details</label>
                   </Scroll.Link>
@@ -2777,7 +2927,7 @@ class ProposalFinalForm extends Component {
                     smooth={true}
                     offset={-70}
                     duration={500}
-                    containerId="app-content-body"
+                    containerId="proposal-final-form"
                   >
                     <label>Grant Details</label>
                   </Scroll.Link>
@@ -2794,7 +2944,7 @@ class ProposalFinalForm extends Component {
                     smooth={true}
                     offset={-70}
                     duration={500}
-                    containerId="app-content-body"
+                    containerId="proposal-final-form"
                   >
                     <label>Milestone Details</label>
                   </Scroll.Link>
@@ -2811,7 +2961,7 @@ class ProposalFinalForm extends Component {
                     smooth={true}
                     offset={-70}
                     duration={500}
-                    containerId="app-content-body"
+                    containerId="proposal-final-form"
                   >
                     <label>Relationships and previous work</label>
                   </Scroll.Link>
@@ -2828,157 +2978,15 @@ class ProposalFinalForm extends Component {
                     smooth={true}
                     offset={-70}
                     duration={500}
-                    containerId="app-content-body"
+                    containerId="proposal-final-form"
                   >
                     <label>Compliance Checkboxes</label>
                   </Scroll.Link>
                 </li>
               </ul>
             </div>
-          </div>
-
-          <div id="c-button-wrap" className="d-flex">
-            <div className="position-relative">
-              <button
-                type="button"
-                className="mr-2 btn btn-primary-outline large"
-                onClick={() => this.saveDraft(false)}
-              >
-                Save and finish later
-              </button>
-              {this.state.isSaved && (
-                <p className="save-successful">save successful!</p>
-              )}
-            </div>
-            <button
-              disabled={submitDisabled}
-              type="button"
-              className="btn btn-primary large"
-              onClick={() => {
-                this.props.dispatch(
-                  setCustomModalData({
-                    "confirm-submit-proposal": {
-                      render: true,
-                      title: "Are you sure you want to submit this proposal?",
-                      onConfirm: () => {
-                        this.submit();
-                      },
-                    },
-                  })
-                );
-                this.props.dispatch(setActiveModal("custom-global-modal"));
-              }}
-            >
-              Submit Grant Proposal
-            </button>
-          </div>
-        </form>
-        <div id="c-submit-status" className="pc-submit-status">
-          <ul>
-            <li>
-              {sectionError.general ? (
-                <Icon.XCircle color="#EA5454" />
-              ) : (
-                <Icon.CheckCircle color="#33C333" />
-              )}
-              <Scroll.Link
-                to="c-status-general"
-                spy={false}
-                smooth={true}
-                offset={-70}
-                duration={500}
-                containerId="proposal-final-form"
-              >
-                <label>General Project Details</label>
-              </Scroll.Link>
-            </li>
-            <li>
-              {sectionError.team ? (
-                <Icon.XCircle color="#EA5454" />
-              ) : (
-                <Icon.CheckCircle color="#33C333" />
-              )}
-              <Scroll.Link
-                to="c-status-team"
-                spy={false}
-                smooth={true}
-                offset={-70}
-                duration={500}
-                containerId="proposal-final-form"
-              >
-                <label>Team Details</label>
-              </Scroll.Link>
-            </li>
-            <li>
-              {sectionError.grant ? (
-                <Icon.XCircle color="#EA5454" />
-              ) : (
-                <Icon.CheckCircle color="#33C333" />
-              )}
-              <Scroll.Link
-                to="c-status-grant"
-                spy={false}
-                smooth={true}
-                offset={-70}
-                duration={500}
-                containerId="proposal-final-form"
-              >
-                <label>Grant Details</label>
-              </Scroll.Link>
-            </li>
-            <li>
-              {sectionError.milestone ? (
-                <Icon.XCircle color="#EA5454" />
-              ) : (
-                <Icon.CheckCircle color="#33C333" />
-              )}
-              <Scroll.Link
-                to="c-status-milestone"
-                spy={false}
-                smooth={true}
-                offset={-70}
-                duration={500}
-                containerId="proposal-final-form"
-              >
-                <label>Milestone Details</label>
-              </Scroll.Link>
-            </li>
-            <li>
-              {sectionError.relationship ? (
-                <Icon.XCircle color="#EA5454" />
-              ) : (
-                <Icon.CheckCircle color="#33C333" />
-              )}
-              <Scroll.Link
-                to="c-status-relationship"
-                spy={false}
-                smooth={true}
-                offset={-70}
-                duration={500}
-                containerId="proposal-final-form"
-              >
-                <label>Relationships and previous work</label>
-              </Scroll.Link>
-            </li>
-            <li>
-              {sectionError.compliance ? (
-                <Icon.XCircle color="#EA5454" />
-              ) : (
-                <Icon.CheckCircle color="#33C333" />
-              )}
-              <Scroll.Link
-                to="c-status-relationship"
-                spy={false}
-                smooth={true}
-                offset={-70}
-                duration={500}
-                containerId="proposal-final-form"
-              >
-                <label>Compliance Checkboxes</label>
-              </Scroll.Link>
-            </li>
-          </ul>
-        </div>
+          </CardBody>
+        </Card>
       </div>
     );
   }

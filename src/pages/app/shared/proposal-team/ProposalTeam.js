@@ -3,6 +3,7 @@ import { connect } from "react-redux";
 import * as Icon from "react-feather";
 import { COUNTRYLIST } from "@utils/Constant";
 import { showAlert } from "@redux/actions";
+import { Button } from '@shared/partials';
 
 import "./proposal-team.scss";
 import { Checkbox } from "@shared/components";
@@ -96,21 +97,16 @@ class ProposalTeam extends Component {
       members.forEach((member, index) => {
         items.push(
           <Fade distance={"20px"} bottom duration={100} delay={600}>
-            <div key={`member_${index}`} className="single-team-member">
-              <div className="c-form-row">
+            <li key={`member_${index}`} className="flex gap-4 flex-col">
+              <div className="block">
                 <label
-                  style={{
-                    color: "#9B64E6",
-                    marginTop: "50px",
-                    marginBottom: "50px",
-                  }}
+                  className="flex mb-4"
                 >
-                  <span className="pr-20">Team Member #{index + 1}:</span>
+                  <span className="text-primary pr-20">Team Member #{index + 1}:</span>
                   {allowDeleteItem && (
                     <Icon.Delete
-                      style={{ cursor: "pointer" }}
+                      className="text-danger cursor-pointer"
                       size={20}
-                      color="#7137ce"
                       onClick={(e) => this.removeAtMember(e, index)}
                     />
                   )}
@@ -172,7 +168,7 @@ class ProposalTeam extends Component {
                   </div>
                 </div>
               </div> */}
-            </div>
+            </li>
           </Fade>
         );
       });
@@ -190,7 +186,9 @@ class ProposalTeam extends Component {
             <label>{`Please enter team member details for all central project members:`}</label>
           </div>
         </Fade>
-        {this.renderMembers()}
+        <ul className="flex flex-col gap-4 mt-4">
+          {this.renderMembers()}
+        </ul>
         <Fade distance={"20px"} bottom duration={100} delay={600}>
           <div className="c-checkbox-item mt-5">
             <Checkbox
@@ -201,15 +199,15 @@ class ProposalTeam extends Component {
           </div>
         </Fade>
         <Fade distance={"20px"} bottom duration={100} delay={600}>
-          <div className="new-proposal-button-wrap">
-            <a className="btn btn-primary large" onClick={this.addMember}>
+          <div className="flex gap-2 mt-4">
+            <Button color="secondary" onClick={this.addMember}>
               <Icon.Plus style={{ marginRight: "5px" }} />
               Add Team Member
-            </a>
-            <a className="btn btn-danger large" onClick={this.removeAtMember}>
+            </Button>
+            <Button color="danger" onClick={this.removeAtMember}>
               <Icon.Minus style={{ marginRight: "5px" }} />
               Remove Team Member
-            </a>
+            </Button>
           </div>
         </Fade>
       </section>

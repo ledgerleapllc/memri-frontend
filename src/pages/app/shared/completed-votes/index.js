@@ -2,11 +2,10 @@ import moment from "moment";
 import React, { useEffect } from "react";
 import Helper from "@utils/Helper";
 import { getCompletedVotes } from "@utils/Thunk";
-import { useDispatch, useSelector } from "react-redux";
+import { useDispatch } from "react-redux";
 import { useHistory } from "react-router";
 import { Table, useTable, Button } from '@shared/partials';
 import styles from "./style.module.scss";
-import * as Icon from "react-feather";
 import { Tooltip } from "@mui/material";
 import { BALLOT_TYPES } from "@utils/enum";
 import {
@@ -28,7 +27,6 @@ const CompletedVotes = ({ outParams, authUser }) => {
     resetData,
   } = useTable();
   const dispatch = useDispatch();
-  const settings = useSelector(state => state.global.settings);
   const history = useHistory();
   const fetchData = (pageValue = page, paramsValue = params) => {
     const params = {
@@ -150,13 +148,12 @@ const CompletedVotes = ({ outParams, authUser }) => {
             <label>{authUser.totalMembers}</label>
           </div>
           {showButton ? (
-            <a
+            <Button size="sm"
               style={{ marginLeft: "10px" }}
-              className="btn btn-primary extra-small btn-fluid-small"
               onClick={() => this.clickRevote(vote)}
             >
               Revote
-            </a>
+            </Button>
           ) : null}
         </div>
       );
@@ -177,56 +174,6 @@ const CompletedVotes = ({ outParams, authUser }) => {
         <label className="text-danger">No Quorum</label>
       );
     return <label className="text-danger">Fail</label>;
-  }
-
-  const renderTime = (vote) => {
-    let minsAdd = 0;
-    if (vote.content_type == "grant") {
-      if (settings.time_unit_informal && settings.time_informal) {
-        if (settings.time_unit_informal == "min")
-          minsAdd = parseInt(settings.time_informal);
-        else if (settings.time_unit_informal == "hour")
-          minsAdd = parseInt(settings.time_informal) * 60;
-        else if (settings.time_unit_informal == "day")
-          minsAdd = parseInt(settings.time_informal) * 24 * 60;
-      }
-    } else if (
-      ["simple", "admin-grant", "advance-payment"].includes(vote.content_type)
-    ) {
-      if (settings.time_unit_simple && settings.time_simple) {
-        if (settings.time_unit_simple == "min")
-          minsAdd = parseInt(settings.time_simple);
-        else if (settings.time_unit_simple == "hour")
-          minsAdd = parseInt(settings.time_simple) * 60;
-        else if (settings.time_unit_simple == "day")
-          minsAdd = parseInt(settings.time_simple) * 24 * 60;
-      }
-    } else if (vote.content_type == "milestone") {
-      if (settings.time_unit_milestone && settings.time_milestone) {
-        if (settings.time_unit_milestone == "min")
-          minsAdd = parseInt(settings.time_milestone);
-        else if (settings.time_unit_milestone == "hour")
-          minsAdd = parseInt(settings.time_milestone) * 60;
-        else if (settings.time_unit_milestone == "day")
-          minsAdd = parseInt(settings.time_milestone) * 24 * 60;
-      }
-    }
-
-    /* Calculate Duration */
-    let min = 0;
-    let hours = 0;
-    let day = 0;
-
-    let diff = moment(vote.created_at)
-      .add(minsAdd, "minutes")
-      .diff(moment(), "minutes");
-    if (diff > 0) {
-      min = diff % 60;
-      hours = parseInt(diff / 60);
-      day = parseInt(hours / 24);
-      hours = hours % 24;
-    }
-    return `${day}D:${hours}H:${min}MIN`;
   }
 
   return (

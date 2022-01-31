@@ -1,35 +1,85 @@
-import React, { Component } from "react";
-import { connect } from "react-redux";
-import { withRouter } from "react-router-dom";
+import React, { useRef } from "react";
+import { useSelector } from "react-redux";
 import AdminPendingGrant from "./AdminPendingGrant";
 import AdminActiveGrant from "./AdminActiveGrant";
+import { Card, CardHeader, CardBody, Button } from '@shared/partials';
+import { useDelayInput } from '@shared/hooks/useDelayInput';
 
-const mapStateToProps = (state) => {
-  return {
-    authUser: state.global.authUser,
-  };
-};
+const AdminPendingGrantCard = () => {
+  const { params, setSearchTerm } = useDelayInput({
+    status: 'pending'
+  });
 
-class AdminGrant extends Component {
-  constructor(props) {
-    super(props);
-  }
-
-  render() {
-    const { authUser } = this.props;
-    if (!authUser || !authUser.id) return null;
-
-    return (
-      <>
-        <div className="pb-3 h-50">
-          <AdminPendingGrant />
+  return (
+    <Card className="h-full flex-1 min-h-0">
+      <CardHeader>
+        <div className="w-full flex justify-between">
+          <h3 className="font-bold text-lg">Grants Pending Activation</h3>
+          <input
+            className="text-xs"
+            type="text"
+            placeholder="Search..."
+            onChange={(e) => setSearchTerm(e.target.value)}
+          />
         </div>
-        <div className="pt-3 h-50">
-          <AdminActiveGrant />
-        </div>
-      </>
-    );
-  }
+      </CardHeader>
+      <CardBody>
+        <AdminPendingGrant outParams={params} />
+      </CardBody>
+    </Card>
+  )
 }
 
-export default connect(mapStateToProps)(withRouter(AdminGrant));
+
+const AdminActiveGrantCard = () => {
+  const { params, setSearchTerm } = useDelayInput({
+    status: 'active'
+  });
+  const ref = useRef();
+
+  const download = () => {
+    ref.current?.downloadCSV();
+  }
+
+  return (
+    <Card className="h-full flex-1 min-h-0">
+      <CardHeader>
+        <div className="w-full flex justify-between">
+          <h3 className="font-bold text-lg">Active Grants</h3>
+          <div className="flex gap-8">
+            <Button size="sm" onClick={download}>
+              Download CSV
+            </Button>
+            <input
+              className="text-xs"
+              type="text"
+              placeholder="Search..."
+              onChange={(e) => setSearchTerm(e.target.value)}
+            />
+          </div>
+        </div>
+      </CardHeader>
+      <CardBody>
+        <AdminActiveGrant ref={ref} outParams={params} />
+      </CardBody>
+    </Card>
+  )
+}
+
+const AdminGrant = () => {
+  const authUser = useSelector(state => state.global.authUser);
+
+  if (!authUser || !authUser.id) return null;
+  
+  return (
+    <>
+      <div className="h-1/2 pb-4">
+        <AdminPendingGrantCard />
+      </div>
+      <div className="h-1/2">
+        <AdminActiveGrantCard />
+      </div>
+    </>
+  )
+}
+export default AdminGrant;

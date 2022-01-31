@@ -9,6 +9,7 @@ import {
 } from "@redux/actions";
 import Helper from "@utils/Helper";
 import { completeStepReview2, sendHellosignRequest } from "@utils/Thunk";
+import { Button } from '@shared/partials';
 
 import "./start-hellosign.scss";
 
@@ -103,12 +104,12 @@ class StartHellosign extends Component {
         </p>
 
         <div id="start-hellosign-modal__buttons">
-          <a className="btn btn-primary" onClick={this.clickStart}>
+          <Button size="sm"  onClick={this.clickStart}>
             Sign Agreement
-          </a>
-          <a className="btn btn-danger" onClick={this.clickLogout}>
+          </Button>
+          <Button size="sm" color="danger" onClick={this.clickLogout}>
             Sign Out
-          </a>
+          </Button>
         </div>
       </div>
     );

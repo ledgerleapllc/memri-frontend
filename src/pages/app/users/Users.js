@@ -1,8 +1,8 @@
 import React, { Component } from "react";
 import { connect } from "react-redux";
 import { Redirect } from "react-router-dom";
-import PendingUsersView from "../shared/pending-users/PendingUsers";
-import UsersView from "../shared/users/Users";
+import PendingUsersView from "../shared/pending-users";
+import UsersView from "../shared/users";
 
 import "./users.scss";
 
@@ -19,9 +19,11 @@ class Users extends Component {
     if (!authUser.is_admin) return <Redirect to="/" />;
 
     return (
-      <div id="app-users-page">
+      <div id="app-users-page" className="flex flex-col gap-4">
         <PendingUsersView />
-        <UsersView />
+        <div className="flex-1 min-h-0">
+          <UsersView />
+        </div>
       </div>
     );
   }

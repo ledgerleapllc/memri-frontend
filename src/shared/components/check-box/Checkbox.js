@@ -20,9 +20,9 @@ export default function Checkbox({ className, value, text, onChange, readOnly })
     <div className={classNames('flex items-center', className)}>
       <span onClick={() => toggleCheck()}>
         {val ? (
-          <Icon.CheckSquare />
+          <Icon.CheckSquare className="text-primary" />
         ) : (
-          <Icon.Square />
+          <Icon.Square className="text-primary"/>
         )}
       </span>
       <label className="pl-3" onClick={() => toggleCheck()}>

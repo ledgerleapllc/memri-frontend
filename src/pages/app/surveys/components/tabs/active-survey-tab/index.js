@@ -1,15 +1,14 @@
 import React, { Component } from "react";
 import { connect } from "react-redux";
 import { withRouter } from "react-router-dom";
-import { Fade } from "react-reveal";
 import ActiveSurveysTable from "../../tables/active-surveys";
 import DiscussionProposalsTable from "../../tables/discussion-proposals";
-import "./style.scss";
 import { getSurveys } from "@utils/Thunk";
 import {
   forceReloadGuardStartSurvey,
   showAlert,
 } from "@redux/actions";
+import { Card, CardHeader, CardBody, Button } from '@shared/partials';
 
 const mapStateToProps = (state) => {
   return {
@@ -78,24 +77,25 @@ class ActiveSurveyTab extends Component {
 
   render() {
     return (
-      <div className="survey-page">
-        <Fade distance={"20px"} bottom duration={300} delay={600}>
-          <section className="active-section app-infinite-box mb-4">
-            <div className="app-infinite-search-wrap">
-              <label>Active Surveys</label>
-              <button
-                onClick={this.startNewSurvey}
-                className="btn btn-primary less-small"
-              >
+      <div className="survey-page flex flex-col gap-4 h-full">
+        <Card>
+          <CardHeader>
+            <div className="w-full flex justify-between">
+              <h3 className="font-bold text-lg">Active Surveys</h3>
+              <Button onClick={this.startNewSurvey} size="md">
                 Start New Survey
-              </button>
+              </Button>
             </div>
+          </CardHeader>
+          <CardBody>
             <ActiveSurveysTable />
-          </section>
-          <section className="discussion-table app-infinite-box mb-4">
+          </CardBody>
+        </Card>
+        <Card className="flex-1 min-h-0">
+          <CardBody>
             <DiscussionProposalsTable />
-          </section>
-        </Fade>
+          </CardBody>
+        </Card>
       </div>
     );
   }

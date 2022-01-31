@@ -15,6 +15,7 @@ import {
   showCanvas,
 } from "@redux/actions";
 import Helper from "@utils/Helper";
+import { Button } from '@shared/partials';
 
 const mapStateToProps = (state) => {
   return {
@@ -244,14 +245,14 @@ class SurveyDownVotesTable extends Component {
               className="c-col-custom c-cols text-center"
               style={{ width: `calc(${TOTAL_REMAIN_WIDTH}% / ${cols + 1})` }}
             >
-              <a
+              <Button variant="text" size="sm"
                 className="px-3"
                 onClick={() =>
                   this.openListSurveyVotersModal(item.total_vote, item.id)
                 }
               >
                 {item.total_vote}
-              </a>
+              </Button>
             </div>
             {Array(cols)
               .fill(1)
@@ -263,7 +264,7 @@ class SurveyDownVotesTable extends Component {
                     width: `calc(${TOTAL_REMAIN_WIDTH}% / ${cols + 1})`,
                   }}
                 >
-                  <a
+                  <Button variant="text" size="sm"
                     className="px-3"
                     onClick={() =>
                       this.openListSurveyVotersModal(
@@ -274,7 +275,7 @@ class SurveyDownVotesTable extends Component {
                     }
                   >
                     {item[`${i + 1}_place`]}
-                  </a>
+                  </Button>
                 </div>
               ))}
           </div>

@@ -14,7 +14,9 @@ import {
   forceWithdrawProposal,
   startInformalVotingShared,
 } from "@utils/Thunk";
-
+import {
+  Button
+} from '@shared/partials';
 import "./admin-tools.scss";
 
 const mapStateToProps = () => {
@@ -98,21 +100,22 @@ class AdminTools extends Component {
           <ul>
             {Object.keys(ACTIONS).map((x, index) => (
               <li key={index}>
-                <button
-                  className="btn btn-primary"
+                <Button
+                  className="w-4/5"
                   onClick={() => this.confirmAction(x)}
                 >
                   {ACTIONS[x]}
-                </button>
+                </Button>
               </li>
             ))}
             <li>
-              <button
-                className="btn btn-primary-outline"
+              <Button
+                className="w-4/5"
+                variant="outline"
                 onClick={this.hideModal}
               >
                 Cancel Admin Action
-              </button>
+              </Button>
             </li>
           </ul>
         ) : (
@@ -120,13 +123,16 @@ class AdminTools extends Component {
             <h4 className="pb-1">
               Are you sure you want to {ACTIONS[this.state.currentAction]}?
             </h4>
-            <div className="actions">
-              <button className="btn btn-primary" onClick={this.performAction}>
+            <div className="mt-4 flex justify-center gap-4 items-center">
+              <Button onClick={this.performAction}>
                 Yes
-              </button>
-              <button className="btn btn-danger" onClick={this.hideModal}>
+              </Button>
+              <Button 
+                variant="outline"
+                onClick={this.hideModal}
+              >
                 No
-              </button>
+              </Button>
             </div>
           </>
         )}

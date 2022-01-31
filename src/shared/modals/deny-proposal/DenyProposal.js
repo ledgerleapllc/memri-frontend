@@ -11,6 +11,7 @@ import {
 } from "@redux/actions";
 import { FormInputComponent } from "../../components";
 import { denyProposal } from "@utils/Thunk";
+import { Button } from '@shared/partials';
 
 import "./deny-proposal.scss";
 
@@ -91,12 +92,12 @@ class DenyProposal extends Component {
         />
 
         <div id="deny-proposal-modal__buttons">
-          <a className="btn btn-danger" onClick={this.deny}>
+          <Button size="sm" color="danger" onClick={this.deny}>
             Deny
-          </a>
-          <a className="btn btn-primary" onClick={this.hideModal}>
+          </Button>
+          <Button size="sm" color="primary" onClick={this.hideModal}>
             Cancel
-          </a>
+          </Button>
         </div>
       </div>
     );

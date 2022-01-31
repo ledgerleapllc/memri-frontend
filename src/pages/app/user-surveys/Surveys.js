@@ -1,53 +1,122 @@
-import React, { Component } from "react";
-import { connect } from "react-redux";
-import { withRouter } from "react-router-dom";
-import { Fade } from "react-reveal";
-import "./surveys.scss";
-import ActiveUserSurveyTab from "./components/tabs/active-user-survey-tab";
-import CompletedUserSurveyTab from "./components/tabs/completed-user-survey-tab";
+import React from "react";
+import { useSelector } from "react-redux";
+import { Tab, Card, CardHeader, CardBody } from '@shared/partials';
+import ActiveSurveysTable from "./components/tables/active-surveys";
+import ActiveRFPSurveysTable from "./components/tables/active-rfp-surveys";
+import CompletedSurveysTable from "./components/tables/completed-surveys";
+import CompletedRFPSurveysTable from "./components/tables/completed-rfp-surveys";
 
-const mapStateToProps = (state) => {
-  return {
-    authUser: state.global.authUser,
-  };
-};
+const ActiveGrantSurveys = () => {
+  const authUser = useSelector(state => state.global.authUser);
 
-class UserSurveys extends Component {
-  constructor(props) {
-    super(props);
-    this.state = {
-      tab: "active",
-    };
-  }
-
-  render() {
-    const { tab } = this.state;
-    const { authUser } = this.props;
-    if (!authUser || !authUser.id || !authUser.is_member) return null;
-
-    return (
-      <div id="app-survey-page">
-        <Fade distance={"20px"} bottom duration={400} delay={600}>
-          <ul id="app-discussions-pageHeader">
-            <li
-              className={tab == "active" ? "active" : ""}
-              onClick={() => this.setState({ tab: "active" })}
-            >
-              Active
-            </li>
-            <li
-              className={tab == "completed" ? "active" : ""}
-              onClick={() => this.setState({ tab: "completed" })}
-            >
-              Completed
-            </li>
-          </ul>
-        </Fade>
-        {tab === "active" && <ActiveUserSurveyTab />}
-        {tab === "completed" && <CompletedUserSurveyTab />}
-      </div>
-    );
-  }
+  return (
+    <Card className="h-full flex-1 min-h-0">
+      <CardHeader>
+        <div className="w-full flex justify-between">
+          <h3 className="font-bold text-lg flex items-center gap-2">
+            Grants
+          </h3>
+        </div>
+      </CardHeader>
+      <CardBody>
+        {authUser && <ActiveSurveysTable authUser={authUser} />}
+      </CardBody>
+    </Card>
+  )
 }
 
-export default connect(mapStateToProps)(withRouter(UserSurveys));
+const ActiveRfpSurveys = () => {
+  const authUser = useSelector(state => state.global.authUser);
+  
+  return (
+    <Card className="h-full flex-1 min-h-0">
+      <CardHeader>
+        <div className="w-full flex justify-between">
+          <h3 className="font-bold text-lg flex items-center gap-2">
+            RFP Surveys
+          </h3>
+        </div>
+      </CardHeader>
+      <CardBody>
+        {authUser && <ActiveRFPSurveysTable authUser={authUser} />}
+      </CardBody>
+    </Card>
+  )
+}
+
+const CompletedGrantSurveys = () => {
+  return (
+    <Card className="h-full flex-1 min-h-0">
+      <CardHeader>
+        <div className="w-full flex justify-between">
+          <h3 className="font-bold text-lg flex items-center gap-2">
+            Grants
+          </h3>
+        </div>
+      </CardHeader>
+      <CardBody>
+        <CompletedSurveysTable />
+      </CardBody>
+    </Card>
+  )
+}
+
+// eslint-disable-next-line no-unused-vars
+const CompletedRfpSurveys = () => {
+  return (
+    <Card className="h-full flex-1 min-h-0">
+      <CardHeader>
+        <div className="w-full flex justify-between">
+          <h3 className="font-bold text-lg flex items-center gap-2">
+            RFP Surveys
+          </h3>
+        </div>
+      </CardHeader>
+      <CardBody>
+        <CompletedRFPSurveysTable />
+      </CardBody>
+    </Card>
+  )
+}
+
+const Tab1 = () => {
+  return (
+    <div className="flex flex-col h-full gap-4">
+      <ActiveGrantSurveys />
+      <ActiveRfpSurveys />
+    </div>
+  )
+}
+
+const Tab2 = () => {
+  return (
+    <div className="flex flex-col h-full gap-4">
+      <CompletedGrantSurveys />
+      {/* <CompletedRfpSurveys /> */}
+    </div>
+  )
+}
+
+const tabsData = [
+  {
+    content: Tab1,
+    id: 'active',
+    title: 'Active',
+  },
+  {
+    content: Tab2,
+    id: 'completed',
+    title: 'Completed',
+  },
+];
+const UserSurveys = () => {
+  const authUser = useSelector(state => state.global.authUser);
+
+  if (!authUser || !authUser.id || !authUser.is_member) return null;
+
+  return (
+    <Tab tabs={tabsData} />
+  );
+}
+
+export default UserSurveys;

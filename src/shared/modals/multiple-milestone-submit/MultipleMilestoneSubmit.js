@@ -8,6 +8,7 @@ import {
   setActiveModal,
   setMilestoneVoteData,
 } from "@redux/actions";
+import { Button } from '@shared/partials';
 
 import "./style.scss";
 
@@ -110,15 +111,15 @@ class MultipleMilestoneSubmit extends Component {
               complete.
             </h4>
             <div className="actions">
-              <button className="btn btn-primary" onClick={this.singleReview}>
+              <Button size="sm" color="primary" onClick={this.singleReview}>
                 {`Only the next milestone is complete and ready to submit for review.`}
-              </button>
-              <button className="btn btn-primary" onClick={this.multipleReview}>
+              </Button>
+              <Button size="sm" color="primary" onClick={this.multipleReview}>
                 {`I have more than one new milestone complete and ready to sumbit for review.`}
-              </button>
-              <a onClick={this.hideModal} style={{ cursor: "pointer" }}>
+              </Button>
+              <Button size="sm" variant="text" onClick={this.hideModal}>
                 Close
-              </a>
+              </Button>
             </div>
           </>
         )}
@@ -138,16 +139,16 @@ class MultipleMilestoneSubmit extends Component {
               ))}
             </ul>
             <div className="actions">
-              <button
-                className="btn btn-primary"
+              <Button
+                size="sm"
                 onClick={this.multipleSubmit}
                 disabled={!milestones.length}
               >
                 Submit
-              </button>
-              <a onClick={this.hideModal} style={{ cursor: "pointer" }}>
+              </Button>
+              <Button variant="text" onClick={this.hideModal} size="sm">
                 Cancel
-              </a>
+              </Button>
             </div>
           </>
         )}

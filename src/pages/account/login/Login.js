@@ -1,5 +1,4 @@
 import { Button } from '@shared/partials';
-import { useHistory } from 'react-router';
 import { login } from '@utils/Thunk';
 import { saveUser } from "@redux/actions";
 import { useForm } from 'react-hook-form';
@@ -26,7 +25,6 @@ const schema = yup.object().shape({
 });
 
 const Login = () => {
-  const history = useHistory();
   const { setLoading } = useContext(AppContext);
   const {
     formState,

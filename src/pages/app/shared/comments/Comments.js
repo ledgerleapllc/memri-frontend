@@ -7,8 +7,7 @@ import {
   getProposalChangeComments,
   submitProposalChangeComment,
 } from "@utils/Thunk";
-
-import "./comments.scss";
+import { Card, CardHeader, CardBody, Button } from '@shared/partials';
 
 // eslint-disable-next-line no-undef
 const moment = require("moment");
@@ -118,14 +117,14 @@ class Comments extends Component {
     if (proposal.status == "approved" && proposalChange.status == "pending") {
       return (
         <form method="POST" action="" onSubmit={this.submitComment}>
-          <textarea value={comment} onChange={this.inputComment}></textarea>
+          <textarea className="w-full h-72 bg-white1 p-4" value={comment} onChange={this.inputComment}></textarea>
           <div id="app-comments-btn-wrap">
-            <button
+            <Button
               type="submit"
-              className="btn btn-primary btn-fluid less-small"
+              size="md"
             >
               Add Comment
-            </button>
+            </Button>
           </div>
         </form>
       );
@@ -147,16 +146,16 @@ class Comments extends Component {
       return null;
 
     return (
-      <section id="app-comments-section">
-        <div id="app-comments-title">
+      <Card className="my-4">
+        <CardHeader>
           <label>Comments</label>
           <Icon.Info size={16} />
-        </div>
-        <div id="app-comments-body">
+        </CardHeader>
+        <CardBody>
           <ul>{this.renderComments()}</ul>
           {this.renderForm()}
-        </div>
-      </section>
+        </CardBody>
+      </Card>
     );
   }
 }

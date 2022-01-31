@@ -1,11 +1,9 @@
 import React, { Component } from "react";
 import { connect } from "react-redux";
-import * as Icon from "react-feather";
 import { withRouter, Redirect } from "react-router-dom";
 import SidebarLayout from "@shared/layouts/sidebar/Sidebar";
 import { showSidebar, hideSidebar, setActiveModal } from "@redux/actions";
 import { AuthAppRoutes } from "@routes";
-import { BRAND } from "@utils/Constant";
 
 import "./authapp.scss";
 
@@ -73,11 +71,15 @@ class AuthApp extends Component {
           <div id="app-canvas"></div>
 
           <div className="app-content-body" id="app-content-body">
-            <div id="app-content__header">
-              <Icon.Menu onClick={this.showSidebar} />
+            <div id="app-content__header" className="flex justify-end mb-4 2xl:mb-8">
+              <div className="flex gap-2 items-center">
+                <div className="w-5 h-5 bg-primary rounded-full font-bold text-white text-xs flex-center">{authUser.last_name?.[0]}</div>
+                <span className="font-bold">{authUser.first_name} {authUser.last_name}</span>
+              </div>
             </div>
-
-            <AuthAppRoutes />
+            <div className="min-h-0 flex-1 flex-col flex">
+              <AuthAppRoutes />
+            </div>
           </div>
         </div>
       </div>

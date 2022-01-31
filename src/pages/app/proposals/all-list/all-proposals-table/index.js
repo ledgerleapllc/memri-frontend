@@ -106,10 +106,10 @@ const Proposals = React.forwardRef(({ outParams }, ref) => {
     if (item.status == "payment") {
       if (dos_paid) {
         // Paid
-        return this.renderStatusLabel("Payment Clearing", "info");
+        return renderStatusLabel("Payment Clearing", "info");
       } else {
         // Not Paid
-        return this.renderStatusLabel("Payment Waiting", "info");
+        return renderStatusLabel("Payment Waiting", "info");
       }
     } else if (item.status == "pending")
       return renderStatusLabel("Pending", "primary");

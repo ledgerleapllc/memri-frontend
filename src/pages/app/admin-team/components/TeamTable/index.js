@@ -1,172 +1,135 @@
 import moment from "moment";
-import React, { Component } from "react";
-import { connect } from "react-redux";
-import {
-  GlobalRelativeCanvasComponent,
-  SwitchButton,
-} from "@shared/components";
-import {
-  getAdminTeams,
-  changeAdminPermission,
-  resetPasswordAdmin,
-  resendInvitedEmail,
-} from "@utils/Thunk";
-import { withRouter } from "react-router-dom";
-import "./team.scss";
-import {
-  forceReloadAdminTeam,
-  hideCanvas,
-  setActiveModal,
-  showAlert,
-  showCanvas,
-} from "@redux/actions";
+import React, { useContext, useEffect } from "react";
+import { getAdminTeams, resendInvitedEmail, changeAdminPermission, resetPasswordAdmin } from "@utils/Thunk";
+import { useDispatch } from "react-redux";
+import { Table, useTable, Button } from '@shared/partials';
+import styles from "./style.module.scss";
+import { LIMIT_API_RECORDS } from "@utils/Constant";
+import { showAlert, setActiveModal } from "@redux/actions";
+import { SwitchButton } from "@shared/components";
+import { AppContext } from '@src/App';
+import classNames from "classnames";
 
-const mapStateToProps = (state) => {
-  return {
-    authUser: state.global.authUser,
-    reloadAdminTeam: state.admin.reloadAdminTeam,
-  };
-};
+const allPermissions = ['users', 'new_proposal', 'move_to_formal', 'grants', 'milestones', 'global_settings', 'emailer', 'accounting'];
 
-class TeamTable extends Component {
-  constructor(props) {
-    super(props);
-    this.state = {
-      loading: false,
-      data: [],
-      sort_key: "id",
-      sort_direction: "desc",
-      search: "",
-      page_id: 1,
-      calling: false,
-      finished: false,
-      params: {},
-    };
+const TeamTable = React.forwardRef(({ outParams }, ref) => {
+  const {
+    data,
+    register,
+    hasMore,
+    appendData,
+    setHasMore,
+    setPage,
+    setParams,
+    page,
+    params,
+    resetData,
+    setData,
+  } = useTable();
+  const dispatch = useDispatch();
+  const { setLoading } = useContext(AppContext);
 
-    this.$elem = null;
-    this.timer = null;
-  }
-
-  componentDidMount() {
-    const { authUser } = this.props;
-    if (authUser && authUser.id) this.startTracking();
-
-    this.getData();
-  }
-
-  componentWillUnmount() {
-    if (this.$elem) this.$elem.removeEventListener("scroll", this.trackScroll);
-  }
-
-  componentDidUpdate(prevProps) {
-    const { authUser } = this.props;
-
-    // Start Tracking
-    if (
-      (!prevProps.authUser || !prevProps.authUser.id) &&
-      authUser &&
-      authUser.id
-    )
-      this.startTracking();
-    if (
-      this.props.reloadAdminTeam &&
-      this.props.reloadAdminTeam !== prevProps.reloadAdminTeam
-    ) {
-      this.props.dispatch(forceReloadAdminTeam(false));
-      this.reloadTable();
-    }
-  }
-
-  startTracking() {
-    // IntersectionObserver - We can consider using it later
-    this.$elem = document.getElementById("milestone-all-scroll-track");
-    if (this.$elem) this.$elem.addEventListener("scroll", this.trackScroll);
-  }
-
-  // Track Scroll
-  trackScroll = () => {
-    if (!this.$elem) return;
-    if (
-      this.$elem.scrollTop + this.$elem.clientHeight >=
-      this.$elem.scrollHeight
-    )
-      this.runNextPage();
-  };
-
-  runNextPage() {
-    const { calling, loading, finished, page_id } = this.state;
-    if (calling || loading || finished) return;
-
-    this.setState({ page_id: page_id + 1 }, () => {
-      this.getData(false);
-    });
-  }
-
-  // Reload Full Table
-  reloadTable() {
-    this.setState({ page_id: 1, data: [], finished: false }, () => {
-      this.getData();
-    });
-  }
-
-  getData(showLoading = true) {
-    let {
-      calling,
-      loading,
-      finished,
-      sort_key,
-      sort_direction,
-      search,
-      page_id,
-      data,
-    } = this.state;
-    if (loading || calling || finished) return;
-
+  const fetchData = (pageValue = page, paramsValue = params, limit = LIMIT_API_RECORDS) => {
     const params = {
-      sort_key,
-      sort_direction,
-      search,
-      page_id,
-      limit: 15,
-      ...this.state.params,
+      limit,
+      ...paramsValue,
+      page_id: pageValue,
     };
 
-    this.props.dispatch(
+    dispatch(
       getAdminTeams(
         params,
-        () => {
-          if (showLoading) this.setState({ loading: true, calling: true });
-          else this.setState({ loading: false, calling: true });
-        },
+        () => {},
         (res) => {
-          const result = res.users || [];
-          const finished = res.finished || false;
-          this.setState({
-            loading: false,
-            calling: false,
-            finished,
-            data: [...data, ...result],
-          });
+          setHasMore(!res.finished);
+          appendData(res.users);
+          setPage(prev => prev + 1);
         }
       )
     );
   }
 
-  togglePermissions = (item, permission, value) => {
+  useEffect(() => {
+    fetchData();
+  }, []);
+
+  useEffect(() => {
+    if (outParams) {
+      setParams(outParams);
+      resetData();
+      fetchData(1, outParams);
+    }
+  }, [outParams]);
+
+  const handleSort = async (key, direction) => {
+    const newParams = {
+      sort_key: key,
+      sort_direction: direction,
+    };
+    setParams(newParams);
+    resetData();
+    fetchData(1, newParams);
+  };
+
+  const doResendInvitedEmail = (id) => {
+    dispatch(
+      resendInvitedEmail(
+        { id },
+        () => {
+          setLoading(true);
+        },
+        (res) => {
+          setLoading(false);
+          if (res.success) {
+            dispatch(
+              showAlert("Resend Email successfully!", "success")
+            );
+          }
+        }
+      )
+    );
+  }
+
+  const getPermission = (item, type) => {
+    return !!item.permissions.find((x) => x.name === type)?.is_permission;
+  }
+
+  const renderAdminStatus = (item) => {
+    let colorText = "";
+    if (item.admin_status === "active") {
+      colorText = "text-success";
+    } else if (item.admin_status === "revoked") {
+      colorText = "text-danger";
+    }
+    return (
+      <>
+        <p className={`${colorText} capitalize`}>{item.admin_status}</p>
+        {item.admin_status === "invited" && (
+          <Button
+            variant="text"
+            size="sm"
+            className="mt-3 underline"
+            onClick={() => doResendInvitedEmail(item.id)}
+          >
+            resend
+          </Button>
+        )}
+      </>
+    );
+  }
+
+  const togglePermissions = (item, permission, value) => {
     const currentPermission = item.permissions.find(
       (x) => x.name === permission
     );
     if (currentPermission) {
       currentPermission.is_permission =
         +currentPermission.is_permission === 1 ? 0 : 1;
-      const data = this.state.data;
       const inx = data.findIndex((x) => x.id === item.id);
       data[inx] = item;
-      this.setState({
-        data: [...data],
-      });
+      setData([...data]);
 
-      this.props.dispatch(
+      dispatch(
         changeAdminPermission(
           {
             id: item.id,
@@ -181,25 +144,25 @@ class TeamTable extends Component {
     }
   };
 
-  askRevokeAdmin = (item) => {
-    this.props.dispatch(setActiveModal("ask-revoke-admin", item));
+  const askRevokeAdmin = (item) => {
+    dispatch(setActiveModal("ask-revoke-admin", item));
   };
 
-  askUndoRevokeAdmin = (item) => {
-    this.props.dispatch(setActiveModal("ask-undo-revoke-admin", item));
+  const askUndoRevokeAdmin = (item) => {
+    dispatch(setActiveModal("ask-undo-revoke-admin", item));
   };
 
-  doResetPWAdmin = (id) => {
-    this.props.dispatch(
+  const doResetPWAdmin = (id) => {
+    dispatch(
       resetPasswordAdmin(
         { id },
         () => {
-          this.props.dispatch(showCanvas());
+          setLoading(true);
         },
         (res) => {
-          this.props.dispatch(hideCanvas());
+          setLoading(false);
           if (res.success) {
-            this.props.dispatch(
+            dispatch(
               showAlert("Reset Password successfully!", "success")
             );
           }
@@ -208,276 +171,201 @@ class TeamTable extends Component {
     );
   };
 
-  doResendInvitedEmail(id) {
-    this.props.dispatch(
-      resendInvitedEmail(
-        { id },
-        () => {
-          this.props.dispatch(showCanvas());
-        },
-        (res) => {
-          this.props.dispatch(hideCanvas());
-          if (res.success) {
-            this.props.dispatch(
-              showAlert("Resend Email successfully!", "success")
-            );
-          }
-        }
-      )
-    );
-  }
 
-  renderAdminStatus(item) {
-    let colorText = "";
-    if (item.admin_status === "active") {
-      colorText = "color-success";
-    } else if (item.admin_status === "revoked") {
-      colorText = "color-danger";
-    }
-    return (
-      <>
-        <p className={`${colorText} text-capitalize`}>{item.admin_status}</p>
-        {item.admin_status === "invited" && (
-          <a
-            className="mt-3 text-underline"
-            style={{ cursor: "pointer" }}
-            onClick={() => this.doResendInvitedEmail(item.id)}
-          >
-            resend
-          </a>
-        )}
-      </>
-    );
-  }
+  return (
+    <Table
+      {...register}
+      styles={styles}
+      className={classNames('h-full', styles.table)}
+      onLoadMore={fetchData}
+      hasMore={hasMore}
+      dataLength={data.length}
+      onSort={handleSort}
+    >
+      <Table.Header>
+        <Table.HeaderCell>
+          <p>Added Date</p>
+        </Table.HeaderCell>
+        <Table.HeaderCell>
+          <p>Type</p>
+        </Table.HeaderCell>
+        <Table.HeaderCell>
+          <p>Status</p>
+        </Table.HeaderCell>
+        <Table.HeaderCell>
+          <p>Email</p>
+        </Table.HeaderCell>
+        <Table.HeaderCell>
+          <p>Last Login</p>
+        </Table.HeaderCell>
+        <Table.HeaderCell>
+          <p>IP</p>
+        </Table.HeaderCell>
+        <Table.HeaderCell>
+          <p>Users</p>
+        </Table.HeaderCell>
+        <Table.HeaderCell>
+          <p>New Proposals</p>
+        </Table.HeaderCell>
+        <Table.HeaderCell>
+          <p>Move to Formal</p>
+        </Table.HeaderCell>
+        <Table.HeaderCell>
+          <p>Grants</p>
+        </Table.HeaderCell>
+        <Table.HeaderCell>
+          <p>Milestones</p>
+        </Table.HeaderCell>
+        <Table.HeaderCell>
+          <p>Global settings</p>
+        </Table.HeaderCell>
+        <Table.HeaderCell>
+          <p>Emailer</p>
+        </Table.HeaderCell>
+        <Table.HeaderCell>
+          <p>Accounting</p>
+        </Table.HeaderCell>
+        <Table.HeaderCell>
+        </Table.HeaderCell>
+      </Table.Header>
+      <Table.Body className="padding-tracker">
+        {data.map((item, ind) => (
+          <Table.BodyRow className="py-4" key={ind}>
+            <Table.BodyCell>
+              {moment(item.created_at).format("M/D/YYYY h:mm A")}
+            </Table.BodyCell>
+            <Table.BodyCell>
+              {item.is_super_admin ? "Super Admin" : "Admin"}
+            </Table.BodyCell>
+            <Table.BodyCell>
+              {renderAdminStatus(item)}
+            </Table.BodyCell>
+            <Table.BodyCell>
+              {item.email}
+            </Table.BodyCell>
+            <Table.BodyCell>
+              {item.last_login_at
+                ? moment(item.last_login_at).format("M/D/YYYY h:mm A")
+                : ""}
+            </Table.BodyCell>
+            <Table.BodyCell>
+              {item.last_login_ip_address}
+            </Table.BodyCell>
+            <Table.BodyCell>
+              {!item.is_super_admin && (
+                <SwitchButton
+                  value={getPermission(item, allPermissions[0])}
+                  onChange={(e) =>
+                    togglePermissions(item, allPermissions[0], e.target.checked)
+                  }
+                />
+              )}
+            </Table.BodyCell>
+            <Table.BodyCell>
+              {!item.is_super_admin && (
+                <SwitchButton
+                  value={getPermission(item, allPermissions[1])}
+                  onChange={(e) =>
+                    togglePermissions(item, allPermissions[1], e.target.checked)
+                  }
+                />
+              )}
+            </Table.BodyCell>
+            <Table.BodyCell>
+              {!item.is_super_admin && (
+                <SwitchButton
+                  value={getPermission(item, allPermissions[2])}
+                  onChange={(e) =>
+                    togglePermissions(item, allPermissions[2], e.target.checked)
+                  }
+                />
+              )}
+            </Table.BodyCell>
+            <Table.BodyCell>
+              {!item.is_super_admin && (
+                <SwitchButton
+                  value={getPermission(item, allPermissions[3])}
+                  onChange={(e) =>
+                    togglePermissions(item, allPermissions[3], e.target.checked)
+                  }
+                />
+              )}
+            </Table.BodyCell>
+            <Table.BodyCell>
+              {!item.is_super_admin && (
+                <SwitchButton
+                  value={getPermission(item, allPermissions[4])}
+                  onChange={(e) =>
+                    togglePermissions(item, allPermissions[4], e.target.checked)
+                  }
+                />
+              )}
+            </Table.BodyCell>
+            <Table.BodyCell>
+              {!item.is_super_admin && (
+                <SwitchButton
+                  value={getPermission(item, allPermissions[5])}
+                  onChange={(e) =>
+                    togglePermissions(item, allPermissions[5], e.target.checked)
+                  }
+                />
+              )}
+            </Table.BodyCell>
+            <Table.BodyCell>
+              {!item.is_super_admin && (
+                <SwitchButton
+                  value={getPermission(item, allPermissions[6])}
+                  onChange={(e) =>
+                    togglePermissions(item, allPermissions[6], e.target.checked)
+                  }
+                />
+              )}
+            </Table.BodyCell>
+            <Table.BodyCell>
+              {!item.is_super_admin && (
+                <SwitchButton
+                  value={getPermission(item, allPermissions[7])}
+                  onChange={(e) =>
+                    togglePermissions(item, allPermissions[7], e.target.checked)
+                  }
+                />
+              )}
+            </Table.BodyCell>
+            <Table.BodyCell>
+              <div className="flex flex-col gap-2">
+                  {!item.is_super_admin && (
+                    <Button
+                      size="sm"
+                      onClick={() => doResetPWAdmin(item.id)}
+                    >
+                      Reset Password
+                    </Button>
+                  )}
+                  {!item.is_super_admin && item.admin_status !== "revoked" && (
+                    <Button
+                      size="sm"
+                      color="danger"
+                      onClick={() => askRevokeAdmin(item)}
+                    >
+                      Revoke
+                    </Button>
+                  )}
+                  {!item.is_super_admin && item.admin_status === "revoked" && (
+                    <Button 
+                      size="sm"
+                      color="success"
+                      onClick={() => askUndoRevokeAdmin(item)}
+                    >
+                      Undo
+                    </Button>
+                  )}
+                </div>
+            </Table.BodyCell>
+          </Table.BodyRow>
+        ))}
+      </Table.Body>
+    </Table>
+  )
+});
 
-  getPermission(item, type) {
-    return !!item.permissions.find((x) => x.name === type)?.is_permission;
-  }
-
-  renderResult() {
-    const { data } = this.state;
-    const items = [];
-
-    if (!data || !data.length) {
-      return (
-        <div id="infinite-no-result">
-          <label className="font-size-14">No Results Found</label>
-        </div>
-      );
-    }
-
-    data.forEach((item) => {
-      items.push(
-        <li key={`all_mile_${item.id}`}>
-          <div className="infinite-row align-items-center d-flex py-3 font-size-14 font-weight-700">
-            <div className="c-col-1 c-cols">
-              <p>{moment(item.created_at).format("M/D/YYYY h:mm A")}</p>
-            </div>
-            <div className="c-col-2 c-cols">
-              <p>{item.is_super_admin ? "Super Admin" : "Admin"}</p>
-            </div>
-            <div className="c-col-3 c-cols">{this.renderAdminStatus(item)}</div>
-            <div className="c-col-4 c-cols">
-              <p>{item.email}</p>
-            </div>
-            <div className="c-col-5 c-cols">
-              <p>
-                {item.last_login_at
-                  ? moment(item.last_login_at).format("M/D/YYYY h:mm A")
-                  : ""}
-              </p>
-            </div>
-            <div className="c-col-6 c-cols">
-              <p>{item.last_login_ip_address}</p>
-            </div>
-            <div className="c-col-7 c-cols">
-              {!item.is_super_admin && (
-                <SwitchButton
-                  value={this.getPermission(item, "users")}
-                  onChange={(e) =>
-                    this.togglePermissions(item, "users", e.target.checked)
-                  }
-                />
-              )}
-            </div>
-            <div className="c-col-8 c-cols">
-              {!item.is_super_admin && (
-                <SwitchButton
-                  value={this.getPermission(item, "new_proposal")}
-                  onChange={(e) =>
-                    this.togglePermissions(
-                      item,
-                      "new_proposal",
-                      e.target.checked
-                    )
-                  }
-                />
-              )}
-            </div>
-            <div className="c-col-9 c-cols">
-              {!item.is_super_admin && (
-                <SwitchButton
-                  value={this.getPermission(item, "move_to_formal")}
-                  onChange={(e) =>
-                    this.togglePermissions(
-                      item,
-                      "move_to_formal",
-                      e.target.checked
-                    )
-                  }
-                />
-              )}
-            </div>
-            <div className="c-col-10 c-cols">
-              {!item.is_super_admin && (
-                <SwitchButton
-                  value={this.getPermission(item, "grants")}
-                  onChange={(e) =>
-                    this.togglePermissions(item, "grants", e.target.checked)
-                  }
-                />
-              )}
-            </div>
-            <div className="c-col-11 c-cols">
-              {!item.is_super_admin && (
-                <SwitchButton
-                  value={this.getPermission(item, "milestones")}
-                  onChange={(e) =>
-                    this.togglePermissions(item, "milestones", e.target.checked)
-                  }
-                />
-              )}
-            </div>
-            <div className="c-col-12 c-cols">
-              {!item.is_super_admin && (
-                <SwitchButton
-                  value={this.getPermission(item, "global_settings")}
-                  onChange={(e) =>
-                    this.togglePermissions(
-                      item,
-                      "global_settings",
-                      e.target.checked
-                    )
-                  }
-                />
-              )}
-            </div>
-            <div className="c-col-13 c-cols">
-              {!item.is_super_admin && (
-                <SwitchButton
-                  value={this.getPermission(item, "emailer")}
-                  onChange={(e) =>
-                    this.togglePermissions(item, "emailer", e.target.checked)
-                  }
-                />
-              )}
-            </div>
-            <div className="c-col-14 c-cols">
-              {!item.is_super_admin && (
-                <SwitchButton
-                  value={this.getPermission(item, "accounting")}
-                  onChange={(e) =>
-                    this.togglePermissions(item, "accounting", e.target.checked)
-                  }
-                />
-              )}
-            </div>
-            <div className="c-col-15 c-cols">
-              <div>
-                {!item.is_super_admin && (
-                  <button
-                    className="btn btn-primary small mb-2"
-                    onClick={() => this.doResetPWAdmin(item.id)}
-                  >
-                    Reset Password
-                  </button>
-                )}
-                {!item.is_super_admin && item.admin_status !== "revoked" && (
-                  <button
-                    className="btn btn-danger small"
-                    onClick={() => this.askRevokeAdmin(item)}
-                  >
-                    Revoke
-                  </button>
-                )}
-                {!item.is_super_admin && item.admin_status === "revoked" && (
-                  <button
-                    className="btn btn-success small"
-                    onClick={() => this.askUndoRevokeAdmin(item)}
-                  >
-                    Undo
-                  </button>
-                )}
-              </div>
-            </div>
-          </div>
-        </li>
-      );
-    });
-    return <ul>{items}</ul>;
-  }
-
-  render() {
-    const { loading } = this.state;
-    return (
-      <div className="teams-table infinite-content">
-        <div className="infinite-contentInner">
-          <div className="infinite-header">
-            <div className="infinite-headerInner">
-              <div className="c-col-1 c-cols">
-                <label className="font-size-14">Added Date</label>
-              </div>
-              <div className="c-col-2 c-cols">
-                <label className="font-size-14">Type</label>
-              </div>
-              <div className="c-col-3 c-cols">
-                <label className="font-size-14">Status</label>
-              </div>
-              <div className="c-col-4 c-cols">
-                <label className="font-size-14">Email</label>
-              </div>
-              <div className="c-col-5 c-cols">
-                <label className="font-size-14">Last Login</label>
-              </div>
-              <div className="c-col-6 c-cols">
-                <label className="font-size-14">IP</label>
-              </div>
-              <div className="c-col-7 c-cols">
-                <label className="font-size-14">Users</label>
-              </div>
-              <div className="c-col-8 c-cols">
-                <label className="font-size-14">New Proposals</label>
-              </div>
-              <div className="c-col-9 c-cols">
-                <label className="font-size-14">Move to Formal</label>
-              </div>
-              <div className="c-col-10 c-cols">
-                <label className="font-size-14">Grants</label>
-              </div>
-              <div className="c-col-11 c-cols">
-                <label className="font-size-14">Milestones</label>
-              </div>
-              <div className="c-col-12 c-cols">
-                <label className="font-size-14">Global settings</label>
-              </div>
-              <div className="c-col-13 c-cols">
-                <label className="font-size-14">Emailer</label>
-              </div>
-              <div className="c-col-14 c-cols">
-                <label className="font-size-14">Accounting</label>
-              </div>
-              <div className="c-col-15 c-cols">
-                <label className="font-size-14"></label>
-              </div>
-            </div>
-          </div>
-          <div className="infinite-body" id="milestone-all-scroll-track">
-            {loading ? <GlobalRelativeCanvasComponent /> : this.renderResult()}
-          </div>
-        </div>
-      </div>
-    );
-  }
-}
-
-export default connect(mapStateToProps)(withRouter(TeamTable));
+export default TeamTable;

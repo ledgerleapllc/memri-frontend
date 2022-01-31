@@ -7,6 +7,7 @@ import {
   showCanvas,
 } from "@redux/actions";
 import { getMe, sendKycKangaroo } from "@utils/Thunk";
+import { Button } from '@shared/partials';
 import "./style.scss";
 
 const mapStateToProps = (state) => {
@@ -63,16 +64,16 @@ class KycGrant extends Component {
           {`You need to submit your KYC information before you can submit a grant application. Please click the link below to start the process. Return here 15 minutes after you complete the KYC process and you should be able to start the grant process`}
         </p>
         <div id="start-kyc-modal__buttons" className="pt-2">
-          <button className="btn btn-primary" onClick={this.sendLink}>
+          <Button size="sm" onClick={this.sendLink}>
             Send me a link to start the KYC/AML process
-          </button>
-          <a
-            className="color-primary text-underline"
+          </Button>
+          <Button
+            variant="text" size="sm"
+            className="text-primary underline"
             onClick={() => this.hideModal()}
-            style={{ cursor: "pointer" }}
           >
             Cancel
-          </a>
+          </Button>
         </div>
       </div>
     );

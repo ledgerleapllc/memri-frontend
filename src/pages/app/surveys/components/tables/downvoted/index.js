@@ -1,269 +1,185 @@
-import { Tooltip } from "@mui/material";
 import moment from "moment";
-import React, { Component } from "react";
-import { connect } from "react-redux";
-import { Link } from "react-router-dom";
-import { GlobalRelativeCanvasComponent } from "@shared/components";
-import { hideCanvas, showCanvas } from "@redux/actions";
+import React, { useEffect, useContext } from "react";
 import { getLosers, approveDownVote } from "@utils/Thunk";
-import "./style.scss";
+import { useDispatch } from "react-redux";
+import { Table, useTable, Button } from '@shared/partials';
+import styles from "./style.module.scss";
+import { Link } from "react-router-dom";
+import { LIMIT_API_RECORDS } from "@utils/Constant";
+import { Tooltip } from "@mui/material";
+import { AppContext } from '@src/App';
 
-const mapStateToProps = (state) => {
-  return {
-    authUser: state.global.authUser,
-    reloadActiveSurveyTable: state.admin.reloadActiveSurveyTable,
-  };
-};
+const DownvotedTable = React.forwardRef(({ outParams }, ref) => {
+  const {
+    data,
+    register,
+    hasMore,
+    appendData,
+    setHasMore,
+    setPage,
+    setParams,
+    page,
+    params,
+    resetData,
+  } = useTable();
+  const dispatch = useDispatch();
+  const { setLoading } = useContext(AppContext);
 
-class DownvotedTable extends Component {
-  constructor(props) {
-    super(props);
-    this.state = {
-      params: {},
-      loading: false,
-      data: [],
-      sort_key: "rank",
-      sort_direction: "asc",
-      page_id: 1,
-      calling: false,
-      finished: false,
+  const fetchData = (pageValue = page, paramsValue = params, limit = LIMIT_API_RECORDS) => {
+    const params = {
+      limit,
+      ...paramsValue,
+      status: "active",
+      page_id: pageValue,
     };
 
-    this.$elem = null;
-    this.timer = null;
-  }
-
-  componentDidMount() {
-    const { authUser } = this.props;
-    if (authUser && authUser.id) this.startTracking();
-
-    this.getData();
-  }
-
-  componentWillUnmount() {
-    if (this.$elem) this.$elem.removeEventListener("scroll", this.trackScroll);
-  }
-
-  componentDidUpdate(prevProps) {
-    const { authUser } = this.props;
-
-    // Start Tracking
-    if (
-      (!prevProps.authUser || !prevProps.authUser.id) &&
-      authUser &&
-      authUser.id
-    )
-      this.startTracking();
-
-    const { params } = this.props;
-    if (prevProps.params !== params) {
-      this.setState({ params: { ...params } });
-      setTimeout(() => this.reloadTable());
-    }
-  }
-
-  // Reload Full Table
-  reloadTable() {
-    this.setState({ page_id: 1, data: [], finished: false }, () => {
-      this.getData();
-    });
-  }
-
-  startTracking() {
-    // IntersectionObserver - We can consider using it later
-    this.$elem = document.getElementById("losers-scroll-track");
-    if (this.$elem) this.$elem.addEventListener("scroll", this.trackScroll);
-  }
-
-  // Track Scroll
-  trackScroll = () => {
-    if (!this.$elem) return;
-    if (
-      this.$elem.scrollTop + this.$elem.clientHeight >=
-      this.$elem.scrollHeight
-    )
-      this.runNextPage();
-  };
-
-  runNextPage() {
-    const { calling, loading, finished, page_id } = this.state;
-    if (calling || loading || finished) return;
-
-    this.setState({ page_id: page_id + 1 }, () => {
-      this.getData(false);
-    });
-  }
-
-  getData(showLoading = true) {
-    let {
-      calling,
-      loading,
-      finished,
-      sort_key,
-      sort_direction,
-      page_id,
-      data,
-      params,
-    } = this.state;
-    if (loading || calling || finished) return;
-
-    const tempParams = {
-      sort_key,
-      sort_direction,
-      page_id,
-      ...params,
-    };
-
-    this.props.dispatch(
+    dispatch(
       getLosers(
-        tempParams,
-        () => {
-          if (showLoading) this.setState({ loading: true, calling: true });
-          else this.setState({ loading: false, calling: true });
-        },
+        params,
+        () => {},
         (res) => {
-          const result = res.proposals || [];
-          const finished = res.finished || false;
-          this.setState({
-            loading: false,
-            calling: false,
-            finished,
-            data: [...data, ...result],
-          });
+          setHasMore(!res.finished);
+          appendData(res.proposals);
+          setPage(prev => prev + 1);
         }
       )
     );
   }
 
-  doApproveDownVote(item) {
-    this.props.dispatch(
+  useEffect(() => {
+    fetchData();
+  }, []);
+
+  useEffect(() => {
+    if (outParams) {
+      setParams(outParams);
+      resetData();
+      fetchData(1, outParams);
+    }
+  }, [outParams]);
+
+  const handleSort = async (key, direction) => {
+    const newParams = {
+      sort_key: key,
+      sort_direction: direction,
+    };
+    setParams(newParams);
+    resetData();
+    fetchData(1, newParams);
+  };
+
+  const doApproveDownVote = (item) => {
+    dispatch(
       approveDownVote(
         { proposalId: item.id },
         () => {
-          this.props.dispatch(showCanvas());
+          setLoading(true);
         },
         (res) => {
-          this.props.dispatch(hideCanvas());
+          setLoading(false);
           if (res.success) {
-            this.reloadTable();
+            resetData();
+            fetchData(1);
           }
         }
       )
     );
   }
 
-  renderResult() {
-    const { data } = this.state;
-    const items = [];
-
-    if (!data || !data.length) {
-      return (
-        <div id="infinite-no-result">
-          <label className="font-size-14">No Results Found</label>
-        </div>
-      );
-    }
-
-    data.forEach((item, index) => {
-      items.push(
-        <li key={`mile_${item.id}_${index}`}>
-          <div className="infinite-row align-items-center d-flex py-3 font-size-14 font-weight-700">
-            <div className="c-col-1 c-cols">
+  return (
+    <Table
+      {...register}
+      styles={styles}
+      className="h-full"
+      onLoadMore={fetchData}
+      hasMore={hasMore}
+      dataLength={data.length}
+      onSort={handleSort}
+    >
+      <Table.Header>
+        <Table.HeaderCell >
+          <p>Survey End</p>
+        </Table.HeaderCell>
+        <Table.HeaderCell >
+          <p>Survey #</p>
+        </Table.HeaderCell>
+        <Table.HeaderCell >
+          <p>Spot #</p>
+        </Table.HeaderCell>
+        <Table.HeaderCell >
+          <p>Proposal #</p>
+        </Table.HeaderCell>
+        <Table.HeaderCell >
+          <p>Title</p>
+        </Table.HeaderCell>
+        <Table.HeaderCell >
+          <p>Current Status</p>
+        </Table.HeaderCell>
+        <Table.HeaderCell >
+          <p>Remove?</p>
+        </Table.HeaderCell>
+      </Table.Header>
+      <Table.Body className="padding-tracker">
+        {data.map((item, ind) => (
+          <Table.BodyRow className="py-4" key={ind}>
+            <Table.BodyCell>
               <p>{moment(item.end_time).local().format("M/D/YYYY")}</p>
-            </div>
-            <div className="c-col-2 c-cols">
+            </Table.BodyCell>
+            <Table.BodyCell>
               <p>S{item.survey_id}</p>
-            </div>
-            <div className="c-col-3 c-cols">
+            </Table.BodyCell>
+            <Table.BodyCell>
               <p>{item.rank}</p>
-            </div>
-            <div className="c-col-4 c-cols">
+            </Table.BodyCell>
+            <Table.BodyCell>
               <Link to={`/app/proposal/${item.id}`}>
                 <p>{item.id}</p>
               </Link>
-            </div>
-            <div className="c-col-5 c-cols">
+            </Table.BodyCell>
+            <Table.BodyCell>
               <Tooltip title={item.title} placement="left">
                 <Link to={`/app/proposal/${item.id}`}>
-                  <p>{item.title}</p>
+                  <p>S{item.title}</p>
                 </Link>
               </Tooltip>
-            </div>
-            <div className="c-col-6 c-cols">
+            </Table.BodyCell>
+            <Table.BodyCell>
               {!item.is_approved ? (
-                <p
-                  className={
-                    item.status.label === "In Discussion"
-                      ? "text-danger"
-                      : "text-success"
-                  }
-                >
-                  {item.status.label}
-                </p>
-              ) : (
-                <>
-                  <p>Downvoted</p>
-                  <p>
-                    (approved{" "}
-                    {moment(item.downvote_approved_at).format("M/D/YYYY")})
+                  <p
+                    className={
+                      item.status.label === "In Discussion"
+                        ? "text-danger"
+                        : "text-success"
+                    }
+                  >
+                    {item.status.label}
                   </p>
-                </>
-              )}
-            </div>
-            <div className="c-col-7 c-cols">
+                ) : (
+                  <>
+                    <p>Downvoted</p>
+                    <p>
+                      (approved{" "}
+                      {moment(item.downvote_approved_at).format("M/D/YYYY")})
+                    </p>
+                  </>
+                )}
+            </Table.BodyCell>
+            <Table.BodyCell>
               {!item.is_approved && (
-                <button
-                  className="btn btn-primary btn-fluid-small extra-small"
-                  onClick={() => this.doApproveDownVote(item)}
+                <Button
+                  size="sm"
+                  className="px-4 py-2"
+                  onClick={() => doApproveDownVote(item)}
                 >
                   Approve Downvote
-                </button>
-              )}
-            </div>
-          </div>
-        </li>
-      );
-    });
-    return <ul>{items}</ul>;
-  }
+                </Button>
+              )}   
+            </Table.BodyCell>
+          </Table.BodyRow>
+        ))}
+      </Table.Body>
+    </Table>
+  )
+});
 
-  render() {
-    const { loading } = this.state;
-    return (
-      <div className="loser-table infinite-content">
-        <div className="infinite-contentInner">
-          <div className="infinite-header">
-            <div className="infinite-headerInner">
-              <div className="c-col-1 c-cols">
-                <label className="font-size-14">Survey End</label>
-              </div>
-              <div className="c-col-2 c-cols">
-                <label className="font-size-14">Survey #</label>
-              </div>
-              <div className="c-col-3 c-cols">
-                <label className="font-size-14">Spot #</label>
-              </div>
-              <div className="c-col-4 c-cols">
-                <label className="font-size-14">Proposal #</label>
-              </div>
-              <div className="c-col-5 c-cols">
-                <label className="font-size-14">Title</label>
-              </div>
-              <div className="c-col-6 c-cols">
-                <label className="font-size-14">Current Status</label>
-              </div>
-              <div className="c-col-7 c-cols">
-                <label className="font-size-14">Remove?</label>
-              </div>
-            </div>
-          </div>
-          <div className="infinite-body" id="losers-scroll-track">
-            {loading ? <GlobalRelativeCanvasComponent /> : this.renderResult()}
-          </div>
-        </div>
-      </div>
-    );
-  }
-}
-
-export default connect(mapStateToProps)(DownvotedTable);
+export default DownvotedTable;

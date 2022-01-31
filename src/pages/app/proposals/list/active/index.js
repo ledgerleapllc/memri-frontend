@@ -9,7 +9,6 @@ import { Table, useTable, Button } from '@shared/partials';
 import styles from "./style.module.scss";
 import {
   setActiveModal,
-  setAdminActiveProposalTableStatus, // handle refresh
   setCustomModalData,
   setDOSPaymentData,
   setEditProposalData,

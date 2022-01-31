@@ -14,8 +14,9 @@ import {
 } from "@redux/actions";
 import { updateGlobalSettingsByAdmin } from "@utils/Thunk";
 import Helper from "@utils/Helper";
+import { Card, CardHeader, CardBody, Button } from '@shared/partials';
 
-import "./global-settings.scss";
+import "./style.module.scss";
 
 const WAValidator = require("wallet-address-validator");
 
@@ -598,624 +599,643 @@ class GlobalSettings extends Component {
     } = this.state;
 
     return (
-      <div id="app-global-settings-page" className="app-simple-section">
-        <label id="app-global-settings-pageHeader">Global Settings</label>
-        <form method="POST" action="" onSubmit={this.submit}>
-          {/* <div className="c-form-row">
-            <label>COO Email</label>
-            <div>
-              <input
-                type="email"
-                value={coo_email}
-                onChange={(e) => this.inputField(e, "coo_email")}
-                disabled={!editing}
-                style={{ width: "250px" }}
-              />
-            </div>
-          </div> */}
-          <div className="c-form-row">
-            <label>CFO Email</label>
-            <div>
-              <input
-                type="email"
-                value={cfo_email}
-                onChange={(e) => this.inputField(e, "cfo_email")}
-                disabled={!editing}
-                style={{ width: "250px" }}
-              />
-            </div>
-          </div>
-          {/* <div className="c-form-row">
-            <label>President Email</label>
-            <div>
-              <input
-                type="email"
-                value={president_email}
-                onChange={(e) => this.inputField(e, "president_email")}
-                disabled={!editing}
-                style={{ width: "250px" }}
-              />
-            </div>
-          </div> */}
-          <div className="c-form-row">
-            <label>Board Member Email</label>
-            <div>
-              <input
-                type="email"
-                value={board_member_email}
-                onChange={(e) => this.inputField(e, "board_member_email")}
-                disabled={!editing}
-                style={{ width: "250px" }}
-              />
-            </div>
-          </div>
-          <div className="c-form-row">
-            <label>Compliance Admin</label>
-            <div>
-              <input
-                type="email"
-                value={compliance_admin}
-                onChange={(e) => this.inputField(e, "compliance_admin")}
-                disabled={!editing}
-                style={{ width: "250px" }}
-              />
-            </div>
-          </div>
-          <div className="c-form-row">
-            <label>Time before OP can accept/deny change</label>
-            <div>
-              <input
-                type="text"
-                value={time_before_op_do}
-                onChange={(e) => this.inputIntField(e, "time_before_op_do")}
-                disabled={!editing}
-              />
-              <select
-                value={time_unit_before_op_do}
-                onChange={(e) => this.inputField(e, "time_unit_before_op_do")}
-                disabled={!editing}
-              >
-                <option value="">Select...</option>
-                {this.renderTimeUnitOptions()}
-              </select>
-            </div>
-          </div>
-          <div className="c-form-row">
-            <label>Does admin need to approve new users?</label>
-            <div>
-              <div
-                className="c-form-check"
-                onClick={() => this.setCheckbox("yes", "need_to_approve")}
-              >
-                {need_to_approve == "yes" ? (
-                  <Icon.CheckSquare color="#9B64E6" />
-                ) : (
-                  <Icon.Square color="#9B64E6" />
-                )}
-                <label>Yes</label>
+      <Card className='h-full'>
+        <CardHeader>
+        <h3 className="font-bold">Global Settings</h3>
+        </CardHeader>
+        <CardBody className="overflow-scroll padding-tracker">
+          <form className="flex flex-col gap-8" method="POST" action="" onSubmit={this.submit}>
+            {/* <div className="c-form-row">
+              <label>COO Email</label>
+              <div>
+                <input
+                  type="email"
+                  value={coo_email}
+                  onChange={(e) => this.inputField(e, "coo_email")}
+                  disabled={!editing}
+                  style={{ width: "250px" }}
+                />
               </div>
-              <div
-                className="c-form-check"
-                onClick={() => this.setCheckbox("no", "need_to_approve")}
-              >
-                {need_to_approve == "no" ? (
-                  <Icon.CheckSquare color="#9B64E6" />
-                ) : (
-                  <Icon.Square color="#9B64E6" />
-                )}
-                <label>No</label>
+            </div> */}
+            <div className="c-form-row">
+              <label>CFO Email</label>
+              <div>
+                <input
+                  type="email"
+                  value={cfo_email}
+                  onChange={(e) => this.inputField(e, "cfo_email")}
+                  disabled={!editing}
+                  style={{ width: "250px" }}
+                  className=""
+                />
               </div>
             </div>
-          </div>
-          <div className="c-form-row">
-            <label>
-              Can OP start informal vote (if no, admins must start votes)
-            </label>
-            <div>
-              <div
-                className="c-form-check"
-                onClick={() => this.setCheckbox("yes", "can_op_start_informal")}
-              >
-                {can_op_start_informal == "yes" ? (
-                  <Icon.CheckSquare color="#9B64E6" />
-                ) : (
-                  <Icon.Square color="#9B64E6" />
-                )}
-                <label>Yes</label>
+            {/* <div className="c-form-row">
+              <label>President Email</label>
+              <div>
+                <input
+                  type="email"
+                  value={president_email}
+                  onChange={(e) => this.inputField(e, "president_email")}
+                  disabled={!editing}
+                  style={{ width: "250px" }}
+                />
               </div>
-              <div
-                className="c-form-check"
-                onClick={() => this.setCheckbox("no", "can_op_start_informal")}
-              >
-                {can_op_start_informal == "no" ? (
-                  <Icon.CheckSquare color="#9B64E6" />
-                ) : (
-                  <Icon.Square color="#9B64E6" />
-                )}
-                <label>No</label>
+            </div> */}
+            <div className="c-form-row">
+              <label>Board Member Email</label>
+              <div>
+                <input
+                  type="email"
+                  value={board_member_email}
+                  onChange={(e) => this.inputField(e, "board_member_email")}
+                  disabled={!editing}
+                  style={{ width: "250px" }}
+                />
               </div>
             </div>
-          </div>
-          <div className="c-form-row">
-            <label>Autostart grant formal votes</label>
-            <div>
-              <div
-                className="c-form-check"
-                onClick={() =>
-                  this.setCheckbox("yes", "autostart_grant_formal_votes")
-                }
-              >
-                {autostart_grant_formal_votes == "yes" ? (
-                  <Icon.CheckSquare color="#9B64E6" />
-                ) : (
-                  <Icon.Square color="#9B64E6" />
-                )}
-                <label>Yes</label>
-              </div>
-              <div
-                className="c-form-check"
-                onClick={() =>
-                  this.setCheckbox("no", "autostart_grant_formal_votes")
-                }
-              >
-                {autostart_grant_formal_votes == "no" ? (
-                  <Icon.CheckSquare color="#9B64E6" />
-                ) : (
-                  <Icon.Square color="#9B64E6" />
-                )}
-                <label>No</label>
+            <div className="c-form-row">
+              <label>Compliance Admin</label>
+              <div>
+                <input
+                  type="email"
+                  value={compliance_admin}
+                  onChange={(e) => this.inputField(e, "compliance_admin")}
+                  disabled={!editing}
+                  style={{ width: "250px" }}
+                />
               </div>
             </div>
-          </div>
-          <div className="c-form-row">
-            <label>Autostart simple formal votes:</label>
-            <div>
-              <div
-                className="c-form-check"
-                onClick={() =>
-                  this.setCheckbox("yes", "autostart_simple_formal_votes")
-                }
-              >
-                {autostart_simple_formal_votes == "yes" ? (
-                  <Icon.CheckSquare color="#9B64E6" />
-                ) : (
-                  <Icon.Square color="#9B64E6" />
-                )}
-                <label>Yes</label>
-              </div>
-              <div
-                className="c-form-check"
-                onClick={() =>
-                  this.setCheckbox("no", "autostart_simple_formal_votes")
-                }
-              >
-                {autostart_simple_formal_votes == "no" ? (
-                  <Icon.CheckSquare color="#9B64E6" />
-                ) : (
-                  <Icon.Square color="#9B64E6" />
-                )}
-                <label>No</label>
-              </div>
-            </div>
-          </div>
-          <div className="c-form-row">
-            <label>Autostart admin grant formal votes:</label>
-            <div>
-              <div
-                className="c-form-check"
-                onClick={() =>
-                  this.setCheckbox("yes", "autostart_admin_grant_formal_votes")
-                }
-              >
-                {autostart_admin_grant_formal_votes == "yes" ? (
-                  <Icon.CheckSquare color="#9B64E6" />
-                ) : (
-                  <Icon.Square color="#9B64E6" />
-                )}
-                <label>Yes</label>
-              </div>
-              <div
-                className="c-form-check"
-                onClick={() =>
-                  this.setCheckbox("no", "autostart_admin_grant_formal_votes")
-                }
-              >
-                {autostart_admin_grant_formal_votes == "no" ? (
-                  <Icon.CheckSquare color="#9B64E6" />
-                ) : (
-                  <Icon.Square color="#9B64E6" />
-                )}
-                <label>No</label>
-              </div>
-            </div>
-          </div>
-          <div className="c-form-row">
-            <label>Autostart Advance Payment formal votes:</label>
-            <div>
-              <div
-                className="c-form-check"
-                onClick={() =>
-                  this.setCheckbox(
-                    "yes",
-                    "autostart_advance_payment_formal_votes"
-                  )
-                }
-              >
-                {autostart_advance_payment_formal_votes == "yes" ? (
-                  <Icon.CheckSquare color="#9B64E6" />
-                ) : (
-                  <Icon.Square color="#9B64E6" />
-                )}
-                <label>Yes</label>
-              </div>
-              <div
-                className="c-form-check"
-                onClick={() =>
-                  this.setCheckbox(
-                    "no",
-                    "autostart_advance_payment_formal_votes"
-                  )
-                }
-              >
-                {autostart_advance_payment_formal_votes == "no" ? (
-                  <Icon.CheckSquare color="#9B64E6" />
-                ) : (
-                  <Icon.Square color="#9B64E6" />
-                )}
-                <label>No</label>
-              </div>
-            </div>
-          </div>
-          <div className="c-form-row">
-            <label>Autoactivate grants</label>
-            <div>
-              <div
-                className="c-form-check"
-                onClick={() => this.setCheckbox("yes", "autoactivate_grants")}
-              >
-                {autoactivate_grants == "yes" ? (
-                  <Icon.CheckSquare color="#9B64E6" />
-                ) : (
-                  <Icon.Square color="#9B64E6" />
-                )}
-                <label>Yes</label>
-              </div>
-              <div
-                className="c-form-check"
-                onClick={() => this.setCheckbox("no", "autoactivate_grants")}
-              >
-                {autoactivate_grants == "no" ? (
-                  <Icon.CheckSquare color="#9B64E6" />
-                ) : (
-                  <Icon.Square color="#9B64E6" />
-                )}
-                <label>No</label>
-              </div>
-            </div>
-          </div>
-          <div className="c-form-row">
-            <label>Gate new grant votes</label>
-            <div>
-              <div
-                className="c-form-check"
-                onClick={() => this.setCheckbox("yes", "gate_new_grant_votes")}
-              >
-                {gate_new_grant_votes == "yes" ? (
-                  <Icon.CheckSquare color="#9B64E6" />
-                ) : (
-                  <Icon.Square color="#9B64E6" />
-                )}
-                <label>Yes</label>
-              </div>
-              <div
-                className="c-form-check"
-                onClick={() => this.setCheckbox("no", "gate_new_grant_votes")}
-              >
-                {gate_new_grant_votes == "no" ? (
-                  <Icon.CheckSquare color="#9B64E6" />
-                ) : (
-                  <Icon.Square color="#9B64E6" />
-                )}
-                <label>No</label>
-              </div>
-            </div>
-          </div>
-          <div className="c-form-row">
-            <label>Gate new milestone votes</label>
-            <div>
-              <div
-                className="c-form-check"
-                onClick={() =>
-                  this.setCheckbox("yes", "gate_new_milestone_votes")
-                }
-              >
-                {gate_new_milestone_votes == "yes" ? (
-                  <Icon.CheckSquare color="#9B64E6" />
-                ) : (
-                  <Icon.Square color="#9B64E6" />
-                )}
-                <label>Yes</label>
-              </div>
-              <div
-                className="c-form-check"
-                onClick={() =>
-                  this.setCheckbox("no", "gate_new_milestone_votes")
-                }
-              >
-                {gate_new_milestone_votes == "no" ? (
-                  <Icon.CheckSquare color="#9B64E6" />
-                ) : (
-                  <Icon.Square color="#9B64E6" />
-                )}
-                <label>No</label>
-              </div>
-            </div>
-          </div>
-          <div className="c-form-row">
-            <label>Time before OP can start informal vote</label>
-            <div>
-              <input
-                type="text"
-                value={time_before_op_informal}
-                onChange={(e) =>
-                  this.inputIntField(e, "time_before_op_informal")
-                }
-                disabled={!editing}
-              />
-              <select
-                value={time_unit_before_op_informal}
-                onChange={(e) =>
-                  this.inputField(e, "time_unit_before_op_informal")
-                }
-                disabled={!editing}
-              >
-                <option value="">Select...</option>
-                {this.renderTimeUnitOptions()}
-              </select>
-            </div>
-          </div>
-          <div className="c-form-row">
-            <label>Time before OP can start informal simple vote</label>
-            <div>
-              <input
-                type="text"
-                value={time_before_op_informal_simple}
-                onChange={(e) =>
-                  this.inputIntField(e, "time_before_op_informal_simple")
-                }
-                disabled={!editing}
-              />
-              <select
-                value={time_unit_before_op_informal_simple}
-                onChange={(e) =>
-                  this.inputField(e, "time_unit_before_op_informal_simple")
-                }
-                disabled={!editing}
-              >
-                <option value="">Select...</option>
-                {this.renderTimeUnitOptions()}
-              </select>
-            </div>
-          </div>
-          <div className="c-form-row">
-            <label>Time allowed for informal voting</label>
-            <div>
-              <input
-                type="text"
-                value={time_informal}
-                onChange={(e) => this.inputIntField(e, "time_informal")}
-                disabled={!editing}
-              />
-              <select
-                value={time_unit_informal}
-                onChange={(e) => this.inputField(e, "time_unit_informal")}
-                disabled={!editing}
-              >
-                <option value="">Select...</option>
-                {this.renderTimeUnitOptions()}
-              </select>
-            </div>
-          </div>
-          <div className="c-form-row">
-            <label>Time allowed for formal voting</label>
-            <div>
-              <input
-                type="text"
-                value={time_formal}
-                onChange={(e) => this.inputIntField(e, "time_formal")}
-                disabled={!editing}
-              />
-              <select
-                value={time_unit_formal}
-                onChange={(e) => this.inputField(e, "time_unit_formal")}
-                disabled={!editing}
-              >
-                <option value="">Select...</option>
-                {this.renderTimeUnitOptions()}
-              </select>
-            </div>
-          </div>
-          <div className="c-form-row">
-            <label>
-              Time allowed for simple voting (formal &amp; informal)
-            </label>
-            <div>
-              <input
-                type="text"
-                value={time_simple}
-                onChange={(e) => this.inputIntField(e, "time_simple")}
-                disabled={!editing}
-              />
-              <select
-                value={time_unit_simple}
-                onChange={(e) => this.inputField(e, "time_unit_simple")}
-                disabled={!editing}
-              >
-                <option value="">Select...</option>
-                {this.renderTimeUnitOptions()}
-              </select>
-            </div>
-          </div>
-          <div className="c-form-row">
-            <label>
-              Time allowed for milestone voting (formal &amp; informal)
-            </label>
-            <div>
-              <input
-                type="text"
-                value={time_milestone}
-                onChange={(e) => this.inputIntField(e, "time_milestone")}
-                disabled={!editing}
-              />
-              <select
-                value={time_unit_milestone}
-                onChange={(e) => this.inputField(e, "time_unit_milestone")}
-                disabled={!editing}
-              >
-                <option value="">Select...</option>
-                {this.renderTimeUnitOptions()}
-              </select>
-            </div>
-          </div>
-          <div className="c-form-row">
-            <label>DOS Fee Amount in &euro;</label>
-            <div>
-              <input
-                type="text"
-                value={dos_fee_amount}
-                onChange={(e) => this.inputIntField(e, "dos_fee_amount")}
-                disabled={!editing}
-              />
-            </div>
-          </div>
-          <div className="c-form-row">
-            <label>ETH Payment Address</label>
-            <div className="row">
-              <div className="col-md-6">
+            <div className="c-form-row">
+              <label>Time before OP can accept/deny change</label>
+              <div className="flex gap-2">
                 <input
                   type="text"
-                  style={{ width: "100%" }}
+                  value={time_before_op_do}
+                  onChange={(e) => this.inputIntField(e, "time_before_op_do")}
+                  disabled={!editing}
+                  className="w-28"
+                />
+                <select
+                  value={time_unit_before_op_do}
+                  onChange={(e) => this.inputField(e, "time_unit_before_op_do")}
+                  disabled={!editing}
+                >
+                  <option value="">Select...</option>
+                  {this.renderTimeUnitOptions()}
+                </select>
+              </div>
+            </div>
+            <div className="c-form-row">
+              <label>Does admin need to approve new users?</label>
+              <div className="flex gap-8">
+                <div
+                  className="c-form-check"
+                  onClick={() => this.setCheckbox("yes", "need_to_approve")}
+                >
+                  {need_to_approve == "yes" ? (
+                    <Icon.CheckSquare color="#FB5824" />
+                  ) : (
+                    <Icon.Square color="#FB5824" />
+                  )}
+                  <label>Yes</label>
+                </div>
+                <div
+                  className="c-form-check"
+                  onClick={() => this.setCheckbox("no", "need_to_approve")}
+                >
+                  {need_to_approve == "no" ? (
+                    <Icon.CheckSquare color="#FB5824" />
+                  ) : (
+                    <Icon.Square color="#FB5824" />
+                  )}
+                  <label>No</label>
+                </div>
+              </div>
+            </div>
+            <div className="c-form-row">
+              <label>
+                Can OP start informal vote (if no, admins must start votes)
+              </label>
+              <div className="flex gap-8">
+                <div
+                  className="c-form-check"
+                  onClick={() => this.setCheckbox("yes", "can_op_start_informal")}
+                >
+                  {can_op_start_informal == "yes" ? (
+                    <Icon.CheckSquare color="#FB5824" />
+                  ) : (
+                    <Icon.Square color="#FB5824" />
+                  )}
+                  <label>Yes</label>
+                </div>
+                <div
+                  className="c-form-check"
+                  onClick={() => this.setCheckbox("no", "can_op_start_informal")}
+                >
+                  {can_op_start_informal == "no" ? (
+                    <Icon.CheckSquare color="#FB5824" />
+                  ) : (
+                    <Icon.Square color="#FB5824" />
+                  )}
+                  <label>No</label>
+                </div>
+              </div>
+            </div>
+            <div className="c-form-row">
+              <label>Autostart grant formal votes</label>
+              <div className="flex gap-8">
+                <div
+                  className="c-form-check"
+                  onClick={() =>
+                    this.setCheckbox("yes", "autostart_grant_formal_votes")
+                  }
+                >
+                  {autostart_grant_formal_votes == "yes" ? (
+                    <Icon.CheckSquare color="#FB5824" />
+                  ) : (
+                    <Icon.Square color="#FB5824" />
+                  )}
+                  <label>Yes</label>
+                </div>
+                <div
+                  className="c-form-check"
+                  onClick={() =>
+                    this.setCheckbox("no", "autostart_grant_formal_votes")
+                  }
+                >
+                  {autostart_grant_formal_votes == "no" ? (
+                    <Icon.CheckSquare color="#FB5824" />
+                  ) : (
+                    <Icon.Square color="#FB5824" />
+                  )}
+                  <label>No</label>
+                </div>
+              </div>
+            </div>
+            <div className="c-form-row">
+              <label>Autostart simple formal votes:</label>
+              <div className="flex gap-8">
+                <div
+                  className="c-form-check"
+                  onClick={() =>
+                    this.setCheckbox("yes", "autostart_simple_formal_votes")
+                  }
+                >
+                  {autostart_simple_formal_votes == "yes" ? (
+                    <Icon.CheckSquare color="#FB5824" />
+                  ) : (
+                    <Icon.Square color="#FB5824" />
+                  )}
+                  <label>Yes</label>
+                </div>
+                <div
+                  className="c-form-check"
+                  onClick={() =>
+                    this.setCheckbox("no", "autostart_simple_formal_votes")
+                  }
+                >
+                  {autostart_simple_formal_votes == "no" ? (
+                    <Icon.CheckSquare color="#FB5824" />
+                  ) : (
+                    <Icon.Square color="#FB5824" />
+                  )}
+                  <label>No</label>
+                </div>
+              </div>
+            </div>
+            <div className="c-form-row">
+              <label>Autostart admin grant formal votes:</label>
+              <div  className="flex gap-8">
+                <div
+                  className="c-form-check"
+                  onClick={() =>
+                    this.setCheckbox("yes", "autostart_admin_grant_formal_votes")
+                  }
+                >
+                  {autostart_admin_grant_formal_votes == "yes" ? (
+                    <Icon.CheckSquare color="#FB5824" />
+                  ) : (
+                    <Icon.Square color="#FB5824" />
+                  )}
+                  <label>Yes</label>
+                </div>
+                <div
+                  className="c-form-check"
+                  onClick={() =>
+                    this.setCheckbox("no", "autostart_admin_grant_formal_votes")
+                  }
+                >
+                  {autostart_admin_grant_formal_votes == "no" ? (
+                    <Icon.CheckSquare color="#FB5824" />
+                  ) : (
+                    <Icon.Square color="#FB5824" />
+                  )}
+                  <label>No</label>
+                </div>
+              </div>
+            </div>
+            <div className="c-form-row">
+              <label>Autostart Advance Payment formal votes:</label>
+              <div className="flex gap-8">
+                <div
+                  className="c-form-check"
+                  onClick={() =>
+                    this.setCheckbox(
+                      "yes",
+                      "autostart_advance_payment_formal_votes"
+                    )
+                  }
+                >
+                  {autostart_advance_payment_formal_votes == "yes" ? (
+                    <Icon.CheckSquare color="#FB5824" />
+                  ) : (
+                    <Icon.Square color="#FB5824" />
+                  )}
+                  <label>Yes</label>
+                </div>
+                <div
+                  className="c-form-check"
+                  onClick={() =>
+                    this.setCheckbox(
+                      "no",
+                      "autostart_advance_payment_formal_votes"
+                    )
+                  }
+                >
+                  {autostart_advance_payment_formal_votes == "no" ? (
+                    <Icon.CheckSquare color="#FB5824" />
+                  ) : (
+                    <Icon.Square color="#FB5824" />
+                  )}
+                  <label>No</label>
+                </div>
+              </div>
+            </div>
+            <div className="c-form-row">
+              <label>Autoactivate grants</label>
+              <div  className="flex gap-8">
+                <div
+                  className="c-form-check"
+                  onClick={() => this.setCheckbox("yes", "autoactivate_grants")}
+                >
+                  {autoactivate_grants == "yes" ? (
+                    <Icon.CheckSquare color="#FB5824" />
+                  ) : (
+                    <Icon.Square color="#FB5824" />
+                  )}
+                  <label>Yes</label>
+                </div>
+                <div
+                  className="c-form-check"
+                  onClick={() => this.setCheckbox("no", "autoactivate_grants")}
+                >
+                  {autoactivate_grants == "no" ? (
+                    <Icon.CheckSquare color="#FB5824" />
+                  ) : (
+                    <Icon.Square color="#FB5824" />
+                  )}
+                  <label>No</label>
+                </div>
+              </div>
+            </div>
+            <div className="c-form-row">
+              <label>Gate new grant votes</label>
+              <div  className="flex gap-8">
+                <div
+                  className="c-form-check"
+                  onClick={() => this.setCheckbox("yes", "gate_new_grant_votes")}
+                >
+                  {gate_new_grant_votes == "yes" ? (
+                    <Icon.CheckSquare color="#FB5824" />
+                  ) : (
+                    <Icon.Square color="#FB5824" />
+                  )}
+                  <label>Yes</label>
+                </div>
+                <div
+                  className="c-form-check"
+                  onClick={() => this.setCheckbox("no", "gate_new_grant_votes")}
+                >
+                  {gate_new_grant_votes == "no" ? (
+                    <Icon.CheckSquare color="#FB5824" />
+                  ) : (
+                    <Icon.Square color="#FB5824" />
+                  )}
+                  <label>No</label>
+                </div>
+              </div>
+            </div>
+            <div className="c-form-row">
+              <label>Gate new milestone votes</label>
+              <div  className="flex gap-8">
+                <div
+                  className="c-form-check"
+                  onClick={() =>
+                    this.setCheckbox("yes", "gate_new_milestone_votes")
+                  }
+                >
+                  {gate_new_milestone_votes == "yes" ? (
+                    <Icon.CheckSquare color="#FB5824" />
+                  ) : (
+                    <Icon.Square color="#FB5824" />
+                  )}
+                  <label>Yes</label>
+                </div>
+                <div
+                  className="c-form-check"
+                  onClick={() =>
+                    this.setCheckbox("no", "gate_new_milestone_votes")
+                  }
+                >
+                  {gate_new_milestone_votes == "no" ? (
+                    <Icon.CheckSquare color="#FB5824" />
+                  ) : (
+                    <Icon.Square color="#FB5824" />
+                  )}
+                  <label>No</label>
+                </div>
+              </div>
+            </div>
+            <div className="c-form-row">
+              <label>Time before OP can start informal vote</label>
+              <div className="flex gap-8">
+                <input
+                  type="text"
+                  value={time_before_op_informal}
+                  onChange={(e) =>
+                    this.inputIntField(e, "time_before_op_informal")
+                  }
+                  disabled={!editing}
+                  className="w-28"
+                />
+                <select
+                  value={time_unit_before_op_informal}
+                  onChange={(e) =>
+                    this.inputField(e, "time_unit_before_op_informal")
+                  }
+                  disabled={!editing}
+                >
+                  <option value="">Select...</option>
+                  {this.renderTimeUnitOptions()}
+                </select>
+              </div>
+            </div>
+            <div className="c-form-row">
+              <label>Time before OP can start informal simple vote</label>
+              <div  className="flex gap-4">
+                <input
+                  type="text"
+                  className="w-28"
+                  value={time_before_op_informal_simple}
+                  onChange={(e) =>
+                    this.inputIntField(e, "time_before_op_informal_simple")
+                  }
+                  disabled={!editing}
+                />
+                <select
+                  value={time_unit_before_op_informal_simple}
+                  onChange={(e) =>
+                    this.inputField(e, "time_unit_before_op_informal_simple")
+                  }
+                  disabled={!editing}
+                >
+                  <option value="">Select...</option>
+                  {this.renderTimeUnitOptions()}
+                </select>
+              </div>
+            </div>
+            <div className="c-form-row">
+              <label>Time allowed for informal voting</label>
+              <div className="flex gap-4">
+                <input
+                  type="text"
+                  value={time_informal}
+                  onChange={(e) => this.inputIntField(e, "time_informal")}
+                  className="w-28"
+                  disabled={!editing}
+                />
+                <select
+                  value={time_unit_informal}
+                  onChange={(e) => this.inputField(e, "time_unit_informal")}
+                  disabled={!editing}
+                >
+                  <option value="">Select...</option>
+                  {this.renderTimeUnitOptions()}
+                </select>
+              </div>
+            </div>
+            <div className="c-form-row">
+              <label>Time allowed for formal voting</label>
+              <div  className="flex gap-4">
+                <input
+                  type="text"
+                  className="w-28"
+                  value={time_formal}
+                  onChange={(e) => this.inputIntField(e, "time_formal")}
+                  disabled={!editing}
+                />
+                <select
+                  value={time_unit_formal}
+                  onChange={(e) => this.inputField(e, "time_unit_formal")}
+                  disabled={!editing}
+                >
+                  <option value="">Select...</option>
+                  {this.renderTimeUnitOptions()}
+                </select>
+              </div>
+            </div>
+            <div className="c-form-row">
+              <label>
+                Time allowed for simple voting (formal &amp; informal)
+              </label>
+              <div className="flex gap-4">
+                <input
+                  type="text"
+                  value={time_simple}
+                  className="w-28"
+                  onChange={(e) => this.inputIntField(e, "time_simple")}
+                  disabled={!editing}
+                />
+                <select
+                  value={time_unit_simple}
+                  onChange={(e) => this.inputField(e, "time_unit_simple")}
+                  disabled={!editing}
+                >
+                  <option value="">Select...</option>
+                  {this.renderTimeUnitOptions()}
+                </select>
+              </div>
+            </div>
+            <div className="c-form-row">
+              <label>
+                Time allowed for milestone voting (formal &amp; informal)
+              </label>
+              <div className="flex gap-4">
+                <input
+                  type="text"
+                  value={time_milestone}
+                  onChange={(e) => this.inputIntField(e, "time_milestone")}
+                  disabled={!editing}
+                  className="w-28"
+                />
+                <select
+                  value={time_unit_milestone}
+                  onChange={(e) => this.inputField(e, "time_unit_milestone")}
+                  disabled={!editing}
+                >
+                  <option value="">Select...</option>
+                  {this.renderTimeUnitOptions()}
+                </select>
+              </div>
+            </div>
+            <div className="c-form-row">
+              <label>DOS Fee Amount in &euro;</label>
+              <div className="flex gap-4">
+                <input
+                  type="text"
+                  value={dos_fee_amount}
+                  onChange={(e) => this.inputIntField(e, "dos_fee_amount")}
+                  disabled={!editing}
+                  className="w-72"
+                />
+              </div>
+            </div>
+            <div className="c-form-row">
+              <label>ETH Payment Address</label>
+              <div>
+                <input
+                  type="text"
                   value={eth_address}
                   onChange={(e) => this.inputField(e, "eth_address")}
+                  className="w-96"
                   disabled={!editing}
                 />
               </div>
             </div>
-          </div>
-          <div className="c-form-row">
-            <label>Minted Ratio</label>
-            <div>
-              <input
-                type="text"
-                value={minted_ratio}
-                onChange={(e) => this.inputFloat4Field(e, "minted_ratio")}
-                disabled={!editing}
-              />
+            <div className="c-form-row">
+              <label>Minted Ratio</label>
+              <div>
+                <input
+                  type="text"
+                  value={minted_ratio}
+                  onChange={(e) => this.inputFloat4Field(e, "minted_ratio")}
+                  className="w-32"
+                  disabled={!editing}
+                />
+              </div>
             </div>
-          </div>
-          <div className="c-form-row">
-            <label>OP Percentage</label>
-            <div>
-              <input
-                type="text"
-                value={op_percentage}
-                onChange={(e) => this.inputFloatField(e, "op_percentage")}
-                disabled={!editing}
-              />
+            <div className="c-form-row">
+              <label>OP Percentage</label>
+              <div>
+                <input
+                  type="text"
+                  value={op_percentage}
+                  className="w-32"
+                  onChange={(e) => this.inputFloatField(e, "op_percentage")}
+                  disabled={!editing}
+                />
+              </div>
             </div>
-          </div>
-          <div className="c-form-row">
-            <label>Pass Rate for Grant Proposal</label>
-            <div>
-              <input
-                type="text"
-                value={pass_rate}
-                onChange={(e) => this.inputIntField(e, "pass_rate")}
-                disabled={!editing}
-              />
+            <div className="c-form-row">
+              <label>Pass Rate for Grant Proposal</label>
+              <div>
+                <input
+                  type="text"
+                  value={pass_rate}
+                  onChange={(e) => this.inputIntField(e, "pass_rate")}
+                  className="w-32"
+                  disabled={!editing}
+                />
+              </div>
             </div>
-          </div>
-          <div className="c-form-row">
-            <label>Quorum Rate for Grant Proposal</label>
-            <div>
-              <input
-                type="text"
-                value={quorum_rate}
-                onChange={(e) => this.inputIntField(e, "quorum_rate")}
-                disabled={!editing}
-              />
+            <div className="c-form-row">
+              <label>Quorum Rate for Grant Proposal</label>
+              <div>
+                <input
+                  type="text"
+                  value={quorum_rate}
+                  className="w-32"
+                  onChange={(e) => this.inputIntField(e, "quorum_rate")}
+                  disabled={!editing}
+                />
+              </div>
             </div>
-          </div>
-          <div className="c-form-row">
-            <label>Pass Rate for Simple Proposal</label>
-            <div>
-              <input
-                type="text"
-                value={pass_rate_simple}
-                onChange={(e) => this.inputIntField(e, "pass_rate_simple")}
-                disabled={!editing}
-              />
+            <div className="c-form-row">
+              <label>Pass Rate for Simple Proposal</label>
+              <div>
+                <input
+                  type="text"
+                  className="w-32"
+                  value={pass_rate_simple}
+                  onChange={(e) => this.inputIntField(e, "pass_rate_simple")}
+                  disabled={!editing}
+                />
+              </div>
             </div>
-          </div>
-          <div className="c-form-row">
-            <label>Quorum Rate for Simple Proposal</label>
-            <div>
-              <input
-                type="text"
-                value={quorum_rate_simple}
-                onChange={(e) => this.inputIntField(e, "quorum_rate_simple")}
-                disabled={!editing}
-              />
+            <div className="c-form-row">
+              <label>Quorum Rate for Simple Proposal</label>
+              <div>
+                <input
+                  type="text"
+                  className="w-32"
+                  value={quorum_rate_simple}
+                  onChange={(e) => this.inputIntField(e, "quorum_rate_simple")}
+                  disabled={!editing}
+                />
+              </div>
             </div>
-          </div>
-          <div className="c-form-row">
-            <label>Pass Rate for Milestone Proposal</label>
-            <div>
-              <input
-                type="text"
-                value={pass_rate_milestone}
-                onChange={(e) => this.inputIntField(e, "pass_rate_milestone")}
-                disabled={!editing}
-              />
+            <div className="c-form-row">
+              <label>Pass Rate for Milestone Proposal</label>
+              <div>
+                <input
+                  type="text"
+                  className="w-32"
+                  value={pass_rate_milestone}
+                  onChange={(e) => this.inputIntField(e, "pass_rate_milestone")}
+                  disabled={!editing}
+                />
+              </div>
             </div>
-          </div>
-          <div className="c-form-row">
-            <label>Quorum Rate for Milestone Proposal</label>
-            <div>
-              <input
-                type="text"
-                value={quorum_rate_milestone}
-                onChange={(e) => this.inputIntField(e, "quorum_rate_milestone")}
-                disabled={!editing}
-              />
+            <div className="c-form-row">
+              <label>Quorum Rate for Milestone Proposal</label>
+              <div>
+                <input
+                  type="text"
+                  value={quorum_rate_milestone}
+                  className="w-32"
+                  onChange={(e) => this.inputIntField(e, "quorum_rate_milestone")}
+                  disabled={!editing}
+                />
+              </div>
             </div>
-          </div>
 
-          <div id="c-button-wrap">
-            {!editing ? (
-              <a
-                className="btn btn-primary less-small"
-                onClick={this.clickEdit}
-              >
-                Edit
-              </a>
-            ) : (
-              <Fragment>
-                <button type="submit" className="btn btn-primary less-small">
-                  Save
-                </button>
-                <button
-                  type="button"
-                  className="btn btn-danger less-small"
-                  onClick={this.clickCancel}
+            <div className="flex gap-4 mt-4 mb-10">
+              {!editing ? (
+                <Button
+                  size="md"
+                  onClick={this.clickEdit}
                 >
-                  Cancel
-                </button>
-              </Fragment>
-            )}
-          </div>
-        </form>
-      </div>
+                  Edit
+                </Button>
+              ) : (
+                <>
+                  <Button color="success" type="submit" size="md">
+                    Save
+                  </Button>
+                  <Button
+                    size="md"
+                    color="danger"
+                    onClick={this.clickCancel}
+                  >
+                    Cancel
+                  </Button>
+                </>
+              )}
+            </div>
+          </form>
+        </CardBody>
+      </Card>
     );
   }
 }

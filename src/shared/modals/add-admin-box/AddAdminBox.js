@@ -2,7 +2,7 @@ import React, { Component } from "react";
 import { connect } from "react-redux";
 import { withRouter } from "react-router-dom";
 import { FormInputComponent } from "../../components";
-
+import { Button } from '@shared/partials';
 import {
   forceReloadAdminTeam,
   hideCanvas,
@@ -64,17 +64,16 @@ class AddAdminBox extends Component {
           placeholder="Email"
           required={true}
         />
-        <div className="actions">
-          <button
-            className="btn btn-primary"
+        <div className="flex-center gap-2 mt-10">
+          <Button
             onClick={this.doInviteAdmin}
             disabled={!this.state.email}
           >
             Invite
-          </button>
-          <button className="btn btn-danger" onClick={this.hideModal}>
+          </Button>
+          <Button variant="outline" onClick={this.hideModal}>
             Cancel
-          </button>
+          </Button>
         </div>
       </div>
     );

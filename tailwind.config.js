@@ -19,6 +19,7 @@ module.exports = {
         '500px': '500px',
         '250px': '250px',
         '7/10': '70%',
+        'fit': 'fit-content'
       },
       borderRadius: {
         '4xl': '2rem'
@@ -29,7 +30,7 @@ module.exports = {
         green1: '#5DD0BA',
         red: '#EA5454',
         blue: '#515DFA',
-        purple: '#722ED1',
+        purple: '#FB5824',
         gray1: '#646464',
         gray2: '#9B9B9B',
         gray3: '#E3E3E3',
@@ -49,7 +50,9 @@ module.exports = {
       },
       height: {
         'tab' : 'calc(100% + 2.5rem)',
-        'm-content': 'min-content'
+        'm-content': 'min-content',
+        'fit': 'fit-content',
+        '128': '32rem'
       },
       maxHeight: {
         card: '1000px',
@@ -65,6 +68,9 @@ module.exports = {
       maxHeight: ['important'],
       borderRadius: ['important'],
       padding: ['important'],
+      backgroundColor: ['important'],
+      backgroundOpacity: ['important'],
+      flex: ['important'],
     },
   },
   plugins: [

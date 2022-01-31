@@ -9,6 +9,7 @@ import {
   showCanvas,
 } from "@redux/actions";
 import { postHelp } from "@utils/Thunk";
+import { Button } from '@shared/partials';
 
 import "./help.scss";
 
@@ -78,12 +79,12 @@ class Help extends Component {
         ></textarea>
 
         <div id="help-modal__buttons">
-          <a className="btn btn-success" onClick={this.clickSubmit}>
+          <Button size="sm" color="success" onClick={this.clickSubmit}>
             Submit
-          </a>
-          <a className="btn btn-primary" onClick={() => this.hideModal()}>
+          </Button>
+          <Button size="sm" color="primary" onClick={() => this.hideModal()}>
             Cancel
-          </a>
+          </Button>
         </div>
       </div>
     );

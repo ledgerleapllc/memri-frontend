@@ -261,7 +261,7 @@ class EditSimpleProposal extends Component {
                   <section id="c-dropzone">
                     <div {...getRootProps()}>
                       <input {...getInputProps()} />
-                      <Icon.Upload color="#9B64E6" />
+                      <Icon.Upload color="#FB5824" />
                       <p className="color-primary">Add Files</p>
                     </div>
                   </section>

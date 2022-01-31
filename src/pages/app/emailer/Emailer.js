@@ -9,6 +9,7 @@ import {
   updateEmailerTriggerUser,
   updateEmailerTriggerMember,
 } from "@utils/Thunk";
+import { Card, CardHeader, CardBody, Button, Table } from '@shared/partials';
 import {
   showCanvas,
   hideCanvas,
@@ -16,8 +17,7 @@ import {
   setActiveModal,
   showAlert,
 } from "@redux/actions";
-
-import "./emailer.scss";
+import styles from './style.module.scss';
 
 const mapStateToProps = (state) => {
   return {
@@ -40,6 +40,11 @@ class Emailer extends Component {
 
   componentDidMount() {
     this.getEmailerData();
+    document.body.classList.add('scroll-window');
+  }
+
+  componentWillUnmount() {
+    document.body.classList.remove('scroll-window');
   }
 
   componentDidUpdate(prevProps) {
@@ -151,12 +156,11 @@ class Emailer extends Component {
             </div>
             <div className="c-col-2 c-cols">
               <label className="font-size-14">
-                <a
-                  className="btn btn-danger extra-small btn-fluid-small"
+                <Button size="sm" color="danger"
                   onClick={() => this.clickRemove(item)}
                 >
                   Remove
-                </a>
+                </Button>
               </label>
             </div>
           </div>
@@ -394,7 +398,7 @@ class Emailer extends Component {
               />
               <label>{item.title}</label>
             </div>
-            <p>{item.content}</p>
+            <p className="bg-white1 rounded-md px-4 py-2">{item.content}</p>
           </div>
         );
       });
@@ -420,36 +424,42 @@ class Emailer extends Component {
             </div>
             {item.editing ? (
               <textarea
+                className="w-full bg-white1 rounded-md px-4 py-2"
                 value={item.content}
                 onChange={(e) => this.changeTriggerUserMessage(e, item, index)}
               ></textarea>
             ) : (
-              <p>{item.content}</p>
+              <p className="bg-white1 rounded-md px-4 py-2">{item.content}</p>
             )}
-            {item.editing ? (
-              <Fragment>
-                <a
-                  style={{ marginRight: "10px" }}
-                  className="btn btn-success small"
-                  onClick={(e) => this.saveTriggerUser(e, index)}
+            <div className="mt-2">
+              {item.editing ? (
+                <>
+                  <Button
+                    color="success"
+                    size="sm"
+                    style={{ marginRight: "10px" }}
+                    onClick={(e) => this.saveTriggerUser(e, index)}
+                  >
+                    Save
+                  </Button>
+                  <Button
+                    color="danger"
+                    size="sm"
+                    onClick={(e) => this.disableTriggerUserEdit(e, item, index)}
+                  >
+                    Cancel Edit
+                  </Button>
+                </>
+              ) : (
+                <Button
+                  color="secondary"
+                  size="sm"
+                  onClick={(e) => this.enableTriggerUserEdit(e, item, index)}
                 >
-                  Save
-                </a>
-                <a
-                  className="btn btn-primary small"
-                  onClick={(e) => this.disableTriggerUserEdit(e, item, index)}
-                >
-                  Cancel Edit
-                </a>
-              </Fragment>
-            ) : (
-              <a
-                className="btn btn-primary small"
-                onClick={(e) => this.enableTriggerUserEdit(e, item, index)}
-              >
-                Edit Message
-              </a>
-            )}
+                  Edit Message
+                </Button>
+              )}
+            </div>
           </div>
         );
       });
@@ -476,37 +486,43 @@ class Emailer extends Component {
             {item.editing ? (
               <textarea
                 value={item.content}
+                className="w-full bg-white1 rounded-md px-4 py-2"
                 onChange={(e) =>
                   this.changeTriggerMemberMessage(e, item, index)
                 }
               ></textarea>
             ) : (
-              <p>{item.content}</p>
+              <p className="bg-white1 rounded-md px-4 py-2">{item.content}</p>
             )}
-            {item.editing ? (
-              <Fragment>
-                <a
-                  style={{ marginRight: "10px" }}
-                  className="btn btn-success small"
-                  onClick={(e) => this.saveTriggerMember(e, index)}
+            <div className="mt-2">
+              {item.editing ? (
+                <>
+                  <Button
+                    color="success"
+                    size="sm"
+                    style={{ marginRight: "10px" }}
+                    onClick={(e) => this.saveTriggerMember(e, index)}
+                  >
+                    Save
+                  </Button>
+                  <Button
+                    color="danger"
+                    size="sm"
+                    onClick={(e) => this.disableTriggerMemberEdit(e, item, index)}
+                  >
+                    Cancel Edit
+                  </Button>
+                </>
+              ) : (
+                <Button
+                  color="secondary"
+                  size="sm"
+                  onClick={(e) => this.enableTriggerMemberEdit(e, item, index)}
                 >
-                  Save
-                </a>
-                <a
-                  className="btn btn-primary small"
-                  onClick={(e) => this.disableTriggerMemberEdit(e, item, index)}
-                >
-                  Cancel Edit
-                </a>
-              </Fragment>
-            ) : (
-              <a
-                className="btn btn-primary small"
-                onClick={(e) => this.enableTriggerMemberEdit(e, item, index)}
-              >
-                Edit Message
-              </a>
-            )}
+                  Edit Message
+                </Button>
+              )}
+            </div>
           </div>
         );
       });
@@ -515,42 +531,75 @@ class Emailer extends Component {
   }
 
   render() {
+    const { admins } = this.state;
     const { authUser } = this.props;
     if (!authUser || !authUser.id) return null;
     if (!authUser.is_admin) return <Redirect to="/" />;
 
     return (
-      <div id="dashboard-emailer-page">
-        <div id="d-emailer-admin-section" className="app-infinite-box">
-          <label className="d-block">Emailer Admins</label>
-
-          <div className="infinite-content">
-            <div className="infinite-contentInner">
-              {this.renderHeader()}
-              <div className="infinite-body">{this.renderAdmins()}</div>
-            </div>
-          </div>
-        </div>
-        <div className="mt-3">
-          <a
-            className="btn btn-success small btn-fluid"
-            onClick={this.clickAdd}
-          >
-            Add
-          </a>
-        </div>
-        <div className="d-emailer-item-section">
-          <label className="d-block mb-4">Admin Email Triggers</label>
-          {this.renderTriggerAdmin()}
-        </div>
-        <div className="d-emailer-item-section">
-          <label className="d-block mb-4">User Email Triggers</label>
-          {this.renderTriggerUser()}
-        </div>
-        <div className="d-emailer-item-section">
-          <label className="d-block mb-4">Member Email Triggers</label>
-          {this.renderTriggerMember()}
-        </div>
+      <div className="flex flex-col gap-4 pb-4">
+        <Card>
+          <CardHeader>
+            <h3 className="font-bold">Emailer Admins</h3>
+          </CardHeader>
+          <CardBody>
+            <Table className="mb-10" styles={styles} hasMore={false} dataLength={admins.length}>
+              <Table.Header>
+                <Table.HeaderCell>
+                  Email
+                </Table.HeaderCell>
+                <Table.HeaderCell>
+                  Action
+                </Table.HeaderCell>
+              </Table.Header>
+              <Table.Body className="padding-tracker">
+                {admins.map((row, ind) => (
+                  <Table.BodyRow key={ind}>
+                    <Table.BodyCell>
+                      {row.email}
+                    </Table.BodyCell>
+                    <Table.BodyCell>
+                      <Button
+                        color="danger"
+                        size="sm"
+                        onClick={() => this.clickRemove(row)}
+                      >
+                        Remove
+                      </Button>
+                    </Table.BodyCell>
+                  </Table.BodyRow>
+                ))}
+              </Table.Body>
+            </Table>
+            <Button color="success" size="md" onClick={this.clickAdd}>
+              Add
+            </Button>
+          </CardBody>
+        </Card>
+        <Card>
+          <CardHeader>
+            <h3 className="font-bold">Admin Email Triggers</h3>
+          </CardHeader>
+          <CardBody className="flex flex-col gap-8">
+            {this.renderTriggerAdmin()}      
+          </CardBody>
+        </Card>
+        <Card>
+          <CardHeader>
+            <h3 className="font-bold">User Email Triggers</h3>
+          </CardHeader>
+          <CardBody className="flex flex-col gap-8">
+            {this.renderTriggerUser()}      
+          </CardBody>
+        </Card>
+        <Card>
+          <CardHeader>
+            <h3 className="font-bold">Member Email Triggers</h3>
+          </CardHeader>
+          <CardBody className="flex flex-col gap-8">
+            {this.renderTriggerMember()}      
+          </CardBody>
+        </Card>
       </div>
     );
   }

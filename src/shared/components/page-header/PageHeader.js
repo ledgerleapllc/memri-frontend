@@ -2,6 +2,7 @@ import React, { Component } from "react";
 import { Link, withRouter } from "react-router-dom";
 import * as Icon from "react-feather";
 import "./page-header.scss";
+import { Button } from '@shared/partials';
 
 class PageHeader extends Component {
   clickTitle = (e) => {
@@ -15,10 +16,10 @@ class PageHeader extends Component {
     if (buttonData && buttonData.link && buttonData.text) {
       return (
         <div className="global-page-header">
-          <a onClick={this.clickTitle}>
+          <Button variant="text" size="sm" onClick={this.clickTitle}>
             <Icon.ArrowLeft size={20} />
             <label>{title}</label>
-          </a>
+          </Button>
 
           <Link
             to={buttonData.link}
@@ -32,10 +33,10 @@ class PageHeader extends Component {
 
     return (
       <div className="global-page-header">
-        <a onClick={this.clickTitle}>
+        <Button variant="text" size="sm" onClick={this.clickTitle}>
           <Icon.ArrowLeft size={20} />
           <label>{title}</label>
-        </a>
+        </Button>
         {children || ""}
       </div>
     );

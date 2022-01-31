@@ -33,8 +33,10 @@ class ProposalPosts extends Component {
 
   componentDidMount() {
     API.getTopic(this.props.proposal.discourse_topic_id).then((res) => {
-      res.data.post_stream.posts.shift();
-      this.setState({ topic: res.data, loading: false });
+      if (res.data) {
+        res.data?.post_stream?.posts?.shift();
+        this.setState({ topic: res.data, loading: false });
+      }
     });
   }
 
@@ -66,10 +68,10 @@ class ProposalPosts extends Component {
                   )}
                 </>
               </CardHeader>
-              {!loading && topic.post_stream.posts.length > 0 && (
+              {!loading && topic?.post_stream?.posts.length > 0 && (
                 <div className="discourse mt-3">
                   <SinglePost
-                    post={topic.post_stream.posts[0]}
+                    post={topic?.post_stream?.posts[0]}
                     topicId={proposal.discourse_topic_id}
                   />
                 </div>

@@ -2,9 +2,8 @@ import moment from "moment";
 import React, { useContext, useEffect } from "react";
 import { getNotSubmitMilestones, getGrantsShared, startFormalMilestoneVotingUser } from "@utils/Thunk";
 import { useDispatch } from "react-redux";
-import { Table, useTable } from '@shared/partials';
+import { Table, useTable, Button } from '@shared/partials';
 import styles from "./style.module.scss";
-import { LIMIT_API_RECORDS } from "@utils/Constant";
 import {
   setCustomModalData,
   setActiveModal,
@@ -153,12 +152,13 @@ const MemberGrantTable = React.forwardRef(({ outParams }, ref) => {
     }
     if (!mile.submitted_time) {
       return (
-        <a
-          className="btn btn-primary extra-small btn-fluid-small"
+        <Button
+          color="primary"
+          size="sm"
           onClick={() => singleSubmit(item, mile, index)}
         >
           Submit Milestone
-        </a>
+        </Button>
       );
     }
     if (
@@ -169,24 +169,26 @@ const MemberGrantTable = React.forwardRef(({ outParams }, ref) => {
     }
     if (mile.submitted_time && ["denied"].includes(latestReview?.status)) {
       return (
-        <a
-          className="btn btn-primary extra-small btn-fluid-small"
+        <Button
+          color="primary"
+          size="sm"
           onClick={() => singleSubmit(mile, index)}
         >
           Re-submit Milestone
-        </a>
+        </Button>
       );
     }
     if (mile.votes.length > 0) {
       const lastVote = mile.votes[mile.votes.length - 1];
       if (lastVote.type === "informal" && lastVote.result === "success") {
         return (
-          <a
-            className="btn btn-primary extra-small btn-fluid-small"
+          <Button
+            color="primary"
+            size="sm"
             onClick={() => startFormalMilestoneVote(item, mile, lastVote)}
           >
             Start Formal Milestone Vote
-          </a>
+          </Button>
         );
       }
       if (lastVote.type === "formal" && lastVote.result === "success") {
@@ -194,12 +196,13 @@ const MemberGrantTable = React.forwardRef(({ outParams }, ref) => {
       }
       if (lastVote.result === "fail") {
         return (
-          <a
-            className="btn btn-primary extra-small btn-fluid-small"
+          <Button
+            color="primary"
+            size="sm"
             onClick={() => singleSubmit(mile, index)}
           >
             Re-Submit Milestone
-          </a>
+          </Button>
         );
       }
     }
@@ -298,12 +301,11 @@ const MemberGrantTable = React.forwardRef(({ outParams }, ref) => {
             </Table.BodyCell>
             <Table.BodyCell>
               {canMultipleSubmit(item) ? (
-                <a
-                  className="btn btn-primary extra-small btn-fluid-small"
+                <Button size="sm" color="primary"
                   onClick={() => multipleSubmit(item)}
                 >
                   Submit Milestones
-                </a>
+                </Button>
               ) : (
                 "-"
               )}

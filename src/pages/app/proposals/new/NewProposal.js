@@ -2,16 +2,18 @@
 import React, { Component } from "react";
 import { connect } from "react-redux";
 import { Redirect, withRouter } from "react-router-dom";
+import { ReactComponent as IconArrowLeft } from '@assets/icons/ic-arrow-left.svg';
 
+import { Link } from "react-router-dom";
 import "./new-proposal.scss";
 import ProposalFinalForm from "../../shared/proposal-final-form/ProposalFinalForm";
-import { PageHeaderComponent } from "@shared/components";
 import { hideCanvas, showAlert, showCanvas } from "@redux/actions";
 import {
   getProposalDraftDetail,
   submitProposal,
   uploadFile,
 } from "@utils/Thunk";
+import { Button } from '@shared/partials';
 import qs from "qs";
 
 const mapStateToProps = (state) => {
@@ -145,24 +147,30 @@ class NewProposal extends Component {
     // if (!authUser.shuftipro) return <Redirect to="/" />;
 
     return (
-      <div id="app-new-proposal-page">
-        <div className="d-flex" style={{ marginTop: "50px" }}>
-          <PageHeaderComponent title="New Proposal" link="/app/proposals" />
+      <div className="h-full flex-col flex">
+        <div className="flex mb-4">
+          <div className="flex-center gap-2">
+            <Link onClick={() => this.props.history.goBack()}>
+              <IconArrowLeft />
+            </Link>
+            <h3 className="font-bold text-lg">
+              New Proposal
+            </h3>
+          </div>
           <div
             className="ml-3 d-flex align-items-center"
-            style={{ marginBottom: "20px" }}
           >
-            <button
-              className="mr-2 btn btn-primary less-small"
+            <Button
+              size="md"
+              className="mr-2"
               onClick={this.saveDraft}
             >
               Save and finish later
-            </button>
+            </Button>
             {this.state.isSaved && <span>save successful!</span>}
           </div>
         </div>
-
-        <p>
+        <p className="pb-4">
           Please read{" "}
           <a
             href={process.env.REACT_APP_FRONTEND_URL + "guide.pdf"}
@@ -172,16 +180,18 @@ class NewProposal extends Component {
           >
             <u>the guide</u>
           </a>{" "}
-          first to understand this form.
+            first to understand this form.
         </p>
         {this.state.checkedDraft && (
-          <ProposalFinalForm
-            allowAutoSave
-            ref={this.proposalForm}
-            proposal={this.state.proposal}
-            onChange={this.create}
-            onSaved={this.saveDone}
-          />
+          <div className="flex-1 min-h-0">
+            <ProposalFinalForm
+              allowAutoSave
+              ref={this.proposalForm}
+              proposal={this.state.proposal}
+              onChange={this.create}
+              onSaved={this.saveDone}
+            />
+          </div>
         )}
       </div>
     );

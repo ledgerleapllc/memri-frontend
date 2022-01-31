@@ -1,0 +1,33 @@
+.custom-modals {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background: rgba(0, 0, 0, 0.3);
+  z-index: 9997;
+  overflow-x: hidden;
+  overflow-y: auto;
+  padding: 0 15px;
+
+  .custom-modal-close {
+    position: absolute;
+    top: 25px;
+    right: 30px;
+    display: flex;
+    align-items: center;
+    cursor: pointer;
+
+    * {
+      cursor: pointer;
+    }
+
+    label {
+      text-decoration: underline;
+      font-size: 18px;
+      font-weight: 500;
+      margin-left: 10px;
+      line-height: 1;
+    }
+  }
+}

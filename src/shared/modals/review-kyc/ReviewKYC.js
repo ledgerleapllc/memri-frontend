@@ -10,6 +10,7 @@ import {
   setOnboardingTableStatus,
 } from "@redux/actions";
 import { approveKYC, denyKYC, resetKYC } from "@utils/Thunk";
+import { Button } from '@shared/partials';
 
 import "./review-kyc.scss";
 
@@ -163,28 +164,31 @@ class ReviewKYC extends Component {
     return (
       <Fragment>
         <div id="review-kyc-modal__buttons">
-          <a
-            className="btn btn-success btn-fluid less-small"
+          <Button
+            size="sm"
+            color="success"
             onClick={this.approve}
           >
             Approve
-          </a>
-          <a
-            className="btn btn-danger btn-fluid less-small"
+          </Button>
+          <Button
+            size="sm"
+            color="danger"
             onClick={this.deny}
           >
             Deny
             <label className="font-size-14 d-block">
               (warning: this is final)
             </label>
-          </a>
-          <a
-            className="btn btn-primary btn-fluid less-small"
+          </Button>
+          <Button
+            size="sm"
+            color="primary"
             onClick={this.reset}
           >
             Reset
             <label className="font-size-14 d-block">(user submits again)</label>
-          </a>
+          </Button>
         </div>
       </Fragment>
     );
@@ -213,18 +217,20 @@ class ReviewKYC extends Component {
           ></textarea>
 
           <div id="review-kyc-modal__buttons_2">
-            <a
-              className="btn btn-primary btn-fluid less-small"
+            <Button
+              size="sm"
+              color="primary"
               onClick={() => this.setState({ showReset: false })}
             >
               Go Back
-            </a>
-            <a
-              className="btn btn-success btn-fluid less-small"
+            </Button>
+            <Button
+              color="success"
+              size="sm"
               onClick={this.doReset}
             >
               Reset and Email User
-            </a>
+            </Button>
           </div>
         </div>
       );

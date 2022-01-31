@@ -8,12 +8,13 @@ import { DECIMALS } from "@utils/Constant";
 import {
   Checkbox,
   CheckboxX,
-  Card,
+  Card as OldCard,
   CardPreview,
-  CardHeader,
-  CardBody,
+  CardHeader as OldCardHeader,
+  CardBody as OldCardBody,
 } from "@shared/components";
 import { BALLOT_TYPES } from "@utils/enum";
+import { Card, Button, CardBody } from '@shared/partials';
 
 // eslint-disable-next-line no-undef
 const moment = require("moment");
@@ -188,7 +189,7 @@ class Informal extends Component {
   renderTitle() {
     const { proposal } = this.props;
     return (
-      <label className="font-size-18 font-weight-700 mb-3 d-block">
+      <label className="text-base font-bold my-3 block">
         {proposal.title}
       </label>
     );
@@ -203,7 +204,7 @@ class Informal extends Component {
     max = parseFloat(rep / 2);
 
     return (
-      <div className="mt-3">
+      <div className="flex flex-col my-4">
         <label className="d-block font-size-14">
           Available Reputation: <b>{rep?.toFixed?.(DECIMALS)}</b>
         </label>
@@ -318,23 +319,25 @@ class Informal extends Component {
     minMembers = Math.ceil(minMembers);
 
     return (
-      <>
-        <div
-          className="app-simple-section mt-3"
-          style={{ flexDirection: "column" }}
-        >
-          <p className="font-size-14 text-capitalize">
-            Informal Vote Type: <b>{BALLOT_TYPES[informalVote.content_type]}</b>
-          </p>
-          <p className="font-size-14 mt-2">
-            This ballot requires <b>{quorum_rate}%</b> of Voting Associates to
-            vote. <b>{minMembers}</b> Voting Associates must vote of the total{" "}
-            <b>{totalMembers}</b> Voting Associates.{" "}
-            <b>{informalVote.totalVotes}</b> have voted.
-          </p>
-          {this.renderMilestoneInfo()}
-        </div>
-      </>
+      <Card>
+        <CardBody>
+          <div
+            className="app-simple-section mt-3"
+            style={{ flexDirection: "column" }}
+          >
+            <p className="font-size-14 text-capitalize">
+              Informal Vote Type: <b className="capitalize">{BALLOT_TYPES[informalVote.content_type]}</b>
+            </p>
+            <p className="font-size-14 mt-2">
+              This ballot requires <b>{quorum_rate}%</b> of Voting Associates to
+              vote. <b>{minMembers}</b> Voting Associates must vote of the total{" "}
+              <b>{totalMembers}</b> Voting Associates.{" "}
+              <b>{informalVote.totalVotes}</b> have voted.
+            </p>
+            {this.renderMilestoneInfo()}
+          </div>
+        </CardBody>
+      </Card>
     );
   }
 
@@ -377,94 +380,106 @@ class Informal extends Component {
     }
 
     return (
-      <div id="app-spd-informal-process-wrap">
-        <div className="justify-content-between">
-          <article className="app-simple-section">
-            <label>Time Remaining:</label>
-            <div>
-              <span>{day}</span>
-              <label>day</label>
-              <span>{hours}</span>
-              <label>hours</label>
-              <span>{min}</span>
-              <label>min</label>
-              <span>{secs}</span>
-              <label>sec</label>
-            </div>
-          </article>
+      <div className="flex flex-col gap-4">
+        <div className="flex justify-between">
+          <Card className="!w-fit">
+            <CardBody>
+              <div>
+                <label>Time Remaining:</label>
+                <div className="text-primary">
+                  <span className="text-3xl px-1">{day}</span>
+                  <label>day</label>
+                  <span className="text-3xl px-1">{hours}</span>
+                  <label>hours</label>
+                  <span className="text-3xl px-1">{min}</span>
+                  <label>min</label>
+                  <span className="text-3xl px-1">{secs}</span>
+                  <label>sec</label>
+                </div>
+              </div>
+            </CardBody>
+          </Card>
           {!!authUser.is_admin && (
-            <button
+            <Button
               type="button"
-              className="btn btn-primary btn-fluid less-small"
               onClick={() => this.redirectActiveVote()}
             >
               Admin Active Vote Viewer
-            </button>
+            </Button>
           )}
         </div>
         {this.renderVoteInfo()}
         {!voted && authUser.id != proposal.user_id && authUser.is_member ? (
-          <form action="" method="POST" onSubmit={(e) => e.preventDefault()}>
-            <div id="app-spd-informal-process-header">
-              <label>Active Loosely Coupled Vote</label>
-              <Icon.Info size={16} />
-            </div>
-            <div id="app-spd-informal-process-body">
-              {this.renderTitle()}
-              <span className="spacer"></span>
-              <label className="font-size-14 font-weight-700 mt-3">
-                This proposal is now in the loosely coupled voting stage
-              </label>
-              <p className="font-size-12 mt-1">
-                {`Loosely coupled votes are used in determining the overall feelings on the group. You are encouraged to vote your conscience.`}
-              </p>
-              {this.renderInfo()}
-              <input
-                type="number"
-                min="0"
-                placeholder="Stake Amount"
-                value={stakeAmount}
-                onChange={this.inputStakeAmount}
-              />
-              <p className="font-size-12" style={{ maxWidth: "518px" }}>
-                Please enter the amount of reputation you would like to stake.
-                This will affect the weight of your vote and indicates how
-                strongly you feel. Remember, you can vote with up to 50% of your{" "}
-                available reputation. Keep in mind, the losing side of the vote{" "}
-                loses any staked reputation to the winning side and reputation
-                is valuable.
-              </p>
-              <div id="c-buttons-wrap">
-                <button
-                  type="button"
-                  className="btn btn-success btn-fluid less-small"
-                  onClick={() => this.submitVote("for")}
-                >
-                  Vote For
-                </button>
-                <button
-                  type="button"
-                  className="btn btn-danger btn-fluid less-small"
-                  onClick={() => this.submitVote("against")}
-                >
-                  Vote Against
-                </button>
-              </div>
-            </div>
-          </form>
+          <Card className="border border-primary !bg-primary !bg-opacity-60 text-white">
+            <CardBody>
+              <form action="" method="POST" onSubmit={(e) => e.preventDefault()}>
+                <div className="flex gap-2">
+                  <label>Active Loosely Coupled Vote</label>
+                  <Icon.Info size={16} />
+                </div>
+                <div>
+                  {this.renderTitle()}
+                  <span className="spacer"></span>
+                  <label className="font-bold mt-3">
+                    This proposal is now in the loosely coupled voting stage
+                  </label>
+                  <p className="font-size-12 mt-1">
+                    {`Loosely coupled votes are used in determining the overall feelings on the group. You are encouraged to vote your conscience.`}
+                  </p>
+                  {this.renderInfo()}
+                  <input
+                    className="bg-white w-72 px-4 py-2 text-black rounded-md"
+                    type="number"
+                    min="0"
+                    placeholder="Stake Amount"
+                    value={stakeAmount}
+                    onChange={this.inputStakeAmount}
+                  />
+                  <p className="text-xs mt-3">
+                    Please enter the amount of reputation you would like to stake.
+                    This will affect the weight of your vote and indicates how
+                    strongly you feel. Remember, you can vote with up to 50% of your{" "}
+                    available reputation. Keep in mind, the losing side of the vote{" "}
+                    loses any staked reputation to the winning side and reputation
+                    is valuable.
+                  </p>
+                  <div className="flex gap-2 justify-end mt-4">
+                    <Button
+                      type="button"
+                      color="success"
+                      onClick={() => this.submitVote("for")}
+                    >
+                      Vote For
+                    </Button>
+                    <Button
+                      color="danger"
+                      type="button"
+                      onClick={() => this.submitVote("against")}
+                    >
+                      Vote Against
+                    </Button>
+                  </div>
+                </div>
+              </form>
+            </CardBody>
+          </Card>
         ) : null}
         {+authUser.id === +proposal.user_id && (
-          <form>
-            <div className="ml-3" id="app-spd-informal-process-body">
-              <label className="mb-2">Active tightly coupled vote</label>
-              <br />
-              <b>{`You are not able to vote in this ballot vote because this is your own proposal. You cannot vote for your own proposal.`}</b>
-            </div>
-          </form>
+          <Card className="border border-primary !bg-primary !bg-opacity-60 text-white">
+            <CardBody>
+              <form>
+                <div>
+                  <label className="mb-2">Active tightly coupled vote</label>
+                  <br />
+                  <b>{`You are not able to vote in this ballot vote because this is your own proposal. You cannot vote for your own proposal.`}</b>
+                </div>
+              </form>
+            </CardBody>
+          </Card>
         )}
         {vote.content_type === "milestone" && data?.milestone_check_list && (
-          <Card className="mt-3 mw-100" isAutoExpand>
-            <CardHeader>
+          <OldCard className="mt-3 mw-100" isAutoExpand>
+            <OldCardHeader>
               <div
                 className="app-simple-section__titleInner w-100"
                 style={{ display: "flex", justifyContent: "space-between" }}
@@ -474,7 +489,7 @@ class Informal extends Component {
                   <Icon.Info size={16} />
                 </div>
               </div>
-            </CardHeader>
+            </OldCardHeader>
             <CardPreview>
               <div className="py-2">
                 <CheckboxX
@@ -523,7 +538,7 @@ class Informal extends Component {
                 />
               </div>
             </CardPreview>
-            <CardBody>
+            <OldCardBody>
               <div className="pt-4">
                 <div>
                   <Checkbox
@@ -716,8 +731,8 @@ class Informal extends Component {
                   </div>
                 </div>
               </div>
-            </CardBody>
-          </Card>
+            </OldCardBody>
+          </OldCard>
         )}
       </div>
     );

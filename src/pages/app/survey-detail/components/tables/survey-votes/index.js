@@ -14,6 +14,7 @@ import {
   setActiveModal,
   showCanvas,
 } from "@redux/actions";
+import { Button } from '@shared/partials';
 import Helper from "@utils/Helper";
 
 const mapStateToProps = (state) => {
@@ -244,14 +245,14 @@ class SurveyVotesTable extends Component {
               className="c-col-custom c-cols text-center"
               style={{ width: `calc(${TOTAL_REMAIN_WIDTH}% / ${cols + 1})` }}
             >
-              <a
+              <Button size="sm" variant="text"
                 className="px-3"
                 onClick={() =>
                   this.openListSurveyVotersModal(item.total_vote, item.id)
                 }
               >
                 {item.total_vote}
-              </a>
+              </Button>
             </div>
             {Array(cols)
               .fill(1)
@@ -263,7 +264,7 @@ class SurveyVotesTable extends Component {
                     width: `calc(${TOTAL_REMAIN_WIDTH}% / ${cols + 1})`,
                   }}
                 >
-                  <a
+                  <Button size="sm" variant="text"
                     className="px-3"
                     onClick={() =>
                       this.openListSurveyVotersModal(
@@ -274,7 +275,7 @@ class SurveyVotesTable extends Component {
                     }
                   >
                     {item[`${i + 1}_place`]}
-                  </a>
+                  </Button>
                 </div>
               ))}
           </div>

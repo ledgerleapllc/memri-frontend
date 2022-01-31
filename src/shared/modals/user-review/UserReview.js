@@ -10,6 +10,7 @@ import {
   setAdminPendingActionTableStatus,
 } from "@redux/actions";
 import { activateParticipant, denyParticipant } from "@utils/Thunk";
+import { Button } from '@shared/partials';
 
 import "./user-review.scss";
 
@@ -122,12 +123,12 @@ class UserReview extends Component {
         </ul>
 
         <div id="user-review-modal__buttons">
-          <a className="btn btn-primary" onClick={this.activate}>
+          <Button size="sm" onClick={this.activate}>
             Activate User
-          </a>
-          <a className="btn btn-danger" onClick={this.deny}>
+          </Button>
+          <Button color="danger" size="sm" onClick={this.deny}>
             Deny User
-          </a>
+          </Button>
         </div>
       </div>
     );

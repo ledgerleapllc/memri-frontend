@@ -46,9 +46,9 @@ class ProposalRelation extends Component {
             onClick={() => this.toggle(index)}
           >
             {checked ? (
-              <Icon.CheckSquare color="#9B64E6" />
+              <Icon.CheckSquare color="#FB5824" />
             ) : (
-              <Icon.Square color="#9B64E6" />
+              <Icon.Square color="#FB5824" />
             )}
           </div>
           <label onClick={() => this.toggle(index)}>{relation}</label>

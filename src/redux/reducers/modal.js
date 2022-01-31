@@ -1,3 +1,4 @@
+/* eslint-disable import/no-anonymous-default-export */
 import {
   SET_DOS_PAYMENT_DATA,
   SET_DOS_REVIEW_DATA,

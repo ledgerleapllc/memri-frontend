@@ -1,3 +1,4 @@
+/* eslint-disable import/no-anonymous-default-export */
 import {
   SET_ONBOARDING_TABLE_STATUS,
   SET_PRE_REGISTER_TABLE_STATUS,

@@ -76,7 +76,7 @@ const UsersTab = () => {
               </div>
             </div>
             {filter_v && (
-              <div data-aos="fade-in" data-aos-duration="800" class="flex gap-6 items-end">
+              <div data-aos="fade-in" data-aos-duration="800" className="flex gap-6 items-end">
                 <div className="flex flex-col">
                   <label className="pb-2">Start date</label>
                   <DatePicker

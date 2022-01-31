@@ -5,9 +5,9 @@ import Helper from "@utils/Helper";
 import "./accounting.scss";
 import { downloadCSVAccounting, getMetrics } from "@utils/Thunk";
 import { hideCanvas, showCanvas } from "@redux/actions";
-import DatePicker from "react-date-picker/dist/entry.nostyle";
 import DosFeeTable from "./components/DosFeeTable";
 import moment from "moment";
+import { Card, CardHeader, CardBody, DatePicker, Button } from '@shared/partials';
 
 const mapStateToProps = (state) => {
   return {
@@ -125,74 +125,81 @@ class Accounting extends Component {
     if (!authUser.is_admin) return <Redirect to="/" />;
 
     return (
-      <div id="accounting-page">
-        <section className="app-simple-section mb-4">
-          <label>System metrics</label>
-          <div className="box">
+      <div className="h-full flex flex-col">
+        <Card className="mb-4">
+          <CardHeader>
+            <h3 className="font-bold">System metrics</h3>
+          </CardHeader>
+          <CardBody>
             <div>
               <label className="pr-3">Sum of grants activated:</label>
               <span>
                 {Helper.formatPriceNumber(metrics?.totalGrant || 0, "€")}
               </span>
             </div>
-          </div>
-        </section>
-        <section className="app-infinite-box app-simple-section">
-          <label>DOS Fee Tracker</label>
-          <div className="box">
-            <div>
-              <label className="pr-3">ETH total for date range:</label>
-              <span>{Helper.formatPriceNumber(total?.totalETH || 0, "€")}</span>
-            </div>
-            <div>
-              <label className="pr-3">CC total for date range:</label>
-              <span>{Helper.formatPriceNumber(total?.totalCC || 0, "€")}</span>
-            </div>
-          </div>
-          <div className="box">
-            <div className="d-flex aligns-items-center justify-content-end app-infinite-search-wrap">
-              <div className="mr-4 d-flex flex-column">
-                <label className="pb-2">Start date</label>
-                <DatePicker
-                  format="M/d/yyyy"
-                  value={
-                    params?.start_date ? new Date(params.start_date) : null
-                  }
-                  onChange={(val) => this.handleParams("start_date", val)}
-                  onCalendarClose={() => {}}
-                  calendarIcon={""}
-                  clearIcon={""}
-                />
+          </CardBody>
+        </Card>
+        <Card className="flex-1 min-h-0">
+          <CardHeader>
+            <h3 className="font-bold">DOS Fee Tracker</h3>
+          </CardHeader>
+          <CardBody className="flex flex-col">
+            <div className="flex justify-between pb-8">
+              <div className="flex flex-col gap-4">
+                <div>
+                  <label className="pr-3">ETH total for date range:</label>
+                  <span>{Helper.formatPriceNumber(total?.totalETH || 0, "€")}</span>
+                </div>
+                <div>
+                  <label className="pr-3">CC total for date range:</label>
+                  <span>{Helper.formatPriceNumber(total?.totalCC || 0, "€")}</span>
+                </div>
               </div>
-              <div className="mr-4 d-flex flex-column">
-                <label className="pb-2">End date</label>
-                <DatePicker
-                  format="M/d/yyyy"
-                  value={params?.end_date ? new Date(params.end_date) : null}
-                  onChange={(val) => this.handleParams("end_date", val)}
-                  onCalendarClose={() => {}}
-                  calendarIcon={""}
-                  clearIcon={""}
-                />
+              <div className="flex gap-4">
+                <div className="flex flex-col">
+                  <label>Start date</label>
+                  <DatePicker
+                    format="M/d/yyyy"
+                    value={
+                      params?.start_date ? new Date(params.start_date) : null
+                    }
+                    onChange={(val) => this.handleParams("start_date", val)}
+                    onCalendarClose={() => {}}
+                    calendarIcon={""}
+                    clearIcon={""}
+                  />
+                </div>
+                <div className="flex flex-col">
+                  <label>End date</label>
+                  <DatePicker
+                    format="M/d/yyyy"
+                    value={params?.end_date ? new Date(params.end_date) : null}
+                    onChange={(val) => this.handleParams("end_date", val)}
+                    onCalendarClose={() => {}}
+                    calendarIcon={""}
+                    clearIcon={""}
+                  />
+                </div>
+                <div className="flex items-end">
+                  <input
+                    className="text-xs"
+                    type="text"
+                    placeholder="Search..."
+                    onChange={(e) => this.handleSearch(e.target.value)}
+                  />
+                </div>
+                <div className="flex items-end">
+                  <Button size="sm" onClick={() => this.downloadCSV()}>
+                    Download CSV
+                  </Button>
+                </div>
               </div>
-              <input
-                className="mt-4"
-                type="text"
-                placeholder="Search..."
-                onChange={(e) => this.handleSearch(e.target.value)}
-              />
-              <button
-                className="mt-4 btn btn-primary btn-download small ml-2"
-                onClick={() => this.downloadCSV()}
-              >
-                Download
-              </button>
             </div>
-          </div>
-          <div className="box">
-            <DosFeeTable params={this.state.params} onTotal={this.getTotal} />
-          </div>
-        </section>
+            <div className="min-h-0 flex-1">
+              <DosFeeTable outParams={this.state.params} onTotal={this.getTotal} />
+            </div>
+          </CardBody>
+        </Card>
       </div>
     );
   }

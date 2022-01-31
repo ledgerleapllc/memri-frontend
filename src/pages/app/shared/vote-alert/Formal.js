@@ -11,11 +11,17 @@ import { DECIMALS } from "@utils/Constant";
 import {
   Checkbox,
   CheckboxX,
-  Card,
-  CardHeader,
+  Card as OldCard,
+  CardHeader as OldCardHeader,
   CardPreview,
-  CardBody,
+  CardBody as OldCardBody,
 } from "@shared/components";
+
+import {
+  Card,
+  CardBody,
+  Button,
+} from "@shared/partials";
 import { BALLOT_TYPES } from "@utils/enum";
 
 // eslint-disable-next-line no-undef
@@ -282,7 +288,7 @@ class Formal extends Component {
     if (+authUser.id === +proposal.user_id) {
       return (
         <form>
-          <div className="ml-3" id="app-spd-informal-process-body">
+          <div className="ml-3">
             <label className="mb-2">Active loosely coupled vote</label>
             <br />
             <b>{`You are not able to vote in this ballot vote because this is your own proposal. You cannot vote for your own proposal.`}</b>
@@ -306,63 +312,71 @@ class Formal extends Component {
         }
         if (!isVotedWhenInformal) {
           return (
-            <form>
-              <div className="ml-3" id="app-spd-informal-process-body">
-                <label className="mb-2">Active tightly coupled vote</label>
-                <br />
-                <b>{`You are not able to vote in this ballot because this is a formal vote and you did not vote during the informal stage of this ballot.`}</b>
-              </div>
-            </form>
+            <Card>
+              <CardBody>
+                <form>
+                  <div className="ml-3">
+                    <label className="mb-2">Active tightly coupled vote</label>
+                    <br />
+                    <b>{`You are not able to vote in this ballot because this is a formal vote and you did not vote during the informal stage of this ballot.`}</b>
+                  </div>
+                </form>
+              </CardBody>
+            </Card>
           );
         }
       }
       return (
-        <form action="" method="POST" onSubmit={(e) => e.preventDefault()}>
-          <div id="app-spd-formal-process-header">
-            <label>Active Tighly Coupled Vote</label>
-            <Icon.Info size={16} />
-          </div>
-          <div id="app-spd-formal-process-body">
-            {this.renderTitle()}
-            <span className="spacer"></span>
-            <label className="font-size-14 font-weight-700 mt-3">
-              This proposal is now in the final voting process
-            </label>
-            <p className="font-size-12 mt-1">
-              {`Tightly coupled votes affect reputation and those voting
-              against the winning side will lose the reputation they staked
-              towards the vote.`}
-            </p>
-            {this.renderInfo()}
-            <input
-              type="number"
-              placeholder="Stake Amount"
-              value={stakeAmount}
-              onChange={this.inputStakeAmount}
-            />
-            <p className="font-size-12" style={{ maxWidth: "518px" }}>
-              Please enter the amount of reputation you would like to stake.
-              This will affect the weight of your vote and indicates how
-              strongly you feel.
-            </p>
-            <div id="c-buttons-wrap">
-              <button
-                type="button"
-                className="btn btn-success btn-fluid less-small"
-                onClick={() => this.submitVote("for")}
-              >
-                Vote For
-              </button>
-              <button
-                type="button"
-                className="btn btn-danger btn-fluid less-small"
-                onClick={() => this.submitVote("against")}
-              >
-                Vote Against
-              </button>
-            </div>
-          </div>
-        </form>
+        <Card>
+          <CardBody>
+            <form action="" method="POST" onSubmit={(e) => e.preventDefault()}>
+              <div id="app-spd-formal-process-header">
+                <label>Active Tighly Coupled Vote</label>
+                <Icon.Info size={16} />
+              </div>
+              <div id="app-spd-formal-process-body">
+                {this.renderTitle()}
+                <span className="spacer"></span>
+                <label className="font-size-14 font-weight-700 mt-3">
+                  This proposal is now in the final voting process
+                </label>
+                <p className="font-size-12 mt-1">
+                  {`Tightly coupled votes affect reputation and those voting
+                  against the winning side will lose the reputation they staked
+                  towards the vote.`}
+                </p>
+                {this.renderInfo()}
+                <input
+                  type="number"
+                  placeholder="Stake Amount"
+                  value={stakeAmount}
+                  onChange={this.inputStakeAmount}
+                />
+                <p className="font-size-12" style={{ maxWidth: "518px" }}>
+                  Please enter the amount of reputation you would like to stake.
+                  This will affect the weight of your vote and indicates how
+                  strongly you feel.
+                </p>
+                <div id="c-buttons-wrap">
+                  <button
+                    type="button"
+                    className="btn btn-success btn-fluid less-small"
+                    onClick={() => this.submitVote("for")}
+                  >
+                    Vote For
+                  </button>
+                  <button
+                    type="button"
+                    className="btn btn-danger btn-fluid less-small"
+                    onClick={() => this.submitVote("against")}
+                  >
+                    Vote Against
+                  </button>
+                </div>
+              </div>
+            </form>
+          </CardBody>
+        </Card>
       );
     }
 
@@ -439,21 +453,22 @@ class Formal extends Component {
     minMembers = Math.ceil(minMembers);
 
     return (
-      <div
-        className="app-simple-section mt-3"
-        style={{ flexDirection: "column" }}
+      <Card
+        className="mt-3"
       >
-        <p className="font-size-14 text-capitalize">
-          Formal Vote Type: <b>{BALLOT_TYPES[formalVote.content_type]}</b>
-        </p>
-        <p className="font-size-14 mt-2">
-          This ballot requires <b>{quorum_rate}%</b> of Voting Associates to
-          vote. <b>{minMembers}</b> Voting Associates must vote of the total{" "}
-          <b>{totalMembers}</b> Voting Associates.{" "}
-          <b>{formalVote.totalVotes}</b> have voted.
-        </p>
-        {this.renderMilestoneInfo()}
-      </div>
+        <CardBody>
+          <p className="capitalize">
+            Formal Vote Type: <b>{BALLOT_TYPES[formalVote.content_type]}</b>
+          </p>
+          <p className="mt-2">
+            This ballot requires <b>{quorum_rate}%</b> of Voting Associates to
+            vote. <b>{minMembers}</b> Voting Associates must vote of the total{" "}
+            <b>{totalMembers}</b> Voting Associates.{" "}
+            <b>{formalVote.totalVotes}</b> have voted.
+          </p>
+          {this.renderMilestoneInfo()}
+        </CardBody>
+      </Card>
     );
   }
 
@@ -490,59 +505,64 @@ class Formal extends Component {
       <div id="app-spd-formal-process-wrap">
         <div className="d-flex justify-content-end mb-3 ">
           {!!authUser.is_admin && (
-            <button
+            <Button
               type="button"
-              className="btn btn-primary btn-fluid less-small"
               onClick={() => this.redirectActiveVote()}
             >
               Admin Active Vote Viewer
-            </button>
+            </Button>
           )}
         </div>
-        <div>
-          <article className="app-simple-section">
-            <label>Time Remaining in vote:</label>
-            <div>
-              <span>{day}</span>
-              <label>day</label>
-              <span>{hours}</span>
-              <label>hours</label>
-              <span>{min}</span>
-              <label>min</label>
-              <span>{secs}</span>
-              <label>sec</label>
-            </div>
-          </article>
-          <div className="app-simple-section">
-            <label>
-              Informal Vote Results:{" "}
-              <Link
-                className="color-info"
-                to={link}
-                style={{ fontSize: "14px" }}
-              >
-                <u>(view vote detail)</u>
-              </Link>
-            </label>
-            <div className="vote-result-row">
-              <span
-                style={{ width: `${forP}%`, backgroundColor: "#33C333" }}
-              ></span>
-              <label>{forP}%</label>
-            </div>
-            <div className="vote-result-row">
-              <span
-                style={{ width: `${againstP}%`, backgroundColor: "#EA5454" }}
-              ></span>
-              <label>{againstP}%</label>
-            </div>
-          </div>
+        <div className="flex gap-4">
+          <Card className="!w-fit !flex-none">
+            <CardBody>
+              <div>
+                <label>Time Remaining in vote:</label>
+                <div className="text-primary">
+                  <span className="text-3xl px-1">{day}</span>
+                  <label>day</label>
+                  <span className="text-3xl px-1">{hours}</span>
+                  <label>hours</label>
+                  <span className="text-3xl px-1">{min}</span>
+                  <label>min</label>
+                  <span className="text-3xl px-1">{secs}</span>
+                  <label>sec</label>
+                </div>
+              </div>
+            </CardBody>
+          </Card>
+          <Card className="">
+            <CardBody>
+              <label>
+                Informal Vote Results:{" "}
+                <Link
+                  className="color-info"
+                  to={link}
+                  style={{ fontSize: "14px" }}
+                >
+                  <u>(view vote detail)</u>
+                </Link>
+              </label>
+              <div className="vote-result-row">
+                <span
+                  style={{ width: `${forP}%`, backgroundColor: "#33C333" }}
+                ></span>
+                <label>{forP}%</label>
+              </div>
+              <div className="vote-result-row">
+                <span
+                  style={{ width: `${againstP}%`, backgroundColor: "#EA5454" }}
+                ></span>
+                <label>{againstP}%</label>
+              </div>
+            </CardBody>
+          </Card>
         </div>
         {this.renderVoteInfo()}
         {this.renderForm()}
         {vote.content_type === "milestone" && data?.milestone_check_list && (
-          <Card className="mt-3 mw-100" isAutoExpand>
-            <CardHeader>
+          <OldCard className="mt-3 mw-100" isAutoExpand>
+            <OldCardHeader>
               <div
                 className="app-simple-section__titleInner w-100"
                 style={{ display: "flex", justifyContent: "space-between" }}
@@ -552,7 +572,7 @@ class Formal extends Component {
                   <Icon.Info size={16} />
                 </div>
               </div>
-            </CardHeader>
+            </OldCardHeader>
             <CardPreview>
               <div className="py-2">
                 <CheckboxX
@@ -601,7 +621,7 @@ class Formal extends Component {
                 />
               </div>
             </CardPreview>
-            <CardBody>
+            <OldCardBody>
               <div className="pt-4">
                 <div>
                   <Checkbox
@@ -794,8 +814,8 @@ class Formal extends Component {
                   </div>
                 </div>
               </div>
-            </CardBody>
-          </Card>
+            </OldCardBody>
+          </OldCard>
         )}
       </div>
     );

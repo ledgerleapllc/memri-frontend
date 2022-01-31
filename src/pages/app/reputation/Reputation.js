@@ -114,7 +114,7 @@ class Reputation extends Component {
     if (!authUser || !authUser.id) return null;
 
     return (
-      <div class="flex flex-col h-full">
+      <div className="flex flex-col flex-1-min">
         <div className="flex justify-between items-start mb-4">
           <div className="flex flex-col gap-2">
             <h3 className="text-2xl flex gap-6">
@@ -138,7 +138,7 @@ class Reputation extends Component {
             text="Daily CSV email"
           />
         </div>
-        <div class="flex-1 min-h-0">
+        <div className="flex-1 min-h-0">
           <RepCard />
         </div>
       </div>

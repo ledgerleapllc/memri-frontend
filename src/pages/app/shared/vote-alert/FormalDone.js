@@ -9,7 +9,9 @@ import {
   showCanvas,
 } from "@redux/actions";
 import Helper from "@utils/Helper";
+import { Button } from '@shared/partials';
 import { regeneratePDF } from "@utils/Thunk";
+import { Card, CardBody } from '@shared/partials';
 
 const mapStateToProps = (state) => {
   return {
@@ -85,12 +87,12 @@ class FormalDone extends Component {
           <div className="app-simple-section mb-3">
             <div style={{ padding: 0 }}>
               <label className="font-size-14">{`This vote did not reach quorum. Not enough Voting Associates voted. Another vote is needed.`}</label>
-              <a
-                className="btn btn-primary small mt-2"
+              <Button size="sm"
+                className="mt-2"
                 onClick={this.clickRevote}
               >
                 Revote
-              </a>
+              </Button>
             </div>
           </div>
         );
@@ -136,35 +138,39 @@ class FormalDone extends Component {
     return (
       <div id="app-spd-formal-done-wrap">
         {this.renderAlert()}
-        <div className="flex">
-          <div className="app-simple-section">
-            <label>
-              Formal Vote Results:{" "}
-              <Link
-                className="color-info"
-                to={link}
-                style={{ fontSize: "14px" }}
-              >
-                <u>(view vote detail)</u>
-              </Link>
-            </label>
-            <div className="vote-result-row">
-              <span
-                style={{ width: `${forP}%`, backgroundColor: "#33C333" }}
-              ></span>
-              <label>{forP}%</label>
-            </div>
-            <div className="vote-result-row">
-              <span
-                style={{ width: `${againstP}%`, backgroundColor: "#EA5454" }}
-              ></span>
-              <label>{againstP}%</label>
-            </div>
-          </div>
+        <div className="flex gap-4">
+          <Card>
+            <CardBody>
+              <div>
+                <label>
+                  Formal Vote Results:{" "}
+                  <Link
+                    className="text-secondary"
+                    to={link}
+                    style={{ fontSize: "14px" }}
+                  >
+                    <u>(view vote detail)</u>
+                  </Link>
+                </label>
+                <div className="vote-result-row">
+                  <span
+                    style={{ width: `${forP}%`, backgroundColor: "#33C333" }}
+                  ></span>
+                  <label>{forP}%</label>
+                </div>
+                <div className="vote-result-row">
+                  <span
+                    style={{ width: `${againstP}%`, backgroundColor: "#EA5454" }}
+                  ></span>
+                  <label>{againstP}%</label>
+                </div>
+              </div>
+            </CardBody>
+          </Card>
           {passed && !!authUser.is_admin && (
-            <button className="ml-4 btn btn-primary" onClick={this.generate}>
+            <Button onClick={this.generate}>
               Generate PDF
-            </button>
+            </Button>
           )}
         </div>
       </div>

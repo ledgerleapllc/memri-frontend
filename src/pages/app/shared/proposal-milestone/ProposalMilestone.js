@@ -2,11 +2,10 @@
 /* eslint-disable no-undef */
 import React, { Component } from "react";
 import { connect } from "react-redux";
-import DatePicker from "react-date-picker/dist/entry.nostyle";
 import * as Icon from "react-feather";
 import Helper from "@utils/Helper";
 import { showAlert } from "@redux/actions";
-
+import { DatePicker, Button } from '@shared/partials';
 import "./proposal-milestone.scss";
 import { Fade } from "react-reveal";
 
@@ -100,12 +99,12 @@ class ProposalMilestone extends Component {
           <Fade distance={"20px"} bottom duration={100} delay={600}>
             <div key={`milestone_${index}`} className="single-milestone-item">
               <div className="c-form-row">
-                <label className="mt-5 mb-5" style={{ color: "#9B64E6" }}>
+                <label className="mt-5 mb-5" style={{ color: "#FB5824" }}>
                   Milestone #{index + 1}:
                 </label>
               </div>
-              <div className="row">
-                <div className="col-md-4">
+              <div className="flex gap-2">
+                <div className="flex-1">
                   <div className="c-form-row">
                     <label>Title of Milestone (10 word limit)</label>
                     <input
@@ -116,10 +115,23 @@ class ProposalMilestone extends Component {
                     />
                   </div>
                 </div>
-                <div className="col-md-4">
+                <div className="flex-1">
                   <div className="c-form-row-deadline">
                     <label>Milestone Deadline</label>
-                    <div className="dob-picker-wrap">
+                    <DatePicker
+                      format="M/d/yyyy"
+                      value={
+                        milestone.deadline &&
+                        milestone.deadline != "0000-00-00"
+                          ? moment(milestone.deadline).toDate()
+                          : null
+                      }
+                      onChange={(e) => this.updateData(e, index, "deadline")}
+                      onCalendarClose={() => {}}
+                      calendarIcon={""}
+                      clearIcon={""}
+                    />
+                    {/* <div className="dob-picker-wrap">
                       <DatePicker
                         className="dob-picker"
                         value={
@@ -133,10 +145,10 @@ class ProposalMilestone extends Component {
                         calendarIcon={""}
                         clearIcon={""}
                       />
-                    </div>
+                    </div> */}
                   </div>
                 </div>
-                <div className="col-md-4">
+                <div className="flex-1">
                   <div className="c-form-row">
                     <label>Level of Difficulty</label>
                     <select
@@ -201,9 +213,9 @@ class ProposalMilestone extends Component {
                   onClick={(e) => this.updateData(e, index, "checked")}
                 >
                   {milestone.checked ? (
-                    <Icon.CheckSquare color="#9B64E6" />
+                    <Icon.CheckSquare color="#FB5824" />
                   ) : (
-                    <Icon.Square color="#9B64E6" />
+                    <Icon.Square color="#FB5824" />
                   )}
                 </div>
                 <label
@@ -296,17 +308,14 @@ class ProposalMilestone extends Component {
         <Fade distance={"20px"} bottom duration={100} delay={600}>
           {this.props.showAction && (
             <div className="new-proposal-button-wrap">
-              <a className="btn btn-primary large" onClick={this.addMilestone}>
+              <Button color="secondary" onClick={this.addMilestone}>
                 <Icon.Plus style={{ marginRight: "5px" }} />
                 Add Milestone
-              </a>
-              <a
-                className="btn btn-danger large"
-                onClick={this.removeMilestone}
-              >
+              </Button>
+              <Button color="danger" onClick={this.removeMilestone}>
                 <Icon.Minus style={{ marginRight: "5px" }} />
                 Remove Milestone
-              </a>
+              </Button>
             </div>
           )}
         </Fade>

@@ -4,8 +4,7 @@ import { connect } from "react-redux";
 import { Fade } from "react-reveal";
 import { hideCanvas, showAlert, showCanvas } from "@redux/actions";
 import { checkLogin2FA } from "@utils/Thunk";
-
-import "./login-2fa.scss";
+import { Button } from '@shared/partials';
 
 const mapStateToProps = (state) => {
   return {
@@ -55,26 +54,29 @@ class Login2FA extends Component {
     if (!authUser || !authUser.id) return null;
 
     return (
-      <div id="login-2fa-page">
-        <div className="custom-container">
+      <div>
+        <div className="custom-container w-500px">
           <Fade distance={"20px"} bottom duration={500} delay={400}>
-            <form action="" method="POST" onSubmit={this.submit}>
-              <h1 className="text-center">Two-Factor Authentication</h1>
-              <p className="font-size-18 text-center">
-                Please enter the code sent to the email: {authUser.email}
-              </p>
-              <p className="font-size-14 text-center mt-4">
-                {`Make sure to check your spam folder if you do not see the code in your box after 1 minute.`}
-              </p>
+            <form className="items-center flex flex-col gap-4" action="" method="POST" onSubmit={this.submit}>
+              <h2 className="text-center capitalize font-normal text-primary mb-4">Two-Factor Authentication</h2>
+              <div>
+                <p className="font-size-18 text-center">
+                  Please enter the code sent to the email: {authUser.email}
+                </p>
+                <p className="font-size-14 text-center mt-4">
+                  {`Make sure to check your spam folder if you do not see the code in your box after 1 minute.`}
+                </p>
+              </div>
               <input
                 placeholder="Enter Code"
                 type="text"
                 value={code}
                 onChange={this.inputCode}
+                className="w-full"
               />
-              <button type="submit" className="btn btn-primary">
+              <Button className="w-3/5 mt-4" type="submit">
                 Submit
-              </button>
+              </Button>
             </form>
           </Fade>
         </div>

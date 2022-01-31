@@ -156,4 +156,11 @@
     min-width: 6.25rem;
     font-size: 0.75rem;
   }
+
+  &.btn-xs {
+    min-height: 1.25rem;
+    min-width: auto;
+    font-size: 0.75rem;
+    @apply px-3;
+  }
 }

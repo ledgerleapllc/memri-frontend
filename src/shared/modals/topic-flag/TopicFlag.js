@@ -6,6 +6,7 @@ import { hideCanvas, removeActiveModal, showAlert } from "@redux/actions";
 
 import "./topic-flag.scss";
 import API from "@utils/API";
+import { Button } from '@shared/partials';
 
 const mapStateToProps = () => {
   return {};
@@ -71,12 +72,12 @@ class TopicFlag extends Component {
         ></textarea>
 
         <div id="topic-flag-modal__buttons">
-          <a className="btn btn-success" onClick={this.clickSubmit}>
+          <Button color="success" size="sm" onClick={this.clickSubmit}>
             Submit
-          </a>
-          <a className="btn btn-primary" onClick={() => this.hideModal()}>
+          </Button>
+          <Button size="sm" onClick={() => this.hideModal()}>
             Cancel
-          </a>
+          </Button>
         </div>
       </div>
     );

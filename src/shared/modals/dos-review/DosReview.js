@@ -10,6 +10,7 @@ import {
   showCanvas,
 } from "@redux/actions";
 import { approveProposalPayment, denyProposalPayment } from "@utils/Thunk";
+import { Button } from '@shared/partials';
 
 import "./dos-review.scss";
 
@@ -107,12 +108,12 @@ class DOSReview extends Component {
         <p className="mt-3 mb-5">{`Approving payment will move launch this proposal. Denying this will reset the payment step.`}</p>
 
         <div id="dos-review-modal__buttons">
-          <a className="btn btn-primary" onClick={this.clickApprove}>
+          <Button size="sm" color="primary" onClick={this.clickApprove}>
             Approve
-          </a>
-          <a className="btn btn-danger" onClick={this.clickDeny}>
+          </Button>
+          <Button size="sm" color="danger" onClick={this.clickDeny}>
             Deny
-          </a>
+          </Button>
         </div>
       </div>
     );

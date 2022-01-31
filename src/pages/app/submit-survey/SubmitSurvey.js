@@ -1,12 +1,8 @@
 import React, { Component } from "react";
 import { connect } from "react-redux";
 import { Link, Redirect, withRouter } from "react-router-dom";
-import { Fade } from "react-reveal";
-import {
-  GlobalRelativeCanvasComponent,
-  PageHeaderComponent,
-} from "@shared/components";
-import "./style.scss";
+import { Card, CardHeader, CardBody, Button } from "@shared/partials";
+import style from "./style.module.scss";
 import {
   getActiveDiscussions,
   getUserSurveyDetail,
@@ -14,12 +10,7 @@ import {
   submitRFPSurvey,
   getMe,
 } from "@utils/Thunk";
-import {
-  hideCanvas,
-  saveUser,
-  showAlert,
-  showCanvas,
-} from "@redux/actions";
+import { hideCanvas, saveUser, showAlert, showCanvas } from "@redux/actions";
 import DiscussionProposalsTable from "../surveys/components/tables/discussion-proposals";
 import BidRanksTable from "./components/tables/bid-ranks";
 import Helper from "@utils/Helper";
@@ -303,7 +294,6 @@ class SubmitSurvey extends Component {
     const { authUser } = this.props;
     const {
       currentSurvey,
-      showLoading,
       responses,
       noSurvey,
       downvoteResponses,
@@ -314,69 +304,66 @@ class SubmitSurvey extends Component {
     if (!authUser.is_member) return <Redirect to="/" />;
 
     return (
-      <div id="app-submit-survey-page">
-        <Fade distance={"20px"} bottom duration={300} delay={600}>
-          <PageHeaderComponent title="" />
-          <section className="app-infinite-box mb-4">
-            {showLoading && <GlobalRelativeCanvasComponent />}
-            {!showLoading && (
-              <>
-                <div className="app-infinite-search-wrap">
-                  {currentSurvey?.status === "active" &&
-                    !currentSurvey?.is_submitted && (
-                      <h4>
-                        Welcome to Survey #{SURVEY_PREFIX[currentSurvey?.type]}
-                        {currentSurvey?.id}
-                      </h4>
-                    )}
-                  {currentSurvey?.status === "active" &&
-                    currentSurvey?.is_submitted && (
-                      <h4>Thank you for submitting</h4>
-                    )}
-                  {currentSurvey?.status === "completed" && (
-                    <h4>
-                      Survey #{SURVEY_PREFIX[currentSurvey?.type]}
-                      {currentSurvey?.id} has ended
-                    </h4>
-                  )}
-                  {currentSurvey?.status === "cancel" && (
-                    <h4>
-                      Survey #{SURVEY_PREFIX[currentSurvey?.type]}
-                      {currentSurvey?.id} has cancelled
-                    </h4>
-                  )}
-                  {noSurvey && (
-                    <div>
-                      <h6>
-                        There are no active surveys at this time. Please check
-                        back again later.
-                      </h6>
-                      <div className="py-3">
-                        <Link to="/app" className="btn btn-primary less-small">
-                          Back to dashboard
-                        </Link>
-                      </div>
-                    </div>
-                  )}
+      <>
+        <Card className="mt-4 h-full flex-1 min-h-0">
+          <CardHeader>
+            {currentSurvey?.status === "active" &&
+              !currentSurvey?.is_submitted && (
+                <h4 className="font-bold text-lg">
+                  Welcome to Survey #{SURVEY_PREFIX[currentSurvey?.type]}
+                  {currentSurvey?.id}
+                </h4>
+              )}
+            {currentSurvey?.status === "active" &&
+              currentSurvey?.is_submitted && <h4 className="font-bold text-lg">Thank you for submitting</h4>}
+            {currentSurvey?.status === "completed" && (
+              <h4 className="font-bold text-lg">
+                Survey #{SURVEY_PREFIX[currentSurvey?.type]}
+                {currentSurvey?.id} has ended
+              </h4>
+            )}
+            {currentSurvey?.status === "cancel" && (
+              <h4 className="font-bold text-lg">
+                Survey #{SURVEY_PREFIX[currentSurvey?.type]}
+                {currentSurvey?.id} has cancelled
+              </h4>
+            )}
+            {noSurvey && (
+              <div>
+                <h6>
+                  There are no active surveys at this time. Please check back
+                  again later.
+                </h6>
+                <div className="py-3">
+                  <Button as={Link} to="/app" size="md">
+                    Back to dashboard
+                  </Button>
                 </div>
-                {currentSurvey?.status === "active" &&
-                  currentSurvey?.type === "grant" &&
-                  !currentSurvey?.is_submitted && (
-                    <>
-                      <div className="pb-3 pl-5 pr-3">
-                        <div className="c-form-row">
-                          <h5 className="my-2 text-bold">UPVOTES</h5>
-                          <label>
-                            Please select your favorite
-                            {currentSurvey?.number_response} proposals from the
-                            pool of proposals that have not yet begun their
-                            informal vote.
-                          </label>
-                          <div className="flex box-vote">
-                            {Array(+currentSurvey?.number_response || 0)
-                              .fill(1)
-                              .map((choice, i) => (
+              </div>
+            )}
+          </CardHeader>
+          <CardBody className="overflow-scroll padding-tracker" id="submit-survey-body">
+            <section className="h-full">
+              {currentSurvey?.status === "active" &&
+                currentSurvey?.type === "grant" &&
+                !currentSurvey?.is_submitted && (
+                  <>
+                    <div className="pb-3 pl-5 pr-3">
+                      <div className="c-form-row">
+                        <h5 className="my-2 text-xl font-bold">UPVOTES</h5>
+                        <label>
+                          Please select your favorite{" "}
+                          {currentSurvey?.number_response} proposals from the
+                          pool of proposals that have not yet begun their
+                          informal vote.
+                        </label>
+                        <div className="flex box-vote flex-wrap">
+                          {Array(+currentSurvey?.number_response || 0)
+                            .fill(1)
+                            .map((choice, i) => (
+                              <div className="w-1/2 pr-20">
                                 <select
+                                  className={style.select}
                                   key={i}
                                   defaultValue=""
                                   value={responses[i]?.proposal_id}
@@ -389,33 +376,34 @@ class SubmitSurvey extends Component {
                                   {this.checkSkip(i) && (
                                     <option value="skip">Skip</option>
                                   )}
-                                  {this.renderDiscussions(i, "up").map(
-                                    (item) => (
-                                      <option key={item.id} value={item.id}>
-                                        {item.id} - {item.title}
-                                      </option>
-                                    )
-                                  )}
+                                  {this.renderDiscussions(i, "up").map((item) => (
+                                    <option key={item.id} value={item.id}>
+                                      {item.id} - {item.title}
+                                    </option>
+                                  ))}
                                 </select>
-                              ))}
-                          </div>
+                              </div>
+                            ))}
                         </div>
-                        {+currentSurvey?.downvote === 1 && (
-                          <div className="mt-4 c-form-row">
-                            <h5 className="my-2 text-bold">DOWNVOTES</h5>
-                            <label>
-                              {`Please select the ${currentSurvey?.number_response}
-                              grants that you DO NOT think should move forward.
-                              The ${currentSurvey?.number_response} of grants with
-                              the most DOWNVOTES will have their discussion ended
-                              and NOT move forward to become a grant. You may skip
-                              responses if you choose.`}
-                            </label>
-                            <div className="flex box-vote">
-                              {Array(+currentSurvey?.number_response || 0)
-                                .fill(1)
-                                .map((choice, i) => (
+                      </div>
+                      {+currentSurvey?.downvote === 1 && (
+                        <div className="mt-4 c-form-row">
+                          <h5 className="my-2 text-xl font-bold">DOWNVOTES</h5>
+                          <label>
+                            {`Please select the ${currentSurvey?.number_response}
+                          grants that you DO NOT think should move forward.
+                          The ${currentSurvey?.number_response} of grants with
+                          the most DOWNVOTES will have their discussion ended
+                          and NOT move forward to become a grant. You may skip
+                          responses if you choose.`}
+                          </label>
+                          <div className="flex box-vote flex-wrap">
+                            {Array(+currentSurvey?.number_response || 0)
+                              .fill(1)
+                              .map((choice, i) => (
+                                <div className="w-1/2 pr-20">
                                   <select
+                                    className={style.select}
                                     key={i}
                                     defaultValue=""
                                     value={downvoteResponses[i]?.proposal_id}
@@ -439,266 +427,267 @@ class SubmitSurvey extends Component {
                                       )
                                     )}
                                   </select>
-                                ))}
-                            </div>
+                                </div>
+                              ))}
                           </div>
-                        )}
-                        <button
-                          className="mt-3 btn btn-primary less-small"
-                          onClick={this.submitResponse}
-                          disabled={!this.checkUserInput()}
-                        >
-                          Submit responses
-                        </button>
-                        <div className="d-flex pt-2 pl-2">
-                          Time remaining:
-                          <b className="pl-2">
-                            <TimeClock
-                              lastTime={moment(currentSurvey?.end_time)}
-                            />
-                          </b>
                         </div>
-                        <p className="py-5">
-                          Click any proposal in the table below to see more
-                          details. All proposals here have not yet won a ranking
-                          position in a prior survey and are still in the
-                          discussion phase.
-                        </p>
+                      )}
+                      <Button
+                        className="mt-8"
+                        onClick={this.submitResponse}
+                        disabled={!this.checkUserInput()}
+                      >
+                        Submit responses
+                      </Button>
+                      <div className="flex pt-4 pl-2">
+                        Time remaining:
+                        <b className="pl-2">
+                          <TimeClock
+                            lastTime={moment(currentSurvey?.end_time)}
+                          />
+                        </b>
                       </div>
+                      <p className="py-5">
+                        Click any proposal in the table below to see more
+                        details. All proposals here have not yet won a ranking
+                        position in a prior survey and are still in the
+                        discussion phase.
+                      </p>
+                    </div>
+                    <div className="w-11/12 h-96">
                       <DiscussionProposalsTable
+                        target="submit-survey-body"
                         hideWonColumn
                         hideFilterWinner
                         ignorePreviousWinner
                       />
-                    </>
-                  )}
-                {currentSurvey?.status === "active" &&
-                  currentSurvey?.type === "rfp" &&
-                  !currentSurvey?.is_submitted && (
-                    <>
-                      <div className="pb-3 pl-5 pr-3">
-                        <div className="rfp-info">
-                          <div className="pb-2">
-                            <label className="pr-5">Title of Job:</label>
-                            <b>{currentSurvey?.job_title}</b>
-                          </div>
-                          <div className="pb-2">
-                            <label className="pr-5">Description of Job:</label>
-                            <p>
-                              <b>{currentSurvey?.job_description}</b>
-                            </p>
-                          </div>
-                          <div className="pb-2">
-                            <label className="pr-5">
-                              Estimated price of Job:
-                            </label>
-                            <b>
-                              {Helper.formatPriceNumber(
-                                currentSurvey?.total_price || "",
-                                "€"
-                              )}
-                            </b>
-                          </div>
-                          <div className="pb-2">
-                            <label className="pr-5">Job Start Date:</label>
-                            <b>
-                              {moment(currentSurvey?.created_at)
-                                .local()
-                                .format("M/D/YYYY HH:mm A")}
-                            </b>
-                          </div>
-                          <div className="pb-2">
-                            <label className="pr-5">Job completion date:</label>
-                            <b>
-                              {moment(currentSurvey?.end_time)
-                                .local()
-                                .format("M/D/YYYY HH:mm A")}
-                            </b>
-                          </div>
+                    </div>
+                  </>
+                )}
+              {currentSurvey?.status === "active" &&
+                currentSurvey?.type === "rfp" &&
+                !currentSurvey?.is_submitted && (
+                  <>
+                    <div className="pb-3 pl-5 pr-3">
+                      <div className="rfp-info">
+                        <div className="pb-2">
+                          <label className="pr-5">Title of Job:</label>
+                          <b>{currentSurvey?.job_title}</b>
                         </div>
-                        <div className="pt-5 c-form-row">
-                          <label>
-                            {`Thanks for starting the survey. You must read and rank each bid below from your favorite to your least favorite. Your chosen ranks will show in the table below as you complete the dropdown in each box. You can click to remove any ranks directly in the table.`}
+                        <div className="pb-2">
+                          <label className="pr-5">Description of Job:</label>
+                          <p>
+                            <b>{currentSurvey?.job_description}</b>
+                          </p>
+                        </div>
+                        <div className="pb-2">
+                          <label className="pr-5">
+                            Estimated price of Job:
                           </label>
-                        </div>
-                        <div>
-                          {currentSurvey?.survey_rfp_bids.map((bid, index) => (
-                            <div className="bid-item my-3" key={index}>
-                              <b className="font-size-18">Bid {index + 1}</b>
-                              <div className="pt-2 c-form-row">
-                                <select
-                                  defaultValue=""
-                                  value={
-                                    bidRankResponses[index]?.place_choice || ""
-                                  }
-                                  onChange={(e) => this.setRankBids(e, index)}
-                                >
-                                  <option value="" disabled>
-                                    {`Select rank`}
-                                  </option>
-                                  {this.renderSelectBids(index).map((item) => (
-                                    <option key={item} value={item}>
-                                      Rank {item} of{" "}
-                                      {currentSurvey?.survey_rfp_bids.length}
-                                    </option>
-                                  ))}
-                                </select>
-                                {bidRankResponses.findIndex(
-                                  (x) => x?.bid === index + 1
-                                ) >= 0 && (
-                                  <button
-                                    className="btn btn-primary extra-small btn-fluid-small"
-                                    onClick={() => this.removeBidRank(index)}
-                                  >
-                                    Remove
-                                  </button>
-                                )}
-                              </div>
-                              <div className="pb-2">
-                                <label className="pr-2">Name:</label>
-                                <b>{bid.name}</b>
-                              </div>
-                              <div className="pb-2">
-                                <label className="pr-2">Amount of Bid:</label>
-                                <b>{bid.amount_of_bid}</b>
-                              </div>
-                              <div className="pb-2">
-                                <label className="pr-2">Delivery date:</label>
-                                <b>
-                                  {moment(bid.delivery_date)
-                                    .local()
-                                    .format("M/D/YYYY HH:mm A")}
-                                </b>
-                              </div>
-                              <div className="pb-2">
-                                <label className="pr-2">
-                                  Additional notes:
-                                </label>
-                                <b>
-                                  {bid.additional_note
-                                    ? bid.additional_note
-                                    : "-"}
-                                </b>
-                              </div>
-                            </div>
-                          ))}
-                        </div>
-                      </div>
-                      <div className="pt-5">
-                        <BidRanksTable
-                          survey={currentSurvey}
-                          data={bidRankResponses}
-                          onRemove={this.removeBidRank}
-                        />
-                      </div>
-                      <div className="py-5 text-center">
-                        <p>
-                          You need to rank{" "}
                           <b>
-                            {currentSurvey?.survey_rfp_bids.length -
-                              bidRankResponses.filter((x) => !!x).length}
-                          </b>{" "}
-                          more bids before you can submit.
-                        </p>
-                        <button
-                          className="mt-3 btn btn-primary less-small"
-                          onClick={this.submitRFPResponse}
-                          disabled={!this.checkUserBidsInput()}
-                        >
-                          Submit
-                        </button>
-                        <div className="d-flex justify-content-center pt-2 pl-2">
-                          Time remaining:
-                          <b className="pl-2">
-                            <TimeClock
-                              lastTime={moment(currentSurvey?.end_time)}
-                            />
+                            {Helper.formatPriceNumber(
+                              currentSurvey?.total_price || "",
+                              "€"
+                            )}
+                          </b>
+                        </div>
+                        <div className="pb-2">
+                          <label className="pr-5">Job Start Date:</label>
+                          <b>
+                            {moment(currentSurvey?.created_at)
+                              .local()
+                              .format("M/D/YYYY HH:mm A")}
+                          </b>
+                        </div>
+                        <div className="pb-2">
+                          <label className="pr-5">Job completion date:</label>
+                          <b>
+                            {moment(currentSurvey?.end_time)
+                              .local()
+                              .format("M/D/YYYY HH:mm A")}
                           </b>
                         </div>
                       </div>
-                    </>
-                  )}
-                {currentSurvey?.status === "active" &&
-                  currentSurvey?.is_submitted && (
-                    <div className="pb-3 pl-3 pr-3">
-                      <p className="pb-5">
-                        We are still collecting responses from all other voting
-                        associates and will update you with the winners on the
-                        next public call.
-                      </p>
-                      <Link to="/app" className="btn btn-primary less-small">
-                        Back to dashboard
-                      </Link>
-                    </div>
-                  )}
-                {currentSurvey?.status === "completed" &&
-                  currentSurvey?.type === "grant" && (
-                    <div className="pb-3 pl-3 pr-3">
-                      <p>The winners are listed below.</p>
-                      <div className="my-3">
-                        {currentSurvey?.survey_ranks
-                          ?.filter((x) => x.is_winner)
-                          .map((x, i) => (
-                            <p className="py-2" key={i}>
-                              {Helper.ordinalSuffixOf(i + 1)} Place -{" "}
-                              <Link to={`/app/proposal/${x.proposal?.id}`}>
-                                {x.proposal?.title}
-                              </Link>
-                            </p>
-                          ))}
+                      <div className="pt-5 c-form-row">
+                        <label>
+                          {`Thanks for starting the survey. You must read and rank each bid below from your favorite to your least favorite. Your chosen ranks will show in the table below as you complete the dropdown in each box. You can click to remove any ranks directly in the table.`}
+                        </label>
                       </div>
-                      {+currentSurvey?.downvote === 1 && (
-                        <>
-                          <p>The downvotes are listed below.</p>
-                          <div className="my-3">
-                            {currentSurvey?.survey_downvote_ranks
-                              ?.filter((x) => x.is_winner)
-                              .map((x, i) => (
-                                <p className="py-2" key={i}>
-                                  {Helper.ordinalSuffixOf(i + 1)} Place -{" "}
-                                  <Link to={`/app/proposal/${x.proposal?.id}`}>
-                                    {x.proposal?.title}
-                                  </Link>
-                                </p>
-                              ))}
+                      <div>
+                        {currentSurvey?.survey_rfp_bids.map((bid, index) => (
+                          <div className="bid-item my-3" key={index}>
+                            <b className="font-size-18">Bid {index + 1}</b>
+                            <div className="pt-2 c-form-row">
+                              <select
+                                defaultValue=""
+                                value={
+                                  bidRankResponses[index]?.place_choice || ""
+                                }
+                                onChange={(e) => this.setRankBids(e, index)}
+                              >
+                                <option value="" disabled>
+                                  {`Select rank`}
+                                </option>
+                                {this.renderSelectBids(index).map((item) => (
+                                  <option key={item} value={item}>
+                                    Rank {item} of{" "}
+                                    {currentSurvey?.survey_rfp_bids.length}
+                                  </option>
+                                ))}
+                              </select>
+                              {bidRankResponses.findIndex(
+                                (x) => x?.bid === index + 1
+                              ) >= 0 && (
+                                <button
+                                  className="btn btn-primary extra-small btn-fluid-small"
+                                  onClick={() => this.removeBidRank(index)}
+                                >
+                                  Remove
+                                </button>
+                              )}
+                            </div>
+                            <div className="pb-2">
+                              <label className="pr-2">Name:</label>
+                              <b>{bid.name}</b>
+                            </div>
+                            <div className="pb-2">
+                              <label className="pr-2">Amount of Bid:</label>
+                              <b>{bid.amount_of_bid}</b>
+                            </div>
+                            <div className="pb-2">
+                              <label className="pr-2">Delivery date:</label>
+                              <b>
+                                {moment(bid.delivery_date)
+                                  .local()
+                                  .format("M/D/YYYY HH:mm A")}
+                              </b>
+                            </div>
+                            <div className="pb-2">
+                              <label className="pr-2">Additional notes:</label>
+                              <b>
+                                {bid.additional_note
+                                  ? bid.additional_note
+                                  : "-"}
+                              </b>
+                            </div>
                           </div>
-                        </>
-                      )}
-                      <Link to="/app" className="btn btn-primary less-small">
-                        Back to dashboard
-                      </Link>
-                    </div>
-                  )}
-                {currentSurvey?.status === "completed" &&
-                  currentSurvey?.type === "rfp" && (
-                    <div className="pb-3 pl-3 pr-3">
-                      <p>The winners are listed below.</p>
-                      <div className="my-3">
-                        {currentSurvey?.survey_rfp_ranks
-                          ?.filter((x) => x.is_winner)
-                          .map((x, i) => (
-                            <p className="py-2" key={i}>
-                              Rank {x.rank} - {x.survey_rfp_bid?.forum}
-                            </p>
-                          ))}
+                        ))}
                       </div>
-                      <Link to="/app" className="btn btn-primary less-small">
-                        Back to dashboard
-                      </Link>
                     </div>
-                  )}
-                {currentSurvey?.status === "cancel" && (
+                    <div className="pt-5">
+                      <BidRanksTable
+                        survey={currentSurvey}
+                        data={bidRankResponses}
+                        onRemove={this.removeBidRank}
+                      />
+                    </div>
+                    <div className="py-5 text-center">
+                      <p>
+                        You need to rank{" "}
+                        <b>
+                          {currentSurvey?.survey_rfp_bids.length -
+                            bidRankResponses.filter((x) => !!x).length}
+                        </b>{" "}
+                        more bids before you can submit.
+                      </p>
+                      <button
+                        className="mt-3 btn btn-primary less-small"
+                        onClick={this.submitRFPResponse}
+                        disabled={!this.checkUserBidsInput()}
+                      >
+                        Submit
+                      </button>
+                      <div className="d-flex justify-content-center pt-2 pl-2">
+                        Time remaining:
+                        <b className="pl-2">
+                          <TimeClock
+                            lastTime={moment(currentSurvey?.end_time)}
+                          />
+                        </b>
+                      </div>
+                    </div>
+                  </>
+                )}
+              {currentSurvey?.status === "active" &&
+                currentSurvey?.is_submitted && (
                   <div className="pb-3 pl-3 pr-3">
-                    <Link to="/app" className="btn btn-primary less-small">
+                    <p className="pb-5">
+                      We are still collecting responses from all other voting
+                      associates and will update you with the winners on the
+                      next public call.
+                    </p>
+                    <Button as={Link} to="/app" size="md">
                       Back to dashboard
-                    </Link>
+                    </Button>
                   </div>
                 )}
-              </>
-            )}
-          </section>
-        </Fade>
-      </div>
+              {currentSurvey?.status === "completed" &&
+                currentSurvey?.type === "grant" && (
+                  <div className="pb-3 pl-3 pr-3">
+                    <p>The winners are listed below.</p>
+                    <div className="my-3">
+                      {currentSurvey?.survey_ranks
+                        ?.filter((x) => x.is_winner)
+                        .map((x, i) => (
+                          <p className="py-2" key={i}>
+                            {Helper.ordinalSuffixOf(i + 1)} Place -{" "}
+                            <Link to={`/app/proposal/${x.proposal?.id}`}>
+                              {x.proposal?.title}
+                            </Link>
+                          </p>
+                        ))}
+                    </div>
+                    {+currentSurvey?.downvote === 1 && (
+                      <>
+                        <p>The downvotes are listed below.</p>
+                        <div className="my-3">
+                          {currentSurvey?.survey_downvote_ranks
+                            ?.filter((x) => x.is_winner)
+                            .map((x, i) => (
+                              <p className="py-2" key={i}>
+                                {Helper.ordinalSuffixOf(i + 1)} Place -{" "}
+                                <Link to={`/app/proposal/${x.proposal?.id}`}>
+                                  {x.proposal?.title}
+                                </Link>
+                              </p>
+                            ))}
+                        </div>
+                      </>
+                    )}
+                    <Button as={Link} to="/app" size="md">
+                      Back to dashboard
+                    </Button>
+                  </div>
+                )}
+              {currentSurvey?.status === "completed" &&
+                currentSurvey?.type === "rfp" && (
+                  <div className="pb-3 pl-3 pr-3">
+                    <p>The winners are listed below.</p>
+                    <div className="my-3">
+                      {currentSurvey?.survey_rfp_ranks
+                        ?.filter((x) => x.is_winner)
+                        .map((x, i) => (
+                          <p className="py-2" key={i}>
+                            Rank {x.rank} - {x.survey_rfp_bid?.forum}
+                          </p>
+                        ))}
+                    </div>
+                    <Button as={Link} to="/app" size="md">
+                      Back to dashboard
+                    </Button>
+                  </div>
+                )}
+              {currentSurvey?.status === "cancel" && (
+                <div className="pb-3 pl-3 pr-3">
+                  <Button as={Link} to="/app" size="md">
+                    Back to dashboard
+                  </Button>
+                </div>
+              )}
+            </section>
+          </CardBody>
+        </Card>
+      </>
     );
   }
 }

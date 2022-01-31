@@ -3,6 +3,7 @@ import React, { Component, Fragment } from "react";
 import { connect } from "react-redux";
 import { Redirect, withRouter } from "react-router-dom";
 import { PageHeaderComponent } from "@shared/components";
+import { Card, CardHeader, CardBody, Button } from '@shared/partials';
 import {
   setActiveModal,
   showAlert,
@@ -23,11 +24,10 @@ import {
   exportProposalMentor,
   sendKycKangarooByAdmin,
 } from "@utils/Thunk";
-import ProposalsView from "./proposals/Proposals";
-import VotesView from "./votes/Votes";
-import ReputationView from "./reputation/Reputation";
+import ProposalsView from "./proposals";
+import VotesView from "./votes";
+import ReputationView from "./reputation";
 import ProposalMentorView from "./proposal-mentor";
-import "./single-user.scss";
 import { DECIMALS } from "@utils/Constant";
 
 // eslint-disable-next-line no-undef
@@ -72,6 +72,11 @@ class SingleUser extends Component {
         }
       )
     );
+    document.body.classList.add('scroll-window');
+  }
+
+  componentWillUnmount() {
+    document.body.classList.remove('scroll-window');
   }
 
   componentDidUpdate(prevProps) {
@@ -356,107 +361,123 @@ class SingleUser extends Component {
 
     if (!user.banned) {
       upbuttons.push(
-        <a
+        <Button
+          color="danger"
+          size="sm"
           key="button_ban"
-          className="btn btn-danger btn-fluid extra-small"
           onClick={this.banUser}
         >
           Ban User
-        </a>
+        </Button>
       );
     } else {
       upbuttons.push(
-        <a
+        <Button
+          color="danger"
+          variant="outline"
+          size="sm"
           key="button_unban"
-          className="btn btn-danger-outline btn-fluid extra-small"
           onClick={this.unbanUser}
         >
           Unban User
-        </a>
+        </Button>
       );
     }
 
     upbuttons.push(
-      <a
+      <Button
+        color="success"
+        size="sm"
         key="button_reset"
-        className="btn btn-success btn-fluid extra-small"
         onClick={this.clickResetPassword}
       >
         Reset Password
-      </a>
+      </Button>
     );
 
     upbuttons.push(
-      <a
+      <Button
+        color="success"
+        variant="outline"
+        className="px-2"
+        size="sm"
         key="button_change_ut"
-        className="btn btn-success-outline btn-fluid extra-small"
         onClick={this.clickChangeUserType}
       >
         Change User Type
-      </a>
+      </Button>
     );
 
     downbuttons.push(
-      <a
+      <Button
+        size="sm"
+        color="primary"
         key="button_add_r"
-        className="btn btn-primary btn-fluid extra-small"
         onClick={this.clickAddRep}
       >
         Add Reputation
-      </a>
+      </Button>
     );
 
     downbuttons.push(
-      <a
+      <Button
+        color="primary"
+        variant="outline"
+        size="sm"
         key="button_subtract_r"
-        className="btn btn-primary-outline btn-fluid extra-small"
         onClick={this.clickSubRep}
+        className="px-2"
       >
         Subtract Reputation
-      </a>
+      </Button>
     );
 
     if (user && user.shuftipro && user.shuftipro.id) {
       const shuftipro = user.shuftipro;
       if (!shuftipro.reviewed && shuftipro.status != "approved") {
         thirdButtons.push(
-          <a
+          <Button
+            color="warning"
+            variant="outline"
+            size="sm"
             key="button_approve_kyc"
-            className="btn btn-warning btn-fluid extra-small"
             onClick={this.clickApprove}
           >
             Approve KYC
-          </a>
+          </Button>
         );
 
         thirdButtons.push(
-          <a
+          <Button
+            color="danger"
+            variant="outline"
+            size="sm"
             key="button_deny_kyc"
-            className="btn btn-danger-outline btn-fluid extra-small"
             onClick={this.clickDeny}
           >
             Deny KYC
-          </a>
+          </Button>
         );
 
         thirdButtons.push(
-          <a
+          <Button
+            color="secondary"
+            size="sm"
             key="button_reset_kyc"
-            className="btn btn-info btn-fluid extra-small"
             onClick={this.clickReset}
           >
             Reset KYC
-          </a>
+          </Button>
         );
       }
     }
 
     return (
-      <Fragment>
-        <div className="app-sup-section-button-row">{upbuttons}</div>
-        <div className="app-sup-section-button-row mt-2">{downbuttons}</div>
-        <div className="app-sup-section-button-row mt-2">{thirdButtons}</div>
-      </Fragment>
+      <div className="flex flex-col gap-4">
+        <div className="flex gap-8">{upbuttons}</div>
+        <div className="flex gap-8">{downbuttons}</div>
+        <div className="flex gap-8">{thirdButtons}</div>
+      </div>
     );
   }
 
@@ -488,150 +509,155 @@ class SingleUser extends Component {
     if (user.shuftipro?.data) data = JSON.parse(user.shuftipro?.data);
     if (!new_kyc) {
       return (
-        <section>
-          <div className="app-sup-section">
-            <div className="app-sup-row">
-              <label>Date of Birth</label>
-              <span>{user.profile.dob}</span>
-            </div>
-            <div className="app-sup-row">
-              <label>Country of Citizenship</label>
-              <span>{user.profile.country_citizenship}</span>
-            </div>
-            <div className="app-sup-row">
-              <label>Country of Residence</label>
-              <span>{user.profile.country_residence}</span>
-            </div>
-            <div className="app-sup-row">
-              <label>Address</label>
-              <div>
-                <span>{user.profile.address}</span>
-                {authUser.is_admin && (
-                  <button
-                    className="ml-4 btn btn-primary extra-small"
-                    onClick={(e) =>
-                      this.clickChangeUserAML(
-                        e,
-                        "address",
-                        user.profile.address
-                      )
-                    }
-                  >
-                    Edit
-                  </button>
+        <table>
+          <tr>
+            <td className="font-bold w-80">Date of Birth</td>
+            <td>{user.profile.dob}</td>
+          </tr>
+          <tr>
+            <td className="font-bold w-80">Country of Citizenship</td>
+            <td>{user.profile.country_citizenship}</td>
+          </tr>
+          <tr>
+            <td className="font-bold w-80">Country of Residence</td>
+            <td>{user.profile.country_residence}</td>
+          </tr>
+          <tr>
+            <td className="font-bold w-80">Address</td>
+            <td>
+              {user.profile.address}
+              {authUser.is_admin && (
+                <Button
+                  size="xs"
+                  className="ml-4"
+                  onClick={(e) =>
+                    this.clickChangeUserAML(
+                      e,
+                      "address",
+                      user.profile.address
+                    )
+                  }
+                >
+                  Edit
+                </Button>
                 )}
-              </div>
-            </div>
-            <div className="app-sup-row">
-              <label>City</label>
-              <div>
-                <span>{user.profile.city}</span>
-                {authUser.is_admin && (
-                  <button
-                    className="ml-4 btn btn-primary extra-small"
-                    onClick={(e) =>
-                      this.clickChangeUserAML(e, "city", user.profile.city)
-                    }
-                  >
-                    Edit
-                  </button>
+            </td>
+          </tr>
+          <tr>
+            <td className="font-bold w-80">City</td>
+            <td>
+              {user.profile.city}
+              {authUser.is_admin && (
+                <Button
+                  className="ml-4"
+                  size="xs"
+                  onClick={(e) =>
+                    this.clickChangeUserAML(e, "city", user.profile.city)
+                  }
+                >
+                  Edit
+                </Button>
                 )}
-              </div>
-            </div>
-            <div className="app-sup-row">
-              <label>Postal / Zip Code</label>
-              <div>
-                <span>{user.profile.zip}</span>
-                {authUser.is_admin && (
-                  <button
-                    className="ml-4 btn btn-primary extra-small"
-                    onClick={(e) =>
-                      this.clickChangeUserAML(e, "zip", user.profile.zip)
-                    }
-                  >
-                    Edit
-                  </button>
+            </td>
+          </tr>
+          <tr>
+            <td className="font-bold w-80">Postal / Zip Code</td>
+            <td>
+              {user.profile.zip}
+              {authUser.is_admin && (
+                <Button
+                  className="ml-4"
+                  size="xs"
+                  onClick={(e) =>
+                    this.clickChangeUserAML(e, "zip", user.profile.zip)
+                  }
+                >
+                  Edit
+                </Button>
                 )}
-              </div>
-            </div>
-            <div className="app-sup-row">
-              <label>Overall Status</label>
-              <span>{this.renderShuftiproStatus()}</span>
+            </td>
+          </tr>
+          <tr>
+            <td className="font-bold w-80">Overall Status</td>
+            <td>
+              {this.renderShuftiproStatus()}
               {(!user.shuftipro_temp ||
                 user.shuftipro_temp?.status === "pending") &&
                 !!authUser.is_admin && (
-                  <button
-                    className="ml-4 btn btn-primary extra-small"
+                  <Button
+                    className="ml-4"
+                    size="xs"
                     onClick={() => this.sendKYC(user)}
                   >
                     Update
-                  </button>
+                  </Button>
                 )}
-            </div>
-            {user.shuftipro && (
-              <div className="app-sup-row">
-                <label>Shufti Ref #</label>
-                <span>{user.shuftipro?.reference_id}</span>
+            </td>
+          </tr>
+          {user.shuftipro && (
+            <tr>
+              <td className="font-bold w-80">Shufti Ref #</td>
+              <td>
+                {user.shuftipro?.reference_id}
                 {authUser.is_admin && (
-                  <button
-                    className="ml-4 btn btn-primary extra-small"
+                  <Button
+                    className="ml-4"
+                    size="xs"
                     onClick={(e) =>
                       this.clickChangeShuftiRef(e, "zip", user.profile.zip)
                     }
                   >
                     Add/Update
-                  </button>
+                  </Button>
                 )}
-              </div>
-            )}
-            {approvedAt ? (
-              <div className="app-sup-row">
-                <label>Manually Approved At</label>
-                <span>{approvedAt}</span>
-              </div>
-            ) : null}
-            {approver ? (
-              <div className="app-sup-row">
-                <label>Manually Approved By</label>
-                <span>{approver}</span>
-              </div>
-            ) : null}
-          </div>
-        </section>
+              </td>
+            </tr>
+          )}
+          {approvedAt ? (
+            <tr>
+              <td className="font-bold w-80">Manually Approved At</td>
+              <td>{approvedAt}</td>
+            </tr>
+          ) : null}
+          {approver ? (
+            <tr>
+              <td className="font-bold w-80">Manually Approved By</td>
+              <td>{approver}</td>
+            </tr>
+          ) : null}
+        </table>
       );
     } else {
       return (
-        <section>
-          <div className="app-sup-section">
-            <div className="app-sup-row">
-              <label>KycKangaroo status</label>
-              <span className="text-capitalize">{user?.shuftipro?.status}</span>
-            </div>
-            <div className="app-sup-row">
-              <label>Invite ID</label>
-              <span>{user?.shuftipro_temp?.invite_id}</span>
-            </div>
-            <div className="app-sup-row">
-              <label>Shufti REFID</label>
-              <span>{user?.shuftipro?.reference_id}</span>
-            </div>
-            <div className="app-sup-row">
-              <label>Name Verified in KYC kangaroo</label>
-              <span>
-                {data?.address_document?.name?.first_name}{" "}
-                {data?.address_document?.name?.last_name}
-              </span>
-            </div>
-            <div className="app-sup-row">
-              <label>Address Verified in KYC kangaroo</label>
-              <span>{data?.address_document?.full_address}</span>
-            </div>
-            <div className="app-sup-row">
-              <label>Country Verified in KYC kangaroo</label>
-              <span>{data?.address_document?.country}</span>
-            </div>
-          </div>
-        </section>
+        <table>
+          <tr>
+            <td className="font-bold w-80">KycKangaroo status</td>
+            <td className="text-capitalize">{user?.shuftipro?.status}</td>
+          </tr>
+          <tr>
+            <td className="font-bold w-80">Invite ID</td>
+            <td>{user?.shuftipro_temp?.invite_id}</td>
+          </tr>
+          <tr>
+            <td className="font-bold w-80">Shufti REFID</td>
+            <td>{user?.shuftipro?.reference_id}</td>
+          </tr>
+          <tr>
+            <td className="font-bold w-80">Name Verified in KYC kangaroo</td>
+            <td>
+              {data?.address_document?.name?.first_name}{" "}
+              {data?.address_document?.name?.last_name}
+            </td>
+          </tr>
+          <tr>
+            <td className="font-bold w-80">Address Verified in KYC kangaroo</td>
+            <td>{data?.address_document?.full_address}</td>
+          </tr>
+          <tr>
+            <td className="font-bold w-80">Country Verified in KYC kangaroo</td>
+            <td>{data?.address_document?.country}</td>
+          </tr>
+        </table>
       );
     }
   }
@@ -664,175 +690,203 @@ class SingleUser extends Component {
     if (!user || !user.id) return <div>{`We can't find any details`}</div>;
 
     return (
-      <div id="app-single-user-page">
+      <>
+      <div className="flex flex-col gap-4 pb-8">
         <PageHeaderComponent title="Back" />
-        <div className="app-simple-section">
-          <label className="app-sup-header">Basic Info</label>
-          <section>
-            <div className="app-sup-section">
-              <div className="app-sup-row">
-                <label>User ID</label>
-                <span>{user.id}</span>
-              </div>
-              <div className="app-sup-row">
-                <label>User Type</label>
-                <span>
-                  {user.is_member
-                    ? "Voting Associate"
-                    : user.is_participant
-                    ? "Associate"
-                    : "Guest"}
-                </span>
-              </div>
-              {!!user.is_member && (
-                <div className="app-sup-row">
-                  <label>V%</label>
-                  <span>
-                    {user.total_voted && user.total_informal_votes
-                      ? (
-                          (user.total_voted / user.total_informal_votes) *
-                          100
-                        ).toFixed(DECIMALS)
-                      : 0}
-                    %
-                  </span>
-                </div>
-              )}
-              <div className="app-sup-row">
-                <label>Registration Date</label>
-                <span>{moment(user.created_at).format("M/D/YYYY")}</span>
-              </div>
-              <div className="app-sup-row">
-                <label>Email</label>
-                <span>{user.email}</span>
-                {/*<a className="btn btn-primary extra-small">Update</a>*/}
-              </div>
-              <div className="app-sup-row">
-                <label>Telegram</label>
-                <span>{user.profile?.telegram}</span>
-                {/*<a className="btn btn-primary extra-small">Update</a>*/}
-              </div>
-              <div className="app-sup-row">
-                <label>First Name</label>
-                <span>{user.first_name}</span>
-                {/*<a className="btn btn-primary extra-small">Update</a>*/}
-              </div>
-              <div className="app-sup-row">
-                <label>Last Name</label>
-                <span>{user.last_name}</span>
-                {/*<a className="btn btn-primary extra-small">Update</a>*/}
-              </div>
-              <div className="app-sup-row">
-                <label>Forum Name</label>
-                <span>{user.profile.forum_name}</span>
-              </div>
-              <div className="app-sup-row">
-                <label>Company Name</label>
-                <span>{user.company}</span>
-                {/*<a className="btn btn-primary extra-small">Update</a>*/}
-              </div>
-              <div className="app-sup-row">
-                <label>Associate Agreement</label>
-                {this.renderHellosignForm()}
-              </div>
-              <div className="app-sup-row">
-                <label>Associate Agreement Timestamp</label>
-                <span>
+        <Card>
+          <CardHeader>
+            <h3 className="font-bold">Basic Info</h3>
+          </CardHeader>
+          <CardBody>
+            <table>
+              <tr>
+                <td className="font-bold w-80">User ID</td>
+                <td>{user.id}</td>
+              </tr>
+              <tr>
+                <td className="font-bold w-80">User Type</td>
+                <td> {user.is_member
+                        ? "Voting Associate"
+                        : user.is_participant
+                        ? "Associate"
+                        : "Guest"}
+                </td>
+              </tr>
+              <tr>
+                <td className="font-bold w-80">V%</td>
+                <td>
+                  {user.total_voted && user.total_informal_votes
+                    ? (
+                        (user.total_voted / user.total_informal_votes) *
+                        100
+                      ).toFixed(DECIMALS)
+                    : 0}
+                  %  
+                </td>
+              </tr>
+              <tr>
+                <td className="font-bold w-80">Registration Date</td>
+                <td>
+                  {moment(user.created_at).format("M/D/YYYY")}
+                </td>
+              </tr>
+              <tr>
+                <td className="font-bold w-80">Email</td>
+                <td>{user.email}</td>
+              </tr>
+              <tr>
+                <td className="font-bold w-80">Telegram</td>
+                <td>{user.profile?.telegram}</td>
+              </tr>
+              <tr>
+                <td className="font-bold w-80">First Name</td>
+                <td>{user.first_name}</td>
+              </tr>
+              <tr>
+                <td className="font-bold w-80">Last Name</td>
+                <td>{user.last_name}</td>
+              </tr>
+              <tr>
+                <td className="font-bold w-80">Forum Name</td>
+                <td>{user.profile.forum_name}</td>
+              </tr>
+              <tr>
+                <td className="font-bold w-80">Company Name</td>
+                <td>{user.company}</td>
+              </tr>
+              <tr>
+                <td className="font-bold w-80">Associate Agreement</td>
+                <td>{this.renderHellosignForm()}</td>
+              </tr>
+              <tr>
+                <td className="font-bold w-80">Associate Agreement Timestamp</td>
+                <td>
                   {moment(
                     user?.profile?.associate_agreement_at + ".000Z"
                   ).format("MM/DD/YYYY hh:mm")}
-                </span>
-              </div>
+                </td>
+              </tr>
               {user.member_no ? (
-                <div className="app-sup-row">
-                  <label>Voting Associate #</label>
-                  <span>{user.member_no}</span>
-                </div>
-              ) : null}
+                  <tr>
+                    <td className="font-bold w-80">Voting Associate #</td>
+                    <td>
+                      {user.member_no}
+                    </td>
+                  </tr>
+                ) : null}
               {user.member_at ? (
-                <div className="app-sup-row">
-                  <label>Voting Promotion Date</label>
-                  <span>
+                <tr className="app-sup-row">
+                  <td className="font-bold w-80">Voting Promotion Date</td>
+                  <td>
                     {moment(user.member_at + ".000Z").format("M/D/YYYY")}
-                  </span>
-                </div>
+                  </td>
+                </tr>
               ) : null}
-            </div>
-          </section>
-          {/* Section End */}
-          <label className="app-sup-header">KYC / AML Info</label>
-          {this.renderKYCInfo()}
-          <label className="app-sup-header">Proposals ( as OP )</label>
-          <section>
-            <div className="app-sup-section">
+            </table>
+          </CardBody>
+        </Card>
+        <Card>
+          <CardHeader>
+            <h3 className="font-bold">KYC / AML Info</h3>
+          </CardHeader>
+          <CardBody>
+            {this.renderKYCInfo()}
+          </CardBody>
+        </Card>
+        <Card>
+          <CardHeader>
+            <h3 className="font-bold">Proposals ( as OP )</h3>
+          </CardHeader>
+          <CardBody>
+            <div className="h-96">
               <ProposalsView userId={user.id} />
             </div>
-          </section>
-          <label className="app-sup-header">Votes</label>
-          <section>
-            <div className="app-sup-section">
+          </CardBody>
+        </Card>
+        <Card>
+          <CardHeader>
+            <h3 className="font-bold">Votes</h3>
+          </CardHeader>
+          <CardBody>
+            <div className="h-96">
               <VotesView userId={user.id} />
             </div>
-          </section>
-          <div className="d-flex justify-content-between">
-            <label className="app-sup-header">Reputation</label>
-            <div>
-              <button
-                className="btn btn-primary btn-download extra-small"
+          </CardBody>
+        </Card>
+        <Card>
+          <CardHeader>
+            <div className="flex justify-between w-full">
+              <h3 className="font-bold">Reputation</h3>
+              <Button
+                size="sm"
                 onClick={() => this.downloadCSV()}
               >
                 Download
-              </button>
+              </Button>
             </div>
-          </div>
-          <section>
-            <div className="app-sup-section">
-              <div className="mb-1 app-sup-row">
-                <label>Total</label>
-                <span>
+          </CardHeader>
+          <CardBody>
+            <table>
+              <tr>
+                <td className="font-bold w-80">Total</td>
+                <td> 
                   {(user.profile.rep + Math.abs(totalStaked))?.toFixed(
-                    DECIMALS
+                      DECIMALS
                   )}
-                </span>
-              </div>
-              <div className="mb-1 app-sup-row">
-                <label>Staked</label>
-                <span>{Math.abs(totalStaked)?.toFixed(DECIMALS)}</span>
-              </div>
-              <div className="mb-1 app-sup-row">
-                <label>Available</label>
-                <span>{user.profile.rep?.toFixed(DECIMALS)}</span>
-              </div>
-              <div className="app-sup-row">
-                <label>Minted Pending</label>
-                <span>{user.profile.rep_pending?.toFixed(DECIMALS)}</span>
-              </div>
+                </td>
+              </tr>
+              <tr>
+                <td className="font-bold w-80">Staked</td>
+                <td>
+                  {Math.abs(totalStaked)?.toFixed(DECIMALS)}
+                </td>
+              </tr>
+              <tr>
+                <td className="font-bold w-80">Available</td>
+                <td>
+                  {user.profile.rep?.toFixed(DECIMALS)}
+                </td>
+              </tr>
+              <tr>
+                <td className="font-bold w-80">Minted Pending</td>
+                <td>
+                  {user.profile.rep_pending?.toFixed(DECIMALS)}
+                </td>
+              </tr>
+            </table>
+            <div className="mt-8 h-96">
               <ReputationView userId={user.id} />
             </div>
-          </section>
-          <div className="d-flex justify-content-between">
-            <label className="app-sup-header">Mentor Hours</label>
-            <div>
-              <button
-                className="btn btn-primary btn-download extra-small"
+          </CardBody>
+        </Card>
+        <Card>
+          <CardHeader>
+            <div className="flex justify-between w-full">
+              <h3 className="font-bold">Mentor Hours</h3>
+              <Button
+                size="sm"
                 onClick={() => this.downloadCSVMentor()}
               >
                 Download
-              </button>
+              </Button>
             </div>
-          </div>
-          <section>
-            <div className="app-sup-section">
+          </CardHeader>
+          <CardBody>
+            <div className="h-96">
               <ProposalMentorView userId={user.id} />
             </div>
-          </section>
-          <label className="app-sup-header">Admin Functions</label>
-          <section>
-            <div className="app-sup-section">{this.renderButtons()}</div>
-          </section>
-          {/* Section End */}
-        </div>
+          </CardBody>
+        </Card>
+        <Card>
+          <CardHeader>
+            <h3 className="font-bold">Admin Functions</h3>
+          </CardHeader>
+          <CardBody>
+            {this.renderButtons()}
+          </CardBody>
+        </Card>
       </div>
+      </>
     );
   }
 }

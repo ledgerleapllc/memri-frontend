@@ -1,0 +1,23 @@
+.col-1 {
+  width: 15%;
+}
+.col-2 {
+  width: 20%;
+}
+.col-3 {
+  width: 45%;
+}
+.col-4 {
+  width: 20%;
+}
+.noWonTable {
+  .col-1 {
+    width: 25% !important;
+  }
+  .col-2 {
+    width: 25% !important;
+  }
+  .col-3 {
+    width: 50% !important;
+  }
+}

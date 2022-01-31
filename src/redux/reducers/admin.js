@@ -1,3 +1,4 @@
+/* eslint-disable import/no-anonymous-default-export */
 import {
   SET_REVIEW_USER,
   SET_REVIEW_PROPOSAL,

@@ -4,6 +4,7 @@ import { withRouter } from "react-router-dom";
 import { getMyPaymentProposals } from "@utils/Thunk";
 import { Button } from '@shared/partials';
 import { ReactComponent as SettingIcon } from "@assets/icons/ic-settings.svg";
+import Banner from '@shared/components/banner';
 
 const mapStateToProps = (state) => {
   return {
@@ -54,23 +55,23 @@ class GrantAlert extends Component {
 
     // Associate or Voting Associate
     return (
-        <div className="flex bg-secondary text-white justify-between items-center py-2.5 px-6" data-aos="fade-up" data-aos-duration="800">
-          <div className="flex gap-6">
-            <SettingIcon />
-            <div>
-              <h6 className="text-base mb-1">
-                Way to go! You have a grant active. Need to submit a milestone for
-                review and payment?
-              </h6>
-              <p className="text-xs">{`Go to your "My Grants" section in the left sidebar menu to submit milestones once work is complete.`}</p>
-            </div>
-          </div>
-          <div className="d-flex flex-column actions">
-            <Button color="secondary2" to="/app/grants" size="md">
-              My Grants
-            </Button>
+      <Banner>
+        <div className="flex gap-6">
+          <SettingIcon />
+          <div>
+            <h6 className="text-base mb-1">
+              Way to go! You have a grant active. Need to submit a milestone for
+              review and payment?
+            </h6>
+            <p className="text-xs">{`Go to your "My Grants" section in the left sidebar menu to submit milestones once work is complete.`}</p>
           </div>
         </div>
+        <div className="d-flex flex-column actions">
+          <Button color="secondary2" to="/app/grants" size="md">
+            My Grants
+          </Button>
+        </div>
+      </Banner>
     );
   }
 }

@@ -21,6 +21,7 @@ import {
   updatePaymentProposal,
 } from "@utils/Thunk";
 import { DECIMALS } from "@utils/Constant";
+import { Button } from '@shared/partials';
 
 import "./dos-payment.scss";
 
@@ -316,24 +317,24 @@ class DOSPayment extends Component {
 
     if (authUser.is_member) {
       return (
-        <a className="btn btn-primary-outline" onClick={this.clickRep}>
+        <Button size="md" color="primary" variant="outline" onClick={this.clickRep}>
           Stake Reputation
-        </a>
+        </Button>
       );
     }
 
     return (
       <Fragment>
-        <a className="btn btn-primary" onClick={this.clickPay}>
+        <Button size="md" color="primary" onClick={this.clickPay}>
           Pay in ETH
-        </a>
-        <a className="font-size-14 btn btn-info" onClick={this.clickPayCC}>
+        </Button>
+        <Button size="md" color="secondary" onClick={this.clickPayCC}>
           Pay with Credit Card
-        </a>
-        <a className="font-size-14 btn btn-warning" onClick={() => {}}>
+        </Button>
+        <Button size="md" color="secondary2" onClick={() => {}}>
           Pay with Casper Token
           <br />( coming soon )
-        </a>
+        </Button>
       </Fragment>
     );
   }
@@ -392,9 +393,9 @@ class DOSPayment extends Component {
         </p>
         <p className="mt-3 mb-5">{`Your proposal will now move into the discussion phase. Please watch for changes and respond to posts in your "Discussions" tab.`}</p>
         <div className="text-center">
-          <a className="btn btn-primary" onClick={this.hideModal}>
+          <Button size="md" onClick={this.hideModal}>
             Close
-          </a>
+          </Button>
         </div>
       </Fragment>
     );
@@ -413,9 +414,9 @@ class DOSPayment extends Component {
         </p>
         <p className="mt-3 mb-5">{`You will need to go back and enter your card again or selected a different payment method. Your proposal cannot move forward until this is paid.`}</p>
         <div className="text-center">
-          <a className="btn btn-primary" onClick={this.goBack}>
+          <Button size="md" onClick={this.goBack}>
             Go Back
-          </a>
+          </Button>
         </div>
       </Fragment>
     );
@@ -454,9 +455,9 @@ class DOSPayment extends Component {
         </div>
 
         <div id="dos-payment-modal__buttons">
-          <a className="btn btn-primary" onClick={this.submitRep}>
+          <Button size="md" onClick={this.submitRep}>
             Submit
-          </a>
+          </Button>
         </div>
       </Fragment>
     );
@@ -521,9 +522,9 @@ class DOSPayment extends Component {
             </div>
 
             <div id="dos-payment-modal__buttons">
-              <a className="btn btn-primary" onClick={this.submit}>
+              <Button size="md" onClick={this.submit}>
                 Submit
-              </a>
+              </Button>
             </div>
           </Fragment>
         ) : step == 3 ? (

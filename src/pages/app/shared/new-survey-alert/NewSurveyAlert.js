@@ -1,7 +1,7 @@
 import React, { Component } from "react";
 import { connect } from "react-redux";
 import { withRouter } from "react-router-dom";
-import { Fade } from "react-reveal";
+import Banner from '@shared/components/banner';
 import "./style.scss";
 
 const mapStateToProps = (state) => {
@@ -17,16 +17,14 @@ class NewSurveyAlert extends Component {
 
     if (authUser.is_member && authUser.has_survey) {
       return (
-        <Fade distance={"20px"} right duration={200} delay={500}>
-          <div id="app-newgrant-box" className="new-member">
-            <div>
-              <label className="font-weight-700">
-                A survey is active! Please respond to your survey in the survey{" "}
-                tab in the left menu.
-              </label>
-            </div>
+        <Banner>
+          <div>
+            <label className="font-weight-700">
+              A survey is active! Please respond to your survey in the survey{" "}
+              tab in the left menu.
+            </label>
           </div>
-        </Fade>
+        </Banner>
       );
     }
 

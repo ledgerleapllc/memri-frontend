@@ -24,7 +24,7 @@ const Table = props => {
   const [sortKey, setSortKey] = useState();
   const [styles, setStyles] = useState();
   const [sortDirection, setSortDirection] = useState();
-  const [randomId] = useState(Math.random().toString(36).substring(7));
+  const [targetId] = useState(props.target ? props.target : Math.random().toString(36).substring(7));
 
   useEffect(() => {
     if (
@@ -39,7 +39,7 @@ const Table = props => {
 
   useEffect(() => {
     if (props.register && typeof props.register === 'function') {
-      props.register(randomId);
+      props.register(targetId);
     }
   }, []);
 
@@ -49,7 +49,7 @@ const Table = props => {
 
   return (
     <TableContext.Provider
-      value={{ sortKey, setSortKey, canExpand: props.canExpand, sortDirection, setSortDirection, randomId, styles }}
+      value={{ sortKey, setSortKey, canExpand: props.canExpand, sortDirection, setSortDirection, targetId, isTarget: !!props.target, styles }}
     >
       <div className={`${props.className} flex flex-col min-w-250 text-sm`}>
         {props.children[0]}
@@ -121,13 +121,12 @@ Table.HeaderCell = props => {
 Table.Header.Cell = Table.HeaderCell;
 
 Table.Body = props => {
-  const { randomId } = useContext(TableContext);
+  const { targetId, isTarget } = useContext(TableContext);
 
   return (
     <div
-      id={randomId}
-      className={`table-body ${props.className || ''}`}
-      style={{ overflowY: 'scroll' }}
+      {...(!isTarget ? {id: targetId} : {})}
+      className={`table-body ${props.className || ''} ${isTarget ? '' : 'overflow-y-scroll'}`}
     >
       <InfiniteScroll
         className="flex flex-col w-full"
@@ -145,7 +144,7 @@ Table.Body = props => {
             />
           </div>
         }
-        scrollableTarget={randomId}
+        scrollableTarget={targetId}
         scrollThreshold={0.99}
       >
         {props.dataLength ? (

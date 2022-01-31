@@ -11,6 +11,7 @@ import {
 } from "@redux/actions";
 import { resetKYC } from "@utils/Thunk";
 import "./reset-kyc.scss";
+import { Button } from '@shared/partials';
 
 const mapStateToProps = (state) => {
   return {
@@ -81,9 +82,9 @@ class ResetKYC extends Component {
         ></textarea>
 
         <div id="reset-kyc-modal__buttons">
-          <a className="btn btn-primary btn-fluid" onClick={this.doReset}>
+          <Button color="primary" size="sm" onClick={this.doReset}>
             Reset and Email User
-          </a>
+          </Button>
         </div>
       </div>
     );

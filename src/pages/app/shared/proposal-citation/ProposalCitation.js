@@ -4,6 +4,7 @@ import * as Icon from "react-feather";
 import { checkProposalId } from "@utils/Thunk";
 import { hideCanvas, showCanvas } from "@redux/actions";
 import Helper from "@utils/Helper";
+import { Button } from '@shared/partials';
 
 import "./proposal-citation.scss";
 
@@ -123,7 +124,7 @@ class ProposalCitation extends Component {
         items.push(
           <div key={`citation_${index}`} className="single-citation-item">
             <div className="c-form-row">
-              <label className="mt-5 mb-5" style={{ color: "#9B64E6" }}>
+              <label className="mt-5 mb-5" style={{ color: "#FB5824" }}>
                 Citation #{index + 1}:
               </label>
             </div>
@@ -131,8 +132,8 @@ class ProposalCitation extends Component {
               <label>
                 Enter the proposal number of work you would like to cite
               </label>
-              <div className="row">
-                <div className="col-md-4">
+              <div className="flex gap-2 items-center">
+                <div className="flex-1">
                   <input
                     type="text"
                     value={citation.proposalId}
@@ -140,13 +141,13 @@ class ProposalCitation extends Component {
                     required
                   />
                 </div>
-                <div className="col-md-8">
-                  <a
-                    className="btn btn-primary small btn-fluid-small"
+                <div className="flex-1">
+                  <Button
+                    size="md"
                     onClick={() => this.checkProposal(index)}
                   >
                     Check Proposal
-                  </a>
+                  </Button>
                 </div>
               </div>
             </div>
@@ -246,15 +247,15 @@ class ProposalCitation extends Component {
 
         {this.props.showAction && (
           <div className="new-proposal-button-wrap">
-            <a className="btn btn-primary large" onClick={this.addItem}>
+            <Button color="secondary" onClick={this.addItem}>
               <Icon.Plus style={{ marginRight: "5px" }} />
               Add Citation
-            </a>
+            </Button>
             {citations && citations.length ? (
-              <a className="btn btn-danger large" onClick={this.removeItem}>
+              <Button color="danger" onClick={this.removeItem}>
                 <Icon.Minus style={{ marginRight: "5px" }} />
                 Remove Citation
-              </a>
+             </Button>
             ) : null}
           </div>
         )}

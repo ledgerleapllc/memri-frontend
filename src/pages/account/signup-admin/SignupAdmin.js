@@ -1,8 +1,8 @@
-import { Button, Checkbox } from '@shared/partials';
+import { Button } from '@shared/partials';
 import { useHistory } from 'react-router';
 import { registerAdmin } from '@utils/Thunk';
 import { saveUser } from "@redux/actions";
-import { useForm, Controller} from 'react-hook-form';
+import { useForm } from 'react-hook-form';
 import { yupResolver } from '@hookform/resolvers/yup';
 import Helper from "@utils/Helper";
 import * as yup from 'yup';
@@ -49,14 +49,12 @@ const SignupAdmin = () => {
     formState,
     reset,
     register,
-    control,
     handleSubmit,
   } = useForm({
     mode: 'onChange',
     resolver: yupResolver(schema),
   });
   const dispatch = useDispatch();
-  const telegram = register('telegram');
   const location = useLocation();
 
   useEffect(() => {

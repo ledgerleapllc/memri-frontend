@@ -368,22 +368,22 @@ class Settings extends Component {
             />
           </div>
           <div id="emailStep-buttons">
-            <a
+            <Button color="primary" size="sm"
               className={
                 code
-                  ? "btn btn-primary small btn-fluid mb-3"
-                  : "btn btn-primary small btn-fluid mb-3 disabled"
+                  ? "mb-3"
+                  : "mb-3 disabled"
               }
               onClick={this.verify2FA}
             >
               Next
-            </a>
-            <a
-              className="btn btn-danger small btn-fluid mb-3"
+            </Button>
+            <Button color="danger" size="sm"
+              className="mb-3"
               onClick={this.clearEmailStep}
             >
               Cancel
-            </a>
+            </Button>
           </div>
         </Fragment>
       );
@@ -403,22 +403,22 @@ class Settings extends Component {
             />
           </div>
           <div id="emailStep-buttons">
-            <a
+            <Button color="primary" size="sm"
               className={
                 code_new
-                  ? "btn btn-primary small btn-fluid mb-3"
-                  : "btn btn-primary small btn-fluid mb-3 disabled"
+                  ? "mb-3"
+                  : "mb-3 disabled"
               }
               onClick={this.completeEmail}
             >
               Complete
-            </a>
-            <a
-              className="btn btn-danger small btn-fluid mb-3"
+            </Button>
+            <Button color="danger" size="sm"
+              className="mb-3"
               onClick={this.clearEmailStep}
             >
               Cancel
-            </a>
+            </Button>
           </div>
         </Fragment>
       );

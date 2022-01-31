@@ -11,6 +11,7 @@ import {
   setOnboardingTableStatus,
   setPaymentFormData,
 } from "@redux/actions";
+import { Button } from '@shared/partials';
 
 import "./proposal-tracking.scss";
 import * as Icon from "react-feather";
@@ -260,12 +261,11 @@ class ProposalTracking extends Component {
       return <label className="font-size-14 color-success">Submitted</label>;
 
     return (
-      <a
-        className="btn btn-primary extra-small"
+      <Button size="sm"
         onClick={(e) => this.clickPaymentForm(e, item)}
       >
         Start
-      </a>
+      </Button>
     );
   }
 
@@ -276,9 +276,9 @@ class ProposalTracking extends Component {
 
     if (this.needToDoKYC()) {
       return (
-        <a className="btn btn-primary extra-small" onClick={this.clickBeginKYC}>
+        <Button size="sm" className="btn btn-primary extra-small" onClick={this.clickBeginKYC}>
           Start
-        </a>
+        </Button>
       );
     }
 
@@ -330,12 +330,12 @@ class ProposalTracking extends Component {
         return (
           <div>
             <p>{this.renderStatusLabel("Pending", "primary")}</p>
-            <a
-              className="text-underline font-size-14 color-primary"
+            <Button variant="text" size="sm"
+              className="text-primary underline"
               onClick={this.resend}
             >
               resend my link
-            </a>
+            </Button>
           </div>
         );
       } else if (item.user.shuftipro?.status === "denied") {
@@ -354,12 +354,12 @@ class ProposalTracking extends Component {
         return (
           <div>
             <p>{this.renderStatusLabel("Not submitted", "primary")}</p>
-            <a
-              className="text-underline font-size-14 color-primary"
+            <Button variant="text" size="sm"
+              className="underline text-primary"
               onClick={this.resend}
             >
               resend my link
-            </a>
+            </Button>
           </div>
         );
       }

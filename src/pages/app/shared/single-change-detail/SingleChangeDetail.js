@@ -14,6 +14,7 @@ import {
   forceWithdrawProposalChange,
 } from "@utils/Thunk";
 import { showAlert, showCanvas, hideCanvas } from "@redux/actions";
+import { Card, CardHeader, CardBody, Button } from '@shared/partials';
 import {
   OP_WHAT_SECTION_ACTIONS,
   OP_SCOPES,
@@ -316,6 +317,8 @@ class SingleChangeDetail extends Component {
         return "Euro amount requested";
       case "things_delivered_update":
         return "What is being delivered for the DxD/ETA?";
+      default:
+        return "";
     }
   }
 
@@ -341,26 +344,24 @@ class SingleChangeDetail extends Component {
       // Admin
       return (
         <Fragment>
-          <a
+          <Button variant="outline" size="sm"
             id="app-scd-force-approve-btn"
-            className="btn btn-primary-outline btn-fluid less-small"
             onClick={this.forceApproveChange}
           >
             FORCE Approve Change
-          </a>
-          <a
+          </Button>
+          <Button color="danger" variant="outline" size="sm"
             id="app-scd-force-deny-btn"
-            className="btn btn-danger-outline btn-fluid less-small"
             onClick={this.forceDenyChange}
           >
             FORCE Deny Change
-          </a>
-          <a
+          </Button>
+          <Button color="danger" size="sm"
             className="btn btn-danger btn-fluid less-small"
             onClick={this.forceWithdrawChange}
           >
             FORCE Withdraw Suggested Change
-          </a>
+          </Button>
         </Fragment>
       );
     } else if (proposal.user_id == authUser.id) {
@@ -392,50 +393,45 @@ class SingleChangeDetail extends Component {
       } else {
         return (
           <Fragment>
-            <a
+            <Button variant="outline" size="sm"
               id="app-scd-approve-btn"
-              className="btn btn-primary-outline btn-fluid less-small"
               onClick={this.approveChange}
             >
               Approve Change
-            </a>
-            <a
-              className="btn btn-danger-outline btn-fluid less-small"
+            </Button>
+            <Button color="danger" variant="outline" size="sm"
               onClick={this.denyChange}
             >
               Deny Change
-            </a>
+            </Button>
           </Fragment>
         );
       }
     } else if (proposalChange.user_id == authUser.id) {
       // OC
       return (
-        <a
-          className="btn btn-danger-outline btn-fluid less-small"
+        <Button color="danger" variant="outline" size="sm"
           onClick={this.withdrawChange}
         >
           Withdraw Suggested Change
-        </a>
+        </Button>
       );
     } else {
       if (!proposalChange.supported_by_you && authUser.is_member) {
         // Not OP, Not OC
         return (
           <Fragment>
-            <a
+            <Button color="primary" variant="outline" size="sm"
               id="app-scd-for-btn"
-              className="btn btn-primary-outline btn-fluid less-small"
               onClick={this.forChange}
             >
               For
-            </a>
-            <a
-              className="btn btn-danger-outline btn-fluid less-small"
+            </Button>
+            <Button color="danger" variant="outline" size="sm"
               onClick={this.againstChange}
             >
               Against
-            </a>
+            </Button>
           </Fragment>
         );
       }
@@ -472,13 +468,13 @@ class SingleChangeDetail extends Component {
       grants.forEach((grant, index) => {
         items.push(
           <div
-            className="d-flex app-spd-grant-item mb-5"
+            className="flex app-spd-grant-item mb-5"
             key={`grant_${index}`}
           >
-            <Icon.CheckSquare color="#9B64E6" />
+            <Icon.CheckSquare color="#FB5824" />
             <div className="pl-4">
               <div className="d-flex">
-                <label className="pr-3 font-weight-700">
+                <label className="pr-3 font-bold">
                   {GRANTTYPES[grant.type]}
                 </label>
                 <span>{Helper.formatPriceNumber(grant.grant)}</span>
@@ -524,7 +520,7 @@ class SingleChangeDetail extends Component {
       OP_WHAT_SECTION_COMPLICATE_ACTIONS.includes(proposalChange.what_section)
     ) {
       if (proposalChange.what_section.includes("team_member")) {
-        return <div>{this.renderMembers(content)}</div>;
+        return <div className="flex flex-col gap-4">{this.renderMembers(content)}</div>;
       }
       if (proposalChange.what_section.includes("milestone")) {
         return <div>{this.renderMilestones(content)}</div>;
@@ -571,13 +567,13 @@ class SingleChangeDetail extends Component {
     if (members) {
       members.forEach((member, index) => {
         items.push(
-          <div key={`member_${index}`}>
-            <label className="d-block mt-5 mb-5" style={{ color: "#9B64E6" }}>
+          <div className="flex flex-col gap-2" key={`member_${index}`}>
+            <label className="text-primary">
               Team Member #{index + 1}:
             </label>
-            <label className="font-weight-700 d-block">Full Name</label>
+            <label className="font-bold d-block">Full Name</label>
             <p>{member.full_name}</p>
-            <label className="font-weight-700 d-block">
+            <label className="font-bold d-block">
               Education/Experience
             </label>
             <p>{member.bio}</p>
@@ -627,41 +623,53 @@ class SingleChangeDetail extends Component {
     if (milestones) {
       milestones.forEach((milestone, index) => {
         items.push(
-          <div key={`milestone_${index}`}>
-            <label className="d-block mt-3 mb-3" style={{ color: "#9B64E6" }}>
+          <div className="flex flex-col gap-4" key={`milestone_${index}`}>
+            <label className="d-block mt-3 mb-3" style={{ color: "#FB5824" }}>
               Milestone #{index + 1}:
             </label>
-            <label className="font-weight-700 d-block">
-              Title of Milestone (10 word limit)
-            </label>
-            <p>{milestone.title}</p>
-            <label className="font-weight-700 d-block">
-              Details of what will be delivered in milestone
-            </label>
-            <p className="text-pre-wrap">{milestone.details}</p>
-            <label className="font-weight-700 d-block">
-              {`Acceptance criteria: Please enter the specific details on what
-                the deliverable must do to prove this milestone is complete.`}
-            </label>
-            <p className="text-pre-wrap">{milestone.criteria}</p>
-            {/* <label className="font-weight-700 d-block">
+            <div>
+              <label className="font-bold d-block">
+                Title of Milestone (10 word limit)
+              </label>
+              <p>{milestone.title}</p>
+            </div>
+            <div>
+              <label className="font-bold d-block">
+                Details of what will be delivered in milestone
+              </label>
+              <p className="text-pre-wrap">{milestone.details}</p>
+            </div>
+            <div>
+              <label className="font-bold d-block">
+                {`Acceptance criteria: Please enter the specific details on what
+                  the deliverable must do to prove this milestone is complete.`}
+              </label>
+              <p className="text-pre-wrap">{milestone.criteria}</p>
+            </div>
+            <div>
+            {/* <label className="font-bold d-block">
               {`Please detail the KPIs (Key Performance Indicators) for each milestone and your project overall. Please provide as many details as possible. Any KPIs should measure your delivery's performance.`}
             </label>
             <p>{milestone.kpi}</p> */}
-            <label className="font-weight-700 d-block">
-              Grant portion requested for this milestone
-            </label>
-            <p>{Helper.formatPriceNumber(milestone.grant.toString())}</p>
-            <label className="font-weight-700 d-block">Deadline</label>
-            <p>
-              {milestone.deadline
-                ? moment(milestone.deadline).format("M/D/YYYY")
-                : ""}
-            </p>
-            <label className="font-weight-700 d-block">
-              Level of Difficulty
-            </label>
-            <p>{milestone.level_difficulty}</p>
+              <label className="font-bold d-block">
+                Grant portion requested for this milestone
+              </label>
+              <p>{Helper.formatPriceNumber(milestone.grant.toString())}</p>
+            </div>
+            <div>
+              <label className="font-bold d-block">Deadline</label>
+              <p>
+                {milestone.deadline
+                  ? moment(milestone.deadline).format("M/D/YYYY")
+                  : ""}
+              </p>
+            </div>
+            <div>
+              <label className="font-bold d-block">
+                Level of Difficulty
+              </label>
+              <p>{milestone.level_difficulty}</p>
+            </div>
           </div>
         );
       });
@@ -677,20 +685,30 @@ class SingleChangeDetail extends Component {
     if (citations && citations.length) {
       citations.forEach((citation, index) => {
         items.push(
-          <div key={`citation_${index}`}>
-            <label className="d-block mt-3 mb-3" style={{ color: "#9B64E6" }}>
+          <div className="flex flex-col gap-4" key={`citation_${index}`}>
+            <label className="d-block mt-3 mb-3" style={{ color: "#FB5824" }}>
               Citation #{index + 1}:
             </label>
-            <label className="font-weight-700 d-block">{`Cited Proposal Number`}</label>
-            <p>{citation.rep_proposal_id}</p>
-            <label className="font-weight-700 d-block">{`Cited Proposal Title`}</label>
-            <p>{citation.rep_proposal.title}</p>
-            <label className="font-weight-700 d-block">{`Cited Proposal OP`}</label>
-            <p>{citation.rep_proposal.user.profile.forum_name}</p>
-            <label className="font-weight-700 d-block">{`Explain how this work is foundational to your work`}</label>
-            <p>{citation.explanation}</p>
-            <label className="font-weight-700 d-block">{`% of the rep gained from this proposal do you wish to give to the OP of the prior work`}</label>
-            <p>{citation.percentage}</p>
+            <div>
+              <label className="font-bold d-block">{`Cited Proposal Number`}</label>
+              <p>{citation.rep_proposal_id}</p>
+            </div>
+            <div>
+              <label className="font-bold d-block">{`Cited Proposal Title`}</label>
+              <p>{citation.rep_proposal.title}</p>
+             </div>
+            <div>
+              <label className="font-bold d-block">{`Cited Proposal OP`}</label>
+              <p>{citation.rep_proposal.user?.profile.forum_name}</p>
+             </div>
+            <div>
+              <label className="font-bold d-block">{`Explain how this work is foundational to your work`}</label>
+              <p>{citation.explanation}</p>
+             </div>
+            <div>
+              <label className="font-bold d-block">{`% of the rep gained from this proposal do you wish to give to the OP of the prior work`}</label>
+              <p>{citation.percentage}</p>
+            </div>
           </div>
         );
       });
@@ -714,69 +732,73 @@ class SingleChangeDetail extends Component {
       return null;
 
     return (
-      <section id="app-single-change-detail-section">
-        <div id="app-single-change-title">
-          <label>Proposed Change</label>
+      <Card className="mt-4 my-8">
+        <CardHeader>
+          <label className="font-bold pr-4">Proposed Change</label>
           <Icon.Info size={16} />
-        </div>
-        <div id="app-single-change-body">
-          {!OP_WHAT_SECTION_ACTIONS.includes(proposalChange.what_section) && (
-            <>
-              <label className="font-weight-700">What Section?</label>
-              <p>{this.renderWhatSection()}</p>
-              {proposalHistory &&
-              proposalHistory.id &&
-              proposalChange.what_section != "remove_membership" ? (
-                <Fragment>
-                  <label className="font-weight-700">Changed from:</label>
-                  <p>
-                    {proposalHistory.what_section == "total_grant"
-                      ? Helper.formatPriceNumber(
-                          proposalHistory.change_to_before.toString()
-                        )
-                      : proposalHistory.change_to_before}
-                  </p>
-                </Fragment>
-              ) : null}
+        </CardHeader>
+        <CardBody>
+          <div>
+            {!OP_WHAT_SECTION_ACTIONS.includes(proposalChange.what_section) && (
+              <>
+                <label className="font-bold">What Section?</label>
+                <p>{this.renderWhatSection()}</p>
+                {proposalHistory &&
+                proposalHistory.id &&
+                proposalChange.what_section != "remove_membership" ? (
+                  <Fragment>
+                    <label className="font-bold">Changed from:</label>
+                    <p>
+                      {proposalHistory.what_section == "total_grant"
+                        ? Helper.formatPriceNumber(
+                            proposalHistory.change_to_before.toString()
+                          )
+                        : proposalHistory.change_to_before}
+                    </p>
+                  </Fragment>
+                ) : null}
 
-              {proposalChange.what_section != "remove_membership" ? (
-                <Fragment>
-                  <label className="font-weight-700">Change to:</label>
-                  {this.renderVAChangeTo()}
-                </Fragment>
-              ) : null}
+                {proposalChange.what_section != "remove_membership" ? (
+                  <Fragment>
+                    <label className="font-bold">Change to:</label>
+                    {this.renderVAChangeTo()}
+                  </Fragment>
+                ) : null}
 
-              <label className="font-weight-700">
-                Additional Notes/References
-              </label>
-              <p className="text-pre-wrap">{proposalChange.additional_notes}</p>
-              <div id="app-scd-btn-wrap">{this.renderButtons()}</div>
-            </>
-          )}
-          {OP_WHAT_SECTION_ACTIONS.includes(proposalChange.what_section) && (
-            <>
-              <label className="font-weight-700">What Section?</label>
-              <p>{this.renderOPChanges(proposalChange)}</p>
-              <div>
-                <>
-                  <label className="font-weight-700">Before:</label>
-                  <div className="change-detail-box">
-                    {this.renderOPChangeContent()}
-                  </div>
-                </>
+                <label className="font-bold">
+                  Additional Notes/References
+                </label>
+                <p className="text-pre-wrap">{proposalChange.additional_notes}</p>
+                <div id="app-scd-btn-wrap">{this.renderButtons()}</div>
+              </>
+            )}
+            {OP_WHAT_SECTION_ACTIONS.includes(proposalChange.what_section) && (
+              <div className="flex flex-col gap-4">
+                <div>
+                  <label className="font-bold">What Section?</label>
+                  <p>{this.renderOPChanges(proposalChange)}</p>
+                </div>
+                <div>
+                  <>
+                    <label className="font-bold">Before:</label>
+                    <div className="change-detail-box">
+                      {this.renderOPChangeContent()}
+                    </div>
+                  </>
+                </div>
+                <div>
+                  <>
+                    <label className="font-bold">After:</label>
+                    <div className="change-detail-box">
+                      {this.renderOPChangeContent(true)}
+                    </div>
+                  </>
+                </div>
               </div>
-              <div>
-                <>
-                  <label className="font-weight-700">After:</label>
-                  <div className="change-detail-box">
-                    {this.renderOPChangeContent(true)}
-                  </div>
-                </>
-              </div>
-            </>
-          )}
-        </div>
-      </section>
+            )}
+          </div>
+        </CardBody>
+      </Card>
     );
   }
 }

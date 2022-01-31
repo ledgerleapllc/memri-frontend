@@ -417,7 +417,7 @@ class ProposalChangeForm extends Component {
         <label className="font-weight-700 d-block mb-12">{`Cited Proposal Title`}</label>
         <p className="mb-20">{citation.rep_proposal.title}</p>
         <label className="font-weight-700 d-block mb-12">{`Cited Proposal OP`}</label>
-        <p className="mb-20">{citation.rep_proposal.user.profile.forum_name}</p>
+        <p className="mb-20">{citation.rep_proposal.user?.profile?.forum_name}</p>
         <label className="font-weight-700 d-block mb-12">{`Explain how this work is foundational to your work`}</label>
         <p className="mb-20">{citation.explanation}</p>
         <label className="font-weight-700 d-block mb-12">{`% of the rep gained from this proposal do you wish to give to the OP of the prior work`}</label>

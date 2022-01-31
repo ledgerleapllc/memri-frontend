@@ -2,6 +2,7 @@ import React, { Component } from "react";
 import { connect } from "react-redux";
 import { setTheme } from "@redux/actions";
 import Helper from "@utils/Helper";
+import { Button } from '@shared/partials';
 
 import "./scheme.scss";
 
@@ -60,9 +61,9 @@ class Scheme extends Component {
             onClick={() => this.selectTheme("dark")}
           ></li>
         </ul>
-        <a className="btn btn-primary less-small" onClick={this.setColorTheme}>
+        <Button size="sm" onClick={this.setColorTheme}>
           Set Color Theme
-        </a>
+        </Button>
       </div>
     );
   }

@@ -7,6 +7,7 @@ import {
   setActiveModal,
 } from "@redux/actions";
 import { sendKycKangaroo } from "@utils/Thunk";
+import { Button } from '@shared/partials';
 import "./style.scss";
 
 const mapStateToProps = (state) => {
@@ -54,16 +55,18 @@ class ResendKyc extends Component {
           {`Your link will be resent to your email ${this.props.authUser.email}. Please check your spam folder. You can only resend your link once every hour.`}
         </p>
         <div id="start-kyc-modal__buttons" className="pt-2">
-          <button className="btn btn-primary" onClick={this.sendLink}>
+          <Button size="sm" onClick={this.sendLink}>
             Resend Link
-          </button>
-          <a
-            className="color-primary text-underline"
+          </Button>
+          <Button
+            variant="text"
+            size="sm"
+            className="underline"
             onClick={() => this.hideModal()}
             style={{ cursor: "pointer" }}
           >
             Cancel
-          </a>
+          </Button>
         </div>
       </div>
     );

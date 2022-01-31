@@ -3,6 +3,7 @@ import { connect } from "react-redux";
 import * as Icon from "react-feather";
 import { setEditProposalData, removeActiveModal } from "@redux/actions";
 import { withRouter } from "react-router-dom";
+import { Button } from '@shared/partials';
 
 import "./edit-deny.scss";
 
@@ -51,12 +52,12 @@ class EditDeny extends Component {
         </p>
 
         <div id="edit-deny-modal__buttons">
-          <a className="btn btn-success" onClick={this.clickEdit}>
+          <Button size="sm" color="success" onClick={this.clickEdit}>
             Edit
-          </a>
-          <a className="btn btn-primary" onClick={() => this.hideModal()}>
+          </Button>
+          <Button size="sm" color="primary" onClick={() => this.hideModal()}>
             Cancel
-          </a>
+          </Button>
         </div>
       </div>
     );

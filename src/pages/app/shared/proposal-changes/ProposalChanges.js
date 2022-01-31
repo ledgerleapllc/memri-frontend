@@ -15,10 +15,12 @@ import {
   Card,
   CardHeader,
   CardBody,
-  CardPreview,
-} from "@shared/components";
+  CardBodyPreview,
+  Button
+} from "@shared/partials";
 
 import "./proposal-changes.scss";
+import { CardBodyExpand } from "../../../../shared/partials/Card";
 
 // eslint-disable-next-line no-undef
 const moment = require("moment");
@@ -148,7 +150,7 @@ class ProposalChanges extends Component {
       return (
         <>
           <span style={{ marginLeft: -10, marginTop: -7 }}>
-            <img src="/pin.png" alt="pin" />
+            <Icon.Flag />
           </span>
           <b>General Discussion Thread</b> -{" "}
         </>
@@ -219,7 +221,7 @@ class ProposalChanges extends Component {
     return (
       <div className="custom-badge">
         {change.status == "pending" ? (
-          <a className="btn btn-warning extra-small btn-fluid-small">{`Needs Action`}</a>
+          <Button color="secondary" size="sm">{`Needs Action`}</Button>
         ) : null}
       </div>
     );
@@ -242,7 +244,6 @@ class ProposalChanges extends Component {
   renderItems() {
     const { changes } = this.state;
     const items = [];
-
     if (changes) {
       changes.forEach((change, index) => {
         items.push(
@@ -290,47 +291,48 @@ class ProposalChanges extends Component {
         (!proposal.votes || !proposal.votes.length) &&
         authUser.is_member ? (
           <div id="proposal-change-btn-wrap">
-            <a
-              className="btn btn-primary-outline less-small"
+            <Button variant="outline" size="sm"
               onClick={this.showForm}
             >
               Propose a change
-            </a>
+            </Button>
           </div>
         ) : null}
         <div id="app-proposal-changes-list">
-          <Card isAutoExpand={isAutoExpand}>
+          <Card isAutoExpand={isAutoExpand} expand>
             <CardHeader>
-              <label className="pr-2">Proposed Changes & Discussions</label>
+              <h3 className="font-bold pr-2">Proposed Changes & Discussions</h3>
               <Icon.Info size={16} />
             </CardHeader>
-            <CardPreview>
-              <div className="d-flex">
-                <div className="pr-4">
-                  <p className="pb-2">Comments</p>
-                  <div className="d-flex align-items-center">
-                    <Icon.MessageCircle size={16} />
-                    <p className="pl-2">
-                      {this.state.changes?.reduce(
-                        (sum, x) => sum + x.comments,
-                        0
-                      )}
-                    </p>
-                  </div>
-                </div>
-                <div className="pr-4">
-                  <p className="pb-2">Changes</p>
-                  <div className="d-flex align-items-center">
-                    <Icon.Edit size={16} />
-                    <p className="pl-2">{this.state.changes?.length}</p>
-                  </div>
-                </div>
-              </div>
-            </CardPreview>
             <CardBody>
-              <div className="app-simple-section__body">
-                {this.renderItems()}
-              </div>
+              <CardBodyPreview>
+                <div className="flex">
+                  <div className="pr-4">
+                    <p className="pb-2">Comments</p>
+                    <div className="flex items-center">
+                      <Icon.MessageCircle size={16} />
+                      <p className="pl-2">
+                        {this.state.changes?.reduce(
+                          (sum, x) => sum + x.comments,
+                          0
+                        )}
+                      </p>
+                    </div>
+                  </div>
+                  <div className="pr-4">
+                    <p className="pb-2">Changes</p>
+                    <div className="flex items-center">
+                      <Icon.Edit size={16} />
+                      <p className="pl-2">{this.state.changes?.length}</p>
+                    </div>
+                  </div>
+                </div>
+              </CardBodyPreview>
+              <CardBodyExpand>
+                <div className="mt-4">
+                  {this.renderItems()}
+                </div>
+              </CardBodyExpand>
             </CardBody>
           </Card>
         </div>

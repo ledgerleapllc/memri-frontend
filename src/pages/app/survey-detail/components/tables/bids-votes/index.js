@@ -9,6 +9,7 @@ import {
 } from "@utils/Thunk";
 import "./style.scss";
 import { Link } from "react-router-dom";
+import { Button } from '@shared/partials';
 import {
   hideCanvas,
   setActiveModal,
@@ -249,14 +250,14 @@ class BidsVotesTable extends Component {
               className="c-col-custom c-cols text-center"
               style={{ width: `calc(${TOTAL_REMAIN_WIDTH}% / ${cols + 1})` }}
             >
-              <a
+              <Button size="sm" variant="text"
                 className="px-3"
                 onClick={() =>
                   this.openListSurveyVotersModal(item.total_vote, item.id)
                 }
               >
                 {item.total_vote}
-              </a>
+              </Button>
             </div>
             {Array(cols)
               .fill(1)
@@ -268,7 +269,7 @@ class BidsVotesTable extends Component {
                     width: `calc(${TOTAL_REMAIN_WIDTH}% / ${cols + 1})`,
                   }}
                 >
-                  <a
+                  <Button size="sm" variant="text"
                     className="px-3"
                     onClick={() =>
                       this.openListSurveyVotersModal(
@@ -279,7 +280,7 @@ class BidsVotesTable extends Component {
                     }
                   >
                     {item[`${i + 1}_place`]}
-                  </a>
+                  </Button>
                 </div>
               ))}
           </div>

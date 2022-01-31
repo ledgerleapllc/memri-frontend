@@ -35,7 +35,7 @@ export const Button = (props) => {
       ripple.style.transitionDuration = '225ms';
       setTimeout(() => {
         ripple.remove();
-      }, 300);
+      }, 100000);
     }
     if(onClick) {
       onClick(e);

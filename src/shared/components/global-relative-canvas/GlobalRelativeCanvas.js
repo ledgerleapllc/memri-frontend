@@ -6,7 +6,7 @@ import "./global-relative-canvas.scss";
 export default function GlobalRelativeCanvas() {
   return (
     <div className="global-relative-canvas">
-      <DotLoader color="#7137ce" />
+      <DotLoader color="#FB5824" />
     </div>
   );
 }

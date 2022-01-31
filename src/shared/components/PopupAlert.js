@@ -1,4 +1,3 @@
-/* global require */
 import React, { Component } from "react";
 import Snackbar from "@mui/material/Snackbar";
 import MuiAlert from "@mui/material/Alert";
@@ -13,7 +12,7 @@ class PopupAlert extends Component {
 
   render() {
     const { shown, message, type } = this.props;
-
+    console.log(shown, message, type);
     return (
       <Snackbar
         anchorOrigin={{

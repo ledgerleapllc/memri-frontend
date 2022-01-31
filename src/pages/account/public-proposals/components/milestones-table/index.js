@@ -2,7 +2,7 @@ import moment from "moment";
 import React, { useEffect } from "react";
 import Helper from "@utils/Helper";
 import { getAllPublicMilestonesShared } from "@utils/Thunk";
-import { useDispatch, useSelector } from "react-redux";
+import { useDispatch } from "react-redux";
 import { useHistory } from "react-router";
 import { Table, useTable } from '@shared/partials';
 import styles from "./style.module.scss";
@@ -21,7 +21,6 @@ const PublicMilestonesTable = ({ outParams }) => {
     resetData,
   } = useTable();
   const dispatch = useDispatch();
-  const authUser = useSelector(state => state.global.authUser);
   const history = useHistory();
 
   const fetchData = (pageValue = page, paramsValue = params) => {

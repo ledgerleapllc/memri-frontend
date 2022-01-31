@@ -14,8 +14,8 @@ class App extends Component {
   render() {
     const { auth } = this.props;
 
-    const className = "outer-page-wrap bg-1";
-    const headerType = "default";
+    // const className = "outer-page-wrap bg-1";
+    // const headerType = "default";
 
     // className = "outer-page-wrap white-scheme bg-2";
     // headerType = "blue";

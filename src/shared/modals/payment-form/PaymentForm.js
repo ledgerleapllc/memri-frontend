@@ -11,6 +11,7 @@ import {
 import { COUNTRYLIST, CRYPTOTYPES } from "@utils/Constant";
 import { FormInputComponent, FormSelectComponent } from "../../components";
 import { updatePaymentForm } from "@utils/Thunk";
+import { Button } from '@shared/partials';
 
 import "./payment-form.scss";
 
@@ -386,12 +387,12 @@ class PaymentForm extends Component {
           </div>
 
           <div id="payment-form-modal__buttons">
-            <button type="submit" className="btn btn-success">
+            <Button size="sm" color="success">
               Submit
-            </button>
-            <a className="btn btn-primary" onClick={this.hideModal}>
+            </Button>
+            <Button size="sm" variant="outline" onClick={this.hideModal}>
               Cancel
-            </a>
+            </Button>
           </div>
         </form>
       </div>

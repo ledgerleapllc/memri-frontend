@@ -18,19 +18,17 @@ import ProposalChangeFormView from "../../shared/proposal-change-form/ProposalCh
 import ProposalChangesView from "../../shared/proposal-changes/ProposalChanges";
 import VoteAlertView from "../../shared/vote-alert/VoteAlert";
 import {
-  CardBody,
-  CardHeader,
-  Card,
   PageHeaderComponent,
   Checkbox,
   CheckboxX,
 } from "@shared/components";
-import IconDot from "@assets/icons/dot.svg";
-import IconEmptyDot from "@assets/icons/empty-dot.svg";
-import IconCheckDot from "@assets/icons/check-dot.svg";
+import { Card, CardHeader, CardBody, CardBodyExpand } from '@shared/partials';
+import {ReactComponent as IconDot} from "@assets/icons/dot.svg";
+import {ReactComponent as IconEmptyDot} from "@assets/icons/empty-dot.svg";
+import {ReactComponent as IconCheckDot} from "@assets/icons/check-dot.svg";
 import "./single-proposal.scss";
 import Helper from "@utils/Helper";
-import ProposalPosts from "../../shared/proposal-posts/ProposalPosts";
+// import ProposalPosts from "../../shared/proposal-posts/ProposalPosts";
 
 const mapStateToProps = (state) => {
   return {
@@ -383,38 +381,40 @@ class SingleProposal extends Component {
   renderComplianceCheck = () => {
     const { proposal } = this.state;
     return (
-      <div className="mb-5">
-        <Card>
+      <div className="my-4">
+        <Card expand>
           <CardHeader>
             <label className="pr-2">Compliance Check</label>
           </CardHeader>
           <CardBody>
-            <div className="mt-3">
+            <CardBodyExpand>
               <div>
-                <label className="pr-2">Status:</label>
-                <b className="text-capitalize">
-                  {this.renderComplianceStatus()}
-                </b>
-              </div>
-              <div>
-                <label className="pr-2">Admin email:</label>
-                <b>{proposal?.onboarding?.admin_email}</b>
-              </div>
-              <div>
-                <label className="pr-2">Timestamp:</label>
-                <b>
-                  {moment(proposal?.onboarding?.compliance_reviewed_at)
-                    .local()
-                    .format("HH:mm M/D/YYYY")}
-                </b>
-              </div>
-              {proposal?.onboarding?.deny_reason && (
                 <div>
-                  <label className="pr-2">Denied Reason:</label>
-                  <b>{proposal?.onboarding?.deny_reason}</b>
+                  <label className="pr-2">Status:</label>
+                  <b className="text-capitalize">
+                    {this.renderComplianceStatus()}
+                  </b>
                 </div>
-              )}
-            </div>
+                <div>
+                  <label className="pr-2">Admin email:</label>
+                  <b>{proposal?.onboarding?.admin_email}</b>
+                </div>
+                <div>
+                  <label className="pr-2">Timestamp:</label>
+                  <b>
+                    {moment(proposal?.onboarding?.compliance_reviewed_at)
+                      .local()
+                      .format("HH:mm M/D/YYYY")}
+                  </b>
+                </div>
+                {proposal?.onboarding?.deny_reason && (
+                  <div>
+                    <label className="pr-2">Denied Reason:</label>
+                    <b>{proposal?.onboarding?.deny_reason}</b>
+                  </div>
+                )}
+              </div>
+            </CardBodyExpand>
           </CardBody>
         </Card>
       </div>
@@ -456,14 +456,14 @@ class SingleProposal extends Component {
     }
 
     return (
-      <div id="app-single-proposal-page">
+      <div id="app-single-proposal-page" className="pb-10">
         {this.renderHeader()}
         <VoteAlertView
           proposal={proposal}
           onRefresh={() => this.getProposal()}
         />
-        <div className="d-flex flex-column flex-lg-row gap-box">
-          <div className="proposal-detail-box">
+        <div className="flex mt-4">
+          <div className="flex-1">
             {this.renderDetail()}
             {this.renderComplianceCheck()}
             {this.renderChangeContent()}
@@ -781,36 +781,31 @@ class SingleProposal extends Component {
               )}
             </>
           </div>
-          <div className="right-side">
-            {authUser.is_admin || authUser.is_member ? (
-              <div className="mb-3">
-                <ProposalPosts proposal={proposal} />
-              </div>
-            ) : (
-              ""
-            )}
-            {proposal.type === "grant" && (
-              <div
+          {proposal.type === "grant" && (
+            <div className="w-1/4 pl-4">
+              {/* {authUser.is_admin || authUser.is_member ? (
+                <div className="mb-3">
+                  <ProposalPosts proposal={proposal} />
+                </div>
+              ) : (
+                ""
+              )} */}
+              
+              <Card
                 className={classNames(
-                  "sidebar-timeline",
+                  "sidebar-timeline w-full !px-4",
                   expandTimeline ? "expand" : ""
                 )}
               >
-                <div className="app-simple-section">
-                  <div
-                    className="d-flex"
-                    // onClick={() =>
-                    //   this.setState({ expandTimeline: !expandTimeline })
-                    // }
-                    style={{ cursor: "pointer" }}
-                  >
-                    <b className="title-timeline pl-2">Proposal Timeline</b>
-                  </div>
+                <CardHeader>
+                  <b className="title-timeline">Proposal Timeline</b>
+                </CardHeader>
+                <CardBody>
                   <ul className="h-100 content-timeline">
                     {this.state.timelineList.map((x, index) => (
                       <li className="timeline-item" key={index}>
-                        <div className="preview d-flex align-items-center">
-                          <div className="pb-3 dot">
+                        <div className="preview flex items-center">
+                          <div className="pb-4 dot">
                             {index === 0 && <IconDot />}
                             {index !== 0 && !x.status && <IconEmptyDot />}
                             {index !== 0 && x.status && <IconCheckDot />}
@@ -820,23 +815,23 @@ class SingleProposal extends Component {
                             {x.datetime}
                           </p>
                         </div>
-                        <div className="full d-flex">
+                        <div className="full flex">
                           <p className="date-timeline">{x.datetime}</p>
-                          <div className="pb-3 dot">
+                          <div className="pb-4 dot">
                             {index === 0 && <IconDot />}
                             {index !== 0 && !x.status && <IconEmptyDot />}
                             {index !== 0 && x.status && <IconCheckDot />}
                             <div className="line" />
                           </div>
-                          <p>{x.title}</p>
+                          <p className="w-3/5 leading-none">{x.title}</p>
                         </div>
                       </li>
                     ))}
                   </ul>
-                </div>
-              </div>
-            )}
-          </div>
+                </CardBody>
+              </Card>
+            </div>
+          )}
         </div>
       </div>
     );

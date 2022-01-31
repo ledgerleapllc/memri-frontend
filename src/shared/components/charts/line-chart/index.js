@@ -1,5 +1,5 @@
 import React from "react";
-import { ReactApexChart } from "react-apexcharts";
+import ReactApexChart from "react-apexcharts";
 import "./style.scss";
 
 const buildOptions = (xaxisData, name = "", strokeWidth = 3) => ({

@@ -21,7 +21,7 @@ class TopicPosts extends Component {
       (prev) => ({ page: prev.page + 1, loadMoreLoading: true }),
       () => {
         const { topic, page } = this.state;
-        const postIds = offsetPostIds(topic.post_stream.stream, page);
+        const postIds = offsetPostIds(topic.post_stream?.stream, page);
 
         API.getPosts(topic.id, postIds).then((res) => {
           this.setState((prev) => ({
@@ -69,11 +69,11 @@ class TopicPosts extends Component {
           <WritePost topicId={topic.id} promise={this.handlePost} />
         </div>
         <div className="posts">
-          {topic.post_stream.posts.map((post) => (
+          {topic.post_stream?.posts.map((post) => (
             <SinglePost key={post.id} post={post} />
           ))}
         </div>
-        {(!isLastPage(topic.post_stream.stream, page) ||
+        {(!isLastPage(topic.post_stream?.stream, page) ||
           loadMoreLoading === true) && (
           <div className="w-100 mt-3">
             <button

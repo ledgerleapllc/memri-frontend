@@ -121,9 +121,9 @@ class ProposalGrant extends Component {
               onClick={() => this.toggle(index)}
             >
               {checked ? (
-                <Icon.CheckSquare color="#9B64E6" />
+                <Icon.CheckSquare color="#FB5824" />
               ) : (
-                <Icon.Square color="#9B64E6" />
+                <Icon.Square color="#FB5824" />
               )}
             </div>
             <div className="c-checkbox-itemContent">
@@ -160,9 +160,9 @@ class ProposalGrant extends Component {
               style={{ marginTop: "12px" }}
             >
               {checked ? (
-                <Icon.CheckSquare color="#9B64E6" />
+                <Icon.CheckSquare color="#FB5824" />
               ) : (
-                <Icon.Square color="#9B64E6" />
+                <Icon.Square color="#FB5824" />
               )}
             </div>
             <div className="c-checkbox-itemContent">

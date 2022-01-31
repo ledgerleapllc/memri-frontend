@@ -1,7 +1,6 @@
 import React, { Component } from "react";
 import { connect } from "react-redux";
 import { Link, Redirect, withRouter } from "react-router-dom";
-import { Fade } from "react-reveal";
 import { PageHeaderComponent } from "@shared/components";
 import "./style.scss";
 import SurveyVotesTable from "./components/tables/survey-votes";
@@ -27,6 +26,7 @@ import { TimeClock } from "@shared/components/time-clock/TimeClock";
 import moment from "moment";
 import Helper from "@utils/Helper";
 import { SURVEY_PREFIX } from "@utils/Constant";
+import { Card, CardHeader, CardBody, Button } from '@shared/partials';
 
 const mapStateToProps = (state) => {
   return {
@@ -46,12 +46,17 @@ class SurveyDetail extends Component {
     };
   }
 
+  componentWillUnmount() {
+    document.body.classList.remove('scroll-window');
+  }
+
   componentDidMount() {
     const {
       match: { params },
     } = this.props;
     const surveyId = params.id;
     this.setState({ surveyId });
+    document.body.classList.add('scroll-window');
 
     this.props.dispatch(
       getSurveyDetail(
@@ -183,178 +188,205 @@ class SurveyDetail extends Component {
     if (!authUser.is_admin) return <Redirect to="/" />;
 
     return (
-      <div id="survey-detail-page" className="h-100">
-        <Fade distance={"20px"} bottom duration={300} delay={600}>
-          <PageHeaderComponent title="" />
-          <section className="app-infinite-box mb-4">
-            <div className="app-infinite-search-wrap">
-              <h4>
-                Survey {SURVEY_PREFIX[surveyData?.type]}
-                {surveyData?.id}
-              </h4>
-            </div>
-            <div className="pb-3 pl-5 pr-3">
+      <div>
+        <PageHeaderComponent title="" />
+        <Card>
+          <CardHeader>
+            <h3 className="font-bold">
+              Survey {SURVEY_PREFIX[surveyData?.type]}
+              {surveyData?.id}
+            </h3>
+          </CardHeader>
+          <CardBody>
+            <div className="">
               <div>
                 <span>Status: </span>
-                <b className="text-capitalize">{surveyData?.status}</b>
+                <b className="pl-4 capitalize">{surveyData?.status}</b>
               </div>
               {surveyData?.status === "active" && (
                 <div className="flex">
                   <span>Time left: </span>
-                  <b className="d-inline-block">
+                  <b className="pl-4 d-inline-block">
                     <TimeClock lastTime={moment(surveyData?.end_time)} />
                   </b>
                 </div>
               )}
               <div>
                 <span>Submissions complete:</span>{" "}
-                <b>
+                <b className="pl-4 ">
                   {surveyData?.user_responded} out of {surveyData?.total_member}
                 </b>
               </div>
             </div>
-            {surveyData?.status === "completed" && (
-              <>
-                {surveyData?.type === "grant" && (
-                  <>
-                    <div className="app-infinite-search-wrap">
-                      <h4>Winners</h4>
-                    </div>
-                    <div className="pb-3 pl-5 pr-3">
-                      <ul>
-                        {surveyData?.survey_ranks
-                          .filter((x) => x.is_winner)
-                          .map((item) => (
-                            <li className="py-2" key={item.id}>
-                              {Helper.ordinalSuffixOf(item.rank)} Place -{" "}
-                              <Link to={`/app/proposal/${item.proposal?.id}`}>
-                                <b>
-                                  #{item.proposal?.id} - {item.proposal?.title}
-                                </b>
-                              </Link>
-                            </li>
-                          ))}
-                      </ul>
-                    </div>
-                    {+surveyData?.downvote === 1 && (
-                      <>
-                        <div className="app-infinite-search-wrap">
-                          <h4>Downvotes</h4>
-                        </div>
-                        <div className="pb-3 pl-5 pr-3">
-                          <ul>
-                            {surveyData?.survey_downvote_ranks
-                              .filter((x) => x.is_winner)
-                              .map((item) => (
-                                <li className="py-2" key={item.id}>
-                                  {Helper.ordinalSuffixOf(item.rank)} Place -{" "}
-                                  <Link
-                                    to={`/app/proposal/${item.proposal?.id}`}
-                                  >
-                                    <b>
-                                      #{item.proposal?.id} -{" "}
-                                      {item.proposal?.title}
-                                    </b>
-                                  </Link>
-                                </li>
-                              ))}
-                          </ul>
-                        </div>
-                      </>
-                    )}
-                  </>
-                )}
-                {surveyData?.type === "rfp" && (
-                  <>
-                    <div className="app-infinite-search-wrap">
-                      <h4>Rank of bids</h4>
-                    </div>
+          </CardBody>
+        </Card>
+        <section className="app-infinite-box mb-4">
+          {surveyData?.status === "completed" && (
+            <>
+              {surveyData?.type === "grant" && (
+                <Card className="mt-4">
+                  <CardBody>
+                    <>
+                      <div className="app-infinite-search-wrap">
+                        <h4>Winners</h4>
+                      </div>
+                      <div className="pb-3 pl-5 pr-3">
+                        <ul>
+                          {surveyData?.survey_ranks
+                            .filter((x) => x.is_winner)
+                            .map((item) => (
+                              <li className="py-2" key={item.id}>
+                                {Helper.ordinalSuffixOf(item.rank)} Place -{" "}
+                                <Link to={`/app/proposal/${item.proposal?.id}`}>
+                                  <b>
+                                    #{item.proposal?.id} - {item.proposal?.title}
+                                  </b>
+                                </Link>
+                              </li>
+                            ))}
+                        </ul>
+                      </div>
+                      {+surveyData?.downvote === 1 && (
+                        <>
+                          <div className="app-infinite-search-wrap">
+                            <h4>Downvotes</h4>
+                          </div>
+                          <div className="pb-3 pl-5 pr-3">
+                            <ul>
+                              {surveyData?.survey_downvote_ranks
+                                .filter((x) => x.is_winner)
+                                .map((item) => (
+                                  <li className="py-2" key={item.id}>
+                                    {Helper.ordinalSuffixOf(item.rank)} Place -{" "}
+                                    <Link
+                                      to={`/app/proposal/${item.proposal?.id}`}
+                                    >
+                                      <b>
+                                        #{item.proposal?.id} -{" "}
+                                        {item.proposal?.title}
+                                      </b>
+                                    </Link>
+                                  </li>
+                                ))}
+                            </ul>
+                          </div>
+                        </>
+                      )}
+                    </>
+                  </CardBody>
+                </Card>
+              )}
+              {surveyData?.type === "rfp" && (
+                <Card className="mt-4">
+                  <CardHeader>
+                    <h3>Rank of bids</h3>
+                  </CardHeader>
+                  <CardBody>
                     <RankOfBidsTable surveyId={surveyId} />
-                  </>
-                )}
-              </>
-            )}
-            {surveyId && (
-              <>
-                {surveyData?.type === "grant" && (
-                  <>
-                    <SurveyVotesTable
-                      id={surveyId}
-                      cols={surveyData?.number_response}
-                    />
-                    {+surveyData?.downvote === 1 && (
-                      <SurveyDownVotesTable
+                  </CardBody>
+                </Card>
+              )}
+            </>
+          )}
+          {surveyId && (
+            <>
+              {surveyData?.type === "grant" && (
+                <>
+                  <Card className="mt-4">
+                    <CardBody>
+                      <SurveyVotesTable
                         id={surveyId}
                         cols={surveyData?.number_response}
                       />
-                    )}
-                  </>
-                )}
-                {surveyData?.type === "rfp" && (
-                  <>
+                    </CardBody>
+                  </Card>
+                  {+surveyData?.downvote === 1 && (
+                    <Card className="mt-4">
+                      <CardBody>
+                        <SurveyDownVotesTable
+                          id={surveyId}
+                          cols={surveyData?.number_response}
+                        />
+                      </CardBody>
+                    </Card>
+                  )}
+                </>
+              )}
+              {surveyData?.type === "rfp" && (
+                <Card className="mt-4">
+                  <CardBody>
                     <BidsVotesTable
                       id={surveyId}
                       cols={surveyData?.survey_rfp_bids?.length}
                     />
-                  </>
-                )}
-              </>
-            )}
-            <div className="app-infinite-search-wrap">
-              <h4>View survey responses by user</h4>
-            </div>
-            <div className="c-form-row pb-3 pl-5 pr-3">
-              <label>Select number of responses needed</label>
-              <div className="d-flex">
-                <select
-                  value={currentVoter}
-                  onChange={(e) =>
-                    this.setState({ currentVoter: e.target.value })
-                  }
-                >
-                  <option value="" disabled>
-                    Select voter
-                  </option>
-                  {voters.map((x, i) => (
-                    <option key={`option1_${i}`} value={x.user_id}>
-                      {x.email}
+                  </CardBody>
+                </Card>
+              )}
+            </>
+          )}
+          <Card className="mt-4">
+            <CardHeader>
+              <h3>View survey responses by user</h3>
+            </CardHeader>
+            <CardBody>
+              <div className="c-form-row pb-3 pl-5 pr-3">
+                <label>Select number of responses needed</label>
+                <div className="d-flex">
+                  <select
+                    className="px-4 py-2 border border-white1"
+                    value={currentVoter}
+                    onChange={(e) =>
+                      this.setState({ currentVoter: e.target.value })
+                    }
+                  >
+                    <option value="" disabled>
+                      Select voter
                     </option>
-                  ))}
-                </select>
-                <button
-                  disabled={!currentVoter}
-                  className="ml-3 btn btn-primary small"
-                  onClick={this.showAnswer}
-                >
-                  Go
-                </button>
-              </div>
-            </div>
-            {surveyData?.status === "active" && (
-              <>
-                <div className="app-infinite-search-wrap">
-                  <h4>Users who have not yet submitted survey</h4>
+                    {voters.map((x, i) => (
+                      <option key={`option1_${i}`} value={x.user_id}>
+                        {x.email}
+                      </option>
+                    ))}
+                  </select>
+                  <Button
+                    size="sm"
+                    className="ml-2 py-2"
+                    disabled={!currentVoter}
+                    onClick={this.showAnswer}
+                  >
+                    Go
+                  </Button>
                 </div>
-                <div className="pb-3 pl-5 pr-3">
-                  <ul>
+              </div>
+            </CardBody>
+          </Card>
+          
+          {surveyData?.status === "active" && (
+            <Card className="mt-4">
+              <CardHeader>
+                <h3>Users who have not yet submitted survey</h3>
+              </CardHeader>
+              <CardBody>
+                <div className="pb-2">
+                  <ul className="pb-4">
                     {unvotedUsers.map((user) => (
-                      <li className="py-2" key={user.id}>
+                      <li className="pb-1" key={user.id}>
                         {user.email}
                       </li>
                     ))}
                   </ul>
-                  <button
-                    className="mt-5 btn btn-primary less-small"
+                  <Button
+                    size="md"
                     onClick={this.sendReminder}
                     disabled={unvotedUsers.length === 0}
                   >
                     Send reminder
-                  </button>
+                  </Button>
                 </div>
-              </>
-            )}
-          </section>
-        </Fade>
+              </CardBody>
+            </Card>
+          )}
+        </section>
       </div>
     );
   }
