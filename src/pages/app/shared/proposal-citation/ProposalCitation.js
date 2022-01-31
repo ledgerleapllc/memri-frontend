@@ -1,10 +1,10 @@
 import React, { Component } from "react";
 import { connect } from "react-redux";
 import * as Icon from "react-feather";
-import { checkProposalId } from "@utils/Thunk";
-import { hideCanvas, showCanvas } from "@redux/actions";
-import Helper from "@utils/Helper";
-import { Button } from '@shared/partials';
+import { checkProposalId } from "utils/Thunk";
+import { hideCanvas, showCanvas } from "redux/actions";
+import Helper from "utils/Helper";
+import { Button } from 'shared/partials';
 
 import "./proposal-citation.scss";
 

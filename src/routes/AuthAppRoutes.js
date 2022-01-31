@@ -1,118 +1,118 @@
 import React, { Suspense, lazy } from "react";
 import { Switch, Route } from "react-router-dom";
-import { setActiveModal } from "@redux/actions";
+import { setActiveModal } from "redux/actions";
 import IdleTimer from "react-idle-timer";
 import { useDispatch } from "react-redux";
 // Global
-const MainView = lazy(() => import("@pages/app/main/Main"));
+const MainView = lazy(() => import("pages/app/main/Main"));
 const DiscussionsView = lazy(() =>
-  import("@pages/app/discussions/Discussions")
+  import("pages/app/discussions/Discussions")
 );
-const TopicsView = lazy(() => import("@pages/app/topics/Topics"));
-const TopicDetailView = lazy(() => import("@pages/app/topics/TopicDetail"));
-const CreateTopicView = lazy(() => import("@pages/app/topics/CreateTopic"));
-const EditTopicView = lazy(() => import("@pages/app/topics/EditTopic"));
-const SurveysView = lazy(() => import("@pages/app/surveys/Surveys"));
-const UserSurveysView = lazy(() => import("@pages/app/user-surveys/Surveys"));
+const TopicsView = lazy(() => import("pages/app/topics/Topics"));
+const TopicDetailView = lazy(() => import("pages/app/topics/TopicDetail"));
+const CreateTopicView = lazy(() => import("pages/app/topics/CreateTopic"));
+const EditTopicView = lazy(() => import("pages/app/topics/EditTopic"));
+const SurveysView = lazy(() => import("pages/app/surveys/Surveys"));
+const UserSurveysView = lazy(() => import("pages/app/user-surveys/Surveys"));
 
 const StartSurveyView = lazy(() =>
-  import("@pages/app/start-survey/StartSurvey")
+  import("pages/app/start-survey/StartSurvey")
 );
 const SubmitSurveyView = lazy(() =>
-  import("@pages/app/submit-survey/SubmitSurvey")
+  import("pages/app/submit-survey/SubmitSurvey")
 );
 
 const SurveyDetailView = lazy(() =>
-  import("@pages/app/survey-detail/SurveyDetail")
+  import("pages/app/survey-detail/SurveyDetail")
 );
 const SurveyDetailFullPageView = lazy(() =>
-  import("@pages/app/survey-detail-full-page/SurveyDetailFullPage")
+  import("pages/app/survey-detail-full-page/SurveyDetailFullPage")
 );
-const VotesView = lazy(() => import("@pages/app/votes/Votes"));
+const VotesView = lazy(() => import("pages/app/votes/Votes"));
 const ProposalsView = lazy(() =>
-  import("@pages/app/proposals/list/Proposals")
+  import("pages/app/proposals/list/Proposals")
 );
 const AllProposalsView = lazy(() =>
-  import("@pages/app/proposals/all-list/Proposals")
+  import("pages/app/proposals/all-list/Proposals")
 );
-const GrantsView = lazy(() => import("@pages/app/grants/Grants"));
-const MilestonesView = lazy(() => import("@pages/app/milestones/Milestones"));
+const GrantsView = lazy(() => import("pages/app/grants/Grants"));
+const MilestonesView = lazy(() => import("pages/app/milestones/Milestones"));
 const MilestoneLogView = lazy(() =>
-  import("@pages/app/milestone-log/MilestoneLog")
+  import("pages/app/milestone-log/MilestoneLog")
 );
 const MilestoneReviewView = lazy(() =>
-  import("@pages/app/milestone-review/MilestoneReview")
+  import("pages/app/milestone-review/MilestoneReview")
 );
 const EditProposalView = lazy(() =>
-  import("@pages/app/proposals/edit/EditProposal")
+  import("pages/app/proposals/edit/EditProposal")
 );
 const EditSimpleProposalView = lazy(() =>
-  import("@pages/app/proposals/edit-simple/EditSimpleProposal")
+  import("pages/app/proposals/edit-simple/EditSimpleProposal")
 );
 const SingleProposalView = lazy(() =>
-  import("@pages/app/proposals/single/SingleProposal")
+  import("pages/app/proposals/single/SingleProposal")
 );
 const SingleChangeView = lazy(() =>
-  import("@pages/app/changes/single/SingleChange")
+  import("pages/app/changes/single/SingleChange")
 );
-const SettingsView = lazy(() => import("@pages/app/settings/Settings"));
-const SchemeView = lazy(() => import("@pages/app/scheme/Scheme"));
-const AuthAppErrorView = lazy(() => import("@pages/app/Error"));
+const SettingsView = lazy(() => import("pages/app/settings/Settings"));
+const SchemeView = lazy(() => import("pages/app/scheme/Scheme"));
+const AuthAppErrorView = lazy(() => import("pages/app/Error"));
 
 // Admin Only
 const GlobalSettingsView = lazy(() =>
-  import("@pages/app/global-settings/GlobalSettings")
+  import("pages/app/global-settings/GlobalSettings")
 );
-const AccountingView = lazy(() => import("@pages/app/accounting/Accounting"));
-const AdminTeamView = lazy(() => import("@pages/app/admin-team/AdminTeam"));
-const EmailerView = lazy(() => import("@pages/app/emailer/Emailer"));
-const ReportView = lazy(() => import("@pages/app/report/Report"));
-const UsersView = lazy(() => import("@pages/app/users/Users"));
+const AccountingView = lazy(() => import("pages/app/accounting/Accounting"));
+const AdminTeamView = lazy(() => import("pages/app/admin-team/AdminTeam"));
+const EmailerView = lazy(() => import("pages/app/emailer/Emailer"));
+const ReportView = lazy(() => import("pages/app/report/Report"));
+const UsersView = lazy(() => import("pages/app/users/Users"));
 const PreRegisterUsersView = lazy(() =>
-  import("@pages/app/pre-register-users/PreRegisterUsers")
+  import("pages/app/pre-register-users/PreRegisterUsers")
 );
 const SingleUserView = lazy(() =>
-  import("@pages/app/users/single/SingleUser")
+  import("pages/app/users/single/SingleUser")
 );
 const OnboardingsView = lazy(() =>
-  import("@pages/app/onboardings/Onboardings")
+  import("pages/app/onboardings/Onboardings")
 );
 const NewProposalsView = lazy(() =>
-  import("@pages/app/proposals/new-list/NewProposals")
+  import("pages/app/proposals/new-list/NewProposals")
 );
-const VADirectoryView = lazy(() => import("@pages/app/va-directory"));
+const VADirectoryView = lazy(() => import("pages/app/va-directory"));
 
 // Admin, Voting Associate Only
 const SingleVoteView = lazy(() =>
-  import("@pages/app/votes/single/SingleVote")
+  import("pages/app/votes/single/SingleVote")
 );
 const SingleInformalVoteView = lazy(() =>
-  import("@pages/app/votes/single/SingleInformalVote")
+  import("pages/app/votes/single/SingleInformalVote")
 );
 const SingleMiletoneVoteView = lazy(() =>
-  import("@pages/app/votes/single/SingleMilestoneVote")
+  import("pages/app/votes/single/SingleMilestoneVote")
 );
 
 // Voting Associate, Associate Only
 const NewProposalView = lazy(() =>
-  import("@pages/app/proposals/new/NewProposal")
+  import("pages/app/proposals/new/NewProposal")
 );
-const ReputationView = lazy(() => import("@pages/app/reputation/Reputation"));
+const ReputationView = lazy(() => import("pages/app/reputation/Reputation"));
 
 // Voting Associate Only
 const NewSimpleProposalView = lazy(() =>
-  import("@pages/app/proposals/new-simple/NewSimpleProposal")
+  import("pages/app/proposals/new-simple/NewSimpleProposal")
 );
 
 // Voting Associate Only
 const NewAdminGrantProposalView = lazy(() =>
-  import("@pages/app/proposals/new-admin-grant/NewAdminGrantProposal")
+  import("pages/app/proposals/new-admin-grant/NewAdminGrantProposal")
 );
 
 // Voting Associate Only
 // const NewAdvancePaymentRequestView = lazy(() =>
 //   import(
-//     "@pages/app/proposals/new-advance-payment-request/NewAdvancePaymentRequest"
+//     "pages/app/proposals/new-advance-payment-request/NewAdvancePaymentRequest"
 //   )
 // );
 

@@ -2,8 +2,8 @@ import React, { Component } from "react";
 import { connect } from "react-redux";
 import { withRouter } from "react-router-dom";
 import DiscussionsTable from "../shared/discussions";
-import { Tab, Card, CardHeader, CardBody } from '@shared/partials';
-import { useDelayInput } from '@shared/hooks/useDelayInput';
+import { Tab, Card, CardHeader, CardBody } from 'shared/partials';
+import { useDelayInput } from 'shared/hooks/useDelayInput';
 
 const mapStateToProps = (state) => {
   return {

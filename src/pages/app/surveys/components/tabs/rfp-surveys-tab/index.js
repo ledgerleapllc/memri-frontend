@@ -3,7 +3,7 @@ import { connect } from "react-redux";
 import { withRouter } from "react-router-dom";
 import ActiveRFPSurveysTable from "../../tables/active-rfp-surveys";
 import CompletedRFPSurveysTable from "../../tables/completed-rfp-surveys";
-import { Card, CardHeader, CardBody } from '@shared/partials';
+import { Card, CardHeader, CardBody } from 'shared/partials';
 
 const mapStateToProps = (state) => {
   return {

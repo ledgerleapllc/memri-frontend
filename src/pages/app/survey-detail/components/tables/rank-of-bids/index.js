@@ -2,13 +2,13 @@ import moment from "moment";
 import React, { Component } from "react";
 import { connect } from "react-redux";
 import { Link } from "react-router-dom";
-import { GlobalRelativeCanvasComponent } from "@shared/components";
+import { GlobalRelativeCanvasComponent } from "shared/components";
 import {
   forceReloadActiveSurveyTable,
   setActiveModal,
-} from "@redux/actions";
-import Helper from "@utils/Helper";
-import { getSurveyDetail } from "@utils/Thunk";
+} from "redux/actions";
+import Helper from "utils/Helper";
+import { getSurveyDetail } from "utils/Thunk";
 import "./style.scss";
 
 const mapStateToProps = (state) => {

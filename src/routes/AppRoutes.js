@@ -3,34 +3,34 @@ import { Switch, Route } from "react-router-dom";
 import HomeRoute from "./HomeRoute";
 import PublicRoute from "./PublicRoute";
 
-const LoginView = lazy(() => import("@pages/account/login/Login"));
+const LoginView = lazy(() => import("pages/account/login/Login"));
 const ForgotPasswordView = lazy(() =>
-  import("@pages/account/forgot-password/ForgotPassword")
+  import("pages/account/forgot-password/ForgotPassword")
 );
 const ResetPasswordView = lazy(() =>
-  import("@pages/account/reset-password/ResetPassword")
+  import("pages/account/reset-password/ResetPassword")
 );
 const SignupWelcomeView = lazy(() =>
-  import("@pages/account/signup-welcome/SignupWelcome")
+  import("pages/account/signup-welcome/SignupWelcome")
 );
 const PublicProposalsView = lazy(() =>
-  import("@pages/account/public-proposals/PublicProposals")
+  import("pages/account/public-proposals/PublicProposals")
 );
 const PublicProposalDetailView = lazy(() =>
-  import("@pages/account/public-proposal-detail/PublicProposalDetail")
+  import("pages/account/public-proposal-detail/PublicProposalDetail")
 );
 const PublicMilestoneDetailView = lazy(() =>
-  import("@pages/account/public-milestone-detail/PublicMilestoneDetail")
+  import("pages/account/public-milestone-detail/PublicMilestoneDetail")
 );
-const SignupView = lazy(() => import("@pages/account/signup/Signup"));
+const SignupView = lazy(() => import("pages/account/signup/Signup"));
 const SignupAdminView = lazy(() =>
-  import("@pages/account/signup-admin/SignupAdmin")
+  import("pages/account/signup-admin/SignupAdmin")
 );
 const ComplianceApprovedView = lazy(() =>
-  import("@pages/account/compliance-approved/ComplianceApproved")
+  import("pages/account/compliance-approved/ComplianceApproved")
 );
 const ComplianceDenyView = lazy(() =>
-  import("@pages/account/compliance-deny/ComplianceDeny")
+  import("pages/account/compliance-deny/ComplianceDeny")
 );
 
 export default function AppRoutes({ auth }) {

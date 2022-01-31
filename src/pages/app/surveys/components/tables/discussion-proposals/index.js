@@ -1,12 +1,12 @@
 import moment from "moment";
 import React, { useEffect } from "react";
-import { getActiveDiscussions } from "@utils/Thunk";
+import { getActiveDiscussions } from "utils/Thunk";
 import { useDispatch } from "react-redux";
-import { Table, useTable } from '@shared/partials';
+import { Table, useTable } from 'shared/partials';
 import styles from "./style.module.scss";
-import { LIMIT_API_RECORDS } from "@utils/Constant";
+import { LIMIT_API_RECORDS } from "utils/Constant";
 import { Link } from "react-router-dom";
-import { SwitchButton } from "@shared/components";
+import { SwitchButton } from "shared/components";
 import { Tooltip } from "@mui/material";
 import classNames from "classnames";
 

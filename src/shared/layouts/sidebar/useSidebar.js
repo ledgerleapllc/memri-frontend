@@ -1,26 +1,26 @@
 import { useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
-import { saveUser } from "@redux/actions";
-import { ReactComponent as DiscussionIcon } from '@assets/icons/ic-discuss.svg';
-import { ReactComponent as VotesIcon } from '@assets/icons/ic-vote.svg';
-import { ReactComponent as PlusIcon } from '@assets/icons/ic-plus.svg';
-import { ReactComponent as UsersIcon } from '@assets/icons/ic-users.svg';
-import { ReactComponent as SettingIcon } from '@assets/icons/ic-setting.svg';
-import { ReactComponent as LogoutIcon } from '@assets/icons/ic-logout.svg';
-import { ReactComponent as HomeIcon } from '@assets/icons/ic-home.svg';
-import { ReactComponent as GrantIcon } from '@assets/icons/ic-grant.svg';
-import { ReactComponent as DocIcon } from '@assets/icons/ic-alldoc.svg';
-import { ReactComponent as DirectoryIcon } from '@assets/icons/ic-directory.svg';
-// import { ReactComponent as MilestoneIcon } from '@assets/icons/ic-milestone.svg';
-import { ReactComponent as SurveyIcon } from '@assets/icons/ic-survey.svg';
-import { ReactComponent as GlobalIcon } from '@assets/icons/ic-global.svg';
-import { ReactComponent as EmailerIcon } from '@assets/icons/ic-emailer.svg';
-import { ReactComponent as ReportIcon } from '@assets/icons/ic-report.svg';
-import { ReactComponent as AccountingIcon } from '@assets/icons/ic-accounting.svg';
-import { ReactComponent as TeamIcon } from '@assets/icons/ic-team.svg';
-import { ReactComponent as RepIcon } from '@assets/icons/ic-rep.svg';
+import { saveUser } from "redux/actions";
+import { ReactComponent as DiscussionIcon } from 'assets/icons/ic-discuss.svg';
+import { ReactComponent as VotesIcon } from 'assets/icons/ic-vote.svg';
+import { ReactComponent as PlusIcon } from 'assets/icons/ic-plus.svg';
+import { ReactComponent as UsersIcon } from 'assets/icons/ic-users.svg';
+import { ReactComponent as SettingIcon } from 'assets/icons/ic-setting.svg';
+import { ReactComponent as LogoutIcon } from 'assets/icons/ic-logout.svg';
+import { ReactComponent as HomeIcon } from 'assets/icons/ic-home.svg';
+import { ReactComponent as GrantIcon } from 'assets/icons/ic-grant.svg';
+import { ReactComponent as DocIcon } from 'assets/icons/ic-alldoc.svg';
+import { ReactComponent as DirectoryIcon } from 'assets/icons/ic-directory.svg';
+// import { ReactComponent as MilestoneIcon } from 'assets/icons/ic-milestone.svg';
+import { ReactComponent as SurveyIcon } from 'assets/icons/ic-survey.svg';
+import { ReactComponent as GlobalIcon } from 'assets/icons/ic-global.svg';
+import { ReactComponent as EmailerIcon } from 'assets/icons/ic-emailer.svg';
+import { ReactComponent as ReportIcon } from 'assets/icons/ic-report.svg';
+import { ReactComponent as AccountingIcon } from 'assets/icons/ic-accounting.svg';
+import { ReactComponent as TeamIcon } from 'assets/icons/ic-team.svg';
+import { ReactComponent as RepIcon } from 'assets/icons/ic-rep.svg';
 
-import Helper from "@utils/Helper";
+import Helper from "utils/Helper";
 
 export const useSidebar = () => {
   const [items, setItems] = useState([]);

@@ -2,18 +2,18 @@
 import React, { Component } from "react";
 import { connect } from "react-redux";
 import { Redirect } from "react-router-dom";
-import { GlobalRelativeCanvasComponent } from "@shared/components";
+import { GlobalRelativeCanvasComponent } from "shared/components";
 import {
   setActiveModal,
   setPreRegisterActionData,
   setPreRegisterTableStatus,
-} from "@redux/actions";
-import { getPreRegisterUsersByAdmin } from "@utils/Thunk";
-import { Button } from '@shared/partials';
+} from "redux/actions";
+import { getPreRegisterUsersByAdmin } from "utils/Thunk";
+import { Button } from 'shared/partials';
 
 import "./pre-register-users.scss";
+import moment from 'moment';
 
-const moment = require("moment");
 
 const mapStateToProps = (state) => {
   return {

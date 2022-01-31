@@ -1,11 +1,11 @@
 import moment from "moment";
 import React, { useEffect } from "react";
-import Helper from "@utils/Helper";
-import { getCompletedProposalsShared } from "@utils/Thunk";
-import { PROPOSAL_TYPES } from "@utils/enum";
+import Helper from "utils/Helper";
+import { getCompletedProposalsShared } from "utils/Thunk";
+import { PROPOSAL_TYPES } from "utils/enum";
 import { useDispatch, useSelector } from "react-redux";
 import { useHistory } from "react-router";
-import { Table, useTable } from '@shared/partials';
+import { Table, useTable } from 'shared/partials';
 import styles from "./style.module.scss";
 
 const CompletedProposals = ({ outParams }) => {

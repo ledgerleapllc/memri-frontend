@@ -2,7 +2,7 @@
 import React, { Component, Fragment } from "react";
 import { connect } from "react-redux";
 import { GlobalCanvasComponent, PopupAlertComponent } from "../components";
-import { hideAlert, setActiveModal } from "@redux/actions";
+import { hideAlert, setActiveModal } from "redux/actions";
 import {
   EditDenyModal,
   DenyProposalModal,

@@ -8,9 +8,9 @@ import {
   showCanvas,
   hideCanvas,
   setOnboardingTableStatus,
-} from "@redux/actions";
-import { approveKYC, denyKYC, resetKYC } from "@utils/Thunk";
-import { Button } from '@shared/partials';
+} from "redux/actions";
+import { approveKYC, denyKYC, resetKYC } from "utils/Thunk";
+import { Button } from 'shared/partials';
 
 import "./review-kyc.scss";
 

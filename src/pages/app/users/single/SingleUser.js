@@ -2,8 +2,8 @@
 import React, { Component, Fragment } from "react";
 import { connect } from "react-redux";
 import { Redirect, withRouter } from "react-router-dom";
-import { PageHeaderComponent } from "@shared/components";
-import { Card, CardHeader, CardBody, Button } from '@shared/partials';
+import { PageHeaderComponent } from "shared/components";
+import { Card, CardHeader, CardBody, Button } from 'shared/partials';
 import {
   setActiveModal,
   showAlert,
@@ -12,7 +12,7 @@ import {
   setCustomModalData,
   setRefreshSingleUserPage,
   setKYCData,
-} from "@redux/actions";
+} from "redux/actions";
 import {
   banUser,
   unbanUser,
@@ -23,15 +23,15 @@ import {
   downloadCSVUserRep,
   exportProposalMentor,
   sendKycKangarooByAdmin,
-} from "@utils/Thunk";
+} from "utils/Thunk";
 import ProposalsView from "./proposals";
 import VotesView from "./votes";
 import ReputationView from "./reputation";
 import ProposalMentorView from "./proposal-mentor";
-import { DECIMALS } from "@utils/Constant";
+import { DECIMALS } from "utils/Constant";
 
 // eslint-disable-next-line no-undef
-const moment = require("moment");
+import moment from "moment";
 
 const mapStateToProps = (state) => {
   return {

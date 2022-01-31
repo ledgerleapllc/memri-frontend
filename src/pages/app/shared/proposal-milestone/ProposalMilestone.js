@@ -3,17 +3,16 @@
 import React, { Component } from "react";
 import { connect } from "react-redux";
 import * as Icon from "react-feather";
-import Helper from "@utils/Helper";
-import { showAlert } from "@redux/actions";
-import { DatePicker, Button } from '@shared/partials';
+import Helper from "utils/Helper";
+import { showAlert } from "redux/actions";
+import { DatePicker, Button } from 'shared/partials';
 import "./proposal-milestone.scss";
-import { Fade } from "react-reveal";
+import moment from "moment";
 
 const mapStateToProps = () => {
   return {};
 };
 
-const moment = require("moment");
 
 class ProposalMilestone extends Component {
   // Update Data
@@ -96,7 +95,7 @@ class ProposalMilestone extends Component {
     if (milestones && milestones.length) {
       milestones.forEach((milestone, index) => {
         items.push(
-          <Fade distance={"20px"} bottom duration={100} delay={600}>
+          <div data-aos="fade-in" data-aos-duration="500">
             <div key={`milestone_${index}`} className="single-milestone-item">
               <div className="c-form-row">
                 <label className="mt-5 mb-5" style={{ color: "#FB5824" }}>
@@ -246,7 +245,7 @@ class ProposalMilestone extends Component {
                 />
               </div>
             </div>
-          </Fade>
+          </div>
         );
       });
     }
@@ -299,13 +298,13 @@ class ProposalMilestone extends Component {
   render() {
     return (
       <section id="proposal-milestone-section">
-        <Fade distance={"20px"} bottom duration={100} delay={600}>
+        <div data-aos="fade-in" data-aos-duration="500">
           <div className="c-form-row">
             <label>{`Projects are typically divided into milestones. Please propose the milestones in which the total project will be delivered:`}</label>
           </div>
-        </Fade>
+        </div>
         {this.renderMilestones()}
-        <Fade distance={"20px"} bottom duration={100} delay={600}>
+        <div data-aos="fade-in" data-aos-duration="500">
           {this.props.showAction && (
             <div className="new-proposal-button-wrap">
               <Button color="secondary" onClick={this.addMilestone}>
@@ -318,7 +317,7 @@ class ProposalMilestone extends Component {
               </Button>
             </div>
           )}
-        </Fade>
+        </div>
 
         {this.renderAlert()}
       </section>

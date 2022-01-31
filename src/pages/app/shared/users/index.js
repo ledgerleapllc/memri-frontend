@@ -1,7 +1,7 @@
 import React, { useRef, useState } from "react";
 import UserTable from "./UserTable";
-import { useDelayInput } from '@shared/hooks/useDelayInput';
-import { Card, CardHeader, CardBody, Checkbox, DatePicker, Button } from '@shared/partials';
+import { useDelayInput } from 'shared/hooks/useDelayInput';
+import { Card, CardHeader, CardBody, Checkbox, DatePicker, Button } from 'shared/partials';
 import moment from "moment";
 
 const UsersTab = () => {

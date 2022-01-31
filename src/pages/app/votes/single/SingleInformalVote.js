@@ -4,20 +4,20 @@ import { withRouter, Redirect } from "react-router-dom";
 import {
   GlobalRelativeCanvasComponent,
   PageHeaderComponent,
-} from "@shared/components";
-import { hideCanvas, showCanvas } from "@redux/actions";
-import { DECIMALS } from "@utils/Constant";
+} from "shared/components";
+import { hideCanvas, showCanvas } from "redux/actions";
+import { DECIMALS } from "utils/Constant";
 import {
   getSingleProposal,
   getVAsNotVote,
   downloadVoteResultCSV,
   downloadVoteResultPDF,
-} from "@utils/Thunk";
+} from "utils/Thunk";
 
 import "./single-vote.scss";
 
 // eslint-disable-next-line no-undef
-const moment = require("moment");
+import moment from "moment";
 
 const mapStateToProps = (state) => {
   return {

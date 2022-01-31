@@ -1,8 +1,8 @@
 import React, { useState, useEffect } from "react";
 import { useDispatch } from "react-redux";
 import { CardElement, useStripe, useElements } from "@stripe/react-stripe-js";
-import { createPaymentIntent } from "@utils/Thunk";
-import { showCanvas, hideCanvas } from "@redux/actions";
+import { createPaymentIntent } from "utils/Thunk";
+import { showCanvas, hideCanvas } from "redux/actions";
 
 export default function CheckoutForm({ proposalId, amount, onResult }) {
   const [succeeded, setSucceeded] = useState(false);

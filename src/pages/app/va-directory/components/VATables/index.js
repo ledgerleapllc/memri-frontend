@@ -1,10 +1,10 @@
 import moment from "moment";
 import React, { useEffect } from "react";
-import { getVADirectory } from "@utils/Thunk";
+import { getVADirectory } from "utils/Thunk";
 import { useDispatch } from "react-redux";
-import { Table, useTable } from '@shared/partials';
+import { Table, useTable } from 'shared/partials';
 import styles from "./style.module.scss";
-import { DECIMALS, LIMIT_API_RECORDS } from "@utils/Constant";
+import { DECIMALS, LIMIT_API_RECORDS } from "utils/Constant";
 
 const VATables = React.forwardRef(({ outParams, getValue }, ref) => {
   const {

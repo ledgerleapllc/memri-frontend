@@ -1,7 +1,7 @@
 import { useEffect, useState } from 'react';
 import './style.scss';
-import { ReactComponent as IconArrowDown } from '@assets/icons/ic-arrow-down.svg';
-import { ReactComponent as IconArrowUp } from '@assets/icons/ic-arrow-up.svg';
+import { ReactComponent as IconArrowDown } from 'assets/icons/ic-arrow-down.svg';
+import { ReactComponent as IconArrowUp } from 'assets/icons/ic-arrow-up.svg';
 
 export const Select = ({ className, placeholder, options, value, onChange }) => {
   const [open, setOpen] = useState(false);

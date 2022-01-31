@@ -1,7 +1,7 @@
 import React, { Component } from "react";
 import { connect } from "react-redux";
 import { Link, Redirect, withRouter } from "react-router-dom";
-import { Card, CardHeader, CardBody, Button } from "@shared/partials";
+import { Card, CardHeader, CardBody, Button } from "shared/partials";
 import style from "./style.module.scss";
 import {
   getActiveDiscussions,
@@ -9,14 +9,14 @@ import {
   submitSurvey,
   submitRFPSurvey,
   getMe,
-} from "@utils/Thunk";
-import { hideCanvas, saveUser, showAlert, showCanvas } from "@redux/actions";
+} from "utils/Thunk";
+import { hideCanvas, saveUser, showAlert, showCanvas } from "redux/actions";
 import DiscussionProposalsTable from "../surveys/components/tables/discussion-proposals";
 import BidRanksTable from "./components/tables/bid-ranks";
-import Helper from "@utils/Helper";
-import { TimeClock } from "@shared/components/time-clock/TimeClock";
+import Helper from "utils/Helper";
+import { TimeClock } from "shared/components/time-clock/TimeClock";
 import moment from "moment";
-import { SURVEY_PREFIX } from "@utils/Constant";
+import { SURVEY_PREFIX } from "utils/Constant";
 
 const mapStateToProps = (state) => {
   return {

@@ -2,9 +2,9 @@ import React, { Component } from "react";
 import "./create-topic.scss";
 import "./discourse.scss";
 import { BeatLoader } from "react-spinners";
-import BackButton from "@shared/components/back-button/BackButton";
-import API from "@utils/API";
-import { GlobalRelativeCanvasComponent } from "@shared/components";
+import BackButton from "shared/components/back-button/BackButton";
+import API from "utils/API";
+import { GlobalRelativeCanvasComponent } from "shared/components";
 
 class EditTopic extends Component {
   constructor(props) {

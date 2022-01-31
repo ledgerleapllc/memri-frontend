@@ -1,10 +1,10 @@
 import React, { Component } from "react";
 import { connect } from "react-redux";
 import { Link, withRouter } from "react-router-dom";
-import { hideCanvas, removeActiveModal, showCanvas } from "@redux/actions";
-import Helper from "@utils/Helper";
-import { SURVEY_PREFIX } from "@utils/Constant";
-import { getVoterResponse, getVoterBidResponse } from "@utils/Thunk";
+import { hideCanvas, removeActiveModal, showCanvas } from "redux/actions";
+import Helper from "utils/Helper";
+import { SURVEY_PREFIX } from "utils/Constant";
+import { getVoterResponse, getVoterBidResponse } from "utils/Thunk";
 
 import "./style.scss";
 

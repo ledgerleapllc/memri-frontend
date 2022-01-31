@@ -8,10 +8,10 @@ import {
   showCanvas,
   hideCanvas,
   setAdminPendingProposalTableStatus,
-} from "@redux/actions";
+} from "redux/actions";
 import { FormInputComponent } from "../../components";
-import { denyProposal } from "@utils/Thunk";
-import { Button } from '@shared/partials';
+import { denyProposal } from "utils/Thunk";
+import { Button } from 'shared/partials';
 
 import "./deny-proposal.scss";
 

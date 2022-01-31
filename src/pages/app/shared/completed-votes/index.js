@@ -1,17 +1,17 @@
 import moment from "moment";
 import React, { useEffect } from "react";
-import Helper from "@utils/Helper";
-import { getCompletedVotes } from "@utils/Thunk";
+import Helper from "utils/Helper";
+import { getCompletedVotes } from "utils/Thunk";
 import { useDispatch } from "react-redux";
 import { useHistory } from "react-router";
-import { Table, useTable, Button } from '@shared/partials';
+import { Table, useTable, Button } from 'shared/partials';
 import styles from "./style.module.scss";
 import { Tooltip } from "@mui/material";
-import { BALLOT_TYPES } from "@utils/enum";
+import { BALLOT_TYPES } from "utils/enum";
 import {
   setCustomModalData,
   setActiveModal,
-} from "@redux/actions";
+} from "redux/actions";
 import classNames from "classnames";
 const CompletedVotes = ({ outParams, authUser }) => {
   const {

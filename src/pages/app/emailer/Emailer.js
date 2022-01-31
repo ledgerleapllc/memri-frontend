@@ -8,15 +8,15 @@ import {
   deleteEmailerAdmin,
   updateEmailerTriggerUser,
   updateEmailerTriggerMember,
-} from "@utils/Thunk";
-import { Card, CardHeader, CardBody, Button, Table } from '@shared/partials';
+} from "utils/Thunk";
+import { Card, CardHeader, CardBody, Button, Table } from 'shared/partials';
 import {
   showCanvas,
   hideCanvas,
   setCustomModalData,
   setActiveModal,
   showAlert,
-} from "@redux/actions";
+} from "redux/actions";
 import styles from './style.module.scss';
 
 const mapStateToProps = (state) => {
@@ -184,24 +184,6 @@ class Emailer extends Component {
     this.setState({ triggerAdmin }, () => {
       this.props.dispatch(
         updateEmailerTriggerAdmin(item.id, itemNew, null, null)
-      );
-    });
-  };
-
-  // Trigger Member
-  changeTriggerMember = (e, item, index) => {
-    let { triggerMember } = this.state;
-    const itemNew = {
-      ...item,
-      enabled: e.target.checked,
-    };
-    triggerMember[index] = {
-      ...triggerMember[index],
-      ...itemNew,
-    };
-    this.setState({ triggerMember }, () => {
-      this.props.dispatch(
-        updateEmailerTriggerMember(item.id, itemNew, null, null)
       );
     });
   };

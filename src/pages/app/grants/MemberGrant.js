@@ -1,13 +1,13 @@
 // import React, { Component, useState } from "react";
 // import { connect, useDispatch } from "react-redux";
 // import { withRouter } from "react-router-dom";
-// import { GlobalRelativeCanvasComponent, Checkbox } from "@shared/components";
+// import { GlobalRelativeCanvasComponent, Checkbox } from "shared/components";
 // import {
 //   checkUserActiveGrant,
 //   getGrantsShared,
 //   getNotSubmitMilestones,
 //   startFormalMilestoneVotingUser,
-// } from "@utils/Thunk";
+// } from "utils/Thunk";
 // import {
 //   hideCanvas,
 //   saveUser,
@@ -17,13 +17,13 @@
 //   setMilestoneVoteData,
 //   showAlert,
 //   showCanvas,
-// } from "@redux/actions";
+// } from "redux/actions";
 
 // import "./member-grant.scss";
 // import * as Icon from "react-feather";
 
 // // eslint-disable-next-line no-undef
-// const moment = require("moment");
+// import moment from "moment";
 
 // const mapStateToProps = (state) => {
 //   return {
@@ -646,8 +646,8 @@ import React, { useRef } from "react";
 import { useSelector } from "react-redux";
 import { Redirect } from "react-router-dom";
 import MemberGrantTable from "./MemberGrantTable";
-import { useDelayInput } from '@shared/hooks/useDelayInput';
-import { Card, CardHeader, CardBody, Checkbox } from '@shared/partials';
+import { useDelayInput } from 'shared/hooks/useDelayInput';
+import { Card, CardHeader, CardBody, Checkbox } from 'shared/partials';
 
 const MemberGrant = () => {
   const { params, setSearchTerm, setParams} = useDelayInput();

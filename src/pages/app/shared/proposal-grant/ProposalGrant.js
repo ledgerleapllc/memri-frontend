@@ -1,8 +1,8 @@
 import React, { Component } from "react";
 import { connect } from "react-redux";
 import * as Icon from "react-feather";
-import { GRANTTYPES } from "@utils/Constant";
-import Helper from "@utils/Helper";
+import { GRANTTYPES } from "utils/Constant";
+import Helper from "utils/Helper";
 
 import "./proposal-grant.scss";
 

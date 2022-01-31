@@ -1,15 +1,15 @@
 import React, { Component } from "react";
 import { connect } from "react-redux";
 import { withRouter } from "react-router-dom";
-import Helper from "@utils/Helper";
-import { hideCanvas, saveUser, showCanvas } from "@redux/actions";
+import Helper from "utils/Helper";
+import { hideCanvas, saveUser, showCanvas } from "redux/actions";
 import { Link } from "react-router-dom";
-import Banner from '@shared/components/banner';
-import { ReactComponent as SettingIcon } from "@assets/icons/ic-settings.svg";
+import Banner from 'shared/components/banner';
+import { ReactComponent as SettingIcon } from "assets/icons/ic-settings.svg";
 
-import { Button } from '@shared/partials';
+import { Button } from 'shared/partials';
 import "./new-grant-alert.scss";
-import { dismissNewMemberAlert } from "@utils/Thunk";
+import { dismissNewMemberAlert } from "utils/Thunk";
 
 const mapStateToProps = (state) => {
   return {

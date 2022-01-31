@@ -1,12 +1,11 @@
 import React, { Component } from "react";
 import { connect } from "react-redux";
-import { Fade } from "react-reveal";
 import { Link, withRouter } from "react-router-dom";
-import { hideCanvas, setActiveModal, showCanvas } from "@redux/actions";
+import { hideCanvas, setActiveModal, showCanvas } from "redux/actions";
 import qs from "qs";
 import "./style.scss";
 import moment from "moment";
-import { approveComplianceReview } from "@utils/Thunk";
+import { approveComplianceReview } from "utils/Thunk";
 
 const mapStateToProps = () => {
   return {};
@@ -69,7 +68,7 @@ class ComplianceApproved extends Component {
     return (
       <div id="signup-welcome-page">
         <div className="custom-container">
-          <Fade distance={"20px"} bottom duration={500} delay={400}>
+          <div data-aos="fade-in" data-aos-duration="500">
             <>
               <p className="text-center font-weight-500 font-size-18 mb-3">
                 {message}
@@ -99,13 +98,13 @@ class ComplianceApproved extends Component {
                 </div>
               )}
             </>
-          </Fade>
+          </div>
 
-          <Fade distance={"20px"} bottom duration={500} delay={400}>
+          <div data-aos="fade-in" data-aos-duration="500">
             <Link to="/" id="begin-btn" className="btn btn-primary mt-3">
               Close
             </Link>
-          </Fade>
+          </div>
         </div>
       </div>
     );

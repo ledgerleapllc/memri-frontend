@@ -2,16 +2,16 @@ import React, { Component, useRef } from "react";
 import { connect } from "react-redux";
 import { withRouter } from "react-router-dom";
 import * as Icon from "react-feather";
-import { Checkbox } from "@shared/components";
-import { useDelayInput } from '@shared/hooks/useDelayInput';
-import { Card, CardHeader, CardBody, Button } from '@shared/partials';
+import { Checkbox } from "shared/components";
+import { useDelayInput } from 'shared/hooks/useDelayInput';
+import { Card, CardHeader, CardBody, Button } from 'shared/partials';
 import {
   getReputationTrack,
   postRepDailyCsv,
-} from "@utils/Thunk";
+} from "utils/Thunk";
 import "./reputation.scss";
-import { DECIMALS } from "@utils/Constant";
-import { hideCanvas, showCanvas } from "@redux/actions";
+import { DECIMALS } from "utils/Constant";
+import { hideCanvas, showCanvas } from "redux/actions";
 import RepTable from './rep-table';
 
 const mapStateToProps = (state) => {
@@ -114,7 +114,7 @@ class Reputation extends Component {
     if (!authUser || !authUser.id) return null;
 
     return (
-      <div className="flex flex-col flex-1-min">
+      <div className="h-full flex flex-col">
         <div className="flex justify-between items-start mb-4">
           <div className="flex flex-col gap-2">
             <h3 className="text-2xl flex gap-6">

@@ -6,11 +6,11 @@ import {
   Card,
   PageHeaderComponent,
   GlobalRelativeCanvasComponent,
-} from "@shared/components";
+} from "shared/components";
 import TopicPosts from "../shared/topic-posts/TopicPosts";
-import API from "@utils/API";
+import API from "utils/API";
 import { connect } from "react-redux";
-import { setActiveModal } from "@redux/actions";
+import { setActiveModal } from "redux/actions";
 import { Flag } from "react-feather";
 import TopicConfirmation from "../shared/topic-confirmation/TopicConfirmation";
 

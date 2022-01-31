@@ -1,12 +1,12 @@
 /* eslint-disable jsx-a11y/anchor-is-valid */
 /* eslint-disable react/no-unescaped-entities */
 import React, { Component } from "react";
-import { Button } from '@shared/partials';
+import { Button } from 'shared/partials';
 import { connect } from "react-redux";
 import { withRouter } from "react-router-dom";
-import { showAlert, showCanvas, hideCanvas } from "@redux/actions";
-import { getMe, resendCode, verifyCode } from "@utils/Thunk";
-import { ReactComponent as IconArrowLeft } from '@assets/icons/ic-arrow-left.svg';
+import { showAlert, showCanvas, hideCanvas } from "redux/actions";
+import { getMe, resendCode, verifyCode } from "utils/Thunk";
+import { ReactComponent as IconArrowLeft } from 'assets/icons/ic-arrow-left.svg';
 
 import "./email-verify.scss";
 

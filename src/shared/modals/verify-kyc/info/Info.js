@@ -2,19 +2,19 @@
 import React, { Component } from "react";
 import { connect } from "react-redux";
 import DatePicker from "react-date-picker/dist/entry.nostyle";
-import { FormInputComponent, FormSelectComponent } from "@shared/components";
-import { COUNTRYLIST } from "@utils/Constant";
-import { showAlert, showCanvas, hideCanvas } from "@redux/actions";
-import { Button } from '@shared/partials';
+import { FormInputComponent, FormSelectComponent } from "shared/components";
+import { COUNTRYLIST } from "utils/Constant";
+import { showAlert, showCanvas, hideCanvas } from "redux/actions";
+import { Button } from 'shared/partials';
 import {
   forceApproveKYC,
   forceDenyKYC,
   updateProfileInfo,
-} from "@utils/Thunk";
+} from "utils/Thunk";
 
 import "./info.scss";
 
-const moment = require("moment");
+import moment from "moment";
 
 const mapStateToProps = (state) => {
   return {

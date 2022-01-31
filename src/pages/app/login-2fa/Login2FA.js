@@ -1,10 +1,9 @@
 /* eslint-disable react/no-unescaped-entities */
 import React, { Component } from "react";
 import { connect } from "react-redux";
-import { Fade } from "react-reveal";
-import { hideCanvas, showAlert, showCanvas } from "@redux/actions";
-import { checkLogin2FA } from "@utils/Thunk";
-import { Button } from '@shared/partials';
+import { hideCanvas, showAlert, showCanvas } from "redux/actions";
+import { checkLogin2FA } from "utils/Thunk";
+import { Button } from 'shared/partials';
 
 const mapStateToProps = (state) => {
   return {
@@ -56,7 +55,7 @@ class Login2FA extends Component {
     return (
       <div>
         <div className="custom-container w-500px">
-          <Fade distance={"20px"} bottom duration={500} delay={400}>
+          <div data-aos="fade-in" data-aos-duration="500">
             <form className="items-center flex flex-col gap-4" action="" method="POST" onSubmit={this.submit}>
               <h2 className="text-center capitalize font-normal text-primary mb-4">Two-Factor Authentication</h2>
               <div>
@@ -78,7 +77,7 @@ class Login2FA extends Component {
                 Submit
               </Button>
             </form>
-          </Fade>
+          </div>
         </div>
       </div>
     );

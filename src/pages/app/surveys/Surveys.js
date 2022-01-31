@@ -1,7 +1,7 @@
 import React, { Component } from "react";
 import { connect } from "react-redux";
 import { withRouter, Redirect } from "react-router-dom";
-import { Tab } from '@shared/partials';
+import { Tab } from 'shared/partials';
 import ActiveSurveyTab from "./components/tabs/active-survey-tab";
 import CompletedSurveyTab from "./components/tabs/completed-survey-tab";
 import WinnersTab from "./components/tabs/winners-tab";

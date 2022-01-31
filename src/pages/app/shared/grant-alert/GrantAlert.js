@@ -1,10 +1,10 @@
 import React, { Component } from "react";
 import { connect } from "react-redux";
 import { withRouter } from "react-router-dom";
-import { getMyPaymentProposals } from "@utils/Thunk";
-import { Button } from '@shared/partials';
-import { ReactComponent as SettingIcon } from "@assets/icons/ic-settings.svg";
-import Banner from '@shared/components/banner';
+import { getMyPaymentProposals } from "utils/Thunk";
+import { Button } from 'shared/partials';
+import { ReactComponent as SettingIcon } from "assets/icons/ic-settings.svg";
+import Banner from 'shared/components/banner';
 
 const mapStateToProps = (state) => {
   return {

@@ -1,6 +1,6 @@
 import React, { Component } from "react";
-import API from "@utils/API";
-import { offsetPostIds, isLastPage } from "@utils/Discourse";
+import API from "utils/API";
+import { offsetPostIds, isLastPage } from "utils/Discourse";
 import SinglePost from "../single-post/SinglePost";
 import WritePost from "../write-post/WritePost";
 import "../../topics/discourse.scss";

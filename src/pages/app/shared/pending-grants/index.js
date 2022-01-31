@@ -1,16 +1,16 @@
 import moment from "moment";
 import React, { useContext, useEffect } from "react";
-import { getPendingGrantOnboardings, sendKycKangarooByAdmin, resendKycKangaroo, forceWithdrawProposal, resendComplianceReview, startFormalVoting } from "@utils/Thunk";
+import { getPendingGrantOnboardings, sendKycKangarooByAdmin, resendKycKangaroo, forceWithdrawProposal, resendComplianceReview, startFormalVoting } from "utils/Thunk";
 import { useDispatch } from "react-redux";
-import { Table, useTable, Button } from '@shared/partials';
+import { Table, useTable, Button } from 'shared/partials';
 import styles from "./style.module.scss";
-import { LIMIT_API_RECORDS } from "@utils/Constant";
+import { LIMIT_API_RECORDS } from "utils/Constant";
 import classNames from "classnames";
-import { AppContext } from '@src/App';
-import { setActiveModal } from "@redux/actions";
+import { AppContext } from 'App';
+import { setActiveModal } from "redux/actions";
 import {
   showAlert
-} from "@redux/actions";
+} from "redux/actions";
 import { Tooltip } from "@mui/material";
 import { Link } from "react-router-dom";
 const currentTime = moment(new Date());

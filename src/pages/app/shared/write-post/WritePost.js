@@ -3,8 +3,8 @@ import React, { Component } from "react";
 import { connect } from "react-redux";
 import { withRouter } from "react-router-dom";
 import { BeatLoader } from "react-spinners";
-import API from "@utils/API";
-import MarkdownEditor from "@utils/MarkdownEditor";
+import API from "utils/API";
+import MarkdownEditor from "utils/MarkdownEditor";
 
 const mapStateToProps = (state) => {
   return {

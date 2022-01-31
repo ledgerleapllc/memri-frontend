@@ -1,7 +1,7 @@
 import React, { Component } from "react";
 import { connect } from "react-redux";
 import * as Icon from "react-feather";
-import { RELATIONSHIPS } from "@utils/Constant";
+import { RELATIONSHIPS } from "utils/Constant";
 
 import "./proposal-relation.scss";
 

@@ -1,13 +1,13 @@
 import moment from "moment";
 import React, { useEffect } from "react";
-import Helper from "@utils/Helper";
-import { getActiveDiscussions, getCompletedDiscussions } from "@utils/Thunk";
+import Helper from "utils/Helper";
+import { getActiveDiscussions, getCompletedDiscussions } from "utils/Thunk";
 import { useDispatch, useSelector } from "react-redux";
 import { useHistory } from "react-router";
-import { Table, useTable } from '@shared/partials';
+import { Table, useTable } from 'shared/partials';
 import styles from "./style.module.scss";
 import * as Icon from "react-feather";
-import { LIMIT_API_RECORDS } from "@utils/Constant";
+import { LIMIT_API_RECORDS } from "utils/Constant";
 
 const DiscussionsTable = ({ outParams, type }) => {
   const {

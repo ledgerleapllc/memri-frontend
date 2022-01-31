@@ -2,8 +2,8 @@ import React, { useRef } from "react";
 import { useSelector } from "react-redux";
 import AdminPendingGrant from "./AdminPendingGrant";
 import AdminActiveGrant from "./AdminActiveGrant";
-import { Card, CardHeader, CardBody, Button } from '@shared/partials';
-import { useDelayInput } from '@shared/hooks/useDelayInput';
+import { Card, CardHeader, CardBody, Button } from 'shared/partials';
+import { useDelayInput } from 'shared/hooks/useDelayInput';
 
 const AdminPendingGrantCard = () => {
   const { params, setSearchTerm } = useDelayInput({

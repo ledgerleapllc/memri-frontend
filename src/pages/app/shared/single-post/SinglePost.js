@@ -12,7 +12,7 @@ import {
 import BeatLoader from "react-spinners/BeatLoader";
 import { connect } from "react-redux";
 import { withRouter } from "react-router-dom";
-import API from "@utils/API";
+import API from "utils/API";
 import WritePost from "../write-post/WritePost";
 import EditPost from "../edit-post/EditPost";
 import { Reply } from "@mui/icons-material";

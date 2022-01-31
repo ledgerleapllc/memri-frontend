@@ -7,8 +7,8 @@ import {
   removeActiveModal,
   setActiveModal,
   setMilestoneVoteData,
-} from "@redux/actions";
-import { Button } from '@shared/partials';
+} from "redux/actions";
+import { Button } from 'shared/partials';
 
 import "./style.scss";
 

@@ -1,15 +1,15 @@
-import { Button } from '@shared/partials';
-import { login } from '@utils/Thunk';
-import { saveUser } from "@redux/actions";
+import { Button } from 'shared/partials';
+import { login } from 'utils/Thunk';
+import { saveUser } from "redux/actions";
 import { useForm } from 'react-hook-form';
 import { yupResolver } from '@hookform/resolvers/yup';
-import Helper from "@utils/Helper";
+import Helper from "utils/Helper";
 import * as yup from 'yup';
-import { EMAIL_PATTERN } from '@shared/core/patterns';
+import { EMAIL_PATTERN } from 'shared/core/patterns';
 import { Link } from "react-router-dom";
 import { useDispatch } from 'react-redux';
 import { useContext } from 'react';
-import { AppContext } from '@src/App';
+import { AppContext } from 'App';
 
 const schema = yup.object().shape({
   email: yup

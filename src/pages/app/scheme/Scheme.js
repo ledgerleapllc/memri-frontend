@@ -1,8 +1,8 @@
 import React, { Component } from "react";
 import { connect } from "react-redux";
-import { setTheme } from "@redux/actions";
-import Helper from "@utils/Helper";
-import { Button } from '@shared/partials';
+import { setTheme } from "redux/actions";
+import Helper from "utils/Helper";
+import { Button } from 'shared/partials';
 
 import "./scheme.scss";
 

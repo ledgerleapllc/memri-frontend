@@ -1,10 +1,10 @@
 import React, { useState } from "react";
-import { SwitchButton } from "@shared/components";
+import { SwitchButton } from "shared/components";
 import "./proposals.scss";
 import PublicProposalTable from "./components/public-proposal-table";
 import PublicMilestoneTable from "./components/milestones-table";
-import { useDelayInput } from '@shared/hooks/useDelayInput';
-import { Card, CardHeader, CardBody } from '@shared/partials';
+import { useDelayInput } from 'shared/hooks/useDelayInput';
+import { Card, CardHeader, CardBody } from 'shared/partials';
 
 const PublicProposals = () => {
   const { params, setSearchTerm, resetParams } = useDelayInput();

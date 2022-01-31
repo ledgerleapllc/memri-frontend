@@ -2,7 +2,7 @@ import React, { Component } from "react";
 import { connect } from "react-redux";
 import { withRouter } from "react-router-dom";
 import { FormInputComponent } from "../../components";
-import { Button } from '@shared/partials';
+import { Button } from 'shared/partials';
 
 import {
   hideCanvas,
@@ -10,8 +10,8 @@ import {
   setRefreshSingleUserPage,
   showAlert,
   showCanvas,
-} from "@redux/actions";
-import { updateShufti } from "@utils/Thunk";
+} from "redux/actions";
+import { updateShufti } from "utils/Thunk";
 
 import "./style.scss";
 

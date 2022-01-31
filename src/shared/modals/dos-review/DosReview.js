@@ -8,9 +8,9 @@ import {
   setAdminPendingProposalTableStatus,
   setDOSReviewData,
   showCanvas,
-} from "@redux/actions";
-import { approveProposalPayment, denyProposalPayment } from "@utils/Thunk";
-import { Button } from '@shared/partials';
+} from "redux/actions";
+import { approveProposalPayment, denyProposalPayment } from "utils/Thunk";
+import { Button } from 'shared/partials';
 
 import "./dos-review.scss";
 

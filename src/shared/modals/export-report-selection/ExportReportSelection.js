@@ -1,10 +1,10 @@
 import React, { Component } from "react";
 import { connect } from "react-redux";
-import { removeActiveModal, showCanvas, hideCanvas } from "@redux/actions";
+import { removeActiveModal, showCanvas, hideCanvas } from "redux/actions";
 import "./style.scss";
-import { FROM_YEAR } from "@utils/Constant";
+import { FROM_YEAR } from "utils/Constant";
 import Checkbox from "../../components/check-box/Checkbox";
-import { downloadReport } from "@utils/Thunk";
+import { downloadReport } from "utils/Thunk";
 
 const mapStateToProps = (state) => {
   return {

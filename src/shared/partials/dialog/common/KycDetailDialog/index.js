@@ -1,4 +1,4 @@
-import { Dialog } from "@shared/partials/dialog/Provider";
+import { Dialog } from "shared/partials/dialog/Provider";
 import './style.scss';
 
 export const KycDetailDialog = ({ user, className, close }) => {

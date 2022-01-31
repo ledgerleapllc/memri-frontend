@@ -1,18 +1,18 @@
 import moment from "moment";
 import React, { useEffect } from "react";
-import Helper from "@utils/Helper";
-import { getActiveProposalsShared } from "@utils/Thunk";
-import { PROPOSAL_TYPES } from "@utils/enum";
+import Helper from "utils/Helper";
+import { getActiveProposalsShared } from "utils/Thunk";
+import { PROPOSAL_TYPES } from "utils/enum";
 import { useDispatch, useSelector } from "react-redux";
 import { useHistory } from "react-router";
-import { Table, useTable, Button } from '@shared/partials';
+import { Table, useTable, Button } from 'shared/partials';
 import styles from "./style.module.scss";
 import {
   setActiveModal,
   setCustomModalData,
   setDOSPaymentData,
   setEditProposalData,
-} from "@redux/actions";
+} from "redux/actions";
 
 const ActiveProposals = ({ outParams }) => {
   const {

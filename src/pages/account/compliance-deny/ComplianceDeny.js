@@ -1,12 +1,11 @@
 import React, { Component } from "react";
 import { connect } from "react-redux";
 import { Link, withRouter } from "react-router-dom";
-import { Fade } from "react-reveal";
 import qs from "qs";
 import "./style.scss";
 import moment from "moment";
-import { denyComplianceReview } from "@utils/Thunk";
-import { hideCanvas, showAlert, showCanvas } from "@redux/actions";
+import { denyComplianceReview } from "utils/Thunk";
+import { hideCanvas, showAlert, showCanvas } from "redux/actions";
 
 const mapStateToProps = () => {
   return {};
@@ -54,11 +53,11 @@ class ComplianceDeny extends Component {
     return (
       <div id="signup-welcome-page">
         <div className="custom-container">
-          <Fade distance={"20px"} bottom duration={500} delay={400}>
+          <div data-aos="fade-in" data-aos-duration="500">
             <p className="text-center font-weight-500 font-size-18 mb-3">
               {`Compliance admin, please record the exact reason for denying this grant. Remember, this action is final and will stop this grant from moving ahead. Your reason will be shared with the OP.`}
             </p>
-          </Fade>
+          </div>
           <textarea
             placeholder="Enter the reason you are denying this grant."
             value={this.state.reason}
@@ -89,7 +88,7 @@ class ComplianceDeny extends Component {
               </div>
             </div>
           )}
-          <Fade distance={"20px"} bottom duration={500} delay={400}>
+          <div data-aos="fade-in" data-aos-duration="500">
             <div className="d-flex">
               <Link to="/" className="btn btn-primary-outline mr-2">
                 {proposal ? "Close" : "Cancel"}
@@ -104,7 +103,7 @@ class ComplianceDeny extends Component {
                 </button>
               )}
             </div>
-          </Fade>
+          </div>
         </div>
       </div>
     );

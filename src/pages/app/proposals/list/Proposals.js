@@ -11,10 +11,10 @@ import {
   hideCanvas,
   setActiveModal,
   showCanvas,
-} from "@redux/actions";
-import { getProposalDrafts } from "@utils/Thunk";
-import { Tab, Card, CardHeader, CardBody, Button } from '@shared/partials';
-import { useDelayInput } from '@shared/hooks/useDelayInput';
+} from "redux/actions";
+import { getProposalDrafts } from "utils/Thunk";
+import { Tab, Card, CardHeader, CardBody, Button } from 'shared/partials';
+import { useDelayInput } from 'shared/hooks/useDelayInput';
 
 const mapStateToProps = (state) => {
   return {
@@ -109,11 +109,6 @@ class Proposals extends Component {
   gotoNewGrant = () => {
     const { history } = this.props;
     history.push("/app/proposal/new");
-  };
-
-
-  openDraftProposal = () => {
-    this.props.dispatch(setActiveModal("draft-proposals"));
   };
 
   createGrantProposal = () => {

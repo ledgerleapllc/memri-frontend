@@ -6,11 +6,11 @@ import {
   removeActiveModal,
   showCanvas,
   hideCanvas,
-} from "@redux/actions";
-import Helper from "@utils/Helper";
-import { completeStepReview2, sendHellosignRequest } from "@utils/Thunk";
-import { Button } from '@shared/partials';
-
+} from "redux/actions";
+import Helper from "utils/Helper";
+import { completeStepReview2, sendHellosignRequest } from "utils/Thunk";
+import { Button } from 'shared/partials';
+import HelloSign from 'hellosign-embedded';
 import "./start-hellosign.scss";
 
 const mapStateToProps = () => {
@@ -28,8 +28,6 @@ class StartHellosign extends Component {
 
   componentDidMount() {
     // eslint-disable-next-line no-undef
-    const HelloSign = require("hellosign-embedded");
-
     this.client = new HelloSign();
     this.client.on("sign", () => {
       // data: signatureId

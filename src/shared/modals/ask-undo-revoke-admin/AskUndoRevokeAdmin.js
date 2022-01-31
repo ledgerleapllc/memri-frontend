@@ -8,8 +8,8 @@ import {
   removeActiveModal,
   showAlert,
   showCanvas,
-} from "@redux/actions";
-import { undoRevokeAdmin } from "@utils/Thunk";
+} from "redux/actions";
+import { undoRevokeAdmin } from "utils/Thunk";
 
 import "./ask-undo-revoke-admin.scss";
 

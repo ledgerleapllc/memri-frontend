@@ -1,4 +1,4 @@
-import { Button } from "@shared/partials";
+import { Button } from "shared/partials";
 import { Dialog } from "../Provider";
 
 export const ConfirmDialog = ({ className, text, confirmText, close }) => {

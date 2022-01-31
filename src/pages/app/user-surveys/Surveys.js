@@ -1,6 +1,6 @@
 import React from "react";
 import { useSelector } from "react-redux";
-import { Tab, Card, CardHeader, CardBody } from '@shared/partials';
+import { Tab, Card, CardHeader, CardBody } from 'shared/partials';
 import ActiveSurveysTable from "./components/tables/active-surveys";
 import ActiveRFPSurveysTable from "./components/tables/active-rfp-surveys";
 import CompletedSurveysTable from "./components/tables/completed-surveys";

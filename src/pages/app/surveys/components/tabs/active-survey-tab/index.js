@@ -3,12 +3,12 @@ import { connect } from "react-redux";
 import { withRouter } from "react-router-dom";
 import ActiveSurveysTable from "../../tables/active-surveys";
 import DiscussionProposalsTable from "../../tables/discussion-proposals";
-import { getSurveys } from "@utils/Thunk";
+import { getSurveys } from "utils/Thunk";
 import {
   forceReloadGuardStartSurvey,
   showAlert,
-} from "@redux/actions";
-import { Card, CardHeader, CardBody, Button } from '@shared/partials';
+} from "redux/actions";
+import { Card, CardHeader, CardBody, Button } from 'shared/partials';
 
 const mapStateToProps = (state) => {
   return {

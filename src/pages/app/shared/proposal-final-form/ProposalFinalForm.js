@@ -4,39 +4,38 @@
 import React, { Component, Fragment, forwardRef } from "react";
 import { connect } from "react-redux";
 import { withRouter } from "react-router-dom";
-import { Button } from '@shared/partials';
+import { Button } from 'shared/partials';
 import moment from "moment";
 import * as Icon from "react-feather";
 import Dropzone from "react-dropzone";
-import { Card, CardBody, Tag } from '@shared/partials';
-import { Fade } from "react-reveal";
+import { Card, CardBody, Tag } from 'shared/partials';
 import {
   BRAND,
   COUNTRYLIST,
   GRANTTYPES,
   LICENSES,
   TAGS,
-} from "@utils/Constant";
+} from "utils/Constant";
 import ProposalTeamView from "../../shared/proposal-team/ProposalTeam";
 import ProposalGrantView from "../../shared/proposal-grant/ProposalGrant";
 import ProposalMilestoneView from "../../shared/proposal-milestone/ProposalMilestone";
 import ProposalRelationView from "../../shared/proposal-relation/ProposalRelation";
 import ProposalCitationView from "../../shared/proposal-citation/ProposalCitation";
-import { hideCanvas, showAlert, showCanvas } from "@redux/actions";
-import { Checkbox, FormSelectComponent } from "@shared/components";
-import Helper from "@utils/Helper";
+import { hideCanvas, showAlert, showCanvas } from "redux/actions";
+import { Checkbox, FormSelectComponent } from "shared/components";
+import Helper from "utils/Helper";
 import {
   setActiveModal,
   setCustomModalData,
   saveDraftBeforeLogout,
-} from "@redux/actions";
+} from "redux/actions";
 
 import "./proposal-final-form.scss";
 import {
   createProposalDraft,
   uploadDraftFile,
   checkMentor,
-} from "@utils/Thunk";
+} from "utils/Thunk";
 const Scroll = require("react-scroll");
 
 const mapStateToProps = (state) => {
@@ -1637,7 +1636,7 @@ class ProposalFinalForm extends Component {
             <CardBody className="overflow-scroll padding-tracker">
               <form className="main-box">
                 <div id="c-status-general"></div>
-                <Fade distance={"20px"} bottom duration={100} delay={500}>
+                <div data-aos="fade-in" data-aos-duration="500">
                   <div className="app-page-header" style={{ marginTop: "40px" }}>
                     <label>General Project Details</label>
                     <Icon.Info size={16} />
@@ -1651,8 +1650,8 @@ class ProposalFinalForm extends Component {
                       />
                     )}
                   </div>
-                </Fade>
-                <Fade distance={"20px"} bottom duration={100} delay={500}>
+                </div>
+                <div data-aos="fade-in" data-aos-duration="500">
                   <div className="c-form-row">
                     <label>Title of Proposed Project (limit 10 words)</label>
                     <input
@@ -1662,8 +1661,8 @@ class ProposalFinalForm extends Component {
                       required
                     />
                   </div>
-                </Fade>
-                <Fade distance={"20px"} bottom duration={100} delay={500}>
+                </div>
+                <div data-aos="fade-in" data-aos-duration="500">
                   <div className="c-form-row">
                     <label>
                       Describe your project in detail. Please include what it does and
@@ -1675,8 +1674,8 @@ class ProposalFinalForm extends Component {
                       required
                     ></textarea>
                   </div>
-                </Fade>
-                <Fade distance={"20px"} bottom duration={100} delay={500}>
+                </div>
+                <div data-aos="fade-in" data-aos-duration="500">
                   <div className="c-form-row">
                     <label>
                       {`Explanation as to how your proposed project would benefit the DEVxDAO ecosystem AND/OR support transparent and open source scientific research and/ or development if applicable.`}
@@ -1687,7 +1686,7 @@ class ProposalFinalForm extends Component {
                       required
                     ></textarea>
                   </div>
-                </Fade>
+                </div>
                 {/* <Fade distance={"20px"} bottom duration={300} delay={600}>
                   <div className="c-form-row">
                     <label>
@@ -1699,8 +1698,8 @@ class ProposalFinalForm extends Component {
                       required
                     ></textarea>
                   </div>
-                </Fade> */}
-                <Fade distance={"20px"} bottom duration={100} delay={600}>
+                </div> */}
+                <div data-aos="fade-in" data-aos-duration="500">
                   <div className="c-form-row">
                     <label>{`Under which open source license(s) will you publish any research and development associated with your proposed Project? All research papers or the like should be Creative Commons.`}</label>
                     <div className="row">
@@ -1717,8 +1716,8 @@ class ProposalFinalForm extends Component {
                       ) : null}
                     </div>
                   </div>
-                </Fade>
-                <Fade distance={"20px"} bottom duration={100} delay={600}>
+                </div>
+                <div data-aos="fade-in" data-aos-duration="500">
                   <div className="c-form-row">
                     <label>{`Please link your resume (Linkedin) or Git (For developers)`}</label>
                     <div className="row">
@@ -1732,8 +1731,8 @@ class ProposalFinalForm extends Component {
                       </div>
                     </div>
                   </div>
-                </Fade>
-                <Fade distance={"20px"} bottom duration={100} delay={600}>
+                </div>
+                <div data-aos="fade-in" data-aos-duration="500">
                   <div className="c-form-row">
                     <label>{`Please add any notes or reference about the project, such as similar projects or web pages about APIs to be integrated with your build`}</label>
                     <textarea
@@ -1741,9 +1740,9 @@ class ProposalFinalForm extends Component {
                       onChange={(e) => this.inputField(e, "extra_notes")}
                     ></textarea>
                   </div>
-                </Fade>
+                </div>
                 <div id="c-status-team"></div>
-                <Fade distance={"20px"} bottom duration={100} delay={600}>
+                <div data-aos="fade-in" data-aos-duration="500">
                   <div className="app-page-headerModern">
                     <div className="app-page-headerModern__inner">
                       <label>Team Details</label>
@@ -1793,7 +1792,7 @@ class ProposalFinalForm extends Component {
                       </label>
                     </div>
                   </div>
-                </Fade>
+                </div>
                 {memberRequired ? (
                   <ProposalTeamView
                     members={members}
@@ -1811,7 +1810,7 @@ class ProposalFinalForm extends Component {
                   />
                 ) : null}
                 <div id="c-status-grant"></div>
-                <Fade distance={"20px"} bottom duration={100} delay={600}>
+                <div data-aos="fade-in" data-aos-duration="500">
                   <div className="app-page-header">
                     <label>Grant Details</label>
                     <Icon.Info size={16} />
@@ -1824,9 +1823,9 @@ class ProposalFinalForm extends Component {
                       />
                     )}
                   </div>
-                </Fade>
+                </div>
 
-                <Fade distance={"20px"} bottom duration={100} delay={600}>
+                <div data-aos="fade-in" data-aos-duration="500">
                   <div className="c-form-row">
                     <div className="row">
                       <div className="col-md-8">
@@ -1845,8 +1844,8 @@ class ProposalFinalForm extends Component {
                       </div>
                     </div>
                   </div>
-                </Fade>
-                <Fade distance={"20px"} bottom duration={100} delay={600}>
+                </div>
+                <div data-aos="fade-in" data-aos-duration="500">
                   <div className="c-form-row mt-5">
                     <label>{`Will payments for this work be made to a entity such as your company or organization instead of to you personally?`}</label>
                     <div className="flex gap-8">
@@ -1898,9 +1897,9 @@ class ProposalFinalForm extends Component {
                       </div>
                     </div>
                   </div>
-                </Fade>
+                </div>
                 {!!is_company_or_organization && (
-                  <Fade distance={"20px"} bottom duration={100} delay={600}>
+                  <div data-aos="fade-in" data-aos-duration="500">
                     <div className="row mt-5">
                       <div className="col-md-6">
                         <div className="c-form-row">
@@ -1929,9 +1928,9 @@ class ProposalFinalForm extends Component {
                         </div>
                       </div>
                     </div>
-                  </Fade>
+                  </div>
                 )}
-                <Fade distance={"20px"} bottom duration={100} delay={600}>
+                <div data-aos="fade-in" data-aos-duration="500">
                   <ProposalGrantView
                     total_grant={total_grant}
                     grants={grants}
@@ -1941,8 +1940,8 @@ class ProposalFinalForm extends Component {
                       });
                     }}
                   />
-                </Fade>
-                <Fade distance={"20px"} bottom duration={100} delay={600}>
+                </div>
+                <div data-aos="fade-in" data-aos-duration="500">
                   <div className="c-form-row mt-5">
                     <label>{`Did a Voting Associate of the DEVxDAO assist you during the grant application process as a mentor?`}</label>
                     <div className="c-simple-checkbox-item-group">
@@ -1994,9 +1993,9 @@ class ProposalFinalForm extends Component {
                       </div>
                     </div>
                   </div>
-                </Fade>
+                </div>
                 {!!have_mentor && (
-                  <Fade distance={"20px"} bottom duration={100} delay={600}>
+                  <div data-aos="fade-in" data-aos-duration="500">
                     <div className="row mt-5">
                       <div className="col-md-6">
                         <div className="c-form-row">
@@ -2038,10 +2037,10 @@ class ProposalFinalForm extends Component {
                         </div>
                       </div>
                     </div>
-                  </Fade>
+                  </div>
                 )}
                 <div id="c-status-milestone"></div>
-                <Fade distance={"20px"} bottom duration={100} delay={600}>
+                <div data-aos="fade-in" data-aos-duration="500">
                   <div className="app-page-header">
                     <label>Milestone Details</label>
                     <Icon.Info size={16} />
@@ -2055,7 +2054,7 @@ class ProposalFinalForm extends Component {
                       />
                     )}
                   </div>
-                </Fade>
+                </div>
                 <div>
                   <ProposalMilestoneView
                     showAction
@@ -2188,7 +2187,7 @@ class ProposalFinalForm extends Component {
                     </div>
                   </div>
                 </div>
-                <Fade distance={"20px"} bottom duration={100} delay={600}>
+                <div data-aos="fade-in" data-aos-duration="500">
                   <ProposalCitationView
                     showAction={true}
                     citations={citations}
@@ -2198,7 +2197,7 @@ class ProposalFinalForm extends Component {
                       });
                     }}
                   />
-                </Fade>
+                </div>
                 {/* <div className="c-form-row mt-5">
                   <label>{`Are you aware that you or another person received a Grant under this Program for a Project which is foundational to your proposed Project.`}</label>
                   <div className="c-simple-checkbox-item-group">

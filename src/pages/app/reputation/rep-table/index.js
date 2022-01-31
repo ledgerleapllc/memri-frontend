@@ -1,11 +1,11 @@
 import moment from "moment";
 import React, { useContext, useEffect, useImperativeHandle } from "react";
-import { getReputationTrack, downloadCSVMyRep } from "@utils/Thunk";
+import { getReputationTrack, downloadCSVMyRep } from "utils/Thunk";
 import { useDispatch } from "react-redux";
-import { Table, useTable } from '@shared/partials';
+import { Table, useTable } from 'shared/partials';
 import styles from "./style.module.scss";
-import { AppContext } from '@src/App';
-import { DECIMALS, LIMIT_API_RECORDS } from "@utils/Constant";
+import { AppContext } from 'App';
+import { DECIMALS, LIMIT_API_RECORDS } from "utils/Constant";
 
 const RepTable = React.forwardRef(({ outParams }, ref) => {
   const {

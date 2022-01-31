@@ -3,15 +3,15 @@ import {
   getGrantsShared,
   viewSignedGrant,
   downloadCSVActiveGrants,
-} from "@utils/Thunk";
+} from "utils/Thunk";
 import { useDispatch, useSelector } from "react-redux";
-import { Table, useTable, Button } from '@shared/partials';
+import { Table, useTable, Button } from 'shared/partials';
 import styles from "./style.module.scss";
-import { LIMIT_API_RECORDS } from "@utils/Constant";
+import { LIMIT_API_RECORDS } from "utils/Constant";
 import { Link } from "react-router-dom";
 import classNames from "classnames";
 import { useHistory } from "react-router";
-import { AppContext } from '@src/App';
+import { AppContext } from 'App';
 import { Tooltip } from "@mui/material";
 import moment from 'moment';
 

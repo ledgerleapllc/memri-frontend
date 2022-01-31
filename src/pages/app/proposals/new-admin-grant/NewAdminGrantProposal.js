@@ -1,14 +1,13 @@
 import React, { useState } from "react";
 import * as Icon from "react-feather";
 import Dropzone from "react-dropzone";
-import { Fade } from "react-reveal";
-import { hideCanvas, showAlert, showCanvas } from "@redux/actions";
+import { hideCanvas, showAlert, showCanvas } from "redux/actions";
 import {
   BasicDatePicker,
   PageHeaderComponent,
   InputMoney,
-} from "@shared/components";
-import { submitAdminGrantProposal, uploadFile } from "@utils/Thunk";
+} from "shared/components";
+import { submitAdminGrantProposal, uploadFile } from "utils/Thunk";
 import { Controller, useForm } from "react-hook-form";
 import { yupResolver } from "@hookform/resolvers/yup";
 import * as yup from "yup";
@@ -130,13 +129,13 @@ const NewAdminGrantProposal = () => {
         />
       </div>
       <form onSubmit={handleSubmit(onSubmit)}>
-        <Fade distance={"20px"} bottom duration={300} delay={600}>
+        <div data-aos="fade-in" data-aos-duration="500">
           <div className="c-form-row mt-5">
             <label>Title of Proposal (limit 10 words)</label>
             <input {...register("title")} type="text" />
           </div>
-        </Fade>
-        <Fade distance={"20px"} bottom duration={300} delay={600}>
+        </div>
+        <div data-aos="fade-in" data-aos-duration="500">
           <div className="c-form-row">
             <label>{`Euro amount requested`}</label>
             <Controller
@@ -147,14 +146,14 @@ const NewAdminGrantProposal = () => {
               )}
             />
           </div>
-        </Fade>
-        <Fade distance={"20px"} bottom duration={300} delay={600}>
+        </div>
+        <div data-aos="fade-in" data-aos-duration="500">
           <div className="c-form-row">
             <label>{`Enter what is being delivered for the DxD/ETA`}</label>
             <textarea {...register("things_delivered")}></textarea>
           </div>
-        </Fade>
-        <Fade distance={"20px"} bottom duration={300} delay={600}>
+        </div>
+        <div data-aos="fade-in" data-aos-duration="500">
           <div className="c-form-row">
             <label>{`When will this be delivered`}</label>
             <Controller
@@ -165,14 +164,14 @@ const NewAdminGrantProposal = () => {
               )}
             />
           </div>
-        </Fade>
-        <Fade distance={"20px"} bottom duration={300} delay={600}>
+        </div>
+        <div data-aos="fade-in" data-aos-duration="500">
           <div className="c-form-row">
             <label>{`Enter other notes (optional)`}</label>
             <textarea {...register("extra_notes")}></textarea>
           </div>
-        </Fade>
-        <Fade distance={"20px"} bottom duration={300} delay={600}>
+        </div>
+        <div data-aos="fade-in" data-aos-duration="500">
           <div className="c-form-row mt-5">
             <label>
               {`Drag and drop a file into this box to upload pitch deck, project architecture, charts, etc.`}
@@ -195,7 +194,7 @@ const NewAdminGrantProposal = () => {
             </Dropzone>
             {renderFiles()}
           </div>
-        </Fade>
+        </div>
         <div className="mt-5">
           <button
             disabled={!formState.isValid}

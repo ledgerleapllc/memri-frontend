@@ -2,21 +2,20 @@
 import React, { Component, Fragment } from "react";
 import { connect } from "react-redux";
 import { withRouter } from "react-router-dom";
-import { Fade } from "react-reveal";
-import { GlobalRelativeCanvasComponent } from "@shared/components";
+import { GlobalRelativeCanvasComponent } from "shared/components";
 import Tooltip from "@mui/material/Tooltip";
-import { getOnboardings } from "@utils/Thunk";
+import { getOnboardings } from "utils/Thunk";
 import {
   setActiveModal,
   setOnboardingTableStatus,
   setPaymentFormData,
-} from "@redux/actions";
-import { Button } from '@shared/partials';
+} from "redux/actions";
+import { Button } from 'shared/partials';
 
 import "./proposal-tracking.scss";
 import * as Icon from "react-feather";
 
-const moment = require("moment");
+import moment from "moment";
 
 const mapStateToProps = (state) => {
   return {
@@ -583,7 +582,7 @@ class ProposalTracking extends Component {
     if ((!onboardings || !onboardings.length) && callCount < 2) return null;
 
     return (
-      <Fade distance={"20px"} bottom duration={200} delay={500}>
+      <div data-aos="fade-in" data-aos-duration="500">
         <Fragment>
           {this.renderAlert()}
           <section
@@ -618,7 +617,7 @@ class ProposalTracking extends Component {
             </div>
           </section>
         </Fragment>
-      </Fade>
+      </div>
     );
   }
 }

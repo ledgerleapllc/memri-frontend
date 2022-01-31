@@ -3,9 +3,9 @@ import React, { Component, Fragment } from "react";
 import { connect } from "react-redux";
 import { Link, withRouter } from "react-router-dom";
 import * as Icon from "react-feather";
-import Helper from "@utils/Helper";
+import Helper from "utils/Helper";
 import Dropzone from "react-dropzone";
-import { PROPOSAL_TYPES } from "@utils/enum";
+import { PROPOSAL_TYPES } from "utils/enum";
 import ProposalTeamView from "../../shared/proposal-team/ProposalTeam";
 import ProposalMilestoneView from "../../shared/proposal-milestone/ProposalMilestone";
 import ProposalCitationView from "../../shared/proposal-citation/ProposalCitation";
@@ -18,7 +18,7 @@ import {
   GRANTTYPES,
   LICENSES,
   RELATIONSHIPS,
-} from "@utils/Constant";
+} from "utils/Constant";
 import {
   setActiveModal,
   setViewPaymentFormData,
@@ -27,17 +27,17 @@ import {
   hideCanvas,
   setCustomModalData,
   toggleEditMode,
-} from "@redux/actions";
-
+} from "redux/actions";
+import moment from "moment";
 import {
   updateProposalShared,
   submitProposalChange,
   uploadFile,
   checkMentor,
-} from "@utils/Thunk";
+} from "utils/Thunk";
 
 import "./style.module.scss";
-import { FormSelectComponent } from "@shared/components";
+import { FormSelectComponent } from "shared/components";
 import {
   Card,
   CardHeader,
@@ -47,7 +47,7 @@ import {
   CardBodyExpand,
   Tag,
   CardContext,
-} from "@shared/partials";
+} from "shared/partials";
 
 const proposalParams = (proposal) => {
   return {
@@ -131,7 +131,6 @@ const proposalParams = (proposal) => {
   };
 };
 
-const moment = require("moment");
 
 const mapStateToProps = (state) => {
   return {

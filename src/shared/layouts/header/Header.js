@@ -2,9 +2,8 @@ import React, { Component } from "react";
 import { connect } from "react-redux";
 import * as Icon from "react-feather";
 import { Link } from "react-router-dom";
-import { Fade } from "react-reveal";
-import Helper from "@utils/Helper";
-import { saveUser } from "@redux/actions";
+import Helper from "utils/Helper";
+import { saveUser } from "redux/actions";
 
 import "./header.scss";
 
@@ -36,13 +35,13 @@ class Header extends Component {
     return (
       <header className={className}>
         <div className="custom-container">
-          <Fade distance={"20px"} bottom duration={500} delay={400}>
+          <div data-aos="fade-in" data-aos-duration="500">
             <Link to="/" id="top-logo">
               <img src={logoImage} alt="" className="img-block" />
             </Link>
-          </Fade>
+          </div>
 
-          <Fade distance={"20px"} bottom duration={500} delay={400}>
+          <div data-aos="fade-in" data-aos-duration="500">
             <ul>
               {authUser && authUser.id ? (
                 <li>
@@ -65,7 +64,7 @@ class Header extends Component {
                 </li>
               )}
             </ul>
-          </Fade>
+          </div>
         </div>
       </header>
     );

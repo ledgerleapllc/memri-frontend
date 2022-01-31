@@ -1,12 +1,11 @@
 import React, { Component } from "react";
 import { connect } from "react-redux";
 import { withRouter } from "react-router-dom";
-import { Fade } from "react-reveal";
-import Helper from "@utils/Helper";
-import { hideCanvas, saveUser, showCanvas } from "@redux/actions";
+import Helper from "utils/Helper";
+import { hideCanvas, saveUser, showCanvas } from "redux/actions";
 
 import "./first-grant-alert.scss";
-import { dismissFirstCompletedGrantAlert } from "@utils/Thunk";
+import { dismissFirstCompletedGrantAlert } from "utils/Thunk";
 
 const mapStateToProps = (state) => {
   return {
@@ -53,7 +52,7 @@ class FirstGrantAlert extends Component {
       authUser.check_first_compeleted_proposal
     ) {
       return (
-        <Fade distance={"20px"} right duration={200} delay={500}>
+        <div data-aos="fade-in" data-aos-duration="500">
           <div id="app-firstgrant-box" className="new-member">
             <img src="/parts.png" alt="" />
             <div>
@@ -80,7 +79,7 @@ class FirstGrantAlert extends Component {
               </button>
             </div>
           </div>
-        </Fade>
+        </div>
       );
     }
 

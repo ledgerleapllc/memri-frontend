@@ -7,11 +7,11 @@ import {
   showCanvas,
   hideCanvas,
   setOnboardingTableStatus,
-} from "@redux/actions";
-import { COUNTRYLIST, CRYPTOTYPES } from "@utils/Constant";
+} from "redux/actions";
+import { COUNTRYLIST, CRYPTOTYPES } from "utils/Constant";
 import { FormInputComponent, FormSelectComponent } from "../../components";
-import { updatePaymentForm } from "@utils/Thunk";
-import { Button } from '@shared/partials';
+import { updatePaymentForm } from "utils/Thunk";
+import { Button } from 'shared/partials';
 
 import "./payment-form.scss";
 

@@ -1,8 +1,8 @@
 import React, { Component } from "react";
 import { connect } from "react-redux";
 import * as Icon from "react-feather";
-import { removeActiveModal, setViewPaymentFormData } from "@redux/actions";
-// import { CRYPTOTYPES } from "@utils/Constant";
+import { removeActiveModal, setViewPaymentFormData } from "redux/actions";
+// import { CRYPTOTYPES } from "utils/Constant";
 
 import "./view-payment-form.scss";
 

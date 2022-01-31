@@ -1,19 +1,19 @@
 import moment from "moment";
 import React, { useEffect } from "react";
-import Helper from "@utils/Helper";
-import { getActiveInformalVotes } from "@utils/Thunk";
+import Helper from "utils/Helper";
+import { getActiveInformalVotes } from "utils/Thunk";
 import { useDispatch, useSelector } from "react-redux";
 import { useHistory } from "react-router";
-import { Table, useTable, Button } from '@shared/partials';
+import { Table, useTable, Button } from 'shared/partials';
 import styles from "./style.module.scss";
 import * as Icon from "react-feather";
 import { Tooltip } from "@mui/material";
-import { LIMIT_API_RECORDS } from "@utils/Constant";
-import { BALLOT_TYPES } from "@utils/enum";
+import { LIMIT_API_RECORDS } from "utils/Constant";
+import { BALLOT_TYPES } from "utils/enum";
 import {
   setCustomModalData,
   setActiveModal,
-} from "@redux/actions";
+} from "redux/actions";
 import classNames from "classnames";
 const ActiveInformalVotes = ({ outParams, authUser }) => {
   const {

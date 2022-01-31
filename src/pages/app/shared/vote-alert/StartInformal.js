@@ -1,9 +1,9 @@
 import React, { Component, Fragment } from "react";
 import { connect } from "react-redux";
 import { withRouter } from "react-router-dom";
-import { showAlert, showCanvas, hideCanvas } from "@redux/actions";
-import { startInformalVotingShared } from "@utils/Thunk";
-import { Button } from '@shared/partials';
+import { showAlert, showCanvas, hideCanvas } from "redux/actions";
+import { startInformalVotingShared } from "utils/Thunk";
+import { Button } from 'shared/partials';
 
 const mapStateToProps = (state) => {
   return {

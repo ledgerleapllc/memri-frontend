@@ -1,8 +1,8 @@
 import React, { Component } from "react";
 import { connect } from "react-redux";
-import { saveUser } from "@redux/actions";
-import Helper from "@utils/Helper";
-import { Button } from '@shared/partials';
+import { saveUser } from "redux/actions";
+import Helper from "utils/Helper";
+import { Button } from 'shared/partials';
 
 import "./pending-access.scss";
 

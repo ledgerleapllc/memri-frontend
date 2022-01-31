@@ -2,8 +2,8 @@ import React, { Component } from "react";
 import { CircularProgressbar } from "react-circular-progressbar";
 import { connect } from "react-redux";
 import { withRouter } from "react-router-dom";
-import { showAlert } from "@redux/actions";
-import API from "@utils/API";
+import { showAlert } from "redux/actions";
+import API from "utils/API";
 import "./circular-progressbar.scss";
 import "./topic-confirmation.scss";
 

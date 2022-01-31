@@ -1,9 +1,9 @@
 import React, { Component } from "react";
 import { connect } from "react-redux";
 import * as Icon from "react-feather";
-import { setEditProposalData, removeActiveModal } from "@redux/actions";
+import { setEditProposalData, removeActiveModal } from "redux/actions";
 import { withRouter } from "react-router-dom";
-import { Button } from '@shared/partials';
+import { Button } from 'shared/partials';
 
 import "./edit-deny.scss";
 

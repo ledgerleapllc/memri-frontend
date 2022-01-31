@@ -1,7 +1,7 @@
 import React, { Component } from "react";
 import { connect } from "react-redux";
 import { withRouter } from "react-router-dom";
-import Banner from '@shared/components/banner';
+import Banner from 'shared/components/banner';
 import "./style.scss";
 
 const mapStateToProps = (state) => {

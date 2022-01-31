@@ -2,15 +2,15 @@ import React, { Component } from "react";
 import { connect } from "react-redux";
 import { withRouter } from "react-router-dom";
 import { FormInputComponent } from "../../components";
-import { Button } from '@shared/partials';
+import { Button } from 'shared/partials';
 import {
   forceReloadAdminTeam,
   hideCanvas,
   removeActiveModal,
   showAlert,
   showCanvas,
-} from "@redux/actions";
-import { inviteAdmin } from "@utils/Thunk";
+} from "redux/actions";
+import { inviteAdmin } from "utils/Thunk";
 
 import "./add-admin-box.scss";
 

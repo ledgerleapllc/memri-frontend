@@ -1,13 +1,13 @@
 import moment from "moment";
 import React, { useContext, useEffect, useImperativeHandle } from "react";
-import { getUsersByAdmin, downloadCSVUsers } from "@utils/Thunk";
+import { getUsersByAdmin, downloadCSVUsers } from "utils/Thunk";
 import { useDispatch } from "react-redux";
-import { Table, useTable, Button } from '@shared/partials';
+import { Table, useTable, Button } from 'shared/partials';
 import styles from "./style.module.scss";
-import { DECIMALS, LIMIT_API_RECORDS } from "@utils/Constant";
+import { DECIMALS, LIMIT_API_RECORDS } from "utils/Constant";
 import classNames from "classnames";
 import { useHistory } from "react-router";
-import { AppContext } from '@src/App';
+import { AppContext } from 'App';
 
 const UserTables = React.forwardRef(({ outParams }, ref) => {
   const {

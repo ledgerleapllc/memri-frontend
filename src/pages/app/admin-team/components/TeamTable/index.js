@@ -1,13 +1,13 @@
 import moment from "moment";
 import React, { useContext, useEffect } from "react";
-import { getAdminTeams, resendInvitedEmail, changeAdminPermission, resetPasswordAdmin } from "@utils/Thunk";
+import { getAdminTeams, resendInvitedEmail, changeAdminPermission, resetPasswordAdmin } from "utils/Thunk";
 import { useDispatch } from "react-redux";
-import { Table, useTable, Button } from '@shared/partials';
+import { Table, useTable, Button } from 'shared/partials';
 import styles from "./style.module.scss";
-import { LIMIT_API_RECORDS } from "@utils/Constant";
-import { showAlert, setActiveModal } from "@redux/actions";
-import { SwitchButton } from "@shared/components";
-import { AppContext } from '@src/App';
+import { LIMIT_API_RECORDS } from "utils/Constant";
+import { showAlert, setActiveModal } from "redux/actions";
+import { SwitchButton } from "shared/components";
+import { AppContext } from 'App';
 import classNames from "classnames";
 
 const allPermissions = ['users', 'new_proposal', 'move_to_formal', 'grants', 'milestones', 'global_settings', 'emailer', 'accounting'];

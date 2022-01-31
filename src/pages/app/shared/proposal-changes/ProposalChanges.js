@@ -4,26 +4,26 @@ import * as Icon from "react-feather";
 import {
   getProposalChanges,
   getPublicProposalChanges,
-} from "@utils/Thunk";
+} from "utils/Thunk";
 import { withRouter } from "react-router-dom";
 import {
   OP_WHAT_SECTION_ACTIONS,
   OP_SCOPES,
   OP_ACTIONS,
-} from "@utils/Constant";
+} from "utils/Constant";
 import {
   Card,
   CardHeader,
   CardBody,
   CardBodyPreview,
   Button
-} from "@shared/partials";
+} from "shared/partials";
 
 import "./proposal-changes.scss";
 import { CardBodyExpand } from "../../../../shared/partials/Card";
 
 // eslint-disable-next-line no-undef
-const moment = require("moment");
+import moment from "moment";
 
 const mapStateToProps = (state) => {
   return {

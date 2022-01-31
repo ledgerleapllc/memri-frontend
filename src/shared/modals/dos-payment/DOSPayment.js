@@ -11,17 +11,17 @@ import {
   showCanvas,
   hideCanvas,
   setAdminActiveProposalTableStatus,
-} from "@redux/actions";
-import Helper from "@utils/Helper";
+} from "redux/actions";
+import Helper from "utils/Helper";
 import { FormInputComponent } from "../../components";
 import CheckoutForm from "./CheckoutForm";
 import {
   stakeCC,
   stakeReputation,
   updatePaymentProposal,
-} from "@utils/Thunk";
-import { DECIMALS } from "@utils/Constant";
-import { Button } from '@shared/partials';
+} from "utils/Thunk";
+import { DECIMALS } from "utils/Constant";
+import { Button } from 'shared/partials';
 
 import "./dos-payment.scss";
 

@@ -1,13 +1,13 @@
 import moment from "moment";
 import React, { useEffect } from "react";
-import { getUserSurveys } from "@utils/Thunk";
+import { getUserSurveys } from "utils/Thunk";
 import { useDispatch } from "react-redux";
-import { Table, useTable, Button } from '@shared/partials';
+import { Table, useTable, Button } from 'shared/partials';
 import styles from "./style.module.scss";
-import { LIMIT_API_RECORDS } from "@utils/Constant";
+import { LIMIT_API_RECORDS } from "utils/Constant";
 import { Link } from "react-router-dom";
 import { useHistory } from 'react-router';
-import { setActiveModal } from "@redux/actions";
+import { setActiveModal } from "redux/actions";
 
 const defaultOutParams = {status: 'active', type: 'grant'};
 

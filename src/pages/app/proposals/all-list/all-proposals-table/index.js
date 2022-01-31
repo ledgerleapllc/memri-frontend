@@ -1,14 +1,14 @@
 import moment from "moment";
 import React, { useContext, useEffect, useImperativeHandle } from "react";
-import Helper from "@utils/Helper";
-import { getAllProposalsShared, downloadCSVAllProposals } from "@utils/Thunk";
-import { PROPOSAL_TYPES } from "@utils/enum";
+import Helper from "utils/Helper";
+import { getAllProposalsShared, downloadCSVAllProposals } from "utils/Thunk";
+import { PROPOSAL_TYPES } from "utils/enum";
 import { useDispatch, useSelector } from "react-redux";
 import { useHistory } from "react-router";
-import { Table, useTable } from '@shared/partials';
+import { Table, useTable } from 'shared/partials';
 import styles from "./style.module.scss";
-import { AppContext } from '@src/App';
-import { LIMIT_API_RECORDS } from "@utils/Constant";
+import { AppContext } from 'App';
+import { LIMIT_API_RECORDS } from "utils/Constant";
 
 const Proposals = React.forwardRef(({ outParams }, ref) => {
   const {

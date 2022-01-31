@@ -1,11 +1,11 @@
 import React, { useEffect } from "react";
 import {
   getDosFee,
-} from "@utils/Thunk";
+} from "utils/Thunk";
 import { useDispatch } from "react-redux";
-import { Table, useTable } from '@shared/partials';
+import { Table, useTable } from 'shared/partials';
 import styles from "./style.module.scss";
-import { LIMIT_API_RECORDS } from "@utils/Constant";
+import { LIMIT_API_RECORDS } from "utils/Constant";
 import classNames from "classnames";
 import moment from 'moment';
 

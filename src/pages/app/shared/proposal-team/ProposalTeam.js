@@ -1,13 +1,12 @@
 import React, { Component } from "react";
 import { connect } from "react-redux";
 import * as Icon from "react-feather";
-import { COUNTRYLIST } from "@utils/Constant";
-import { showAlert } from "@redux/actions";
-import { Button } from '@shared/partials';
+import { COUNTRYLIST } from "utils/Constant";
+import { showAlert } from "redux/actions";
+import { Button } from 'shared/partials';
 
 import "./proposal-team.scss";
-import { Checkbox } from "@shared/components";
-import { Fade } from "react-reveal";
+import { Checkbox } from "shared/components";
 
 const mapStateToProps = () => {
   return {};
@@ -96,7 +95,7 @@ class ProposalTeam extends Component {
     if (members && members.length) {
       members.forEach((member, index) => {
         items.push(
-          <Fade distance={"20px"} bottom duration={100} delay={600}>
+          <div data-aos="fade-in" data-aos-duration="500">
             <li key={`member_${index}`} className="flex gap-4 flex-col">
               <div className="block">
                 <label
@@ -169,7 +168,7 @@ class ProposalTeam extends Component {
                 </div>
               </div> */}
             </li>
-          </Fade>
+          </div>
         );
       });
     }
@@ -181,15 +180,15 @@ class ProposalTeam extends Component {
     const { memberChecked } = this.props;
     return (
       <section id="proposal-team-section">
-        <Fade distance={"20px"} bottom duration={100} delay={600}>
+        <div data-aos="fade-in" data-aos-duration="500">
           <div className="c-form-row">
             <label>{`Please enter team member details for all central project members:`}</label>
           </div>
-        </Fade>
+        </div>
         <ul className="flex flex-col gap-4 mt-4">
           {this.renderMembers()}
         </ul>
-        <Fade distance={"20px"} bottom duration={100} delay={600}>
+        <div data-aos="fade-in" data-aos-duration="500">
           <div className="c-checkbox-item mt-5">
             <Checkbox
               value={memberChecked}
@@ -197,8 +196,8 @@ class ProposalTeam extends Component {
               onChange={(val) => this.toggleCheckbox(val)}
             />
           </div>
-        </Fade>
-        <Fade distance={"20px"} bottom duration={100} delay={600}>
+        </div>
+        <div data-aos="fade-in" data-aos-duration="500">
           <div className="flex gap-2 mt-4">
             <Button color="secondary" onClick={this.addMember}>
               <Icon.Plus style={{ marginRight: "5px" }} />
@@ -209,7 +208,7 @@ class ProposalTeam extends Component {
               Remove Team Member
             </Button>
           </div>
-        </Fade>
+        </div>
       </section>
     );
   }

@@ -6,8 +6,8 @@ import {
   showAlert,
   setCustomModalData,
   setActiveModal,
-} from "@redux/actions";
-import { DECIMALS } from "@utils/Constant";
+} from "redux/actions";
+import { DECIMALS } from "utils/Constant";
 import {
   Checkbox,
   CheckboxX,
@@ -15,17 +15,17 @@ import {
   CardHeader as OldCardHeader,
   CardPreview,
   CardBody as OldCardBody,
-} from "@shared/components";
+} from "shared/components";
 
 import {
   Card,
   CardBody,
   Button,
-} from "@shared/partials";
-import { BALLOT_TYPES } from "@utils/enum";
+} from "shared/partials";
+import { BALLOT_TYPES } from "utils/enum";
 
 // eslint-disable-next-line no-undef
-const moment = require("moment");
+import moment from "moment";
 
 const mapStateToProps = (state) => {
   return {

@@ -1,13 +1,13 @@
 import React, { Component } from "react";
 import { Redirect, withRouter } from "react-router-dom";
 import { connect } from "react-redux";
-import Helper from "@utils/Helper";
+import Helper from "utils/Helper";
 import "./accounting.scss";
-import { downloadCSVAccounting, getMetrics } from "@utils/Thunk";
-import { hideCanvas, showCanvas } from "@redux/actions";
+import { downloadCSVAccounting, getMetrics } from "utils/Thunk";
+import { hideCanvas, showCanvas } from "redux/actions";
 import DosFeeTable from "./components/DosFeeTable";
 import moment from "moment";
-import { Card, CardHeader, CardBody, DatePicker, Button } from '@shared/partials';
+import { Card, CardHeader, CardBody, DatePicker, Button } from 'shared/partials';
 
 const mapStateToProps = (state) => {
   return {

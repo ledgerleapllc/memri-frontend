@@ -1,11 +1,10 @@
 import React, { Component } from "react";
 import { connect } from "react-redux";
 import { Redirect, withRouter } from "react-router-dom";
-import { Fade } from "react-reveal";
-import { Checkbox, PageHeaderComponent } from "@shared/components";
+import { Checkbox, PageHeaderComponent } from "shared/components";
 import "./style.scss";
-import { launchSurvey } from "@utils/Thunk";
-import { hideCanvas, showAlert, showCanvas } from "@redux/actions";
+import { launchSurvey } from "utils/Thunk";
+import { hideCanvas, showAlert, showCanvas } from "redux/actions";
 import DiscussionProposalsTable from "../surveys/components/tables/discussion-proposals";
 
 const mapStateToProps = (state) => {
@@ -75,7 +74,7 @@ class StartSurvey extends Component {
 
     return (
       <div id="app-start-survey-page" className="h-100">
-        <Fade distance={"20px"} bottom duration={300} delay={600}>
+        <div data-aos="fade-in" data-aos-duration="500">
           <PageHeaderComponent title="" />
           <section className="app-infinite-box mb-4">
             <div className="app-infinite-search-wrap">
@@ -167,7 +166,7 @@ class StartSurvey extends Component {
               ignorePreviousWinner
             />
           </section>
-        </Fade>
+        </div>
       </div>
     );
   }

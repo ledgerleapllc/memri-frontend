@@ -2,9 +2,8 @@ import React, { Component } from "react";
 import { connect } from "react-redux";
 import { withRouter } from "react-router-dom";
 import * as Icon from "react-feather";
-import { Fade } from "react-reveal";
-import { GlobalRelativeCanvasComponent } from "@shared/components";
-import API from "@utils/API";
+import { GlobalRelativeCanvasComponent } from "shared/components";
+import API from "utils/API";
 import { Reply, Visibility } from "@mui/icons-material";
 import { Tooltip } from "@mui/material";
 import moment from "moment";
@@ -203,7 +202,7 @@ class Topics extends Component {
 
   render() {
     return (
-      <Fade distance={"20px"} bottom duration={200} delay={700}>
+      <div data-aos="fade-in" data-aos-duration="500">
         <section id="app-topics-section" className="app-infinite-box">
           <div className="app-infinite-search-wrap">
             <label>
@@ -224,7 +223,7 @@ class Topics extends Component {
             </div>
           </div>
         </section>
-      </Fade>
+      </div>
     );
   }
 }

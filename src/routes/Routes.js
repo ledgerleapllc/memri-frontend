@@ -1,12 +1,12 @@
 import React, { Component } from "react";
 import { connect } from "react-redux";
 import { Switch, Route } from "react-router-dom";
-import { saveUser, showCanvas, hideCanvas } from "@redux/actions";
-import Helper from "@utils/Helper";
-import { getGlobalSettings, getMe } from "@utils/Thunk";
+import { saveUser, showCanvas, hideCanvas } from "redux/actions";
+import Helper from "utils/Helper";
+import { getGlobalSettings, getMe } from "utils/Thunk";
 import PrivateRoute from "./PrivateRoute";
-import AppLayout from "@shared/layouts/app/App";
-import AuthAppLayout from "@shared/layouts/authapp/AuthApp";
+import AppLayout from "shared/layouts/app/App";
+import AuthAppLayout from "shared/layouts/authapp/AuthApp";
 
 const mapStateToProps = (state) => {
   return {

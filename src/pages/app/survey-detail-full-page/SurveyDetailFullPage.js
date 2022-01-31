@@ -1,8 +1,7 @@
 import React, { Component } from "react";
 import { connect } from "react-redux";
 import { Redirect, withRouter } from "react-router-dom";
-import { Fade } from "react-reveal";
-import { PageHeaderComponent } from "@shared/components";
+import { PageHeaderComponent } from "shared/components";
 import "./style.scss";
 import SurveyVotesTable from "../survey-detail/components/tables/survey-votes";
 import BidsVotesTable from "../survey-detail/components/tables/bids-votes";
@@ -13,13 +12,13 @@ import {
   setActiveModal,
   showAlert,
   showCanvas,
-} from "@redux/actions";
+} from "redux/actions";
 import {
   getSurveyDetail,
   getSurveyVoters,
   getUserNotVoteSurvey,
   sendReminderForSurvey,
-} from "@utils/Thunk";
+} from "utils/Thunk";
 
 const mapStateToProps = (state) => {
   return {
@@ -129,7 +128,7 @@ class SurveyDetail extends Component {
 
     return (
       <div id="survey-detail-full-page">
-        <Fade distance={"20px"} bottom duration={300} delay={600}>
+        <div data-aos="fade-in" data-aos-duration="500">
           <PageHeaderComponent title="" />
           <section className="app-infinite-box">
             {surveyId && surveyData?.type === "grant" && (
@@ -160,7 +159,7 @@ class SurveyDetail extends Component {
               </>
             )}
           </section>
-        </Fade>
+        </div>
       </div>
     );
   }

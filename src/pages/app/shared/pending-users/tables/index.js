@@ -1,16 +1,16 @@
 import moment from "moment";
 import React, { useEffect } from "react";
-import { getPendingUsersByAdmin } from "@utils/Thunk";
+import { getPendingUsersByAdmin } from "utils/Thunk";
 import { useDispatch } from "react-redux";
-import { Table, useTable, Button } from '@shared/partials';
+import { Table, useTable, Button } from 'shared/partials';
 import styles from "./style.module.scss";
-import { LIMIT_API_RECORDS } from "@utils/Constant";
+import { LIMIT_API_RECORDS } from "utils/Constant";
 import classNames from "classnames";
 import { useHistory } from "react-router";
 import {
   setCustomModalData,
   setActiveModal,
-} from "@redux/actions";
+} from "redux/actions";
 const PendingUsersTable = React.forwardRef(({ outParams }, ref) => {
   const {
     data,

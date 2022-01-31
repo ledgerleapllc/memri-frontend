@@ -1,17 +1,17 @@
 import React, { Component } from "react";
 import { connect } from "react-redux";
 import { withRouter } from "react-router-dom";
-import { GlobalRelativeCanvasComponent } from "@shared/components";
+import { GlobalRelativeCanvasComponent } from "shared/components";
 import {
   createSponsorCode,
   getSponsorCodes,
   revokeSponsorCode,
-} from "@utils/Thunk";
-import { hideCanvas, showCanvas } from "@redux/actions";
+} from "utils/Thunk";
+import { hideCanvas, showCanvas } from "redux/actions";
 import { CopyToClipboard } from "react-copy-to-clipboard";
 
 // eslint-disable-next-line no-undef
-const moment = require("moment");
+import moment from "moment";
 
 const mapStateToProps = (state) => {
   return {

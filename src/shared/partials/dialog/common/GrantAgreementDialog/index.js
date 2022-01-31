@@ -1,10 +1,10 @@
 import { useState } from "react";
 import { useDispatch } from "react-redux";
-import { Dialog } from "@shared/partials/dialog/Provider";
+import { Dialog } from "shared/partials/dialog/Provider";
 import './style.scss';
-import { Button } from '@shared/partials';
-import { formatDate } from '@shared/core/utils';
-import { GRANT_LOGS } from '@shared/core/constant';
+import { Button } from 'shared/partials';
+import { formatDate } from 'shared/core/utils';
+import { GRANT_LOGS } from 'shared/core/constant';
 import { remindGA, resendGA } from '@stores/api/shared/actions';
 
 export const GrantAgreementDialog = ({ grantId, data, className, close, hideTools }) => {

@@ -1,8 +1,8 @@
 import classNames from 'classnames';
 import './style.scss';
 import { cloneElement, useContext, useState, useEffect } from 'react';
-// import { ReactComponent as IconPlus } from '@assets/icons/ic-plus.svg';
-// import { ReactComponent as IconMinus } from '@assets/icons/ic-minus.svg';
+// import { ReactComponent as IconPlus } from 'assets/icons/ic-plus.svg';
+// import { ReactComponent as IconMinus } from 'assets/icons/ic-minus.svg';
 import { createContext } from 'react';
 import * as Icon from "react-feather";
 

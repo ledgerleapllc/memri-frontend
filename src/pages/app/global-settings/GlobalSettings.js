@@ -3,7 +3,7 @@ import React, { Component, Fragment } from "react";
 import { connect } from "react-redux";
 import { Redirect, withRouter } from "react-router-dom";
 import * as Icon from "react-feather";
-import { TIMEUNITS } from "@utils/Constant";
+import { TIMEUNITS } from "utils/Constant";
 import {
   showAlert,
   showCanvas,
@@ -11,10 +11,10 @@ import {
   setActiveModal,
   setCustomModalData,
   setMasterPasswordStatus,
-} from "@redux/actions";
-import { updateGlobalSettingsByAdmin } from "@utils/Thunk";
-import Helper from "@utils/Helper";
-import { Card, CardHeader, CardBody, Button } from '@shared/partials';
+} from "redux/actions";
+import { updateGlobalSettingsByAdmin } from "utils/Thunk";
+import Helper from "utils/Helper";
+import { Card, CardHeader, CardBody, Button } from 'shared/partials';
 
 import "./style.module.scss";
 

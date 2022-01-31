@@ -1,19 +1,18 @@
 import React, { Component } from "react";
 import { connect } from "react-redux";
 import { Redirect, withRouter } from "react-router-dom";
-import { Fade } from "react-reveal";
 import {
   hideCanvas,
   setActiveModal,
   showAlert,
   showCanvas,
-} from "@redux/actions";
+} from "redux/actions";
 import {
   approveReviewMilestone,
   getReviewMilestoneDetail,
-} from "@utils/Thunk";
+} from "utils/Thunk";
 import "./milestone-review.scss";
-import { PageHeaderComponent } from "@shared/components";
+import { PageHeaderComponent } from "shared/components";
 import Dropzone from "react-dropzone";
 import * as Icon from "react-feather";
 
@@ -155,7 +154,7 @@ class MilestoneReview extends Component {
 
     return (
       <div id="milestones-page" className="h-100">
-        <Fade distance={"20px"} bottom duration={300} delay={600}>
+        <div data-aos="fade-in" data-aos-duration="500">
           <PageHeaderComponent
             title={`Milestones review for ${data.proposal_id}-${data.milestoneIndex}`}
           />
@@ -281,7 +280,7 @@ class MilestoneReview extends Component {
               </div>
             </div>
           </section>
-        </Fade>
+        </div>
       </div>
     );
   }

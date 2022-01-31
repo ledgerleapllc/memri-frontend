@@ -2,16 +2,15 @@ import React, { Component, Fragment } from "react";
 import { connect } from "react-redux";
 import { withRouter } from "react-router-dom";
 import * as Icon from "react-feather";
-import { Fade } from "react-reveal";
-import { getAllProposalsShared } from "@utils/Thunk";
-import Helper from "@utils/Helper";
-import { GlobalRelativeCanvasComponent } from "@shared/components";
+import { getAllProposalsShared } from "utils/Thunk";
+import Helper from "utils/Helper";
+import { GlobalRelativeCanvasComponent } from "shared/components";
 import Tooltip from "@mui/material/Tooltip";
 
 import "./all.scss";
 
 // eslint-disable-next-line no-undef
-const moment = require("moment");
+import moment from "moment";
 
 const mapStateToProps = (state) => {
   return {
@@ -440,7 +439,7 @@ class AllProposals extends Component {
     if (!authUser || !authUser.id) return null;
 
     return (
-      <Fade distance={"20px"} bottom duration={300} delay={600}>
+      <div data-aos="fade-in" data-aos-duration="500">
         <section id="app-all-proposals-section" className="app-infinite-box">
           <div className="app-infinite-search-wrap">
             <label>All Proposals</label>
@@ -467,7 +466,7 @@ class AllProposals extends Component {
             </div>
           </div>
         </section>
-      </Fade>
+      </div>
     );
   }
 }

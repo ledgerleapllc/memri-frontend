@@ -1,16 +1,16 @@
 import React, { Component } from "react";
 import { connect } from "react-redux";
 import { Redirect, withRouter } from "react-router";
-import { LineChart, PieChart } from "@shared/components";
-import { hideCanvas, showCanvas, setActiveModal } from "@redux/actions";
+import { LineChart, PieChart } from "shared/components";
+import { hideCanvas, showCanvas, setActiveModal } from "redux/actions";
 import {
   getReportOnboarding,
   getReportReputation,
   getReportTotalRep,
-} from "@utils/Thunk";
+} from "utils/Thunk";
 import OnboardingStats from "./components/onboarding-stats";
-import { FROM_YEAR } from "@utils/Constant";
-import { Card, CardHeader, CardBody, Button } from '@shared/partials';
+import { FROM_YEAR } from "utils/Constant";
+import { Card, CardHeader, CardBody, Button } from 'shared/partials';
 
 const mapStateToProps = (state) => {
   return {

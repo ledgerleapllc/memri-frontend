@@ -1,21 +1,21 @@
 import moment from "moment";
 import React, { Component } from "react";
 import { connect } from "react-redux";
-import { GlobalRelativeCanvasComponent } from "@shared/components";
+import { GlobalRelativeCanvasComponent } from "shared/components";
 import { withRouter } from "react-router-dom";
 import {
   getSurveyDownvotes,
   downloadCurrentDownvoteByProposal,
-} from "@utils/Thunk";
+} from "utils/Thunk";
 import "./style.scss";
 import { Link } from "react-router-dom";
 import {
   hideCanvas,
   setActiveModal,
   showCanvas,
-} from "@redux/actions";
-import Helper from "@utils/Helper";
-import { Button } from '@shared/partials';
+} from "redux/actions";
+import Helper from "utils/Helper";
+import { Button } from 'shared/partials';
 
 const mapStateToProps = (state) => {
   return {

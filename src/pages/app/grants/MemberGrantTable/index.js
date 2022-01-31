@@ -1,8 +1,8 @@
 import moment from "moment";
 import React, { useContext, useEffect } from "react";
-import { getNotSubmitMilestones, getGrantsShared, startFormalMilestoneVotingUser } from "@utils/Thunk";
+import { getNotSubmitMilestones, getGrantsShared, startFormalMilestoneVotingUser } from "utils/Thunk";
 import { useDispatch } from "react-redux";
-import { Table, useTable, Button } from '@shared/partials';
+import { Table, useTable, Button } from 'shared/partials';
 import styles from "./style.module.scss";
 import {
   setCustomModalData,
@@ -10,8 +10,8 @@ import {
   setMilestoneVoteData,
   showAlert,
   setGrantTableStatus
-} from "@redux/actions";
-import { AppContext } from '@src/App';
+} from "redux/actions";
+import { AppContext } from 'App';
 
 const MemberGrantTable = React.forwardRef(({ outParams }, ref) => {
   const {

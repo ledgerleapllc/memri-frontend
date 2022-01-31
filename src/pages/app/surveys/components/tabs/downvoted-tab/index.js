@@ -3,9 +3,9 @@ import { connect } from "react-redux";
 import { withRouter } from "react-router-dom";
 import DownvotedTable from "../../tables/downvoted";
 import moment from "moment";
-import { downloadSurveyLoser } from "@utils/Thunk";
-import { hideCanvas, showCanvas } from "@redux/actions";
-import { Card, CardHeader, CardBody, Button, DatePicker } from '@shared/partials';
+import { downloadSurveyLoser } from "utils/Thunk";
+import { hideCanvas, showCanvas } from "redux/actions";
+import { Card, CardHeader, CardBody, Button, DatePicker } from 'shared/partials';
 
 const mapStateToProps = (state) => {
   return {

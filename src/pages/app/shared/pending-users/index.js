@@ -1,9 +1,9 @@
 import React, { useEffect, useRef, useState } from "react";
 import PendingUserTable from "./tables";
-import { useDelayInput } from '@shared/hooks/useDelayInput';
-import { Card, CardHeader, CardBody } from '@shared/partials';
+import { useDelayInput } from 'shared/hooks/useDelayInput';
+import { Card, CardHeader, CardBody } from 'shared/partials';
 import { useDispatch, useSelector } from "react-redux";
-import { getPendingUsersByAdmin } from "@utils/Thunk";
+import { getPendingUsersByAdmin } from "utils/Thunk";
 
 const PendingUsersTab = () => {
   const { params, setSearchTerm } = useDelayInput();

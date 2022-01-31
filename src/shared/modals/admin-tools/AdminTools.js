@@ -9,14 +9,14 @@ import {
   showCanvas,
   startInformalAdminTools,
   toggleEditMode,
-} from "@redux/actions";
+} from "redux/actions";
 import {
   forceWithdrawProposal,
   startInformalVotingShared,
-} from "@utils/Thunk";
+} from "utils/Thunk";
 import {
   Button
-} from '@shared/partials';
+} from 'shared/partials';
 import "./admin-tools.scss";
 
 const mapStateToProps = () => {

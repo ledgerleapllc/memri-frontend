@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from "react";
-import { ReactComponent as IconCheckSquare } from '@assets/icons/ic-check-square.svg';
-import { ReactComponent as IconSquare } from '@assets/icons/ic-square.svg';
-import { ReactComponent as IconX } from '@assets/icons/ic-x.svg';
+import { ReactComponent as IconCheckSquare } from 'assets/icons/ic-check-square.svg';
+import { ReactComponent as IconSquare } from 'assets/icons/ic-square.svg';
+import { ReactComponent as IconX } from 'assets/icons/ic-x.svg';
 import classNames from "classnames";
 
 export const Checkbox = ({ className, children, value, text, onChange, readOnly, statusX, classCheckBox, classText }) => {

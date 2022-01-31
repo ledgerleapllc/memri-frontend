@@ -2,7 +2,7 @@ import React, { Component } from "react";
 import { connect } from "react-redux";
 import { withRouter } from "react-router-dom";
 import CompletedSurveysTable from "../../tables/completed-surveys";
-import { Card, CardHeader, CardBody } from '@shared/partials';
+import { Card, CardHeader, CardBody } from 'shared/partials';
 
 const mapStateToProps = (state) => {
   return {

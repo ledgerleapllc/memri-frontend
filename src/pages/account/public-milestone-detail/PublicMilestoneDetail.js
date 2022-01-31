@@ -1,9 +1,8 @@
 import React, { Component } from "react";
 import { connect } from "react-redux";
 import { withRouter } from "react-router-dom";
-import { Fade } from "react-reveal";
-import { PageHeaderComponent } from "@shared/components";
-import { getPublicMilestoneDetail } from "@utils/Thunk";
+import { PageHeaderComponent } from "shared/components";
+import { getPublicMilestoneDetail } from "utils/Thunk";
 import moment from "moment";
 import "./public-milestone-detail.scss";
 
@@ -57,7 +56,7 @@ class PublicMilestoneDetail extends Component {
 
     return (
       <div id="public-milestone-page" className="h-100">
-        <Fade distance={"20px"} bottom duration={300} delay={600}>
+        <div data-aos="fade-in" data-aos-duration="500">
           <PageHeaderComponent
             title={`Milestones log for ${data.proposal_id}-${data.milestoneIndex}`}
           />
@@ -165,7 +164,7 @@ class PublicMilestoneDetail extends Component {
               </div>
             </div>
           </section>
-        </Fade>
+        </div>
       </div>
     );
   }

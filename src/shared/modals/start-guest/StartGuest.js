@@ -6,10 +6,10 @@ import {
   removeActiveModal,
   showCanvas,
   hideCanvas,
-} from "@redux/actions";
-import Helper from "@utils/Helper";
-import { startGuest } from "@utils/Thunk";
-import { Button } from '@shared/partials';
+} from "redux/actions";
+import Helper from "utils/Helper";
+import { startGuest } from "utils/Thunk";
+import { Button } from 'shared/partials';
 
 import "./start-guest.scss";
 

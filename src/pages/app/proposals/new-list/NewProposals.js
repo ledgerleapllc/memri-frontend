@@ -1,8 +1,8 @@
 import React from "react";
 import { useSelector } from "react-redux";
 import NewProposalsTable from './tables';
-import { useDelayInput } from '@shared/hooks/useDelayInput';
-import { Card, CardHeader, CardBody } from '@shared/partials';
+import { useDelayInput } from 'shared/hooks/useDelayInput';
+import { Card, CardHeader, CardBody } from 'shared/partials';
 
 const NewProposals = ({ type }) => {
   const { params, setSearchTerm } = useDelayInput();

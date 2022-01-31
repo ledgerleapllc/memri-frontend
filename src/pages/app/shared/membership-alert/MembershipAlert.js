@@ -1,13 +1,12 @@
 import React, { Component } from "react";
 import { connect } from "react-redux";
 import { withRouter } from "react-router-dom";
-import { Fade } from "react-reveal";
 import { BRAND } from "@utils";
-import Helper from "@utils/Helper";
-import { hideCanvas, saveUser, showCanvas } from "@redux/actions";
+import Helper from "utils/Helper";
+import { hideCanvas, saveUser, showCanvas } from "redux/actions";
 
 import "./membership-alert.scss";
-import { dismissNewMemberAlert } from "@utils/Thunk";
+import { dismissNewMemberAlert } from "utils/Thunk";
 
 const mapStateToProps = (state) => {
   return {
@@ -50,7 +49,7 @@ class MembershipAlert extends Component {
     if (authUser.is_participant && !authUser.is_member) {
       // Associate
       return (
-        <Fade distance={"20px"} right duration={200} delay={500}>
+        <div data-aos="fade-in" data-aos-duration="500">
           <div id="app-membership-box">
             <img src="/parts.png" alt="" />
             <div style={{ paddingRight: 0 }}>
@@ -58,12 +57,12 @@ class MembershipAlert extends Component {
               <p className="font-size-12">{`Your current portal account level is Associate. Associates can view or comment on, or submit proposals. Voting requires the next account level, Voting Associate.`}</p>
             </div>
           </div>
-        </Fade>
+        </div>
       );
     } else if (authUser.is_guest) {
       // Guest
       return (
-        <Fade distance={"20px"} right duration={200} delay={500}>
+        <div data-aos="fade-in" data-aos-duration="500">
           <div id="app-membership-box">
             <img src="/parts.png" alt="" />
             <div>
@@ -77,7 +76,7 @@ class MembershipAlert extends Component {
               Register
             </a>
           </div>
-        </Fade>
+        </div>
       );
     }
 

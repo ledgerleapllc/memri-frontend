@@ -2,7 +2,7 @@ import React, { Component, Fragment } from "react";
 import { connect } from "react-redux";
 import { withRouter } from "react-router-dom";
 import * as Icon from "react-feather";
-import Helper from "@utils/Helper";
+import Helper from "utils/Helper";
 import {
   approveProposalChange,
   denyProposalChange,
@@ -12,9 +12,9 @@ import {
   forceApproveProposalChange,
   forceDenyProposalChange,
   forceWithdrawProposalChange,
-} from "@utils/Thunk";
-import { showAlert, showCanvas, hideCanvas } from "@redux/actions";
-import { Card, CardHeader, CardBody, Button } from '@shared/partials';
+} from "utils/Thunk";
+import { showAlert, showCanvas, hideCanvas } from "redux/actions";
+import { Card, CardHeader, CardBody, Button } from 'shared/partials';
 import {
   OP_WHAT_SECTION_ACTIONS,
   OP_SCOPES,
@@ -22,11 +22,11 @@ import {
   OP_WHAT_SECTION_COMPLICATE_ACTIONS,
   LICENSES,
   GRANTTYPES,
-} from "@utils/Constant";
+} from "utils/Constant";
 import "./single-change-detail.scss";
 
 // eslint-disable-next-line no-undef
-const moment = require("moment");
+import moment from "moment";
 
 const mapStateToProps = (state) => {
   return {

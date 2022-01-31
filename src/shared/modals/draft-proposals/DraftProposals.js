@@ -1,12 +1,12 @@
 import React, { Component } from "react";
 import { connect } from "react-redux";
 import * as Icon from "react-feather";
-import { removeActiveModal } from "@redux/actions";
+import { removeActiveModal } from "redux/actions";
 
 import "./draft-proposals.scss";
 import { withRouter } from "react-router-dom";
 import DraftProposalsTable from "./components/DraftProposalsTable";
-import { Button } from '@shared/partials';
+import { Button } from 'shared/partials';
 
 const mapStateToProps = (state) => {
   return {

@@ -1,14 +1,14 @@
 import moment from "moment";
 import React, { useEffect } from "react";
-import Helper from "@utils/Helper";
-import { PROPOSAL_TYPES } from "@utils/enum";
+import Helper from "utils/Helper";
+import { PROPOSAL_TYPES } from "utils/enum";
 import { useDispatch, useSelector } from "react-redux";
 import { useHistory } from "react-router";
-import { Table, useTable, Button } from '@shared/partials';
+import { Table, useTable, Button } from 'shared/partials';
 import styles from "./style.module.scss";
-import { LIMIT_API_RECORDS } from "@utils/Constant";
+import { LIMIT_API_RECORDS } from "utils/Constant";
 import * as Icon from "react-feather";
-import { approveProposal, getPendingProposals } from "@utils/Thunk";
+import { approveProposal, getPendingProposals } from "utils/Thunk";
 import {
   hideCanvas,
   setActiveModal,
@@ -17,7 +17,7 @@ import {
   setDOSReviewData,
   setReviewProposal,
   showCanvas,
-} from "@redux/actions";
+} from "redux/actions";
 const NewProposals = React.forwardRef(({ outParams }, ref) => {
   const {
     data,

@@ -8,8 +8,8 @@ import {
   removeActiveModal,
   showAlert,
   showCanvas,
-} from "@redux/actions";
-import { cancelSurvey } from "@utils/Thunk";
+} from "redux/actions";
+import { cancelSurvey } from "utils/Thunk";
 
 import "./cancel-active-survey.scss";
 

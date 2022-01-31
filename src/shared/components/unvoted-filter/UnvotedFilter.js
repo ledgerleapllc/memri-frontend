@@ -1,5 +1,5 @@
 import React from "react";
-import { Checkbox } from "@shared/partials";
+import { Checkbox } from "shared/partials";
 
 export default function UnvotedFilter({ votes, show_unvoted, onChange }) {
   return (

@@ -7,9 +7,9 @@ import {
   showCanvas,
   hideCanvas,
   setPreRegisterTableStatus,
-} from "@redux/actions";
-import { approvePreRegister, denyPreRegister } from "@utils/Thunk";
-import { Button } from '@shared/partials';
+} from "redux/actions";
+import { approvePreRegister, denyPreRegister } from "utils/Thunk";
+import { Button } from 'shared/partials';
 
 import "./pre-register-action.scss";
 

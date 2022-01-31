@@ -3,10 +3,9 @@ import { connect } from "react-redux";
 import { Redirect, withRouter } from "react-router-dom";
 import * as Icon from "react-feather";
 import Dropzone from "react-dropzone";
-import { Fade } from "react-reveal";
-import { hideCanvas, showAlert, showCanvas } from "@redux/actions";
-import { PageHeaderComponent } from "@shared/components";
-import { submitSimpleProposal, uploadFile } from "@utils/Thunk";
+import { hideCanvas, showAlert, showCanvas } from "redux/actions";
+import { PageHeaderComponent } from "shared/components";
+import { submitSimpleProposal, uploadFile } from "utils/Thunk";
 
 import "./new-simple-proposal.scss";
 
@@ -161,7 +160,7 @@ class NewSimpleProposal extends Component {
         </div>
 
         <form method="POST" action="" onSubmit={this.submit}>
-          <Fade distance={"20px"} bottom duration={300} delay={600}>
+          <div data-aos="fade-in" data-aos-duration="500">
             <div className="c-form-row mt-5">
               <label>Title of Proposal (limit 10 words)</label>
               <input
@@ -171,8 +170,8 @@ class NewSimpleProposal extends Component {
                 required
               />
             </div>
-          </Fade>
-          <Fade distance={"20px"} bottom duration={300} delay={600}>
+          </div>
+          <div data-aos="fade-in" data-aos-duration="500">
             <div className="c-form-row">
               <label>{`Describe the change you think should be passed. This can relate to governance, platform rules, or any proposal not related to a grant.`}</label>
               <textarea
@@ -181,9 +180,9 @@ class NewSimpleProposal extends Component {
                 required
               ></textarea>
             </div>
-          </Fade>
+          </div>
 
-          <Fade distance={"20px"} bottom duration={300} delay={600}>
+          <div data-aos="fade-in" data-aos-duration="500">
             <div className="c-form-row mt-5">
               <label>
                 {`Drag and drop a file into this box to upload pitch deck, project architecture, charts, etc.`}
@@ -206,7 +205,7 @@ class NewSimpleProposal extends Component {
               </Dropzone>
               {this.renderFiles()}
             </div>
-          </Fade>
+          </div>
 
           <div id="c-button-wrap">
             <button

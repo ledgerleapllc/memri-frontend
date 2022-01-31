@@ -1,16 +1,15 @@
 import React, { Component, Fragment } from "react";
 import { connect } from "react-redux";
 import { withRouter } from "react-router-dom";
-import { Fade } from "react-reveal";
 import * as Icon from "react-feather";
 import Tooltip from "@mui/material/Tooltip";
 import {
   approveProposal,
   getPendingProposals,
-} from "@utils/Thunk";
-import { GlobalRelativeCanvasComponent } from "@shared/components";
-import Helper from "@utils/Helper";
-import { PROPOSAL_TYPES } from "@utils/enum";
+} from "utils/Thunk";
+import { GlobalRelativeCanvasComponent } from "shared/components";
+import Helper from "utils/Helper";
+import { PROPOSAL_TYPES } from "utils/enum";
 import {
   setActiveModal,
   setAdminActiveProposalTableStatus,
@@ -21,12 +20,12 @@ import {
   hideCanvas,
   setDOSReviewData,
   setCustomModalData,
-} from "@redux/actions";
+} from "redux/actions";
 
 import "./pending.scss";
 
 // eslint-disable-next-line no-undef
-const moment = require("moment");
+import moment from "moment";
 
 const mapStateToProps = (state) => {
   return {
@@ -440,7 +439,7 @@ class PendingProposals extends Component {
     if ((!proposals || !proposals.length) && callCount < 2) return null;
 
     return (
-      <Fade distance={"20px"} bottom duration={200} delay={500}>
+      <div data-aos="fade-in" data-aos-duration="500">
         <section
           id="app-pending-proposals-section"
           className="app-infinite-box"
@@ -472,7 +471,7 @@ class PendingProposals extends Component {
             </div>
           </div>
         </section>
-      </Fade>
+      </div>
     );
   }
 }

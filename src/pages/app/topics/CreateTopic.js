@@ -1,10 +1,10 @@
 import React, { Component } from "react";
-import MarkdownEditor from "@utils/MarkdownEditor";
+import MarkdownEditor from "utils/MarkdownEditor";
 import "./create-topic.scss";
 import "./discourse.scss";
 import { BeatLoader } from "react-spinners";
-import BackButton from "@shared/components/back-button/BackButton";
-import API from "@utils/API";
+import BackButton from "shared/components/back-button/BackButton";
+import API from "utils/API";
 
 class CreateTopic extends Component {
   constructor(props) {

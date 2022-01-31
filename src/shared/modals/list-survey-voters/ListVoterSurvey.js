@@ -1,8 +1,8 @@
 import React, { Component } from "react";
 import { connect } from "react-redux";
 import { withRouter } from "react-router-dom";
-import { removeActiveModal, showCanvas, hideCanvas } from "@redux/actions";
-import { getSurveyEmailVoter } from "@utils/Thunk";
+import { removeActiveModal, showCanvas, hideCanvas } from "redux/actions";
+import { getSurveyEmailVoter } from "utils/Thunk";
 
 import "./style.scss";
 

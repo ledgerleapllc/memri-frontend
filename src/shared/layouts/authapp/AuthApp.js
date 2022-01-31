@@ -1,9 +1,9 @@
 import React, { Component } from "react";
 import { connect } from "react-redux";
 import { withRouter, Redirect } from "react-router-dom";
-import SidebarLayout from "@shared/layouts/sidebar/Sidebar";
-import { showSidebar, hideSidebar, setActiveModal } from "@redux/actions";
-import { AuthAppRoutes } from "@routes";
+import SidebarLayout from "shared/layouts/sidebar/Sidebar";
+import { showSidebar, hideSidebar, setActiveModal } from "redux/actions";
+import { AuthAppRoutes } from "routes";
 
 import "./authapp.scss";
 

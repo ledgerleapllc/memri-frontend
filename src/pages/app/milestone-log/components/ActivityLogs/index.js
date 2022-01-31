@@ -1,8 +1,8 @@
 import moment from "moment";
 import React, { Component } from "react";
 import { connect } from "react-redux";
-import { GlobalRelativeCanvasComponent } from "@shared/components";
-import { getMilestoneLogs } from "@utils/Thunk";
+import { GlobalRelativeCanvasComponent } from "shared/components";
+import { getMilestoneLogs } from "utils/Thunk";
 import "./activity-logs.scss";
 
 const mapStateToProps = (state) => {

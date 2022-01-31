@@ -1,5 +1,5 @@
 import API from "./API";
-import { saveUser, setGlobalSettings, showAlert } from "@redux/actions";
+import { saveUser, setGlobalSettings, showAlert } from "redux/actions";
 import Helper from "./Helper";
 
 // Login

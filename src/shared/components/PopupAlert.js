@@ -2,7 +2,7 @@ import React, { Component } from "react";
 import Snackbar from "@mui/material/Snackbar";
 import MuiAlert from "@mui/material/Alert";
 
-const moment = require("moment");
+import moment from "moment";
 
 class PopupAlert extends Component {
   onClose = () => {

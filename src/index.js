@@ -1,13 +1,13 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
-import '@assets/styling/index.scss';
+import 'assets/styling/index.scss';
 import App from './App';
 import reportWebVitals from './reportWebVitals';
 import AOS from 'aos';
 import 'aos/dist/aos.css'; // You can also use <link> for styles
 import { Provider } from 'react-redux';
 import { ThemeProvider, createTheme } from '@mui/material/styles';
-import store from '@redux/store';
+import store from 'redux/store';
 
 const theme = createTheme({
   palette: {

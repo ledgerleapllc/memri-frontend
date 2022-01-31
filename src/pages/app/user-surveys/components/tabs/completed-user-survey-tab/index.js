@@ -1,7 +1,6 @@
 import React, { Component } from "react";
 import { connect } from "react-redux";
 import { withRouter } from "react-router-dom";
-import { Fade } from "react-reveal";
 import CompletedSurveysTable from "../../tables/completed-surveys";
 import CompletedRFPSurveysTable from "../../tables/completed-rfp-surveys";
 import "./style.scss";
@@ -20,22 +19,22 @@ class CompletedUserSurveyTab extends Component {
   render() {
     return (
       <div className="survey-page">
-        <Fade distance={"20px"} bottom duration={300} delay={600}>
+        <div data-aos="fade-in" data-aos-duration="500">
           <section className="h-50 active-section app-infinite-box mb-4">
             <div className="app-infinite-search-wrap">
               <label>Grant</label>
             </div>
             <CompletedSurveysTable />
           </section>
-        </Fade>
-        <Fade distance={"20px"} bottom duration={300} delay={600}>
+        </div>
+        <div data-aos="fade-in" data-aos-duration="500">
           <section className="h-50 app-infinite-box mb-4">
             <div className="app-infinite-search-wrap">
               <label>RFP Surveys</label>
             </div>
             <CompletedRFPSurveysTable />
           </section>
-        </Fade>
+        </div>
       </div>
     );
   }

@@ -3,7 +3,6 @@ import { useHistory } from "react-router";
 import { useDispatch } from "react-redux";
 import { useForm, Controller } from "react-hook-form";
 import * as yup from "yup";
-import { Fade } from "react-reveal";
 import Dropzone from "react-dropzone";
 import * as Icon from "react-feather";
 import { yupResolver } from "@hookform/resolvers/yup";
@@ -12,15 +11,15 @@ import {
   getUserProposalRequestPayment,
   submitPaymentProposal,
   uploadFile,
-} from "@utils/Thunk";
-import { hideCanvas, showAlert, showCanvas } from "@redux/actions";
+} from "utils/Thunk";
+import { hideCanvas, showAlert, showCanvas } from "redux/actions";
 import {
   PageHeaderComponent,
   InputMoney,
   Checkbox,
-} from "@shared/components";
+} from "shared/components";
 import "./new-advance-payment-request.scss";
-import Helper from "@utils/Helper";
+import Helper from "utils/Helper";
 
 const NewAdvancePaymentRequest = () => {
   const history = useHistory();
@@ -167,7 +166,7 @@ const NewAdvancePaymentRequest = () => {
         />
       </div>
       <form onSubmit={handleSubmit(onSubmit)}>
-        <Fade distance={"20px"} bottom duration={300} delay={600}>
+        <div data-aos="fade-in" data-aos-duration="500">
           <div className="c-form-row mt-5">
             <label>{`Select the proposal you are requesting a payment advance for:`}</label>
             <select
@@ -182,8 +181,8 @@ const NewAdvancePaymentRequest = () => {
               ))}
             </select>
           </div>
-        </Fade>
-        <Fade distance={"20px"} bottom duration={300} delay={600}>
+        </div>
+        <div data-aos="fade-in" data-aos-duration="500">
           <div className="c-form-row">
             <label>
               {`The total Euro value of this proposal is: ${Helper.formatPriceNumber(
@@ -201,14 +200,14 @@ const NewAdvancePaymentRequest = () => {
               )}
             />
           </div>
-        </Fade>
-        <Fade distance={"20px"} bottom duration={300} delay={600}>
+        </div>
+        <div data-aos="fade-in" data-aos-duration="500">
           <div className="c-form-row">
             <label>Why are you requesting this amount as an advance?</label>
             <textarea {...register("amount_advance_detail")}></textarea>
           </div>
-        </Fade>
-        <Fade distance={"20px"} bottom duration={300} delay={600}>
+        </div>
+        <div data-aos="fade-in" data-aos-duration="500">
           <div className="c-form-row mt-5">
             <label>
               {`Please add applicable PDF files as documentation for this request`}
@@ -228,8 +227,8 @@ const NewAdvancePaymentRequest = () => {
             </Dropzone>
             {renderFiles()}
           </div>
-        </Fade>
-        <Fade distance={"20px"} bottom duration={300} delay={600}>
+        </div>
+        <div data-aos="fade-in" data-aos-duration="500">
           <Controller
             control={control}
             name={"agree_term"}
@@ -244,7 +243,7 @@ const NewAdvancePaymentRequest = () => {
               />
             )}
           />
-        </Fade>
+        </div>
         <div className="mt-5 submit-btn-wrap">
           <button
             type="submit"

@@ -2,9 +2,9 @@ import moment from "moment";
 import React, { Component } from "react";
 import { connect } from "react-redux";
 import { Link, withRouter } from "react-router-dom";
-import { GlobalRelativeCanvasComponent } from "@shared/components";
-import { forceReloadActiveSurveyTable } from "@redux/actions";
-import { getRFPSurveys } from "@utils/Thunk";
+import { GlobalRelativeCanvasComponent } from "shared/components";
+import { forceReloadActiveSurveyTable } from "redux/actions";
+import { getRFPSurveys } from "utils/Thunk";
 import "./style.scss";
 
 const mapStateToProps = (state) => {

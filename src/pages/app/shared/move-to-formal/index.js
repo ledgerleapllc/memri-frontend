@@ -1,17 +1,17 @@
 import moment from "moment";
 import React, { useContext, useEffect } from "react";
-import { getMoveToFormalVotes, startFormalMilestoneVoting, startFormalVoting } from "@utils/Thunk";
+import { getMoveToFormalVotes, startFormalMilestoneVoting, startFormalVoting } from "utils/Thunk";
 import { useDispatch, useSelector } from "react-redux";
-import { Table, useTable, Button } from '@shared/partials';
+import { Table, useTable, Button } from 'shared/partials';
 import styles from "./style.module.scss";
-import { LIMIT_API_RECORDS } from "@utils/Constant";
+import { LIMIT_API_RECORDS } from "utils/Constant";
 import classNames from "classnames";
 import { useHistory } from "react-router";
-import { BALLOT_TYPES } from "@utils/enum";
-import { AppContext } from '@src/App';
+import { BALLOT_TYPES } from "utils/enum";
+import { AppContext } from 'App';
 import {
   showAlert
-} from "@redux/actions";
+} from "redux/actions";
 import { Tooltip } from "@mui/material";
 const MoveToFormalTable = React.forwardRef(({ outParams }, ref) => {
   const {

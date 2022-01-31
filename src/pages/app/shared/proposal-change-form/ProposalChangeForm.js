@@ -1,14 +1,14 @@
 import React, { Component, Fragment } from "react";
 import { connect } from "react-redux";
 import * as Icon from "react-feather";
-import Helper from "@utils/Helper";
-import { showAlert, showCanvas, hideCanvas } from "@redux/actions";
-import { submitProposalChange } from "@utils/Thunk";
+import Helper from "utils/Helper";
+import { showAlert, showCanvas, hideCanvas } from "redux/actions";
+import { submitProposalChange } from "utils/Thunk";
 import ProposalMilestoneView from "../../shared/proposal-milestone/ProposalMilestone";
 import ProposalCitationView from "../proposal-citation/ProposalCitation";
 import "./proposal-change-form.scss";
 
-const moment = require("moment");
+import moment from "moment";
 
 const mapStateToProps = (state) => {
   return {

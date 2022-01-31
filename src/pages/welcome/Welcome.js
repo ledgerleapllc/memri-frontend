@@ -1,4 +1,4 @@
-import { Button } from '@shared/partials';
+import { Button } from 'shared/partials';
 import { Link } from "react-router-dom";
 
 const Welcome = () => {

@@ -1,9 +1,9 @@
 import moment from "moment";
 import React, { Component } from "react";
 import { connect } from "react-redux";
-import { GlobalRelativeCanvasComponent } from "@shared/components";
-import Helper from "@utils/Helper";
-import { getAllMilestones } from "@utils/Thunk";
+import { GlobalRelativeCanvasComponent } from "shared/components";
+import Helper from "utils/Helper";
+import { getAllMilestones } from "utils/Thunk";
 import "./all-milestones.scss";
 import { withRouter } from "react-router-dom";
 

@@ -2,8 +2,8 @@ import React, { Component, Fragment } from "react";
 import { connect } from "react-redux";
 import { withRouter } from "react-router-dom";
 import * as Icon from "react-feather";
-import { HiddenFieldComponent } from "@shared/components";
-import { showAlert, showCanvas, hideCanvas } from "@redux/actions";
+import { HiddenFieldComponent } from "shared/components";
+import { showAlert, showCanvas, hideCanvas } from "redux/actions";
 import {
   changePassword,
   check2FA,
@@ -13,12 +13,12 @@ import {
   getMe,
   updateAccountInfo,
   updateProfile,
-} from "@utils/Thunk";
-import { Card, CardHeader, CardBody, Button } from '@shared/partials';
-import Helper from "@utils/Helper";
+} from "utils/Thunk";
+import { Card, CardHeader, CardBody, Button } from 'shared/partials';
+import Helper from "utils/Helper";
 // import SponsorCodesView from "./SponsorCodes";
 
-import { FORUM_REGEX } from "@utils/Constant";
+import { FORUM_REGEX } from "utils/Constant";
 
 const mapStateToProps = (state) => {
   return {

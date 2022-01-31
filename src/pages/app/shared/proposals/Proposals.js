@@ -1,14 +1,14 @@
 import { useHistory } from 'react-router';
 import React, { useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
-import Helper from "@utils/Helper";
-import { getActiveDiscussions } from "@utils/Thunk";
-import { Card, CardHeader, CardBody } from '@shared/partials';
-import { TimeClock } from "@shared/components/time-clock/TimeClock";
-import { Table, useTable } from '@shared/partials';
+import Helper from "utils/Helper";
+import { getActiveDiscussions } from "utils/Thunk";
+import { Card, CardHeader, CardBody } from 'shared/partials';
+import { TimeClock } from "shared/components/time-clock/TimeClock";
+import { Table, useTable } from 'shared/partials';
 import styles from "./style.module.scss";
-import { useDelayInput } from '@shared/hooks/useDelayInput';
-const moment = require("moment");
+import { useDelayInput } from 'shared/hooks/useDelayInput';
+import moment from "moment";
 
 export const ProposalsTable = ({ outParams, user }) => {
   const {

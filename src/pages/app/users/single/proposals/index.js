@@ -1,13 +1,13 @@
 import moment from "moment";
 import React, { useEffect } from "react";
-import { getProposalsByUser } from "@utils/Thunk";
+import { getProposalsByUser } from "utils/Thunk";
 import { useDispatch } from "react-redux";
-import { Table, useTable } from '@shared/partials';
+import { Table, useTable } from 'shared/partials';
 import styles from "./style.module.scss";
-import { LIMIT_API_RECORDS } from "@utils/Constant";
+import { LIMIT_API_RECORDS } from "utils/Constant";
 import { useHistory } from "react-router";
-import Helper from "@utils/Helper";
-import { PROPOSAL_TYPES } from "@utils/enum";
+import Helper from "utils/Helper";
+import { PROPOSAL_TYPES } from "utils/enum";
 
 const OPProposals = React.forwardRef(({ outParams, userId }, ref) => {
   const {

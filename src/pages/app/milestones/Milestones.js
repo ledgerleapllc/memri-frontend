@@ -1,22 +1,21 @@
 import React, { Component } from "react";
 import { connect } from "react-redux";
 import { Redirect, withRouter } from "react-router-dom";
-import { Fade } from "react-reveal";
 import "./milestones.scss";
 import MilestonesInReview from "./components/MilestonesInReview";
 import AllMilestones from "./components/AllMilestones";
-import Helper from "@utils/Helper";
-import { SwitchButton } from "@shared/components";
+import Helper from "utils/Helper";
+import { SwitchButton } from "shared/components";
 import DatePicker from "react-date-picker/dist/entry.nostyle";
 import {
   downloadCSVMilestones,
   getAllOPMilestones,
   getAllProposalMilestones,
-} from "@utils/Thunk";
+} from "utils/Thunk";
 import { Autocomplete } from "@mui/material";
 import { TextField } from "@mui/material";
 import moment from "moment";
-import { hideCanvas, showCanvas } from "@redux/actions";
+import { hideCanvas, showCanvas } from "redux/actions";
 
 const mapStateToProps = (state) => {
   return {
@@ -141,7 +140,7 @@ class Milestones extends Component {
 
     return (
       <div className="h-100 milestones-page">
-        <Fade distance={"20px"} bottom duration={300} delay={600}>
+        <div data-aos="fade-in" data-aos-duration="500">
           <section className="app-infinite-box mb-4">
             <div className="app-infinite-search-wrap">
               <label>Milestones in Review</label>
@@ -271,7 +270,7 @@ class Milestones extends Component {
               />
             </div>
           </section>
-        </Fade>
+        </div>
       </div>
     );
   }

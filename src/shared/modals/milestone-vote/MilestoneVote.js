@@ -8,10 +8,10 @@ import {
   setGrantTableStatus,
   setMilestoneVoteData,
   showCanvas,
-} from "@redux/actions";
+} from "redux/actions";
 import { Checkbox, FormInputComponent } from "../../components";
-import { Button } from '@shared/partials';
-import { submitMilestone } from "@utils/Thunk";
+import { Button } from 'shared/partials';
+import { submitMilestone } from "utils/Thunk";
 
 import "./milestone-vote.scss";
 

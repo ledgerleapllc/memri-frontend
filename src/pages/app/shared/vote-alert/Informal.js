@@ -2,9 +2,9 @@ import React, { Component, Fragment } from "react";
 import { connect } from "react-redux";
 import { withRouter } from "react-router-dom";
 import * as Icon from "react-feather";
-import { showAlert, showCanvas, hideCanvas } from "@redux/actions";
-import { submitVote } from "@utils/Thunk";
-import { DECIMALS } from "@utils/Constant";
+import { showAlert, showCanvas, hideCanvas } from "redux/actions";
+import { submitVote } from "utils/Thunk";
+import { DECIMALS } from "utils/Constant";
 import {
   Checkbox,
   CheckboxX,
@@ -12,12 +12,12 @@ import {
   CardPreview,
   CardHeader as OldCardHeader,
   CardBody as OldCardBody,
-} from "@shared/components";
-import { BALLOT_TYPES } from "@utils/enum";
-import { Card, Button, CardBody } from '@shared/partials';
+} from "shared/components";
+import { BALLOT_TYPES } from "utils/enum";
+import { Card, Button, CardBody } from 'shared/partials';
 
 // eslint-disable-next-line no-undef
-const moment = require("moment");
+import moment from "moment";
 
 const mapStateToProps = (state) => {
   return {

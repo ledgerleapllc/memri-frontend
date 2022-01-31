@@ -3,13 +3,13 @@ import React, { useEffect, createContext, useState, Suspense } from 'react';
 import { Routes } from "./routes";
 // import { useSelector, useDispatch } from "react-redux";
 // import { clearApiResponseError } from '@stores/common/actions';
-// import { NotificationDialog } from '@shared/partials/dialog/template/NotificationDialog';
+// import { NotificationDialog } from 'shared/partials/dialog/template/NotificationDialog';
 import ReactLoading from 'react-loading';
 // import { DialogProvider } from './shared/partials/dialog/Provider';
 import { BrowserRouter } from 'react-router-dom';
-import { GlobalLayout } from "@shared/layouts";
-// import { SnackBarProvider, useDialog } from '@shared/partials';
-export const AppContext = createContext({});
+import { GlobalLayout } from "shared/layouts";
+// import { SnackBarProvider, useDialog } from 'shared/partials';
+export const AppContext = createContext({})
 
 export const AppLoading = () => (
   <div className="text-primary fixed inset-0 flex items-center justify-center z-40">

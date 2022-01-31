@@ -1,6 +1,6 @@
 import React from "react";
 import styles from "./style.module.scss";
-import { Table } from '@shared/partials';
+import { Table } from 'shared/partials';
 
 const OnboardingStats = ({ data }) => {
   return (

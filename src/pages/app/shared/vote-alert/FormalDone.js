@@ -7,11 +7,11 @@ import {
   setActiveModal,
   setCustomModalData,
   showCanvas,
-} from "@redux/actions";
-import Helper from "@utils/Helper";
-import { Button } from '@shared/partials';
-import { regeneratePDF } from "@utils/Thunk";
-import { Card, CardBody } from '@shared/partials';
+} from "redux/actions";
+import Helper from "utils/Helper";
+import { Button } from 'shared/partials';
+import { regeneratePDF } from "utils/Thunk";
+import { Card, CardBody } from 'shared/partials';
 
 const mapStateToProps = (state) => {
   return {

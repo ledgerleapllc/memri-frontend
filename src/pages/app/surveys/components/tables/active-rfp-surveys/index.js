@@ -1,15 +1,15 @@
 import moment from "moment";
 import React, { useEffect } from "react";
-import { getRFPSurveys } from "@utils/Thunk";
+import { getRFPSurveys } from "utils/Thunk";
 import { useDispatch, useSelector } from "react-redux";
-import { Table, useTable, Button } from '@shared/partials';
+import { Table, useTable, Button } from 'shared/partials';
 import styles from "./style.module.scss";
 import { Link } from "react-router-dom";
-import { LIMIT_API_RECORDS } from "@utils/Constant";
+import { LIMIT_API_RECORDS } from "utils/Constant";
 import {
   forceReloadActiveSurveyTable,
   setActiveModal,
-} from "@redux/actions";
+} from "redux/actions";
 
 const ActiveRFPSurveysTable = React.forwardRef(({ outParams }, ref) => {
   const {

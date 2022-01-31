@@ -8,14 +8,14 @@ import {
   setAdminUserTableStatus,
   removeActiveModal,
   setAdminPendingActionTableStatus,
-} from "@redux/actions";
-import { activateParticipant, denyParticipant } from "@utils/Thunk";
-import { Button } from '@shared/partials';
+} from "redux/actions";
+import { activateParticipant, denyParticipant } from "utils/Thunk";
+import { Button } from 'shared/partials';
 
 import "./user-review.scss";
 
 // eslint-disable-next-line no-undef
-const moment = require("moment");
+import moment from "moment";
 
 const mapStateToProps = (state) => {
   return {

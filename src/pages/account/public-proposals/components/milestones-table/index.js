@@ -1,10 +1,10 @@
 import moment from "moment";
 import React, { useEffect } from "react";
-import Helper from "@utils/Helper";
-import { getAllPublicMilestonesShared } from "@utils/Thunk";
+import Helper from "utils/Helper";
+import { getAllPublicMilestonesShared } from "utils/Thunk";
 import { useDispatch } from "react-redux";
 import { useHistory } from "react-router";
-import { Table, useTable } from '@shared/partials';
+import { Table, useTable } from 'shared/partials';
 import styles from "./style.module.scss";
 
 const PublicMilestonesTable = ({ outParams }) => {

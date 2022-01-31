@@ -2,15 +2,15 @@ import React, { Component } from "react";
 import { connect } from "react-redux";
 import { withRouter } from "react-router-dom";
 import * as Icon from "react-feather";
-import { showAlert, showCanvas, hideCanvas } from "@redux/actions";
+import { showAlert, showCanvas, hideCanvas } from "redux/actions";
 import {
   getProposalChangeComments,
   submitProposalChangeComment,
-} from "@utils/Thunk";
-import { Card, CardHeader, CardBody, Button } from '@shared/partials';
+} from "utils/Thunk";
+import { Card, CardHeader, CardBody, Button } from 'shared/partials';
 
 // eslint-disable-next-line no-undef
-const moment = require("moment");
+import moment from "moment";
 
 const mapStateToProps = (state) => {
   return {

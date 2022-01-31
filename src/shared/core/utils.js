@@ -1,5 +1,5 @@
 import { format } from 'date-fns';
-import { LICENSES, DECIMALS } from '@shared/core/constant';
+import { LICENSES, DECIMALS } from 'shared/core/constant';
 
 export const formatDate = (time, formatType = 'dd/MM/yyyy') => {
   if (!time) return '';

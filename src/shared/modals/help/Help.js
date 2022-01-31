@@ -7,9 +7,9 @@ import {
   removeActiveModal,
   showAlert,
   showCanvas,
-} from "@redux/actions";
-import { postHelp } from "@utils/Thunk";
-import { Button } from '@shared/partials';
+} from "redux/actions";
+import { postHelp } from "utils/Thunk";
+import { Button } from 'shared/partials';
 
 import "./help.scss";
 

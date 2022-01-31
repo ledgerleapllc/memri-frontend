@@ -6,8 +6,8 @@ import {
   removeActiveModal,
   showAlert,
   showCanvas,
-} from "@redux/actions";
-import { denyReviewMilestone } from "@utils/Thunk";
+} from "redux/actions";
+import { denyReviewMilestone } from "utils/Thunk";
 import "./milestone-rejection.scss";
 
 const mapStateToProps = () => {

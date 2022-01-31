@@ -1,18 +1,15 @@
 import React, { Component, Fragment } from "react";
 import { connect } from "react-redux";
 import { withRouter } from "react-router-dom";
-import { hideCanvas, showCanvas } from "@redux/actions";
-import { getProposalChangeById } from "@utils/Thunk";
+import { hideCanvas, showCanvas } from "redux/actions";
+import { getProposalChangeById } from "utils/Thunk";
 import SingleProposalDetailView from "../../shared/single-proposal-detail/SingleProposalDetail";
 import SingleChangeDetailView from "../../shared/single-change-detail/SingleChangeDetail";
 import CommentsView from "../../shared/comments/Comments";
-import { PageHeaderComponent } from "@shared/components";
-import { OP_WHAT_SECTION_ACTIONS } from "@utils/Constant";
-
+import { PageHeaderComponent } from "shared/components";
+import { OP_WHAT_SECTION_ACTIONS } from "utils/Constant";
+import moment from 'moment';
 import "./single-change.scss";
-
-// eslint-disable-next-line no-undef
-const moment = require("moment");
 
 const mapStateToProps = (state) => {
   return {

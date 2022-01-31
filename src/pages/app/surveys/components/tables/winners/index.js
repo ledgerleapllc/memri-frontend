@@ -1,11 +1,11 @@
 import moment from "moment";
 import React, { useEffect } from "react";
-import { getWinners } from "@utils/Thunk";
+import { getWinners } from "utils/Thunk";
 import { useDispatch } from "react-redux";
-import { Table, useTable } from '@shared/partials';
+import { Table, useTable } from 'shared/partials';
 import styles from "./style.module.scss";
 import { Link } from "react-router-dom";
-import { LIMIT_API_RECORDS } from "@utils/Constant";
+import { LIMIT_API_RECORDS } from "utils/Constant";
 import { Tooltip } from "@mui/material";
 
 const WinnersTable = React.forwardRef(({ outParams }, ref) => {

@@ -1,8 +1,8 @@
 import React from "react";
 import { useDispatch } from "react-redux";
 import TeamTable from "./components/TeamTable";
-import { setActiveModal } from "@redux/actions";
-import { Card, CardHeader, CardBody, Button } from '@shared/partials';
+import { setActiveModal } from "redux/actions";
+import { Card, CardHeader, CardBody, Button } from 'shared/partials';
 
 const AdminTeam = () => {
   const dispatch = useDispatch();

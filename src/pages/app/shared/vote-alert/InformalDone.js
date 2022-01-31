@@ -7,12 +7,12 @@ import {
   setCustomModalData,
   showAlert,
   showCanvas,
-} from "@redux/actions";
+} from "redux/actions";
 import {
   startFormalMilestoneVotingUser,
   startFormalVotingShared,
-} from "@utils/Thunk";
-import { Button } from '@shared/partials';
+} from "utils/Thunk";
+import { Button } from 'shared/partials';
 
 const mapStateToProps = (state) => {
   return {

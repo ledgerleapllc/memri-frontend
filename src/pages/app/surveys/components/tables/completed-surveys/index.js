@@ -1,11 +1,11 @@
 import moment from "moment";
 import React, { useEffect } from "react";
-import { getSurveys } from "@utils/Thunk";
+import { getSurveys } from "utils/Thunk";
 import { useDispatch } from "react-redux";
-import { Table, useTable } from '@shared/partials';
+import { Table, useTable } from 'shared/partials';
 import styles from "./style.module.scss";
 import { Link } from "react-router-dom";
-import { LIMIT_API_RECORDS } from "@utils/Constant";
+import { LIMIT_API_RECORDS } from "utils/Constant";
 
 const CompletedSurveysTable = React.forwardRef(({ outParams }, ref) => {
   const {

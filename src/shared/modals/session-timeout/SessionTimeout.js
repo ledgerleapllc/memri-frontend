@@ -5,9 +5,9 @@ import {
   removeActiveModal,
   saveDraftBeforeLogout,
   saveUser,
-} from "@redux/actions";
+} from "redux/actions";
 import "./style.scss";
-import Helper from "@utils/Helper";
+import Helper from "utils/Helper";
 
 const mapStateToProps = () => {
   return {};

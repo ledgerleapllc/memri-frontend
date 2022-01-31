@@ -3,17 +3,17 @@ import React, { Component } from "react";
 import { connect } from "react-redux";
 import "./draft-proposals.scss";
 import { Link } from "react-router-dom";
-import { GlobalRelativeCanvasComponent } from "@shared/components";
+import { GlobalRelativeCanvasComponent } from "shared/components";
 import {
   deleteProposalDraft,
   getProposalDrafts,
-} from "@utils/Thunk";
+} from "utils/Thunk";
 import {
   hideCanvas,
   removeActiveModal,
   showAlert,
   showCanvas,
-} from "@redux/actions";
+} from "redux/actions";
 
 const mapStateToProps = (state) => {
   return {

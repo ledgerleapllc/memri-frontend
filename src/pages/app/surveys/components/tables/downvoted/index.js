@@ -1,13 +1,13 @@
 import moment from "moment";
 import React, { useEffect, useContext } from "react";
-import { getLosers, approveDownVote } from "@utils/Thunk";
+import { getLosers, approveDownVote } from "utils/Thunk";
 import { useDispatch } from "react-redux";
-import { Table, useTable, Button } from '@shared/partials';
+import { Table, useTable, Button } from 'shared/partials';
 import styles from "./style.module.scss";
 import { Link } from "react-router-dom";
-import { LIMIT_API_RECORDS } from "@utils/Constant";
+import { LIMIT_API_RECORDS } from "utils/Constant";
 import { Tooltip } from "@mui/material";
-import { AppContext } from '@src/App';
+import { AppContext } from 'App';
 
 const DownvotedTable = React.forwardRef(({ outParams }, ref) => {
   const {

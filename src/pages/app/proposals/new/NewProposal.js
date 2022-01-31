@@ -2,18 +2,18 @@
 import React, { Component } from "react";
 import { connect } from "react-redux";
 import { Redirect, withRouter } from "react-router-dom";
-import { ReactComponent as IconArrowLeft } from '@assets/icons/ic-arrow-left.svg';
+import { ReactComponent as IconArrowLeft } from 'assets/icons/ic-arrow-left.svg';
 
 import { Link } from "react-router-dom";
 import "./new-proposal.scss";
 import ProposalFinalForm from "../../shared/proposal-final-form/ProposalFinalForm";
-import { hideCanvas, showAlert, showCanvas } from "@redux/actions";
+import { hideCanvas, showAlert, showCanvas } from "redux/actions";
 import {
   getProposalDraftDetail,
   submitProposal,
   uploadFile,
-} from "@utils/Thunk";
-import { Button } from '@shared/partials';
+} from "utils/Thunk";
+import { Button } from 'shared/partials';
 import qs from "qs";
 
 const mapStateToProps = (state) => {

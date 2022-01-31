@@ -8,11 +8,11 @@ import {
   showCanvas,
   hideCanvas,
   startInformalAdminTools,
-} from "@redux/actions";
+} from "redux/actions";
 import {
   getSingleProposal,
   getTimelineProposal,
-} from "@utils/Thunk";
+} from "utils/Thunk";
 import SingleProposalDetailView from "../../shared/single-proposal-detail/SingleProposalDetail";
 import ProposalChangeFormView from "../../shared/proposal-change-form/ProposalChangeForm";
 import ProposalChangesView from "../../shared/proposal-changes/ProposalChanges";
@@ -21,13 +21,13 @@ import {
   PageHeaderComponent,
   Checkbox,
   CheckboxX,
-} from "@shared/components";
-import { Card, CardHeader, CardBody, CardBodyExpand } from '@shared/partials';
-import {ReactComponent as IconDot} from "@assets/icons/dot.svg";
-import {ReactComponent as IconEmptyDot} from "@assets/icons/empty-dot.svg";
-import {ReactComponent as IconCheckDot} from "@assets/icons/check-dot.svg";
+} from "shared/components";
+import { Card, CardHeader, CardBody, CardBodyExpand } from 'shared/partials';
+import {ReactComponent as IconDot} from "assets/icons/dot.svg";
+import {ReactComponent as IconEmptyDot} from "assets/icons/empty-dot.svg";
+import {ReactComponent as IconCheckDot} from "assets/icons/check-dot.svg";
 import "./single-proposal.scss";
-import Helper from "@utils/Helper";
+import Helper from "utils/Helper";
 // import ProposalPosts from "../../shared/proposal-posts/ProposalPosts";
 
 const mapStateToProps = (state) => {

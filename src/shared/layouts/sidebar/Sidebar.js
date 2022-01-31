@@ -1,7 +1,7 @@
 import classNames from 'classnames';
 import style from './style.module.scss';
-import { ReactComponent as Logo } from '@assets/icons/logo.svg';
-import { ActiveLink } from '@shared/partials';
+import { ReactComponent as Logo } from 'assets/icons/logo.svg';
+import { ActiveLink } from 'shared/partials';
 import { useSidebar } from './useSidebar';
 
 const Sidebar = () => {

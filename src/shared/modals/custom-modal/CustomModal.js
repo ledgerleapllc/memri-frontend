@@ -2,7 +2,7 @@ import React, { Component, Fragment } from "react";
 import { connect } from "react-redux";
 import * as Icon from "react-feather";
 import Dropzone from "react-dropzone";
-import { Button } from '@shared/partials';
+import { Button } from 'shared/partials';
 import {
   removeActiveModal,
   setCustomModalData,
@@ -17,10 +17,10 @@ import {
   setCompletedVotesTableStatus,
   setGrantTableStatus,
   setMasterPasswordStatus,
-} from "@redux/actions";
+} from "redux/actions";
 import { withRouter } from "react-router-dom";
 import { FormInputComponent, FormSelectComponent } from "../../components";
-import Helper from "@utils/Helper";
+import Helper from "utils/Helper";
 import {
   changeUserType,
   changeUserAML,
@@ -35,12 +35,12 @@ import {
   restartVoting,
   activateGrant,
   checkMasterPassword,
-} from "@utils/Thunk";
+} from "utils/Thunk";
 import GrantLogsTable from "./grant-logs";
 import "./custom-modal.scss";
 
 // eslint-disable-next-line no-undef
-const moment = require("moment");
+import moment from "moment";
 
 const mapStateToProps = (state) => {
   return {

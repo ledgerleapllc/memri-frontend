@@ -8,8 +8,8 @@ import {
   removeActiveModal,
   showAlert,
   showCanvas,
-} from "@redux/actions";
-import { revokeAdmin } from "@utils/Thunk";
+} from "redux/actions";
+import { revokeAdmin } from "utils/Thunk";
 
 import "./ask-revoke-admin.scss";
 

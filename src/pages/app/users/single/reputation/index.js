@@ -1,10 +1,10 @@
 import moment from "moment";
 import React, { useEffect } from "react";
-import { getReputationByUser } from "@utils/Thunk";
+import { getReputationByUser } from "utils/Thunk";
 import { useDispatch } from "react-redux";
-import { Table, useTable } from '@shared/partials';
+import { Table, useTable } from 'shared/partials';
 import styles from "./style.module.scss";
-import { LIMIT_API_RECORDS, DECIMALS } from "@utils/Constant";
+import { LIMIT_API_RECORDS, DECIMALS } from "utils/Constant";
 
 const ReputationTable = React.forwardRef(({ outParams, userId }, ref) => {
   const {

@@ -1,9 +1,9 @@
 import React, { Component } from "react";
 import { connect } from "react-redux";
-import { hideCanvas, showAlert, showCanvas } from "@redux/actions";
-import Helper from "@utils/Helper";
-import { sendResetEmail } from "@utils/Thunk";
-import { Button } from '@shared/partials';
+import { hideCanvas, showAlert, showCanvas } from "redux/actions";
+import Helper from "utils/Helper";
+import { sendResetEmail } from "utils/Thunk";
+import { Button } from 'shared/partials';
 import { Link } from "react-router-dom";
 
 const mapStateToProps = () => {

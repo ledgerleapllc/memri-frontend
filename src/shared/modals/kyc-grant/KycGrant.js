@@ -5,9 +5,9 @@ import {
   removeActiveModal,
   setActiveModal,
   showCanvas,
-} from "@redux/actions";
-import { getMe, sendKycKangaroo } from "@utils/Thunk";
-import { Button } from '@shared/partials';
+} from "redux/actions";
+import { getMe, sendKycKangaroo } from "utils/Thunk";
+import { Button } from 'shared/partials';
 import "./style.scss";
 
 const mapStateToProps = (state) => {

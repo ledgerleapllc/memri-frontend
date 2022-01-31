@@ -1,8 +1,8 @@
 import React, { Suspense, lazy } from "react";
 import { Route } from "react-router-dom";
 
-const AuthView = lazy(() => import("@pages/app/Auth"));
-const WelcomeView = lazy(() => import("@pages/welcome/Welcome"));
+const AuthView = lazy(() => import("pages/app/Auth"));
+const WelcomeView = lazy(() => import("pages/welcome/Welcome"));
 
 export default function HomeRoute({ auth, ...rest }) {
   return (

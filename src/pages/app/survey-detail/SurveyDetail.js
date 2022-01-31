@@ -1,7 +1,7 @@
 import React, { Component } from "react";
 import { connect } from "react-redux";
 import { Link, Redirect, withRouter } from "react-router-dom";
-import { PageHeaderComponent } from "@shared/components";
+import { PageHeaderComponent } from "shared/components";
 import "./style.scss";
 import SurveyVotesTable from "./components/tables/survey-votes";
 import SurveyDownVotesTable from "./components/tables/survey-downvotes";
@@ -12,7 +12,7 @@ import {
   setActiveModal,
   showAlert,
   showCanvas,
-} from "@redux/actions";
+} from "redux/actions";
 import {
   getSurveyDetail,
   getSurveyVoters,
@@ -21,12 +21,12 @@ import {
   sendReminderForRFPSurvey,
   getUserNotVoteRFPSurvey,
   sendReminderForSurvey,
-} from "@utils/Thunk";
-import { TimeClock } from "@shared/components/time-clock/TimeClock";
+} from "utils/Thunk";
+import { TimeClock } from "shared/components/time-clock/TimeClock";
 import moment from "moment";
-import Helper from "@utils/Helper";
-import { SURVEY_PREFIX } from "@utils/Constant";
-import { Card, CardHeader, CardBody, Button } from '@shared/partials';
+import Helper from "utils/Helper";
+import { SURVEY_PREFIX } from "utils/Constant";
+import { Card, CardHeader, CardBody, Button } from 'shared/partials';
 
 const mapStateToProps = (state) => {
   return {

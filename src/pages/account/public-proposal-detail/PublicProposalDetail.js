@@ -1,15 +1,15 @@
 import React, { Component } from "react";
 import { connect } from "react-redux";
 import { withRouter } from "react-router-dom";
-import { showCanvas, hideCanvas } from "@redux/actions";
+import { showCanvas, hideCanvas } from "redux/actions";
 import {
   getPublicProposal,
   getPublicGlobalSettings,
-} from "@utils/Thunk";
+} from "utils/Thunk";
 import SingleProposalDetailView from "../../app/shared/single-proposal-detail/SingleProposalDetail";
 import ProposalChangesView from "../../app/shared/proposal-changes/ProposalChanges";
 import VoteAlertView from "../../app/shared/vote-alert/VoteAlert";
-import { PageHeaderComponent } from "@shared/components";
+import { PageHeaderComponent } from "shared/components";
 
 import "./proposal-detail.scss";
 

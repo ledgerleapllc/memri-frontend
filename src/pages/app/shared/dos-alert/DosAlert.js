@@ -1,8 +1,7 @@
 import React, { Component } from "react";
 import { connect } from "react-redux";
 import { withRouter } from "react-router-dom";
-import { Fade } from "react-reveal";
-import { getMyPaymentProposals } from "@utils/Thunk";
+import { getMyPaymentProposals } from "utils/Thunk";
 
 import "./dos-alert.scss";
 
@@ -55,7 +54,7 @@ class DosAlert extends Component {
 
     // Associate or Voting Associate
     return (
-      <Fade distance={"20px"} right duration={200} delay={500}>
+      <div data-aos="fade-in" data-aos-duration="500">
         <div id="app-dos-alert-box">
           <div>
             <label className="font-weight-700">
@@ -64,7 +63,7 @@ class DosAlert extends Component {
             <p className="font-size-12">{`To launch this proposal to the community for discussion and voting, you must first pay a DOS Fee in either ETH, BTC, or stake reputation.`}</p>
           </div>
         </div>
-      </Fade>
+      </div>
     );
   }
 }

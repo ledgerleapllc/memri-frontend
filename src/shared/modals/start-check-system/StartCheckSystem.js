@@ -6,10 +6,10 @@ import {
   showCanvas,
   hideCanvas,
   setCustomModalData,
-} from "@redux/actions";
-import Helper from "@utils/Helper";
-import { completeStepReview2, sendCheckSystemRequest } from "@utils/Thunk";
-
+} from "redux/actions";
+import Helper from "utils/Helper";
+import { completeStepReview2, sendCheckSystemRequest } from "utils/Thunk";
+import HelloSign from 'hellosign-embedded';
 import "./start-check-system.scss";
 
 const mapStateToProps = () => {
@@ -32,7 +32,6 @@ class StartCheckSystem extends Component {
 
   componentDidMount() {
     // eslint-disable-next-line no-undef
-    const HelloSign = require("hellosign-embedded");
 
     this.client = new HelloSign();
     this.client.on("sign", () => {

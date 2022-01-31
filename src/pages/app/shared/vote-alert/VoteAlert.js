@@ -10,7 +10,7 @@ import qs from "qs";
 import "./vote-alert.scss";
 
 // eslint-disable-next-line no-undef
-const moment = require("moment");
+import moment from "moment";
 
 const mapStateToProps = (state) => {
   return {

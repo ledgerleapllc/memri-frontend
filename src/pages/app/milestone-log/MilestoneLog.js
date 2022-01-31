@@ -1,16 +1,15 @@
 import React, { Component } from "react";
 import { connect } from "react-redux";
 import { Redirect, withRouter } from "react-router-dom";
-import { Fade } from "react-reveal";
 import {
   Checkbox,
   CheckboxX,
   PageHeaderComponent,
   SwitchButton,
-} from "@shared/components";
-import { getMilestoneDetail, togglePaidMilestone } from "@utils/Thunk";
+} from "shared/components";
+import { getMilestoneDetail, togglePaidMilestone } from "utils/Thunk";
 import ActivityLogs from "./components/ActivityLogs";
-import { showAlert } from "@redux/actions";
+import { showAlert } from "redux/actions";
 import moment from "moment";
 import "./style.scss";
 
@@ -96,7 +95,7 @@ class MilestoneLog extends Component {
 
     return (
       <div id="milestones-page" className="h-100">
-        <Fade distance={"20px"} bottom duration={300} delay={600}>
+        <div data-aos="fade-in" data-aos-duration="500">
           <PageHeaderComponent
             title={`Milestones log for ${data.proposal_id}-${data.milestoneIndex}`}
           />
@@ -429,7 +428,7 @@ class MilestoneLog extends Component {
               </>
             )}
           </section>
-        </Fade>
+        </div>
       </div>
     );
   }

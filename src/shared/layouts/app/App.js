@@ -1,8 +1,8 @@
 import React, { Component } from "react";
 import { connect } from "react-redux";
 import { withRouter } from "react-router-dom";
-import { AppRoutes } from "@routes";
-import { ReactComponent as Logo } from '@assets/icons/logo.svg';
+import { AppRoutes } from "routes";
+import { ReactComponent as Logo } from 'assets/icons/logo.svg';
 
 import "./app.scss";
 

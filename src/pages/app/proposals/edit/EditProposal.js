@@ -5,13 +5,13 @@ import { withRouter } from "react-router-dom";
 
 import "./edit-proposal.scss";
 import ProposalFinalForm from "../../shared/proposal-final-form/ProposalFinalForm";
-import { PageHeaderComponent } from "@shared/components";
+import { PageHeaderComponent } from "shared/components";
 import {
   getSingleProposalEdit,
   updateProposalShared,
   uploadFile,
-} from "@utils/Thunk";
-import { hideCanvas, showAlert, showCanvas } from "@redux/actions";
+} from "utils/Thunk";
+import { hideCanvas, showAlert, showCanvas } from "redux/actions";
 
 const mapStateToProps = (state) => {
   return {

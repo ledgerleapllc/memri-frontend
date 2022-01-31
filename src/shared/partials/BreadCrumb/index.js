@@ -1,6 +1,6 @@
 import React from 'react';
 import { Link, useHistory } from 'react-router-dom';
-import { ReactComponent as IconArrowLeft } from '@assets/icons/ic-arrow-left.svg';
+import { ReactComponent as IconArrowLeft } from 'assets/icons/ic-arrow-left.svg';
 
 export const BreadCrumb = ({ url, text }) => {
   const history = useHistory();

@@ -2,8 +2,8 @@ import React, { useRef, useState } from "react";
 import { useSelector } from "react-redux";
 import { Redirect } from "react-router-dom";
 import VATables from "./components/VATables";
-import { useDelayInput } from '@shared/hooks/useDelayInput';
-import { Card, CardHeader, CardBody } from '@shared/partials';
+import { useDelayInput } from 'shared/hooks/useDelayInput';
+import { Card, CardHeader, CardBody } from 'shared/partials';
 
 const VADirectory = () => {
   const { params, setSearchTerm } = useDelayInput();

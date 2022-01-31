@@ -3,8 +3,8 @@ import { connect } from "react-redux";
 import { withRouter } from "react-router-dom";
 import MoveToFormalView from "../shared/move-to-formal";
 import PendingGrantsView from "../shared/pending-grants";
-import { useDelayInput } from '@shared/hooks/useDelayInput';
-import { Card, CardHeader, CardBody, Checkbox } from '@shared/partials';
+import { useDelayInput } from 'shared/hooks/useDelayInput';
+import { Card, CardHeader, CardBody, Checkbox } from 'shared/partials';
 import "./onboardings.scss";
 
 const MoveToFormalCard = () => {

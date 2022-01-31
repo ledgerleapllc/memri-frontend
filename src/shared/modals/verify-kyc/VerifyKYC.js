@@ -2,7 +2,7 @@
 import React, { Component } from "react";
 import { connect } from "react-redux";
 import * as Icon from "react-feather";
-import { removeActiveModal } from "@redux/actions";
+import { removeActiveModal } from "redux/actions";
 import InfoView from "./info/Info";
 import ShuftiproView from "./shuftipro/Shuftipro";
 

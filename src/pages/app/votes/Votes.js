@@ -4,17 +4,17 @@ import CompletedVotesView from "../shared/completed-votes";
 import React, { Component, useEffect, useState } from "react";
 import { connect, useDispatch, useSelector } from "react-redux";
 import { withRouter } from "react-router-dom";
-import { Tab, Card, CardHeader, CardBody } from '@shared/partials';
-import { useDelayInput } from '@shared/hooks/useDelayInput';
+import { Tab, Card, CardHeader, CardBody } from 'shared/partials';
+import { useDelayInput } from 'shared/hooks/useDelayInput';
 import { Tooltip } from "@mui/material";
 import * as Icon from "react-feather";
-import { saveUser } from "@redux/actions";
+import { saveUser } from "redux/actions";
 import {
   saveUnvotedInformal,
-} from "@utils/Thunk";
+} from "utils/Thunk";
 import {
   UnvotedFilter,
-} from "@shared/components";
+} from "shared/components";
 const mapStateToProps = (state) => {
   return {
     authUser: state.global.authUser,

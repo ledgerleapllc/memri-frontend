@@ -8,10 +8,10 @@ import {
   setKYCData,
   setRefreshSingleUserPage,
   showCanvas,
-} from "@redux/actions";
-import { resetKYC } from "@utils/Thunk";
+} from "redux/actions";
+import { resetKYC } from "utils/Thunk";
 import "./reset-kyc.scss";
-import { Button } from '@shared/partials';
+import { Button } from 'shared/partials';
 
 const mapStateToProps = (state) => {
   return {
