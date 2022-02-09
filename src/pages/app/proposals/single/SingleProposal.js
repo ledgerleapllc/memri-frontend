@@ -17,12 +17,8 @@ import SingleProposalDetailView from "../../shared/single-proposal-detail/Single
 import ProposalChangeFormView from "../../shared/proposal-change-form/ProposalChangeForm";
 import ProposalChangesView from "../../shared/proposal-changes/ProposalChanges";
 import VoteAlertView from "../../shared/vote-alert/VoteAlert";
-import {
-  PageHeaderComponent,
-  Checkbox,
-  CheckboxX,
-} from "shared/components";
-import { Card, CardHeader, CardBody, CardBodyExpand } from 'shared/partials';
+import { PageHeaderComponent } from "shared/components";
+import { Card, CardHeader, CardBody, CardBodyExpand, Checkbox, CheckboxX } from 'shared/partials';
 import {ReactComponent as IconDot} from "assets/icons/dot.svg";
 import {ReactComponent as IconEmptyDot} from "assets/icons/empty-dot.svg";
 import {ReactComponent as IconCheckDot} from "assets/icons/check-dot.svg";
@@ -463,7 +459,7 @@ class SingleProposal extends Component {
           onRefresh={() => this.getProposal()}
         />
         <div className="flex mt-4">
-          <div className="flex-1">
+          <div className="flex-1 min-w-0">
             {this.renderDetail()}
             {this.renderComplianceCheck()}
             {this.renderChangeContent()}
@@ -481,7 +477,7 @@ class SingleProposal extends Component {
                             justifyContent: "space-between",
                           }}
                         >
-                          <div>
+                          <div className="flex gap-2 font-bold">
                             <label className="pr-2">
                               {`Milestone log for ${proposal.id} - Milestone ${
                                 ind + 1
@@ -542,7 +538,7 @@ class SingleProposal extends Component {
                                   ).format("M/D/YYYY")}`}
                                   readOnly
                                 />
-                                <p className="padding-notes">
+                                <p className="break-words">
                                   Notes:{" "}
                                   {
                                     item?.milestone_check_list
@@ -561,7 +557,7 @@ class SingleProposal extends Component {
                                   ).format("M/D/YYYY")}`}
                                   readOnly
                                 />
-                                <p className="padding-notes">
+                                <p className="break-words">
                                   Notes:{" "}
                                   {
                                     item?.milestone_check_list
@@ -580,7 +576,7 @@ class SingleProposal extends Component {
                                   ).format("M/D/YYYY")}`}
                                   readOnly
                                 />
-                                <p className="padding-notes">
+                                <p className="break-words">
                                   Notes:{" "}
                                   {
                                     item?.milestone_check_list
@@ -589,7 +585,7 @@ class SingleProposal extends Component {
                                 </p>
                               </div>
                               <div className="my-3">
-                                <label className="padding-notes">
+                                <label className="break-words">
                                   Program management has valid response from
                                   Expert Dao?
                                   <b className="pr-2">
@@ -602,7 +598,7 @@ class SingleProposal extends Component {
                                     item?.milestone_check_list?.created_at
                                   ).format("M/D/YYYY")}
                                 </label>
-                                <p className="padding-notes">
+                                <p className="break-words">
                                   Notes:{" "}
                                   {
                                     item?.milestone_check_list
@@ -621,7 +617,7 @@ class SingleProposal extends Component {
                                   ).format("M/D/YYYY")}`}
                                   readOnly
                                 />
-                                <p className="padding-notes">
+                                <p className="break-words">
                                   Notes:{" "}
                                   {
                                     item?.milestone_check_list
@@ -640,7 +636,7 @@ class SingleProposal extends Component {
                                   ).format("M/D/YYYY")}`}
                                   readOnly
                                 />
-                                <p className="padding-notes">
+                                <p className="break-words">
                                   Notes:{" "}
                                   {
                                     item?.milestone_check_list
@@ -662,7 +658,7 @@ class SingleProposal extends Component {
                                   ).format("M/D/YYYY")}`}
                                   readOnly
                                 />
-                                <p className="padding-notes">
+                                <p className="break-words">
                                   Notes:{" "}
                                   {
                                     item?.milestone_check_list
@@ -681,7 +677,7 @@ class SingleProposal extends Component {
                                   ).format("M/D/YYYY")}`}
                                   readOnly
                                 />
-                                <p className="padding-notes">
+                                <p className="break-words">
                                   Notes:{" "}
                                   {
                                     item?.milestone_check_list
@@ -700,7 +696,7 @@ class SingleProposal extends Component {
                                   ).format("M/D/YYYY")}`}
                                   readOnly
                                 />
-                                <p className="padding-notes">
+                                <p className="break-words">
                                   Notes:{" "}
                                   {
                                     item?.milestone_check_list
@@ -719,7 +715,7 @@ class SingleProposal extends Component {
                                   ).format("M/D/YYYY")}`}
                                   readOnly
                                 />
-                                <p className="padding-notes">
+                                <p className="break-words">
                                   Notes:{" "}
                                   {
                                     item?.milestone_check_list
@@ -738,7 +734,7 @@ class SingleProposal extends Component {
                                   ).format("M/D/YYYY")}`}
                                   readOnly
                                 />
-                                <p className="padding-notes">
+                                <p className="break-words">
                                   Notes:{" "}
                                   {
                                     item?.milestone_check_list
@@ -747,7 +743,7 @@ class SingleProposal extends Component {
                                 </p>
                               </div>
                               <div className="my-3">
-                                <p className="padding-notes">
+                                <p className="break-words">
                                   Other general reviewer notes:
                                   <span className="pl-2">
                                     {item?.milestone_check_list?.addition_note}
@@ -755,7 +751,7 @@ class SingleProposal extends Component {
                                 </p>
                               </div>
                               <div className="my-3">
-                                <p className="padding-notes">
+                                <p className="break-words">
                                   Program manager review submission timestamp:
                                   <span className="pl-2">
                                     {moment(item?.reviewed_at).format(
@@ -765,7 +761,7 @@ class SingleProposal extends Component {
                                 </p>
                               </div>
                               <div className="my-3">
-                                <p className="padding-notes">
+                                <p className="break-words">
                                   Program manager reviewer email:
                                   <span className="pl-2">
                                     {item?.user?.email}

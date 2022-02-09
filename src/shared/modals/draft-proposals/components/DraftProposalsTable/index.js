@@ -14,6 +14,7 @@ import {
   showAlert,
   showCanvas,
 } from "redux/actions";
+import { Button } from "shared/partials";
 
 const mapStateToProps = (state) => {
   return {
@@ -183,20 +184,24 @@ class DraftProposalsTable extends Component {
             <div className="c-col-2 c-cols">
               <p>{moment(item.created_at).local().format("M/D/YYYY")}</p>
             </div>
-            <div className="c-col-3 c-cols">
-              <Link
+            <div className="flex-auto">
+              <Button
+                as={Link}
                 to={`/app/proposal/new?draft=${item.id}`}
                 onClick={this.continue}
-                className="btn btn-primary extra-small btn-fluid-small"
+                size="sm"
+                color="secondary"
+                className="mr-1"
               >
                 Continue
-              </Link>
-              <button
+              </Button>
+              <Button
+                size="sm"
+                color="danger"
                 onClick={() => this.deleteDraft(item.id)}
-                className="ml-2 btn btn-primary-outline extra-small btn-fluid-small"
               >
                 Delete
-              </button>
+              </Button>
             </div>
           </div>
         </li>

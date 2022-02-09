@@ -33,7 +33,7 @@ class PageHeader extends Component {
 
     return (
       <div className="global-page-header">
-        <Button variant="text" size="sm" onClick={this.clickTitle}>
+        <Button className="!mx-0" variant="text" size="sm" onClick={this.clickTitle}>
           <Icon.ArrowLeft size={20} />
           <label>{title}</label>
         </Button>

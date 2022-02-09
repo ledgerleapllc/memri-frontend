@@ -55,7 +55,7 @@ class DosAlert extends Component {
     // Associate or Voting Associate
     return (
       <div data-aos="fade-in" data-aos-duration="500">
-        <div id="app-dos-alert-box">
+        <div className="bg-secondary text-white" id="app-dos-alert-box">
           <div>
             <label className="font-weight-700">
               You have a proposal approved to move ahead!

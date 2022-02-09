@@ -41,11 +41,11 @@ class DraftProposals extends Component {
           application?
         </h5>
         <DraftProposalsTable />
-        <div className="mt-4" id="draft-proposals-modal__buttons">
-          <Button size="sm" color="primary" variant="outline" onClick={this.hideModal}>
+        <div className="mt-4 flex gap-3 justify-center" id="draft-proposals-modal__buttons">
+          <Button color="primary" variant="outline" onClick={this.hideModal}>
             Cancel
           </Button>
-          <Button size="sm" color="primary" onClick={this.newGrant}>
+          <Button className='px-2' color="primary" variant="contained" onClick={this.newGrant}>
             Start a new grant instead
           </Button>
         </div>

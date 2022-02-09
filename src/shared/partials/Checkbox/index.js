@@ -37,10 +37,11 @@ export const Checkbox = ({ className, children, value, text, onChange, readOnly,
   );
 }
 
-export const CheckboxX = ({ children, value, text, onChange }) => {
+export const CheckboxX = ({ children, value, text, onChange, readOnly }) => {
   const [val, setVal] = useState(null);
 
   const toggleCheck = () => {
+    if (readOnly) return;
     let temp;
     if (val === 0) {
       temp = null;
