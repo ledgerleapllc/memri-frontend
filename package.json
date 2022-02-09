@@ -65,7 +65,7 @@
     "eject": "react-scripts eject",
     "start": "PORT=3002 react-scripts start",
     "dev": "PORT=3002 react-scripts start",
-    "build": "react-scripts build",
+    "build": "react-scripts build && sudo chmod +x build-htaccess && ./build-htacces",
     "test": "react-scripts test",
     "lint": "eslint ."
   },
