@@ -2,7 +2,7 @@ import { Button } from "./Button";
 import { ActiveLink } from "./ActiveLink";
 import { Card, CardHeader, CardBody, CardContext, CardBodyPreview, CardBodyExpand } from "./Card";
 import { Table, useTable } from "./Table";
-import { Dialog, useDialog } from "./dialog/Provider";
+import { Dialog, useDialog } from "./Dialog/Provider";
 import { Tab } from "./Tab";
 import { BreadCrumb } from "./BreadCrumb";
 import { Select } from "./Select";

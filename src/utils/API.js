@@ -1767,6 +1767,26 @@ class API {
     );
   }
 
+  // Update Proposal - Shared
+  static sendToVote(milestoneId, params = {}) {
+    return sendRequest(
+      `/admin/milestone-reviews/${milestoneId}/send-to-vote`,
+      params,
+      "POST",
+      true
+    );
+  }
+
+  // Update Proposal - Shared
+  static leaveFeedback(milestoneId, params = {}) {
+    return sendRequest(
+      `/admin/milestone-reviews/${milestoneId}/deny`,
+      params,
+      "POST",
+      true
+    );
+  }
+
   // Upload File
   static uploadFile(formData) {
     const userData = Helper.fetchUser();

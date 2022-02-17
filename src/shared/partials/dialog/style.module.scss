@@ -1,0 +1,19 @@
+.dialogWrapper {
+  @apply fixed inset-0;
+}
+.flexCenter {
+  @apply flex justify-center items-center;
+}
+.dialogBackdrop {
+  @apply fixed inset-0;
+  background: rgba(0, 0, 0, 0.2);
+  backdrop-filter: blur(3px);
+  -webkit-backdrop-filter: blur(3px);
+}
+.dialogContainer {
+  @apply fixed z-50;
+  max-width: 31.25rem;
+  width: 100%;
+  max-height: 32.5rem;
+  background: white;
+}

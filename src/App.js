@@ -5,7 +5,7 @@ import { Routes } from "./routes";
 // import { clearApiResponseError } from '@stores/common/actions';
 // import { NotificationDialog } from 'shared/partials/dialog/template/NotificationDialog';
 import ReactLoading from 'react-loading';
-// import { DialogProvider } from './shared/partials/dialog/Provider';
+import { DialogProvider } from 'shared/partials/Dialog/Provider';
 import { BrowserRouter } from 'react-router-dom';
 import { GlobalLayout } from "shared/layouts";
 // import { SnackBarProvider, useDialog } from 'shared/partials';
@@ -60,9 +60,11 @@ function App() {
           <Suspense fallback={null}>
             {/* <Main> */}
               <AppContext.Provider value={{ loading, setLoading }}>
-                {loading && <AppLoading />}
-                <GlobalLayout />
-                <Routes />
+                <DialogProvider>
+                  {loading && <AppLoading />}
+                  <GlobalLayout />
+                  <Routes />
+                </DialogProvider>
               </AppContext.Provider>
             {/* </Main> */}
           </Suspense>

@@ -2643,3 +2643,25 @@ export function submitDownvoteSurvey(id, body, start, completion) {
     });
   };
 }
+
+// sendToVote - User
+export function sendToVote(id, start, completion) {
+  return (dispatch) => {
+    if (start) start();
+    API.sendToVote(id).then((res) => {
+      if (!res.success) dispatch(showAlert(res.message));
+      if (completion) completion(res);
+    });
+  };
+}
+
+// leaveFeedback - User
+export function leaveFeedback(id, body, start, completion) {
+  return (dispatch) => {
+    if (start) start();
+    API.leaveFeedback(id, body).then((res) => {
+      if (!res.success) dispatch(showAlert(res.message));
+      if (completion) completion(res);
+    });
+  };
+}
