@@ -1,0 +1,10 @@
+.dialogImageOverlay {
+  position: absolute;
+  background: linear-gradient(
+    180deg,
+    rgba(32, 32, 32, 1) 0%,
+    rgba(255, 254, 254, 0) 38%,
+    rgba(251, 251, 251, 0) 69%,
+    rgba(32, 32, 32, 1) 100%
+  );
+}
